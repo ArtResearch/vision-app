@@ -39,20 +39,6 @@
                        ?subject2 <https://similarity.net/custom/matchedBy> ?similarity.
                        ?subject2 <https://similarity.net/custom/matchedBy> ?similarity.
                        ?subject1 skos:closeMatch ?subject2.
-                       SERVICE <https://artresearch.net/sparql> {
-                            ?subject1 <https://pharos.artresearch.net/custom/has_provider> ?providerA.
-                            ?providerA rdfs:label ?providerLabelA.
-                            ?subject1 <http://www.cidoc-crm.org/cidoc-crm/P138i_is_represented_by> ?visual_itemA.
-                            ?visual_itemA <http://www.cidoc-crm.org/cidoc-crm/P128i_is_carried_by> ?photoA.
-                            ?photoA <http://www.cidoc-crm.org/cidoc-crm/P129i_is_subject_of>  ?imageA.
-                            ?imageA <http://purl.org/ontology/similarity/element> ?element.
-                            ?subject2 <https://pharos.artresearch.net/custom/has_provider> ?providerB.
-                            ?providerB rdfs:label ?providerLabelB.
-                            ?subject2 <http://www.cidoc-crm.org/cidoc-crm/P138i_is_represented_by> ?visual_itemB.
-                            ?visual_itemB <http://www.cidoc-crm.org/cidoc-crm/P128i_is_carried_by> ?photoB.
-                            ?photoB <http://www.cidoc-crm.org/cidoc-crm/P129i_is_subject_of>  ?imageB.
-                            ?imageB <http://purl.org/ontology/similarity/element> ?element.
-                          }
                        } LIMIT 100
                 "
                 tuple-template="{{>tupleTemplate}}"

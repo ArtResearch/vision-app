@@ -1,0 +1,34 @@
+<!-- Only creates row if data are found-->
+{{#if bindings.0.withData.value}}
+<tr class="rs-page-resource__field">
+  <!-- Field name -->
+  <td class="rs-page-resource__field-label-holder">
+    <span class="rs-page-resource__field-label">
+      {{bindings.0.fieldName.value}}
+    </span>
+  </td>
+  <!-- Field values -->
+  {{#each bindings}} 
+    {{#ifCond labelA.value.length "!==" 0}}
+      <td>
+        <span class="rs-page-resource__field-value">{{labelA.value}}</span>
+      </td>
+      {{#ifCond labelB.value.length "===" 0}}
+        <td>
+          <span class="rs-page-resource__field-value">-</span>
+        </td>
+      {{/ifCond}}
+    {{/ifCond}}
+    {{#ifCond labelB.value.length "!==" 0}}
+    {{#ifCond labelA.value.length "===" 0}}
+    <td>
+      <span class="rs-page-resource__field-value">-</span>
+    </td>
+    {{/ifCond}}
+    <td>
+      <span class="rs-page-resource__field-value">{{labelB.value}}</span>
+    </td>
+    {{/ifCond}}
+  {{/each}}
+  </tr>
+{{/if}}

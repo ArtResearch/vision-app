@@ -1,0 +1,23 @@
+<div class="text-center panel panel-default" style="border:none;margin-right:20px;font-size:12px;height:20px;width: 33%;display:inline;">
+<h4 align="center"><b>SIMILARITIES</b></h4>
+</div>
+
+ <semantic-table 
+                query='SELECT DISTINCT ?similarity WHERE {
+                        SERVICE <https://artresearch.net/sparql> {
+                          ?subject1 <https://similarity.net/custom/matchedBy> ?similarity.
+                          ?subject2 <https://similarity.net/custom/matchedBy> ?similarity.
+                          ?subject1 skos:closeMatch ?subject2.
+                        }
+                        OPTIONAL {?similarity <https://similarity.net/custom/reviewedByUser> "true"^^xsd:boolean}
+                      } LIMIT 10' 
+                id="table-result" 
+                number-of-displayed-rows= 100
+                options='{"showFilter": false, "showTableHeading": true}'
+                column-configuration='[
+	  						{"variableName": "similarity", "displayName": "List of Similarities that have not been reviewed"}
+                ]'>
+</semantic-table>
+
+<br>
+<br>

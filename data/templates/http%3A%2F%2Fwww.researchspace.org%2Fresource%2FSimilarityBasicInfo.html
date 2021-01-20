@@ -2,13 +2,13 @@
 <div class="similarityInfo">
   <semantic-query
                   query='SELECT DISTINCT ?value ?label WHERE {
-                  				SERVICE <https://artresearch.net/sparql> {
+                  				#SERVICE <https://artresearch.net/sparql> {
                             <{{bindings.0.imageA.value}}> <http://purl.org/ontology/similarity/element> ?sim.
                             <{{bindings.0.imageB.value}}> <http://purl.org/ontology/similarity/element> ?sim.
                             #?sim <https://similarity.net/custom/has_score> ?value.
                             ?sim <http://purl.org/ontology/similarity/method> ?asso_method.
                             ?asso_method <http://purl.org/ontology/similarity/weight> ?value
-                          }
+                          #}
                          }'
                   template='{{> photoSimInfo}}'>
     <template id="photoSimInfo">

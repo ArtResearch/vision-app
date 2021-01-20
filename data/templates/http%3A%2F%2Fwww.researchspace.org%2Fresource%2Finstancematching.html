@@ -1,21 +1,25 @@
 <semantic-query query='SELECT DISTINCT  ?similarity ?subject1 ?subject1Link ?subject2 ?subject2Link ?providerA ?providerB ?providerLabelA ?providerLabelB ?imageA ?imageB WHERE {
-  											SERVICE <https://artresearch.net/sparql> {
+
                           ?subject1 <https://similarity.net/custom/matchedBy> ??.
                           ?subject2 <https://similarity.net/custom/matchedBy> ??.
                           ?subject1 skos:closeMatch ?subject2.
                           
-                          ?subject1 <https://pharos.artresearch.net/custom/has_provider> ?providerA.
-                          ?providerA rdfs:label ?providerLabelA.
+                          
                           ?subject1 <http://www.cidoc-crm.org/cidoc-crm/P138i_is_represented_by> ?visual_itemA.
                           ?visual_itemA <http://www.cidoc-crm.org/cidoc-crm/P128i_is_carried_by> ?photoA.
                           ?photoA <http://www.cidoc-crm.org/cidoc-crm/P129i_is_subject_of>  ?imageA.
-                          ?imageA <http://purl.org/ontology/similarity/element> ?element.
-                          ?subject2 <https://pharos.artresearch.net/custom/has_provider> ?providerB.
-                          ?providerB rdfs:label ?providerLabelB.
+
                           ?subject2 <http://www.cidoc-crm.org/cidoc-crm/P138i_is_represented_by> ?visual_itemB.
                           ?visual_itemB <http://www.cidoc-crm.org/cidoc-crm/P128i_is_carried_by> ?photoB.
                           ?photoB <http://www.cidoc-crm.org/cidoc-crm/P129i_is_subject_of>  ?imageB.
-                          ?imageB <http://purl.org/ontology/similarity/element> ?element.
+
+  											?imageA <http://purl.org/ontology/similarity/element> ?element.
+  											?imageB <http://purl.org/ontology/similarity/element> ?element.
+  										SERVICE <https://artresearch.net/sparql> {
+  												?subject1 <https://pharos.artresearch.net/custom/has_provider> ?providerA.
+                          ?providerA rdfs:label ?providerLabelA.
+                          ?subject2 <https://pharos.artresearch.net/custom/has_provider> ?providerB.
+                          ?providerB rdfs:label ?providerLabelB.
                         }
                         BIND (?? as ?similarity)
                         BIND (STR(?subject1) as ?subject1Link)
@@ -39,7 +43,7 @@
     
     <div class="sidebar">
 		<semantic-query query='SELECT ?subject_1 ?pharos ?similarity ?nextSimilarity WHERE {
-                              SERVICE <https://artresearch.net/sparql> {
+                              #SERVICE <https://artresearch.net/sparql> {
                                   ?subject_1 <http://www.w3.org/2004/02/skos/core#closeMatch> ?subject_2.
                                   ?subject_2 <http://www.w3.org/2002/07/owl#sameAs> ?pharos.
                                   ?subject_2 <https://similarity.net/custom/matchedBy> <{{bindings.0.similarity.value}}>. 
@@ -57,7 +61,7 @@
                                   ?photo_subject2_next <http://www.cidoc-crm.org/cidoc-crm/P129i_is_subject_of>  ?image_subject2_next.
                                   ?image_subject2_next <http://purl.org/ontology/similarity/element> ?element.
                                 	FILTER(STR(?nextSimilarity) != STR(?similarity))
-                              }
+                              #}
                               FILTER NOT EXISTS { ?nextSimilarity <https://similarity.net/custom/reviewedByUser> "true"^^xsd:boolean }
                           }LIMIT 1'
       template='{{>imageInfoTemplate}}'>

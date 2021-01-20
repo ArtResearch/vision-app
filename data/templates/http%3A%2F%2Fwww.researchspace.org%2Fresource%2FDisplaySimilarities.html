@@ -7,28 +7,27 @@
                 options='{
                       "showFilter":false
                     }'
-                number-of-displayed-rows="10"
+                number-of-displayed-rows="5"
                 query=" PREFIX skos: <http://www.w3.org/2004/02/skos/core#> 
-                        SELECT DISTINCT ?subject1 ?subject2 ?imageA ?imageB ?similarity WHERE {
-                         ?subject1 <https://similarity.net/custom/matchedBy> ?similarity.
-                         ?subject2 <https://similarity.net/custom/matchedBy> ?similarity.
-                         ?subject1 skos:closeMatch ?subject2.
-                         ?subject1 <http://www.cidoc-crm.org/cidoc-crm/P138i_is_represented_by> ?visual_itemA.
-                         ?visual_itemA <http://www.cidoc-crm.org/cidoc-crm/P128i_is_carried_by> ?photoA.
-                         ?photoA <http://www.cidoc-crm.org/cidoc-crm/P129i_is_subject_of>  ?imageA.
-                         ?imageA <http://purl.org/ontology/similarity/element> ?element.
-                         ?subject2 <http://www.cidoc-crm.org/cidoc-crm/P138i_is_represented_by> ?visual_itemB.
-                         ?visual_itemB <http://www.cidoc-crm.org/cidoc-crm/P128i_is_carried_by> ?photoB.
-                         ?photoB <http://www.cidoc-crm.org/cidoc-crm/P129i_is_subject_of>  ?imageB.
-                         ?imageB <http://purl.org/ontology/similarity/element> ?element.
-                           
-                       } LIMIT 50
+                        SELECT DISTINCT ?similarity (MAX(?s1) as ?subject1) (MAX(?s2) as ?subject2) (MAX(?iA) as ?imageA) (MAX(?iB) as ?imageB)  WHERE {
+                           ?s1 <https://similarity.net/custom/matchedBy> ?similarity.
+                           ?s2 <https://similarity.net/custom/matchedBy> ?similarity.
+                           ?s1 skos:closeMatch ?s2.
+                           ?s1 <http://www.cidoc-crm.org/cidoc-crm/P138i_is_represented_by> ?visual_itemA.
+                           ?visual_itemA <http://www.cidoc-crm.org/cidoc-crm/P128i_is_carried_by> ?photoA.
+                           ?photoA <http://www.cidoc-crm.org/cidoc-crm/P129i_is_subject_of>  ?iA.
+                           ?iA <http://purl.org/ontology/similarity/element> ?element.
+                           ?s2 <http://www.cidoc-crm.org/cidoc-crm/P138i_is_represented_by> ?visual_itemB.
+                           ?visual_itemB <http://www.cidoc-crm.org/cidoc-crm/P128i_is_carried_by> ?photoB.
+                           ?photoB <http://www.cidoc-crm.org/cidoc-crm/P129i_is_subject_of>  ?iB.
+                           ?iB <http://purl.org/ontology/similarity/element> ?element.
+                       } GROUP BY ?similarity LIMIT 1000
                 "
                 tuple-template="{{>tupleTemplate}}"
               >
                 <template id="tupleTemplate">
                           <semantic-query
-                            query='SELECT DISTINCT ?imgUrl_1 ?imgUrl_2 WHERE{
+                            query='SELECT DISTINCT ?imgUrl_1 ?imgUrl_2 ?providerLabelA ?providerLabelB WHERE{
                                         bind("_" as ?default_imageUrl)
   																			SERVICE <https://artresearch.net/sparql> {
                                            <{{subject1.value}}>  <https://pharos.artresearch.net/custom/has_provider> ?providerA.
@@ -73,6 +72,7 @@
 												<bs-col class="cardInfo" lg="3" md="10" xs="10">
                           <div data-flex-layout="row md-column center-stretch">
                             <bs-row class="cardInfoFields">
+                              <h>{{bindings.0.providerLabelA.value}}</h>
                               <mp-field-visualization
                                 subject="{{subject1.value}}"
                                 fields='[[fieldDefinitions  
@@ -87,6 +87,7 @@
                                 </template>
                               </mp-field-visualization>
                             </bs-row>
+                            
                           </div>
                         </bs-col>
                           
@@ -106,6 +107,7 @@
                         <bs-col class="cardInfo" lg="3" md="10" xs="10">
                           <div data-flex-layout="row md-column center-stretch">
                             <bs-row class="cardInfoFields">
+                              <h>{{bindings.0.providerLabelB.value}}</h>
                               <mp-field-visualization
                                 subject="{{subject2.value}}"
                                 fields='[[fieldDefinitions  

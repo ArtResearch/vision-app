@@ -1,5 +1,9 @@
+<div  class="jumbotron">
+  <h1 style="margin-left:2vw" class="display-4">Matching canditates</h1>
+  <p style="margin-left:2vw" class="lead">Bellow you can browse matching results between institution artworks. Click on the cards in to review matchings.</p>
+</div>
 <div class="row">
-  <bs-col lg="12" md="8" sm="7">
+  <bs-col lg="12">
         <bs-tabs unmount-on-exit="true" id="search-results" animation="false">
           <bs-tab event-key="2" title="Grid">
               <semantic-table
@@ -58,21 +62,20 @@
                       	<div class="panel-body row">
                           
                           <bs-col class="cardInfo"
-                            lg="3"
-                            md="10"
+                            lg="2"
+
                             xs="10"
                           >
-                            
                               <img
                                 alt='   '
                                 class="thumbnailImage"
                                 src="{{bindings.0.imgUrl_1.value}}"
                                 />
                         	</bs-col>
-												<bs-col class="cardInfo" lg="3" md="10" xs="10">
+												<bs-col class="cardInfo" lg="4"  xs="10">
                           <div data-flex-layout="row md-column center-stretch">
                             <bs-row class="cardInfoFields">
-                              <h>{{bindings.0.providerLabelA.value}}</h>
+                              <h2>[[> rsp:SourceIcon providerLabel="{{bindings.0.providerLabelA.value}}"]]{{bindings.0.providerLabelA.value}}</h2>
                               <mp-field-visualization
                                 subject="{{subject1.value}}"
                                 fields='[[fieldDefinitions  
@@ -89,12 +92,10 @@
                             </bs-row>
                             
                           </div>
-                        </bs-col>
-                          
+                        </bs-col>                   
                         <bs-col
                           class="cardInfo"
-                          lg="3"
-                          md="10"
+                          lg="2"
                           xs="10"
                         >
                           <img
@@ -104,10 +105,10 @@
                                />
                             
                         </bs-col>
-                        <bs-col class="cardInfo" lg="3" md="10" xs="10">
+                        <bs-col class="cardInfo" lg="4"  xs="10">
                           <div data-flex-layout="row md-column center-stretch">
                             <bs-row class="cardInfoFields">
-                              <h>{{bindings.0.providerLabelB.value}}</h>
+                              <h2>[[> rsp:SourceIcon providerLabel="{{bindings.0.providerLabelB.value}}"]]{{bindings.0.providerLabelB.value}}</h2>
                               <mp-field-visualization
                                 subject="{{subject2.value}}"
                                 fields='[[fieldDefinitions  
@@ -139,7 +140,7 @@
           </bs-tab>
         </bs-tabs>
     </bs-col>
-  </div>
+</div>
 <style>
 
 .header-search {
@@ -300,7 +301,7 @@
 
   .artwork-card {
     width: 100% !important;
-    min-height: 23vh;
+    min-height: 29vh;
     height: fit-content;
     padding: 2vh 0 2vh 0;
   }
@@ -451,39 +452,37 @@
     font-size: medium;
     text-transform: uppercase;
   }
-
   .cardInfo {
-    position: relative;
-    top: 0vh;
+    align-self: center;
+    height: 100%;
     background: #ffffffe8;
     border-radius: 0px 0px 4px 4px;
-  }
-
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
   .cardInfoFields{
     padding: 1vh;
   }
 
   .thumbnailImageContainer {
     display: flex;
+    justify-content: center;
     overflow: hidden;
     align-items: center;
     border-radius: 5px 0px 0px 5px;
     padding: 0;
     position: absolute;
-    height: -moz-available;
-    height: -webkit-fill-available;
-    height: fill-available;
+
     left: 0;
     top: 0;
-    min-height: 23vh;
+    min-height: 26vh;
   }
   .thumbnailImage {
     width: fit-content;
-    min-height: 23vh;
-    height: unset;
-    max-height: unset;
-    min-width: unset;
-    object-fit: cover;
+    max-height: 400px !important;
+    min-height: 26vh;
+    object-fit: contain;
   }
 
   .drawingInfo {
@@ -519,9 +518,13 @@
   #search-results .rs-grid-element .panel-body {
     cursor: pointer;
     font-size: large;
+    justify-content: center;
     align-items: center;
+    padding: 2vh !important;
+    min-height: 30vh !important;
+    height: fit-content;
     display: flex !important;
-  }
+}
   .rs-application .table > tbody > tr > td {
     border-color: white !important;
     padding: 4px 8px;

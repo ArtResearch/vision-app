@@ -1,0 +1,97 @@
+<!-- To enable source icons, simply add showSourceIcon="true" -->
+{{#if noData}}
+<div class="table-responsive rs-table">
+  <table class="table table-hover">
+    <tbody>
+      <tr>
+        <td>No data available</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+{{else}}
+<div class="table-responsive rs-table">
+  <table class="table table-hover">
+    <!-- <thead>
+      <tr>
+        <th scope="col" style="width: 30%">Field</th>
+        <th scope="col">Value</th>
+      </tr>
+    </thead>-->
+    <tbody>
+      {{#each fields as |field|}} {{#if field.values}}
+      <tr class="rs-page-resource__field">
+        <td class="rs-page-resource__field-label-holder">
+          <span class="rs-page-resource__field-label">
+            {{field.label.0.value}}
+          </span>
+        </td>
+        <td>
+          {{#ifCond (objectLength field.values) '>' 1}}
+          <ul style="padding: 0" class="rs-page__field-value">
+            {{#each field.values as |value|}}
+            <li class="rs-page-resource__field-value">
+              {{> rsp:ResourceFieldValueVisualization field=field value=value }}
+            </li>
+            {{/each}}
+          </ul>
+          {{/ifCond}} {{#ifCond (objectLength field.values) '===' 1}} {{#each
+          field.values as |value|}}
+          <span class="rs-page-resource__field-value"
+            >{{> rsp:ResourceFieldValueVisualization field=field value=value }}
+          </span>
+          {{/each}} {{/ifCond}}
+        </td>
+        [[#if showSourceIcon]]
+        <td>
+          <div class="sourceIcons">
+            {{#each field.values as |value|}} [[> rsp:SourceIcon ]] {{/each}}
+          </div>
+        </td>
+
+        [[/if]]
+      </tr>
+      {{/if}} {{/each}}
+    </tbody>
+  </table>
+</div>
+{{/if}}
+<style>
+  .rs-page-resource__field-label {
+    font-size: medium !important;
+    font-weight: 600;
+    color: #616161;
+  }
+
+  .sourceIcons {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .visualizationValue {
+    font-size: medium !important;
+  }
+  #search-results .rs-grid-element a {
+    color: #6b0000 !important;
+  }
+  .visualizationValue a {
+    color: #6b0000 !important;
+    text-decoration: none !important;
+  }
+  .rs-page-resource__field-value {
+    white-space: normal !important;
+  }
+  .sourceIcon {
+    border-top-left-radius: 100% !important;
+    border-top-right-radius: 100% !important;
+    border: none !important;
+    height: 18px;
+    width: 18px;
+    padding: 2px;
+    margin-right: 15px;
+    cursor: pointer;
+    border-radius: 100%;
+    box-shadow: 1px 1px 3px 1px #e7e7e7;
+  }
+</style>

@@ -14,7 +14,7 @@ template="{{> firstCanditateImage}}">
   <mp-overlay-dialog-trigger>
     <div class="imageHolder">
       <img src='{{bindings.0.thumbnailUrl.value}}'/>
-      <div class="imageLabel">{{bindings.0.imageLabel.value}}</div>    
+      <div class="imageLabel">[[> rsp:SourceIcon providerLabel="{{bindings.0.imageLabel.value}}"]] {{bindings.0.imageLabel.value}}</div>    
     </div>    
   </mp-overlay-dialog-trigger>
     <mp-overlay-dialog-content>
@@ -69,7 +69,7 @@ template="{{> secondCanditateImage}}">
   <mp-overlay-dialog-trigger>
     <div class="imageHolder">
       <img src='{{bindings.0.thumbnailUrl.value}}'/>
-      <div class="imageLabel">{{bindings.0.imageLabel.value}}</div>    
+      <div class="imageLabel">[[> rsp:SourceIcon providerLabel="{{bindings.0.imageLabel.value}}"]]{{bindings.0.imageLabel.value}}</div>    
     </div>    
   </mp-overlay-dialog-trigger>
   <mp-overlay-dialog-content>
@@ -116,7 +116,10 @@ template="{{> secondCanditateImage}}">
   }
   .imageHolder .imageLabel{
     position: absolute;
-    padding: 2px;
+    padding: 3px;
+    display: flex;
+    justify-content: center;
+    align-items:center;
     bottom: -3vh;
     border-radius: 0 4px 4px 0;
     width: fit-content;
@@ -129,8 +132,6 @@ template="{{> secondCanditateImage}}">
     text-align: center;
     font-size: medium;
     background: #ffffff85;
-    /* writing-mode: vertical-rl; */
-    /* text-orientation: upright; */
     font-weight: bold;
   }
   #sidebyside {

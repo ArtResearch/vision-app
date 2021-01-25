@@ -1,6 +1,6 @@
 <div  class="jumbotron">
   <h1 style="margin-left:2vw" class="display-4">Matching canditates</h1>
-  <p style="margin-left:2vw" class="lead">Bellow you can browse matching results between institution artworks. Click on the cards in to review matchings.</p>
+  <p style="margin-left:2vw" class="lead">Bellow you can browse matching suggestions between institution artworks. Click on the cards in to review matchings.</p>
 </div>
 <div class="row">
   <bs-col lg="12">
@@ -30,7 +30,7 @@
                 "
                 tuple-template="{{>tupleTemplate}}"
               >
-                <template id="tupleTemplate">
+                <template id="tupleTemplate">      
                           <semantic-query
                             query='SELECT DISTINCT ?imgUrl_1 ?imgUrl_2 ?providerLabelA ?providerLabelB WHERE{
                                         bind("_" as ?default_imageUrl)
@@ -129,20 +129,50 @@
                             
                         </div>
                         </semantic-link-container>
+                        <div class="actions">
+                        <button class="btn btn-default action approve" title="Click to quickly identify two instances as the same">Same</button>
+                        <button  class="btn btn-warning action reject" title="Click to quickly identify two instances as not similar">Not similar</button>
+                      </div>
                   </div>
                      </template>
                           </semantic-query>
-                        
-
-                      
-
                 </template>
               </semantic-table>
           </bs-tab>
         </bs-tabs>
-    </bs-col>
+  </bs-col>
+  
 </div>
 <style>
+.actions {
+    display: flex;
+    justify-content: flex-end;
+    min-height: 65px;
+    height: fit-content;
+    background: #c1c1c161;
+    border-radius: 4px;
+    align-items: center;
+    width: 100%;
+}
+
+  .actions .action{
+    color:white !important;
+    font-size: medium;
+    border:none !important;
+    min-height:4vh;
+    width: 8vw;
+    margin-right: 2vw;
+    min-width: 150px;
+    box-shadow: 0px 0px 10px 1px #bebebe;
+  }
+
+  .approve{
+    background-color: #007bff !important;
+  }
+   .reject{
+    background-color: #6c757d !important;
+  }
+
 
 .header-search {
     background-color: #f3f3f1;

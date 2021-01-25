@@ -130,8 +130,44 @@
                         </div>
                         </semantic-link-container>
                         <div class="actions">
-                        <button class="btn btn-default action approve" title="Click to quickly identify two instances as the same">Same</button>
-                        <button  class="btn btn-warning action reject" title="Click to quickly identify two instances as not similar">Not similar</button>
+                          <semantic-form
+                          new-subject-template='{{similarity.value}}'
+                          browser-persistance=true
+                          persistence='sparql'
+                          post-action='reload'
+                          form-id='IMApprove1'         
+                          fields='[[fieldDefinitions
+                                    reviewed="http://www.researchspace.org/fieldDefinition/reviewedByUser"
+                                    sameAs="http://www.researchspace.org/fieldDefinition/sameAs"
+                                  ]]'>
+                                  <semantic-form-hidden-input 
+                                    for='reviewed'
+                                    default-value='true'>
+                                  </semantic-form-hidden-input>
+            
+                                  <semantic-form-hidden-input 
+                                    for='sameAs'
+                                    default-value='{{subject_1.value}}'>
+                                  </semantic-form-hidden-input>
+                          <button id="1234" name="submit" class="btn btn-default action approve" title="Click to quickly identify two instances as the same">Same</button>
+                      </semantic-form>
+                      
+                      <semantic-form
+                          new-subject-template='{{similarity.value}}'
+                          browser-persistance=true    
+                          persistence='sparql'
+                          post-action='reload'
+                          form-id='IMReject'         
+                          fields='[[fieldDefinitions
+                                    reviewed="http://www.researchspace.org/fieldDefinition/reviewedByUser"
+                                  ]]'>
+            
+                                  <semantic-form-hidden-input 
+                                    for='reviewed'
+                                    default-value='true'>
+                                  </semantic-form-hidden-input>
+                          <button name="submit" class="btn btn-warning action reject" title="Two instances are not the same">Not similar</button>
+                        </semantic-form>
                       </div>
                   </div>
                      </template>

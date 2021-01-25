@@ -25,6 +25,7 @@
                            ?visual_itemB <http://www.cidoc-crm.org/cidoc-crm/P128i_is_carried_by> ?photoB.
                            ?photoB <http://www.cidoc-crm.org/cidoc-crm/P129i_is_subject_of>  ?iB.
                            ?iB <http://purl.org/ontology/similarity/element> ?element.
+                       		 FILTER NOT EXISTS { ?similarity <https://similarity.net/custom/reviewedByUser> 'true'^^xsd:boolean.}
                        } GROUP BY ?similarity LIMIT 1000
                 "
                 tuple-template="{{>tupleTemplate}}"

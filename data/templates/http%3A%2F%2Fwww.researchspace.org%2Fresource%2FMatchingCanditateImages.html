@@ -24,9 +24,6 @@ template="{{> firstCanditateImage}}">
                        id="candidateAmirador"
                        image-or-region="{{bindings.0.imageUrlA.value}}" 
                        image-id-pattern='BIND("image" AS ?type). BIND(?? AS ?imageIRI).
-                       										?subject <http://www.cidoc-crm.org/cidoc-crm/P138i_is_represented_by> ?visual_item.
-                                          ?visual_item <http://www.cidoc-crm.org/cidoc-crm/P128i_is_carried_by> ?photo.
-                                          ?photo <http://www.cidoc-crm.org/cidoc-crm/P129i_is_subject_of> <{{bindings.0.imageUrlA.value}}> . 
                                          BIND(REPLACE(STR(REPLACE(STR(<{{bindings.0.imageUrlA.value}}>),"/full/full/0/[a-zA-Z]*.jpg","")), "(^.*)\\/(.*)$", "$2") AS ?imageID)'
                        iiif-server-url="{{bindings.0.iiifServerUrlA.value}}" 
                        >
@@ -36,10 +33,7 @@ template="{{> firstCanditateImage}}">
       <rs-iiif-mirador
                        id="candidateBmirador"
                        image-or-region="{{bindings.0.imageUrlB.value}}" 
-                       image-id-pattern='BIND("image" AS ?type). BIND(?? AS ?imageIRI). 
-                                         ?subject <http://www.cidoc-crm.org/cidoc-crm/P138i_is_represented_by> ?visual_item.
-                                          ?visual_item <http://www.cidoc-crm.org/cidoc-crm/P128i_is_carried_by> ?photo.
-                                          ?photo <http://www.cidoc-crm.org/cidoc-crm/P129i_is_subject_of> <{{bindings.0.imageUrlB.value}}> .
+                       image-id-pattern='BIND("image" AS ?type). BIND(?? AS ?imageIRI).
                                          BIND(REPLACE(STR(REPLACE(STR(<{{bindings.0.imageUrlB.value}}>),"/full/full/0/[a-zA-Z]*.jpg","")), "(^.*)\\/(.*)$", "$2") AS ?imageID)'
                        iiif-server-url="{{bindings.0.iiifServerUrlB.value}}" 
                        >
@@ -58,7 +52,7 @@ template="{{> firstCanditateImage}}">
 <semantic-query query='SELECT ?iiifServerUrlA ?iiifServerUrlB ?imageUrlA ?imageUrlB ?imageLabel ?thumbnailUrl WHERE{
   BIND(STR("{{bindings.0.providerLabelB.value}}") as ?imageLabel).
   BIND(STR("{{bindings.0.imageA.value}}") as ?imageUrlA).
-    BIND(REPLACE(STR("{{bindings.0.imageB.value}}"),"full/full","full/500,") AS ?thumbnailUrl).
+  BIND(REPLACE(STR("{{bindings.0.imageB.value}}"),"full/full","full/500,") AS ?thumbnailUrl).
   BIND(REPLACE(STR(REPLACE(STR("{{bindings.0.imageA.value}}"),"/full/full/0/[a-zA-Z]*.jpg","")), "(^.*)\\/(.*)$", "$1") AS ?iiifServerUrlA).
   BIND(STR("{{bindings.0.imageB.value}}") as ?imageUrlB).
   BIND(REPLACE(STR(REPLACE(STR("{{bindings.0.imageB.value}}"),"/full/full/0/[a-zA-Z]*.jpg","")), "(^.*)\\/(.*)$", "$1") AS ?iiifServerUrlB).
@@ -79,9 +73,6 @@ template="{{> secondCanditateImage}}">
                        id="candidateAmirador"
                        image-or-region="{{bindings.0.imageUrlA.value}}" 
                        image-id-pattern='BIND("image" AS ?type). BIND(?? AS ?imageIRI).
-                       										?subject <http://www.cidoc-crm.org/cidoc-crm/P138i_is_represented_by> ?visual_item.
-                                          ?visual_item <http://www.cidoc-crm.org/cidoc-crm/P128i_is_carried_by> ?photo.
-                                          ?photo <http://www.cidoc-crm.org/cidoc-crm/P129i_is_subject_of> <{{bindings.0.imageUrlA.value}}> . 
                                          BIND(REPLACE(STR(REPLACE(STR(<{{bindings.0.imageUrlA.value}}>),"/full/full/0/[a-zA-Z]*.jpg","")), "(^.*)\\/(.*)$", "$2") AS ?imageID)'
                        iiif-server-url="{{bindings.0.iiifServerUrlA.value}}" 
                        >
@@ -92,9 +83,6 @@ template="{{> secondCanditateImage}}">
                        id="candidateBmirador"
                        image-or-region="{{bindings.0.imageUrlB.value}}" 
                        image-id-pattern='BIND("image" AS ?type). BIND(?? AS ?imageIRI). 
-                                         ?subject <http://www.cidoc-crm.org/cidoc-crm/P138i_is_represented_by> ?visual_item.
-                                          ?visual_item <http://www.cidoc-crm.org/cidoc-crm/P128i_is_carried_by> ?photo.
-                                          ?photo <http://www.cidoc-crm.org/cidoc-crm/P129i_is_subject_of> <{{bindings.0.imageUrlB.value}}> .
                                          BIND(REPLACE(STR(REPLACE(STR(<{{bindings.0.imageUrlB.value}}>),"/full/full/0/[a-zA-Z]*.jpg","")), "(^.*)\\/(.*)$", "$2") AS ?imageID)'
                        iiif-server-url="{{bindings.0.iiifServerUrlB.value}}" 
                        >

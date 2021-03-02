@@ -1,0 +1,264 @@
+<semantic-query query=' SELECT DISTINCT ?element ?subject1 ?subject1Link ?subject2 ?subject2Link ?providerLabelA ?providerLabelB ?imageA ?imageB WHERE {
+                            ?imageA <http://purl.org/ontology/similarity/element> ??.
+                            ?imageB <http://purl.org/ontology/similarity/element> ??.
+                            ?subject1 <https://pharos.artresearch.net/custom/has_image> ?imageA.
+                            ?subject2 <https://pharos.artresearch.net/custom/has_image> ?imageB.
+                            SERVICE <https://artresearch.net/sparql> {
+                                ?subject1 <https://pharos.artresearch.net/custom/has_provider> ?providerA.
+                                ?providerA rdfs:label ?providerLabelA.
+                                ?subject2 <https://pharos.artresearch.net/custom/has_provider> ?providerB.
+                                ?providerB rdfs:label ?providerLabelB.
+                            }
+                            BIND (STR(?subject1) as ?subject1Link)
+                            BIND (STR(?subject2) as ?subject2Link)
+                            BIND (?? as ?element)
+                            FILTER (STR(?imageA)!=STR(?imageB))
+
+                        } Limit 1' template='{{>matchingTemplate}}'>
+    <template id="matchingTemplate">
+        <div class="instanceMatchingPage">
+            <!-- Photos & similarity information -->
+            <div class="pharosFieldViewer">
+                [[> rsp:MatchingCanditateImages]]
+            </div>
+            <div class="matchContainer">
+                <!-- Matching candidates fields comparison table -->
+                <div class="fieldViewer">
+                    [[> rsp:MatchingCanditateFields]]
+                </div>
+            </div>
+            <p></p>
+            <p></p>
+
+            <div class="sidebar">
+                <semantic-query query=' SELECT ?element ?nextElement WHERE {
+                                            ?imageA_next <http://purl.org/ontology/similarity/element> ?nextElement.
+                                            ?imageB_next <http://purl.org/ontology/similarity/element> ?nextElement.
+                                            ?subject1_next <https://pharos.artresearch.net/custom/has_image> ?imageA_next.
+                                            ?subject2_next <https://pharos.artresearch.net/custom/has_image> ?imageB_next.
+                                            # check if is verso
+                                            FILTER(STR(?subject1_next)!=STR(?subject2_next))
+                                            FILTER(STR(?element)!=STR(?nextElement))
+                                            FILTER NOT EXISTS { ?nextElement <https://vision.artresearch.net/custom/reviewed> "true"^^xsd:boolean }
+                                            BIND (<{{bindings.0.element.value}}> AS ?element)
+                                        }LIMIT 1' template='{{>imageInfoTemplate}}'>
+                    <template id="imageInfoTemplate">
+
+                        <div class="actions">
+                            <button class="btn btn-default action optional" title="Two instances are the same">Immitation</button>
+                            <button class="btn btn-default action optional" title="Two instances are the same">Style of</button>
+                            <button class="btn btn-default action optional" title="Two instances are the same">School of</button>
+                            <button class="btn btn-default action optional" title="Two instances are the same">Study/Sketch of</button>
+                            <button class="btn btn-default action optional" title="Two instances are the same">Same negative</button>
+                            <semantic-form  new-subject-template='{{bindings.0.element.value}}'
+                                            browser-persistance=true 
+                                            persistence='sparql'
+                                            post-action='{{bindings.0.nextElement.value}}' 
+                                            form-id='IMReject' 
+                                            fields='[[fieldDefinitions
+                                                reviewed="http://www.researchspace.org/fieldDefinition/Reviewed" 
+                                                    ]]'>
+                                <!-- to be uncommented
+                                <semantic-form-hidden-input for='reviewed' default-value='true'>
+                                </semantic-form-hidden-input>
+                                -->
+                                <button name="submit" 
+                                        class="btn btn-warning action reject"
+                                        title="Two instances are not the same">Not similar</button>
+                            </semantic-form>
+
+                            <semantic-form  new-subject-template='{{bindings.0.element.value}}'
+                                            browser-persistance=true 
+                                            persistence='sparql'
+                                            post-action='{{bindings.0.nextElement.value}}' 
+                                            form-id='IMApprove1' fields='[[fieldDefinitions
+                                            reviewed="http://www.researchspace.org/fieldDefinition/Reviewed"
+                                            sameAs="http://www.researchspace.org/fieldDefinition/Same"
+                                            ]]'>
+
+                                <semantic-form-hidden-input for='reviewed' default-value='true'></semantic-form-hidden-input>
+
+                                <semantic-form-hidden-input for='sameAs' default-value='{{bindings.0.subject_1.value}}'></semantic-form-hidden-input>
+
+                                <button id="1234" 
+                                        name="submit" 
+                                        class="btn btn-default action approve"
+                                        title="Two instances are the same">Same</button>
+                            </semantic-form>
+                        </div>
+                    </template>
+                </semantic-query>
+            </div>
+        </div>
+    </template>
+</semantic-query>
+
+<style>
+    .semantic-form {
+        margin: 2vh;
+    }
+
+    .sidebar {
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        width: 20%;
+        align-items: center;
+        height: fit-content;
+        right: 2%;
+        bottom: 5%
+    }
+
+    .instanceMatchingPage {
+        display: flex;
+        width: 100%;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    .matchContainer {
+        display: flex;
+        width: 100%;
+        flex-direction: column;
+        justify-content: space-evenly
+    }
+
+    .matchCandidate {
+        width: 45vw;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        padding: 1vw;
+    }
+
+    .imageViewer {
+        width: 100%;
+        height: 45vh;
+    }
+
+    .fieldViewer {
+        margin-top: 2vh;
+        position: relative;
+        width: 70%;
+        left: 5%;
+        height: fit-content;
+        padding: 1vh 2vw 2vw 2vw;
+        border-radius: 4px;
+        box-shadow: 1px 6px 14px 3px lightgrey;
+    }
+
+    .pharosFieldViewer {
+        display: flex;
+        align-items: center;
+        margin-top: 0vh;
+        height: 50vh;
+        justify-content: center;
+        padding: 1vh 2vw 1vw 2vw;
+        border-radius: 4px;
+        background: #c1c1c161;
+        overflow-y: scroll;
+        align-self: center;
+        margin-bottom: 3vh;
+        position: relative;
+        left: -10%;
+        width: 70%;
+    }
+
+    .pharosFieldViewer button {
+        margin: 1vh;
+    }
+
+    .pharosFieldViewer .simInfo {
+        display: flex;
+        font-size: medium;
+    }
+
+    .pharosFieldViewer .titleSimilarity {
+        width: 31px;
+        white-space: nowrap;
+        font-weight: bold;
+        overflow: hidden;
+        text-overflow: clip;
+    }
+
+
+    .pharosFieldViewer img {
+        width: 100%;
+        height: 40vh;
+        object-fit: contain;
+        margin-top: 1vh;
+        cursor: pointer;
+    }
+
+    .pharosFieldViewer .similarityInfo {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        margin: 1vw;
+    }
+
+
+
+    .rs-page-resource__field-label {
+        font-weight: bold;
+        font-size: medium;
+    }
+
+    .rs-page-resource__field-value {
+        font-size: medium;
+    }
+
+
+    .actions {
+        display: flex;
+        justify-content: space-evenly;
+        flex-direction: column;
+        min-width: 200px;
+        min-height: 200px;
+        height: 85vh;
+        background: #c1c1c161;
+        border-radius: 4px;
+        align-items: center;
+        width: 30vh;
+    }
+
+    .actions .action {
+        color: white !important;
+        font-size: medium;
+        border: none !important;
+        min-height: 4vh;
+        width: 8vw;
+        min-width: 150px;
+        box-shadow: 0px 0px 10px 1px #bebebe;
+    }
+
+    button.btn.btn-default.action.optional {
+        background: #00a698;
+    }
+
+    .actions .action:hover {
+        box-shadow: 0px 0px 10px 1px #383838;
+    }
+
+    .approve {
+        background-color: #007bff !important;
+    }
+
+    .reject {
+        background-color: #6c757d !important;
+    }
+
+    .sourceIcon {
+        border-top-left-radius: 100% !important;
+        border-top-right-radius: 100% !important;
+        margin-top: 0 !important;
+        border: none !important;
+        height: 18px !important;
+        width: 18px !important;
+        padding: 2px !important;
+        margin-right: 15px !important;
+        border-radius: 100% !important;
+        box-shadow: 1px 1px 3px 1px #e7e7e7 !important;
+    }
+</style>

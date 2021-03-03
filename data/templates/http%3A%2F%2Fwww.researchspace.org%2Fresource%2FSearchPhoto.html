@@ -1,0 +1,21 @@
+<semantic-search>
+    <!-- 1. form-based search as search definition -->
+    <semantic-search-query-keyword
+        domain="xsd:anyURI"
+        placeholder="Search for any field, a title, repository or any other identifier"
+        escape-lucene-syntax="false"
+        default-query="
+        SELECT DISTINCT ?subject WHERE {
+          ?subject a <http://www.cidoc-crm.org/cidoc-crm/E22_Man-Made_Object>.
+          ?subject <https://pharos.artresearch.net/resource/fr/Work_created_from_Artist> ??.
+          ?originalSubject owl:sameAs ?subject.
+        }LIMIT 100"
+      ></semantic-search-query-keyword>
+  
+    <semantic-search-result-holder>
+
+      <semantic-search-result>
+        <semantic-table id='table' query='SELECT ?subject WHERE{}'></semantic-table>
+      </semantic-search-result>
+    </semantic-search-result-holder>
+  </semantic-search>

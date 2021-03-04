@@ -220,7 +220,7 @@ input::placeholder {
 }
 
 .thumbnailImage::after{
-  background-image: url("/assets/images/media/image_placeholder.jpg");
+  /* background-image: url("/assets/images/media/image_placeholder.jpg"); */
   top: 0;
   left: 0;
   display: block;
@@ -234,7 +234,7 @@ input::placeholder {
 }
 
 .thumbnailImage[alt]:after {  
-  background-image: url("/assets/images/media/image_placeholder.jpg");
+  /* background-image: url("/assets/images/media/image_placeholder.jpg"); */
   display: block;
   position: absolute;
   top: 0;

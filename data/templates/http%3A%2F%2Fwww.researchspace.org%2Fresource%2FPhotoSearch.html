@@ -1,116 +1,274 @@
 <semantic-search>
-  <semantic-search-query-keyword                                 
-    domain='<http://www.w3.org/2000/01/rdf-schema#Resource>'
-    repository='pastec'
+  <h1 style="text-align: center; font-weight: bold">
+    Find similar images by URL
+  </h1>
+  <semantic-search-query-keyword
+    placeholder="enter an image url"
+    domain="<http://www.example.org/ontology#>"
     query=' PREFIX wiki: <http://www.researchspace.com/resource/assets/Ontologies/wikidata#>
             PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
             PREFIX example: <http://www.example.org/ontology#>
-            SELECT * WHERE {
-              ?subject example:hasImageUrl ?__token__ .
-              ?subject example:hasScore ?score.
-              ?subject example:hasResultingIds ?id .
+            SELECT ?subject WHERE {
+              BIND(REPLACE(?__token__,"\\\\","") AS ?withoutSlash).
+              BIND(REPLACE(?withoutSlash,"\\*","") AS ?subject).
+              # BINDING ?subject 
             }'
   ></semantic-search-query-keyword>
-<div data-flex-layout="row stretch-stretch">
-<semantic-search-result-holder>
-<div data-flex-self="md-full">
-  <semantic-search-result>
-    <semantic-table id='grid-result'
-              query=' PREFIX wiki: <http://www.researchspace.com/resource/assets/Ontologies/wikidata#>
+  <div data-flex-layout="row stretch-stretch">
+    <semantic-search-result-holder>
+      <div data-flex-self="md-full">
+        <semantic-search-result>
+          <div>
+            <semantic-table
+              id="grid-result"
+              query=" PREFIX wiki: <http://www.researchspace.com/resource/assets/Ontologies/wikidata#>
                       PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-                      PREFIX example: <http://www.example.org/ontology#>
-                        SELECT DISTINCT  ?subject ?score ?id WHERE {
-                        ?subject example:hasScore ?score.
-                        ?subject example:hasResultingIds ?id .
-                      } '
-
-                    number-of-displayed-rows="12"
-   
+                        SELECT DISTINCT ?subject WHERE {
+                      } "
+              number-of-displayed-rows="12"
               tuple-template="{{> subjectCellTemplate}}"
               options='{"showTableHeading": false, "showFilter":false}'
-              no-result-template='<div style="text-align: center;">No results. Please refine your keyword.</div>'>
-      <template id="subjectCellTemplate">
-      <div
-              class="rs-grid-element panel panel-default artwork-card fade-in-fwd"
+              no-result-template='<div style="text-align: center;">No results. Please refine your keyword.</div>'
             >
-              <semantic-link uri="{{subject.value}}">
-                <div class="panel-body">
-                  <bs-col
-                    class="thumbnailImageContainer"
-                    lg="4"
-                    md="12"
-                    xs="12"
-                  >
-                  <!---->
+              <template id="subjectCellTemplate">
+                <semantic-context repository="pastec">
                   <semantic-query
-                  query='SELECT DISTINCT ?imgUrl WHERE{
-                          bind("_" as ?default_imageUrl)
-                          OPTIONAL{
-                            {
-                              # Artwork Image #
-                              <{{subject.value}}>  <http://www.cidoc-crm.org/cidoc-crm/P138i_is_represented_by> ?visual. 
-                              ?visual crm:P128i_is_carried_by ?image .
-                              ?image crm:P129i_is_subject_of ?fullsizeImgUrl.
-                              BIND(REPLACE(STR(?fullsizeImgUrl),"full/full","full/200,") AS ?smallerImgUrl).
-                            }UNION{
-                              # Pharos Artwork Image #
-                              ?originalSubject owl:sameAs <{{subject.value}}> .
-                              ?originalSubject <http://www.cidoc-crm.org/cidoc-crm/P138i_is_represented_by> ?visual. 
-                              ?visual crm:P128i_is_carried_by ?image .
-                              ?image crm:P129i_is_subject_of ?fullsizeImgUrl.
-                              BIND(REPLACE(STR(?fullsizeImgUrl),"full/full","full/200,") AS ?smallerImgUrl).
-                            }UNION{
-                              # Pharos Photo Image #
-                              ?originalSubject owl:sameAs <{{subject.value}}> .
-                              ?artwork crm:P138i_is_represented_by ?visual_item.
-                              ?visual_item crm:P128i_is_carried_by ?originalSubject.
-                              ?artwork <http://www.cidoc-crm.org/cidoc-crm/P138i_is_represented_by> ?visual. 
-                              ?visual crm:P128i_is_carried_by ?image .
-                              ?image crm:P129i_is_subject_of ?fullsizeImgUrl.
-                              FILTER(?image = ?originalSubject).
-                              BIND(REPLACE(STR(?fullsizeImgUrl),"full/full","full/200,") AS ?smallerImgUrl).
-                            }UNION{
-                              # Photo Image #
-                              ?artwork crm:P138i_is_represented_by ?visual_item.
-                              ?visual_item crm:P128i_is_carried_by <{{subject.value}}> .
-                              ?artwork <http://www.cidoc-crm.org/cidoc-crm/P138i_is_represented_by> ?visual. 
-                              ?visual crm:P128i_is_carried_by ?image .
-                              ?image crm:P129i_is_subject_of ?fullsizeImgUrl.
-                              FILTER(?image = <{{subject.value}}>).
-                              BIND(REPLACE(STR(?fullsizeImgUrl),"full/full","full/200,") AS ?smallerImgUrl).
-                            }
-                          }
-                          BIND(coalesce(?smallerImgUrl, ?default_imageUrl) as ?imgUrl)      
-                        }LIMIT 1'
-                  template="{{> imageThumbnail}}"
+                    query="
+                          PREFIX example: <http://www.example.org/ontology#>
+                          SELECT ?subject ?score ?id WHERE{
+                            ?subject example:hasImageUrl <{{subject.value}}>.
+                            ?subject example:hasScore ?score.
+                            ?subject example:hasResultingIds ?id.
+                            
+                          }LIMIT 10"
+                    no-result-template="<h4 style='text-align: center; width: 100%;'>Sorry, no similar images found in our repository. Try providing a higher resolution image</h4>"
+                    template="{{>pastecTemplate}}"
                   >
-                  <template id="imageThumbnail">
-                    <img
-                      alt='   '
-                      class="thumbnailImage"
-                      src="{{bindings.0.imgUrl.value}}"
-                      />
-                  </template>
-                </semantic-query>
+                    <template id="pastecTemplate">
+                      {{#each bindings}}
 
-
-                  </bs-col>
-                  <bs-col class="cardInfo" lg="7" md="10" xs="10">
-                    <div data-flex-layout="row md-column center-stretch">
-                      <bs-row class="cardInfoFields">
-                          <h4><semantic-link iri="{{subject.value}}"></semantic-link></h4>
-                          <!-- <h2>Original record</h2>
-                          <h4><semantic-link iri="{{originalSubject.value}}"></semantic-link></h4> -->
-                      </bs-row>
-                    </div>
-                  </bs-col>
-                </div>
-              </semantic-link>
-            </div>
-      </template>
-    </semantic-table>          
-  </semantic-search-result>
-</div>
-</semantic-search-result-holder>
-</div>
+                      <semantic-context repository="default">
+                        <semantic-query
+                          query='
+                              select DISTINCT ?imgUri ?imgUrl where {
+                                SERVICE <https://artresearch.net/sparql> {
+                                  BIND(iri(CONCAT("https://vision.artresearch.net:4212/index/images/",str({{id}}))) as ?idProperty) 
+                                  GRAPH <https://pharos.artresearch.net/resource/graph/visual_similarity/pastec> {
+                                    ?imgUri <https://pharos.artresearch.net/resource/vocab/vision/pastec/has_index> ?idProperty.
+                                        BIND(REPLACE(STR(?imgUri),"full/full","full/200,") AS ?imgUrl).
+                                   }
+                                 }
+                               }
+                              '
+                          template="{{> imageTemplate }}"
+                        >
+                          <template id="imageTemplate">
+                            <div
+                              class="rs-grid-element panel panel-default artwork-card fade-in-fwd"
+                            >
+                              <div class="panel-body">
+                                <div class="thumbnailImageContainer">
+                                  <img
+                                    alt="   "
+                                    class="thumbnailImage"
+                                    src="{{bindings.0.imgUrl.value}}"
+                                  />
+                                </div>
+                                <div>
+                                  <h3>
+                                    Pastec score:
+                                    <semantic-query
+                                      query="
+                                        select ?scoreText where {
+                                            BIND(str({{score}}) as ?scoreText) 
+                                         }
+                                        "
+                                    ></semantic-query>
+                                  </h3>
+                                </div>
+                              </div>
+                            </div>
+                          </template>
+                        </semantic-query>
+                      </semantic-context>
+                      {{/each}}
+                    </template>
+                  </semantic-query>
+                </semantic-context>
+              </template>
+            </semantic-table>
+          </div>
+        </semantic-search-result>
+      </div>
+    </semantic-search-result-holder>
+  </div>
 </semantic-search>
+<style>
+  table.table {
+    min-width: 100%;
+  }
+
+  tr.standard-row {
+    border: none !important;
+  }
+
+  .table > tbody + tbody {
+    border: none !important;
+  }
+
+  .table > tbody + tbody > tr {
+    border: none !important;
+  }
+
+  .res-label {
+    float: left;
+  }
+
+  .res-comment {
+    clear: left;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  .res-img-thumbnail {
+    display: inline;
+    float: left;
+    max-width: 50px;
+    max-height: 50px;
+    margin-right: 10px;
+    margin-bottom: 5px;
+  }
+
+  input#semantic-search-text-input {
+    margin-top: 10vh !important;
+    width: 50vw;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .cardInfo {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    text-align: center !important;
+    bottom: 0;
+    display: flex;
+    background: #ffffffcf;
+    min-height: 30%;
+    height: fit-content;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .cardInfoFields {
+    padding: 1vh;
+  }
+
+  .thumbnailImageContainer {
+    display: flex;
+    overflow: hidden;
+    height: 28vh;
+    align-items: center;
+    border-radius: 5px 0px 0px 5px;
+    padding: 0;
+    left: 0;
+    top: 0;
+    width: 100%;
+    position: relative;
+  }
+  #search-results .rs-grid-element a {
+    color: #6b0000 !important;
+  }
+
+  .thumbnailImage {
+    width: 100%;
+    min-height: 28vh;
+    height: unset;
+    max-height: unset;
+    min-width: unset;
+    object-fit: cover;
+  }
+
+  .drawingInfo {
+    margin-bottom: 2vh;
+  }
+
+  .grid-info {
+    font-size: 16px !important;
+  }
+
+  .grid-demo b {
+    font-weight: normal;
+    color: #777777;
+  }
+  .facet__relation__values__value:hover {
+    background-color: #f5f5f5;
+  }
+  .facet__relation__values__filter {
+    filter: none !important;
+    border: none;
+  }
+
+  #search-results .rs-grid-element.panel-default {
+    border-color: #e9e9e9;
+    overflow: hidden;
+    padding: 0;
+  }
+  #search-results .rs-grid-element .panel-body {
+    cursor: pointer;
+    font-size: large;
+    height: 19vh;
+    align-items: center;
+    display: flex !important;
+  }
+  .rs-application .table > tbody > tr > td {
+    border-color: white !important;
+    padding: 4px 8px;
+  }
+  .rs-page__field {
+    display: flex;
+    justify-content: flex-start;
+  }
+  .rs-page__field-label {
+    font-weight: normal;
+    color: #777777;
+  }
+  .rs-page__field-label-holder {
+    min-width: 10vw;
+  }
+
+  .artwork-card {
+    width: 13vw !important;
+    border-radius: 4px !important;
+    margin: 1vh;
+  }
+  #search-results .rs-grid-element.panel {
+    background: white !important;
+  }
+  #search-results .rs-grid-element:hover {
+    box-shadow: 1px 2px 8px 0 #761f0e35, 1px 3px 12px 2px rgba(0, 0, 0, 0.07);
+  }
+  .panel-body {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    user-select: unset !important;
+  }
+
+  @media (max-width: 800px) {
+    .thumbnailImageContainer {
+      justify-content: center;
+    }
+    .cardInfo {
+      left: 0vw;
+      top: 0vh;
+    }
+    .rs-page__field {
+      flex-direction: column;
+    }
+    .table-responsive > .table {
+      overflow: hidden;
+    }
+  }
+</style>

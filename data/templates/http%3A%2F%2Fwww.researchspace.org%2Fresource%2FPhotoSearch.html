@@ -1,3 +1,10 @@
+
+
+
+
+[[> rsp:UploadImage ]]
+
+
 <semantic-search>
   <h1 style="text-align: center; font-weight: bold">
     Find similar images by URL
@@ -54,9 +61,14 @@
                                     BIND(iri(CONCAT("https://vision.artresearch.net:4212/index/images/",str({{id}}))) as ?idProperty) 
                                     ?subject <https://pharos.artresearch.net/resource/fr/Work_depicted_by_Photo> ?photo.
                                     ?subject crm:P2_has_type <https://pharos.artresearch.net/resource/type/pharos>.
-                                    ?subject rdfs:label ?title.
+                                    ?og <http://www.w3.org/2002/07/owl#sameAs> ?subject.
                                     OPTIONAL {
-                                      ?subject <https://pharos.artresearch.net/resource/fr/Work_influenced_by_Artist>|<https://pharos.artresearch.net/resource/fr/Work_created_from_Artist> ?artist.
+                                      ?og crm:P1_is_identified_by ?value.
+                                      ?value crm:P2_has_type <http://vocab.getty.edu/aat/300417193>.
+                                      ?value rdfs:label ?title.
+                                    }
+                                    OPTIONAL {
+                                      ?og <https://pharos.artresearch.net/resource/fr/Work_influenced_by_Artist>|<https://pharos.artresearch.net/resource/fr/Work_created_from_Artist> ?artist.
                                       ?artist rdfs:label ?label.
                                     }
                                     ?photo crm:P129i_is_subject_of ?imgUri.

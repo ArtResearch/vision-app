@@ -4,7 +4,6 @@
                           ?subject2 <https://similarity.net/custom/matchedBy> ??.
                           ?subject1 skos:closeMatch ?subject2.
                           
-                          
                           ?subject1 <http://www.cidoc-crm.org/cidoc-crm/P138i_is_represented_by> ?visual_itemA.
                           ?visual_itemA <http://www.cidoc-crm.org/cidoc-crm/P128i_is_carried_by> ?photoA.
                           ?photoA <http://www.cidoc-crm.org/cidoc-crm/P129i_is_subject_of>  ?imageA.
@@ -15,7 +14,7 @@
 
   											?imageA <http://purl.org/ontology/similarity/element> ?element.
   											?imageB <http://purl.org/ontology/similarity/element> ?element.
-  										SERVICE <https://artresearch.net/sparql> {
+  										  SERVICE <https://artresearch.net/sparql> {
   												?subject1 <https://pharos.artresearch.net/custom/has_provider> ?providerA.
                           ?providerA rdfs:label ?providerLabelA.
                           ?subject2 <https://pharos.artresearch.net/custom/has_provider> ?providerB.

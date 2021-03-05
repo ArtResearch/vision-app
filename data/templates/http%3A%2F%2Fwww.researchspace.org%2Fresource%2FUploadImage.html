@@ -1,24 +1,20 @@
-<semantic-form new-subject-template='http://vision.artresearch.net/id/uploaded_image'
-post-action='none'
-browser-persistence=true
-form-id='example-6'
-fields='[
-  {
-    "id": "file",
-    "label": "File",
-    "description": "The attached file",
-    "xsdDatatype": "xsd:anyURI",
-    "selectPattern": "SELECT $value WHERE { $subject <http://vision.artresearch.net/hasAttachedFile> $value }",
-    "insertPattern": "INSERT { $subject <http://vision.artresearch.net/hasAttachedFile> $value } WHERE {}",
-    "deletePattern": "DELETE { $subject <http://vision.artresearch.net/hasAttachedFile> $value } WHERE {}"
-  }
-]'>
-<bs-panel>
-  <semantic-form-file-input
-      for='file'
-      context-uri='http://vision.artresearch.net'
-      storage='default'
-      temp-storage='runtime'
-  ></semantic-form-file-input>
-</bs-panel>
-</semantic-form>
+<div class="page rs-fileUpload" style="  padding-bottom: 40px;">
+  
+  [[> rsp:adminPageHeader title="File Upload" icon="rs-icon rs-icon-image_upload"]]
+  
+  <div class="container-fluid">
+      <bs-row class="row-center">
+        <bs-col xs=12 sm=11 md=10 lg=9 class='rs-col-xl-8'>
+              <mp-direct-file-uploader
+                placeholder="Drag&drop a file for upload here or click into the field to open the browser's default file selector."
+                accept-pattern="image/*"
+                default-storage-id="runtime"
+                default-folder="/"
+                default-object-kind="assets"
+              >
+              </mp-direct-file-uploader>
+    
+ 				 </bs-col>   
+      </bs-row> <!--  close row -->
+  </div>
+</div>

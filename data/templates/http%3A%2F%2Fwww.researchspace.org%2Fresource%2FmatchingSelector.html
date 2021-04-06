@@ -1,0 +1,436 @@
+<div id="matchingSelector" class="selectorContainer">
+  <semantic-form
+    new-subject-template="resource/DisplaySimilarities&selectedA={{provider-switch}}&selectedB={{provider-switch-b}}"
+    post-action="redirect"
+    browser-persistence="true"
+    form-id="example-8"
+    fields='[
+    {
+      "id": "provider-switch",
+      "label": "Match records for:",
+      "description": "Select a provider to match records for",
+      "xsdDatatype": "xsd:anyURI",
+      "selectPattern": "SELECT $value WHERE { $subject <http://www.example.com/switch/has-action> $value }",
+      "insertPattern": "INSERT { $subject <http://www.example.com/switch/has-action> $value } WHERE {}",
+      "deletePattern": "DELETE { $subject <http://www.example.com/switch/has-action> $value } WHERE {}"
+    },
+    {
+      "id": "provider-switch-b",
+      "label": "Match records with:",
+      "description": "Select a provider to match records with",
+      "xsdDatatype": "xsd:anyURI",
+      "selectPattern": "SELECT $value WHERE { $subject <http://www.example.com/switch/has-action-b> $value }",
+      "insertPattern": "INSERT { $subject <http://www.example.com/switch/has-action-b> $value } WHERE {}",
+      "deletePattern": "DELETE { $subject <http://www.example.com/switch/has-action-b> $value } WHERE {}"
+    }
+  ]'
+  >
+    <semantic-form-switch
+      for="provider-switch"
+      switch-on-field="switch-action-type"
+    >
+      <semantic-form-switch-case label="Frick">
+        <semantic-form-composite-input
+          for="provider-switch"
+          new-subject-template="{{switch-action-type}}"
+          fields='[      {
+        "id": "switch-action-type",
+        "label": "Switch",
+        "description": "Allows to select different forms",
+        "xsdDatatype": "xsd:anyURI",
+        "selectPattern": "SELECT $value WHERE { $subject <http://www.example.com/switch/has-action> $value }",
+        "insertPattern": "INSERT { $subject <http://www.example.com/switch/has-action> $value } WHERE {}",
+        "deletePattern": "DELETE { $subject <http://www.example.com/switch/has-action> $value } WHERE {}"
+      }]'
+        >
+          <semantic-form-hidden-input
+            for="switch-action-type"
+            default-value="http://www.example.com/spec-type-5"
+          >
+          </semantic-form-hidden-input>
+          <div class="logoContainer">
+            <img src="../../assets/images/logos/frick.png" />
+          </div>
+        </semantic-form-composite-input>
+      </semantic-form-switch-case>
+      <semantic-form-switch-case label="Hertziana">
+        <semantic-form-composite-input
+          for="provider-switch"
+          new-subject-template="{{switch-action-type}}"
+          fields='[
+          {
+            "id": "switch-action-type",
+            "label": "Switch",
+            "description": "Allows to select different forms",
+            "xsdDatatype": "xsd:anyURI",
+            "selectPattern": "SELECT $value WHERE { $subject <http://www.example.com/switch/has-action> $value }",
+            "insertPattern": "INSERT { $subject <http://www.example.com/switch/has-action> $value } WHERE {}",
+            "deletePattern": "DELETE { $subject <http://www.example.com/switch/has-action> $value } WHERE {}"
+          }
+        ]'
+        >
+          <semantic-form-hidden-input
+            for="switch-action-type"
+            default-value="http://www.example.com/spec-type-7"
+          >
+          </semantic-form-hidden-input>
+          <div class="logoContainer">
+            <img src="../../assets/images/logos/hertziana.svg" />
+          </div>
+        </semantic-form-composite-input>
+      </semantic-form-switch-case>
+      <semantic-form-switch-case label="I Tatti">
+        <semantic-form-composite-input
+          for="provider-switch"
+          new-subject-template="{{switch-action-type}}"
+          fields='[
+          {
+            "id": "switch-action-type",
+            "label": "Switch",
+            "description": "Allows to select different forms",
+            "xsdDatatype": "xsd:anyURI",
+            "selectPattern": "SELECT $value WHERE { $subject <http://www.example.com/switch/has-action> $value }",
+            "insertPattern": "INSERT { $subject <http://www.example.com/switch/has-action> $value } WHERE {}",
+            "deletePattern": "DELETE { $subject <http://www.example.com/switch/has-action> $value } WHERE {}"
+          }
+        ]'
+        >
+          <semantic-form-hidden-input
+            for="switch-action-type"
+            default-value="https://pharos.artresearch.net/resource/itatti/source/ITatti"
+          >
+          </semantic-form-hidden-input>
+          <div class="logoContainer">
+            <img src="../../assets/images/logos/itatti.png" />
+          </div>
+        </semantic-form-composite-input>
+      </semantic-form-switch-case>
+      <semantic-form-switch-case label="KHI">
+        <semantic-form-composite-input
+          for="provider-switch"
+          new-subject-template="{{switch-action-type}}"
+          fields='[
+          {
+            "id": "switch-action-type",
+            "label": "Switch",
+            "description": "Allows to select different forms",
+            "xsdDatatype": "xsd:anyURI",
+            "selectPattern": "SELECT $value WHERE { $subject <http://www.example.com/switch/has-action> $value }",
+            "insertPattern": "INSERT { $subject <http://www.example.com/switch/has-action> $value } WHERE {}",
+            "deletePattern": "DELETE { $subject <http://www.example.com/switch/has-action> $value } WHERE {}"
+          }
+        ]'
+        >
+          <semantic-form-hidden-input
+            for="switch-action-type"
+            default-value="http://www.example.com/spec-type-3"
+          >
+          </semantic-form-hidden-input>
+          <div class="logoContainer">
+            <img src="../../assets/images/logos/khi.png" />
+          </div>
+        </semantic-form-composite-input>
+      </semantic-form-switch-case>
+      <semantic-form-switch-case label="Marburg">
+        <semantic-form-composite-input
+          for="provider-switch"
+          new-subject-template="{{switch-action-type}}"
+          fields='[
+          {
+            "id": "switch-action-type",
+            "label": "Switch",
+            "description": "Allows to select different forms",
+            "xsdDatatype": "xsd:anyURI",
+            "selectPattern": "SELECT $value WHERE { $subject <http://www.example.com/switch/has-action> $value }",
+            "insertPattern": "INSERT { $subject <http://www.example.com/switch/has-action> $value } WHERE {}",
+            "deletePattern": "DELETE { $subject <http://www.example.com/switch/has-action> $value } WHERE {}"
+          }
+        ]'
+        >
+          <semantic-form-hidden-input
+            for="switch-action-type"
+            default-value="http://www.example.com/spec-type-4"
+          >
+          </semantic-form-hidden-input>
+          <div class="logoContainer">
+            <img src="../../assets/images/logos/marb.png" />
+          </div>
+        </semantic-form-composite-input>
+      </semantic-form-switch-case>
+      <semantic-form-switch-case label="Zeri">
+        <semantic-form-composite-input
+          for="provider-switch"
+          new-subject-template="{{switch-action-type}}"
+          fields='[
+          {
+            "id": "switch-action-type",
+            "label": "Switch",
+            "description": "Allows to select different forms",
+            "xsdDatatype": "xsd:anyURI",
+            "selectPattern": "SELECT $value WHERE { $subject <http://www.example.com/switch/has-action> $value }",
+            "insertPattern": "INSERT { $subject <http://www.example.com/switch/has-action> $value } WHERE {}",
+            "deletePattern": "DELETE { $subject <http://www.example.com/switch/has-action> $value } WHERE {}"
+          }
+        ]'
+        >
+          <semantic-form-hidden-input
+            for="switch-action-type"
+            default-value="http://www.example.com/spec-type-2"
+          >
+          </semantic-form-hidden-input>
+          <div class="logoContainer">
+            <img src="../../assets/images/logos/zeri.png" />
+          </div>
+        </semantic-form-composite-input>
+      </semantic-form-switch-case>
+    </semantic-form-switch>
+    <!-- save and reset button for form -->
+    <div class="submitContainer">
+      <button name="submit" class="btn">View matchings list</button>
+    </div>
+    <semantic-form-switch
+      for="provider-switch-b"
+      switch-on-field="switch-action-type"
+    >
+      <semantic-form-switch-case label="Zeri">
+        <semantic-form-composite-input
+          for="provider-switch-b"
+          new-subject-template="{{switch-action-type}}"
+          fields='[      {
+        "id": "switch-action-type",
+        "label": "Switch",
+        "description": "Allows to select different forms",
+        "xsdDatatype": "xsd:anyURI",
+        "selectPattern": "SELECT $value WHERE { $subject <http://www.example.com/switch/has-action> $value }",
+        "insertPattern": "INSERT { $subject <http://www.example.com/switch/has-action> $value } WHERE {}",
+        "deletePattern": "DELETE { $subject <http://www.example.com/switch/has-action> $value } WHERE {}"
+      }]'
+        >
+          <semantic-form-hidden-input
+            for="switch-action-type"
+            default-value="http://www.example.com/spec-type-2"
+          >
+          </semantic-form-hidden-input>
+          <div class="logoContainer">
+            <img src="../../assets/images/logos/zeri.png" />
+          </div>
+        </semantic-form-composite-input>
+      </semantic-form-switch-case>
+      <semantic-form-switch-case label="Marburg">
+        <semantic-form-composite-input
+          for="provider-switch-b"
+          new-subject-template="{{switch-action-type}}"
+          fields='[      {
+        "id": "switch-action-type",
+        "label": "Switch",
+        "description": "Allows to select different forms",
+        "xsdDatatype": "xsd:anyURI",
+        "selectPattern": "SELECT $value WHERE { $subject <http://www.example.com/switch/has-action> $value }",
+        "insertPattern": "INSERT { $subject <http://www.example.com/switch/has-action> $value } WHERE {}",
+        "deletePattern": "DELETE { $subject <http://www.example.com/switch/has-action> $value } WHERE {}"
+      }]'
+        >
+          <semantic-form-hidden-input
+            for="switch-action-type"
+            default-value="http://www.example.com/spec-type-4"
+          >
+          </semantic-form-hidden-input>
+          <div class="logoContainer">
+            <img src="../../assets/images/logos/marb.png" />
+          </div>
+        </semantic-form-composite-input>
+      </semantic-form-switch-case>
+      <semantic-form-switch-case label="KHI">
+        <semantic-form-composite-input
+          for="provider-switch-b"
+          new-subject-template="{{switch-action-type}}"
+          fields='[      {
+        "id": "switch-action-type",
+        "label": "Switch",
+        "description": "Allows to select different forms",
+        "xsdDatatype": "xsd:anyURI",
+        "selectPattern": "SELECT $value WHERE { $subject <http://www.example.com/switch/has-action> $value }",
+        "insertPattern": "INSERT { $subject <http://www.example.com/switch/has-action> $value } WHERE {}",
+        "deletePattern": "DELETE { $subject <http://www.example.com/switch/has-action> $value } WHERE {}"
+      }]'
+        >
+          <semantic-form-hidden-input
+            for="switch-action-type"
+            default-value="http://www.example.com/spec-type-3"
+          >
+          </semantic-form-hidden-input>
+          <div class="logoContainer">
+            <img src="../../assets/images/logos/khi.png" />
+          </div>
+        </semantic-form-composite-input>
+      </semantic-form-switch-case>
+      <semantic-form-switch-case label="I Tatti">
+        <semantic-form-composite-input
+          for="provider-switch-b"
+          new-subject-template="{{switch-action-type}}"
+          fields='[      {
+        "id": "switch-action-type",
+        "label": "Switch",
+        "description": "Allows to select different forms",
+        "xsdDatatype": "xsd:anyURI",
+        "selectPattern": "SELECT $value WHERE { $subject <http://www.example.com/switch/has-action> $value }",
+        "insertPattern": "INSERT { $subject <http://www.example.com/switch/has-action> $value } WHERE {}",
+        "deletePattern": "DELETE { $subject <http://www.example.com/switch/has-action> $value } WHERE {}"
+      }]'
+        >
+          <semantic-form-hidden-input
+            for="switch-action-type"
+            default-value="https://pharos.artresearch.net/resource/itatti/source/ITatti"
+          >
+          </semantic-form-hidden-input>
+          <div class="logoContainer">
+            <img src="../../assets/images/logos/itatti.png" />
+          </div>
+        </semantic-form-composite-input>
+      </semantic-form-switch-case>
+      <semantic-form-switch-case label="Hertziana">
+        <semantic-form-composite-input
+          for="provider-switch-b"
+          new-subject-template="{{switch-action-type}}"
+          fields='[      {
+        "id": "switch-action-type",
+        "label": "Switch",
+        "description": "Allows to select different forms",
+        "xsdDatatype": "xsd:anyURI",
+        "selectPattern": "SELECT $value WHERE { $subject <http://www.example.com/switch/has-action> $value }",
+        "insertPattern": "INSERT { $subject <http://www.example.com/switch/has-action> $value } WHERE {}",
+        "deletePattern": "DELETE { $subject <http://www.example.com/switch/has-action> $value } WHERE {}"
+      }]'
+        >
+          <semantic-form-hidden-input
+            for="switch-action-type"
+            default-value="http://www.example.com/spec-type-7"
+          >
+          </semantic-form-hidden-input>
+          <div class="logoContainer">
+            <img src="../../assets/images/logos/hertziana.svg" />
+          </div>
+        </semantic-form-composite-input>
+      </semantic-form-switch-case>
+
+      <semantic-form-switch-case label="Frick">
+        <semantic-form-composite-input
+          for="provider-switch-b"
+          new-subject-template="{{switch-action-type}}"
+          fields='[
+      {
+        "id": "switch-action-type",
+        "label": "Switch",
+        "description": "Allows to select different forms",
+        "xsdDatatype": "xsd:anyURI",
+        "selectPattern": "SELECT $value WHERE { $subject <http://www.example.com/switch/has-action> $value }",
+        "insertPattern": "INSERT { $subject <http://www.example.com/switch/has-action> $value } WHERE {}",
+        "deletePattern": "DELETE { $subject <http://www.example.com/switch/has-action> $value } WHERE {}"
+      }
+    ]'
+        >
+          <semantic-form-hidden-input
+            for="switch-action-type"
+            default-value="http://www.example.com/spec-type-5"
+          >
+          </semantic-form-hidden-input>
+          <div class="logoContainer">
+            <img src="../../assets/images/logos/frick.png" />
+          </div>
+        </semantic-form-composite-input>
+      </semantic-form-switch-case>
+    </semantic-form-switch>
+    <semantic-form-errors></semantic-form-errors>
+  </semantic-form>
+</div>
+
+<style>
+  .submitContainer {
+    background: #f1f1f1;
+    height: 2px;
+    width: 30%;
+    justify-content: center;
+    display: flex;
+    align-self: center;
+  }
+  .submitContainer button {
+    background: #007bff !important;
+    border-radius: 4px !important;
+    outline: none !important;
+    border: none !important;
+    position: relative;
+    bottom: 17px;
+    opacity: 1;
+    color: white !important;
+  }
+
+  .composite-input {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .logoContainer {
+    width: 20vw;
+    background-color: #f1f1f1;
+    justify-content: center;
+    height: 30vh;
+    display: flex;
+    margin-bottom: 2vh;
+    align-items: center;
+  }
+  .logoContainer img {
+    width: 80%;
+    max-height: 100%;
+  }
+
+  #matchingSelector .semantic-form-input-decorator__header {
+    display: none;
+  }
+
+  #matchingSelector .cardinality-support__remove-value {
+    display: none;
+  }
+
+  #matchingSelector .cardinality-support__add-value {
+    display: none;
+  }
+
+  #matchingSelector .form-switch {
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #matchingSelector .cardinality-support__group-instance {
+    padding: 0 !important;
+    box-shadow: none !important;
+  }
+
+  #matchingSelector .form-switch__content {
+    margin: 0 !important;
+  }
+
+  #matchingSelector .semantic-form-input-decorator {
+    margin: 0 !important;
+  }
+
+  #matchingSelector .form-switch__select {
+    width: 20vw !important;
+    height: 5vh !important;
+    z-index: 100;
+    border: none !important;
+    outline: none;
+    background-color: #f1f1f1;
+    box-shadow: 0px 0px 9px -10px #f1f1f1;
+    text-transform: none !important;
+    cursor: pointer;
+    font-size: large !important;
+  }
+  select {
+    text-align: center;
+    text-align-last: center;
+    -moz-text-align-last: center;
+  }
+</style>

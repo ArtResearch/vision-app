@@ -1,5 +1,11 @@
 @import "./header.css";
 @import "./resource.css";
+@import "./searchbar.css";
+@import "./start.css";
+@import "./photoTiles.css";
+@import "./photoSearch.css";
+
+
 
 body {
   font-size: 14px;

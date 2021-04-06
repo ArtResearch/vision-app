@@ -11,6 +11,7 @@
   width: 100%;
   height: 40vh;
   object-fit: cover;
+
 }
 
 #photoTiles  .flip-card {
@@ -19,6 +20,8 @@
     height: 40vh;
     width: 20%;
     perspective: 1000px; 
+    -webkit-animation: fade-in 1.5s cubic-bezier(0.39, 0.575, 0.565, 1) both;
+    animation: fade-in 1.5s cubic-bezier(0.39, 0.575, 0.565, 1) both;
   }
 
 #photoTiles  .flip-card-inner {

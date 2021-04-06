@@ -1,0 +1,113 @@
+<div id="photo-search-page">
+  <div style="margin:1vh; display: flex;justify-content: center;">
+    [[> rsp:Searchbar]]
+  </div>
+  <div data-flex-layout="row stretch-stretch">
+      <div id="resultHolder" data-flex-self="md-full">
+        <div class="search-description">Searched for: [[urlParam "image"]] </div>
+        <div class="selectedImageContainer">
+          <a href='[[urlParam "image"]]' title="Inspect image in a new tab" target="newTabVision">
+          <img src='[[urlParam "image"]]' />
+        </a>
+        </div>
+        
+        <semantic-context repository="pastec">
+        <div>
+          <div class="search-similar-title">Similar artworks</div> 
+          <div class="griddle-custom-row">
+            <semantic-query
+              query='
+                  PREFIX example: <http://www.example.org/ontology#>
+                  SELECT ?subject ?score ?id WHERE{
+                    ?subject example:hasImageUrl "[[urlParam "image"]]".
+                    ?subject example:hasScore ?score.
+                    ?subject example:hasResultingIds ?id.
+                  }LIMIT 10'
+                  no-result-template='
+                  <div style="
+                  font-size: 29px;
+                  font-style: italic;">
+                  No similar artworks found. Try another image or a higher resolution of your image.</div>
+                  '
+              template="{{>pastecTemplate}}"
+            >
+              <template id="pastecTemplate">
+                {{#each bindings}}
+                <semantic-context repository="default">
+                  <semantic-query
+                    query='SELECT DISTINCT ?imgUrl ?subject ?title ?artist_label WHERE {
+                          SERVICE <https://artresearch.net/sparql> {
+                            BIND(iri(CONCAT("https://vision.artresearch.net:4212/index/images/",str({{id}}))) as ?idProperty) 
+                            ?subject <https://pharos.artresearch.net/resource/fr/Work_depicted_by_Photo> ?photo.
+                            #?subject crm:P2_has_type <https://pharos.artresearch.net/resource/type/pharos>.
+                            ?subject <http://www.w3.org/2002/07/owl#sameAs> ?pharos.
+                            OPTIONAL {
+                              ?subject rdfs:label ?title.
+                            }
+                            OPTIONAL {
+                              ?subject <https://pharos.artresearch.net/resource/fr/Work_influenced_by_Artist>|<https://pharos.artresearch.net/resource/fr/Work_created_from_Artist> ?artist.
+                              ?artist rdfs:label ?label.
+                            }
+                            ?photo crm:P129i_is_subject_of ?imgUri.
+                            ?imgUri <https://pharos.artresearch.net/resource/vocab/vision/pastec/has_index> ?idProperty.
+                            BIND(REPLACE(STR(?imgUri),"full/full","full/200,") AS ?imgUrl).
+                            BIND(REPLACE(?label,"@en","") AS ?artist_label)                                  
+                          }
+                        }'
+                    template="{{> imageTemplate }}"
+                    no-result-template='
+                    <div style="
+                    font-size: 29px;
+                    font-style: italic;">
+                    No similar artworks found. Try another image or a higher resolution of your image.</div>
+                    '
+                  >
+                    <template id="imageTemplate">
+                      <a
+                        href="https://artresearch.net/resource/?uri={{bindings.0.subject.value}}"
+                        target="_null"
+                      >
+                        <div class="similar-artwork-card fade-in-fwd">
+                          <div class="panel-body">
+                            <div class="thumbnailImageContainer">
+                              <img
+                                alt="   "
+                                class="thumbnailImage"
+                                src="{{bindings.0.imgUrl.value}}"
+                              />
+                            </div>
+                            <div>
+                              <h2 class="titleInfo opacityToLight">
+                                {{bindings.0.title.value}}
+                              </h2>
+                              <h2 class="basicInfo opacityToLight">
+                                {{bindings.0.artist_label.value}}
+                              </h2>
+                              <h1 class="pastecInfo opacityToLight">
+                                Pastec score:
+                                <semantic-query
+                                  query="
+                                select ?scoreText where {
+                                    BIND(str({{score}}) as ?scoreText) 
+                                }
+                                "
+                                ></semantic-query>
+                              </h1>
+                            </div>
+                          </div>
+                        </div>
+                      </a>
+                    </template>
+                  </semantic-query>
+                </semantic-context>
+                {{/each}}
+              </template>
+            </semantic-query>
+          </div>
+        </div>
+        </semantic-context>
+
+        </semantic-context>
+      </div>
+  </div>
+</div>

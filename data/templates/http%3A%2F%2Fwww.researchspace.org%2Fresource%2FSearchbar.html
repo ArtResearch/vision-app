@@ -14,6 +14,7 @@
         BIND(REPLACE(?norm1,"\\\\","") AS ?norm2). 
          BIND(REPLACE(?norm2,"\\*","") AS ?keywords). 
       }'
+      debounce="10"
     ></semantic-search-query-keyword>
     <semantic-search-result-holder>
       <semantic-search-result>

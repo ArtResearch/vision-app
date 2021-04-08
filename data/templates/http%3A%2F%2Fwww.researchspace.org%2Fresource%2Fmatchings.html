@@ -1,23 +1,13 @@
 <div style="margin-top: 8vh">
-  <div class="card-list">
-    <a href="/resource/DisplaySimilarities">
-      <div class="card">
-        <img
-          class="photo photo-3"
-          src="https://iiif.artresearch.net/iiif/2/zeri!118000%21117932_g.jpg/full/500,/0/default.jpg"
-        />
-        <div class="title">List of possible matches</div>
-      </div>
-    </a>
-    <a href="https://artresearch.net/resource/DisplayPharosReviewed">
-      <div class="card" title="See revieweda artworks at artresearch.net">
-        <img
-          class="photo photo-1"
-          src="https://iiif.artresearch.net/iiif/2/zeri!98400%2198116_g.jpg/full/500,/0/default.jpg"
-        />
-        <div class="title">Reviewed artworks at artresearch.net</div>
-      </div>
-    </a>
+  [[> matchingSelector ]]
+  <div style="margin-top: 2vh; display: flex; align-items: center; flex-direction: column;">
+
+      <h2><i>Please note that the platform is under development and <u>only the combination ITatti - Zeri works.</u> </i></h2>
+     
+      <a href="https://artresearch.net/resource/DisplayPharosReviewed">
+        <h1 class="linkTitle" >See all Reviewed artworks at artresearch.net</h1>
+      </a>
+
   </div>
 </div>
 <style>
@@ -50,7 +40,7 @@
   .card-list {
     position: relative;
     width: 75%;
-    height: 70vh;
+    height: 30vh;
     align-items: center;
     left: 11%;
     display: flex;

@@ -16,26 +16,17 @@
       <!--#################################### TITLE #####################################-->
       <!--################################################################################-->
       <semantic-query
-                      query='SELECT (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR=", ") AS ?labelA) (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR=", ") AS ?labelB) ?withData ?fieldName
-                             WHERE 
- {
- SERVICE <https://artresearch.net/sparql> 
-                             {
-                             	{
-                               <{{bindings.0.subject1.value}}> crm:P1_is_identified_by ?value. 
-                               ?value crm:P2_has_type <http://vocab.getty.edu/aat/300417193> .   
-                               ?value rdfs:label ?label_a.
-                               BIND(BOUND(?label_a) && strlen(?label_a)>0 as ?withData)
-                               }
-                               UNION{
-                               <{{bindings.0.subject2.value}}> crm:P1_is_identified_by ?value_b. 
-                               ?value_b crm:P2_has_type <http://vocab.getty.edu/aat/300417193> .   
-                               ?value_b rdfs:label ?label_b  
-                               BIND(BOUND(?label_b) && strlen(?label_b)>0 as ?withData)
-                               }
-                               BIND("Title" as ?fieldName)
-                             }}GROUP BY ?withData ?fieldName'
-                      template='{{> titleTemplate}}'>
+        query=' SELECT (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR=", ") AS ?labelA) (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR=", ") AS ?labelB) ?withData ?fieldName WHERE {
+                  {
+                    <{{bindings.0.subject1.value}}>  rdfs:label ?label_a.
+                    BIND(BOUND(?label_a) && strlen(?label_a)>0 as ?withData)
+                  } UNION{
+                    <{{bindings.0.subject2.value}}>  rdfs:label ?label_b  
+                    BIND(BOUND(?label_b) && strlen(?label_b)>0 as ?withData)
+                  }
+                  BIND("Title" as ?fieldName)
+                }GROUP BY ?withData ?fieldName' 
+        template='{{> titleTemplate}}'>
         <template id="titleTemplate">
             [[> rsp:MatchingCanditateFieldsVisualization]]  
         </template>
@@ -77,31 +68,18 @@
       <!--################################### CREATOR ###################################-->
       <!--################################################################################-->
       <semantic-query
-        query='
-				SELECT (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR=", ") AS ?labelA) (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR=", ") AS ?labelB) 
-        ?withData ?fieldName
-          WHERE 
- {
- SERVICE <https://artresearch.net/sparql> 
-          {
-          {
-            <{{bindings.0.subject1.value}}> crm:P108i_was_produced_by ?production .
-          ?production crm:P01i_is_domain_of ?carried .
-          ?carried a crm:PC14_carried_out_by .
-          ?carried crm:P02_has_range ?value.
-           ?value rdfs:label ?label_a.
-          BIND(BOUND(?label_a) && strlen(?label_a)>0 as ?withData)
-  }          
-          UNION{ 
-            <{{bindings.0.subject2.value}}> crm:P108i_was_produced_by ?production_b .
-          ?production_b crm:P01i_is_domain_of ?carried_b.
-          ?carried_b a crm:PC14_carried_out_by .
-          ?carried_b crm:P02_has_range ?value_b.
-                      ?value_b rdfs:label ?label_b  
-          BIND(BOUND(?label_b) && strlen(?label_b)>0 as ?withData)
-      }  
-          BIND("Creator" as ?fieldName)
-        }}GROUP BY ?withData ?fieldName'
+        query=' SELECT (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR=", ") AS ?labelA) (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR=", ") AS ?labelB) ?withData ?fieldName WHERE {
+                  {
+                    <{{bindings.0.subject1.value}}> <https://pharos.artresearch.net/resource/fr/Work_created_from_Artist> ?value.
+                    ?value rdfs:label ?label_a.
+                    BIND(BOUND(?label_a) && strlen(?label_a)>0 as ?withData)
+                  } UNION{ 
+                    <{{bindings.0.subject2.value}}> <https://pharos.artresearch.net/resource/fr/Work_created_from_Artist> ?value_b.
+                    ?value_b rdfs:label ?label_b.  
+                    BIND(BOUND(?label_b) && strlen(?label_b)>0 as ?withData)
+                  }  
+                  BIND("Creator" as ?fieldName)
+                }GROUP BY ?withData ?fieldName'
         template="{{> creatorTemplate}}"
       >
         <template id="creatorTemplate">[[> rsp:MatchingCanditateFieldsVisualization]]</template>
@@ -175,33 +153,18 @@
       <!--################################ INFLUENCED BY ################################-->
       <!--################################################################################-->
       <semantic-query
-        query='
-				SELECT (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR=", ") AS ?labelA) (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR=", ") AS ?labelB) 
-        ?withData ?fieldName
-          WHERE 
- {
- SERVICE <https://artresearch.net/sparql> 
-          {
-          {
-          		<{{bindings.0.subject1.value}}> crm:P108i_was_produced_by ?production.
-  		?production crm:P01i_is_domain_of ?influenced .
-  		?influenced a crm:PC15_was_influenced_by .
- 		?influenced crm:P02_has_range ?value .
-  		?influenced crm:P15.1_in_the_role_of ?role .
-  		?role rdfs:label ?label_a.
-          BIND(BOUND(?label_a) && strlen(?label_a)>0 as ?withData)
-          }
-          UNION{
-            		<{{bindings.0.subject2.value}}> crm:P108i_was_produced_by ?production_b.
-  		?production_b crm:P01i_is_domain_of ?influenced_b .
-  		?influenced_b a crm:PC15_was_influenced_by .
- 		?influenced_b crm:P02_has_range ?value_b .
-  		?influenced_b crm:P15.1_in_the_role_of ?role_b .
-  		?role_b rdfs:label  ?label_b  
-          BIND(BOUND(?label_b) && strlen(?label_b)>0 as ?withData)
-          }
-          BIND("Influenced By" as ?fieldName)
-        }}GROUP BY ?withData ?fieldName'
+        query=' SELECT (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR=", ") AS ?labelA) (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR=", ") AS ?labelB) ?withData ?fieldName WHERE {
+                  {
+                    <{{bindings.0.subject1.value}}> <https://pharos.artresearch.net/resource/fr/Work_influenced_by_Artist> ?artist_a .
+                    ?artist_a rdfs:label ?label_a.
+                    BIND(BOUND(?label_a) && strlen(?label_a)>0 as ?withData)
+                  } UNION{
+                    <{{bindings.0.subject2.value}}> <https://pharos.artresearch.net/resource/fr/Work_influenced_by_Artist> ?artist_b .
+                    ?artist_b rdfs:label  ?label_b  
+                    BIND(BOUND(?label_b) && strlen(?label_b)>0 as ?withData)
+                  }
+                  BIND("Influenced By" as ?fieldName)
+        }GROUP BY ?withData ?fieldName'
         template="{{> influencedbyTemplate}}"
       >
         <template id="influencedbyTemplate">[[> rsp:MatchingCanditateFieldsVisualization]]</template>
@@ -212,30 +175,26 @@
       <!--################################################################################-->
       <semantic-query
         query='
-				SELECT (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR=", ") AS ?labelA) (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR=", ") AS ?labelB) 
-        ?withData ?fieldName
-          WHERE 
- {
- SERVICE <https://artresearch.net/sparql> 
-          {
-          {
-  		<{{bindings.0.subject1.value}}> crm:P108i_was_produced_by ?production.
-  		?production crm:P140i_was_attributed_by ?attribution .
- 		?attribution crm:P141_assigned ?property.
- 		?property crm:P02_has_range ?value.
-?value rdfs:label ?label_a.
-          BIND(BOUND(?label_a) && strlen(?label_a)>0 as ?withData)
+				SELECT (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR=", ") AS ?labelA) (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR=", ") AS ?labelB)  ?withData ?fieldName WHERE {
+          SERVICE <https://artresearch.net/sparql> {
+            {
+              <{{bindings.0.subject1.value}}> crm:P108i_was_produced_by ?production.
+              ?production crm:P140i_was_attributed_by ?attribution .
+              ?attribution crm:P141_assigned ?property.
+              ?property crm:P02_has_range ?value.
+              ?value rdfs:label ?label_a.
+              BIND(BOUND(?label_a) && strlen(?label_a)>0 as ?withData)
+            } UNION{
+              <{{bindings.0.subject2.value}}> crm:P108i_was_produced_by ?production_b.
+              ?production_b crm:P140i_was_attributed_by ?attribution_b .
+              ?attribution_b crm:P141_assigned ?property_b.
+              ?property_b crm:P02_has_range ?value_b.
+              ?value_b rdfs:label ?label_b  
+              BIND(BOUND(?label_b) && strlen(?label_b)>0 as ?withData)
+            }
+            BIND("Attributions" as ?fieldName)
           }
-          UNION{
-          	<{{bindings.0.subject2.value}}> crm:P108i_was_produced_by ?production_b.
-  		?production_b crm:P140i_was_attributed_by ?attribution_b .
- 		?attribution_b crm:P141_assigned ?property_b.
- 		?property_b crm:P02_has_range ?value_b.
-          ?value_b rdfs:label ?label_b  
-          BIND(BOUND(?label_b) && strlen(?label_b)>0 as ?withData)
-          }
-          BIND("Attributions" as ?fieldName)
-        }}GROUP BY ?withData ?fieldName'
+        }GROUP BY ?withData ?fieldName'
         template="{{> attributionsTemplate}}"
       >
         <template id="attributionsTemplate">[[> rsp:MatchingCanditateFieldsVisualization]]</template>
@@ -245,29 +204,17 @@
       <!--########################## PRODUCTION DATE - EARLIEST ##########################--> 
       <!--################################################################################-->
       <semantic-query
-        query='
-				SELECT (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR=", ") AS ?labelA) (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR=", ") AS ?labelB) 
-        ?withData ?fieldName
-          WHERE 
- {
- SERVICE <https://artresearch.net/sparql> 
-          {
-          {
-      	<{{bindings.0.subject1.value}}> <http://www.cidoc-crm.org/cidoc-crm/P108i_was_produced_by> ?production .
-		?production <http://www.cidoc-crm.org/cidoc-crm/P4_has_time-span> ?timespan .
-    	?timespan <http://www.cidoc-crm.org/cidoc-crm/P82a_begin_of_the_begin> ?value .
-   ?value rdfs:label ?label_a.
-          BIND(BOUND(?label_a) && strlen(?label_a)>0 as ?withData)
-          }
-          UNION{
-      	<{{bindings.0.subject2.value}}> <http://www.cidoc-crm.org/cidoc-crm/P108i_was_produced_by> ?production_b.
-		?production_b <http://www.cidoc-crm.org/cidoc-crm/P4_has_time-span> ?timespan_b.
-    	?timespan_b <http://www.cidoc-crm.org/cidoc-crm/P82a_begin_of_the_begin> ?value_b .
- ?value_b rdfs:label ?label_b  
-          BIND(BOUND(?label_b) && strlen(?label_b)>0 as ?withData)
-          }
-          BIND("Production Date - Earliest" as ?fieldName)
-        }}GROUP BY ?withData ?fieldName'
+        query=' SELECT (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR=", ") AS ?labelA) (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR=", ") AS ?labelB) ?withData ?fieldName WHERE {
+                  {
+                    <{{bindings.0.subject1.value}}> <https://pharos.artresearch.net/resource/fr/Work_creation_date_start> ?label_a.
+                    BIND(BOUND(?label_a) && strlen(?label_a)>0 as ?withData)
+                  }
+                  UNION{
+                    <{{bindings.0.subject2.value}}> <https://pharos.artresearch.net/resource/fr/Work_creation_date_start> ?label_b  
+                    BIND(BOUND(?label_b) && strlen(?label_b)>0 as ?withData)
+                  }
+                  BIND("Production Date - Earliest" as ?fieldName)
+                }GROUP BY ?withData ?fieldName'
         template="{{> productiondate-earliestTemplate}}"
       >
         <template id="productiondate-earliestTemplate">[[> rsp:MatchingCanditateFieldsVisualization]]</template>
@@ -277,29 +224,16 @@
       <!--########################### PRODUCTION DATE - LATEST ###########################-->
       <!--################################################################################-->
       <semantic-query
-        query='
-				SELECT (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR=", ") AS ?labelA) (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR=", ") AS ?labelB) 
-        ?withData ?fieldName
-          WHERE 
- {
- SERVICE <https://artresearch.net/sparql> 
-          {
-          { 
-    	<{{bindings.0.subject1.value}}> <http://www.cidoc-crm.org/cidoc-crm/P108i_was_produced_by> ?production .
-    	?production <http://www.cidoc-crm.org/cidoc-crm/P4_has_time-span> ?timespan .
-    	?timespan <http://www.cidoc-crm.org/cidoc-crm/P82b_end_of_the_end> ?value .
-                          ?value rdfs:label ?label_a.
-          BIND(BOUND(?label_a) && strlen(?label_a)>0 as ?withData)
-          }
-          UNION{
-    	<{{bindings.0.subject2.value}}> <http://www.cidoc-crm.org/cidoc-crm/P108i_was_produced_by> ?production_b .
-    	?production_b <http://www.cidoc-crm.org/cidoc-crm/P4_has_time-span> ?timespan_b .
-    	?timespan_b <http://www.cidoc-crm.org/cidoc-crm/P82b_end_of_the_end> ?value_b .
-          ?value_b rdfs:label ?label_b  
-          BIND(BOUND(?label_b) && strlen(?label_b)>0 as ?withData)
-          }
-          BIND("Production Date - Latest" as ?fieldName)
-        }}GROUP BY ?withData ?fieldName'
+        query=' SELECT (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR=", ") AS ?labelA) (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR=", ") AS ?labelB) ?withData ?fieldName WHERE {
+                  { 
+                    <{{bindings.0.subject1.value}}> <https://pharos.artresearch.net/resource/fr/Work_creation_date_end> ?label_a.
+                    BIND(BOUND(?label_a) && strlen(?label_a)>0 as ?withData)
+                  } UNION{
+                    <{{bindings.0.subject2.value}}> <https://pharos.artresearch.net/resource/fr/Work_creation_date_end> ?label_b  
+                    BIND(BOUND(?label_b) && strlen(?label_b)>0 as ?withData)
+                  }
+                  BIND("Production Date - Latest" as ?fieldName)
+                }GROUP BY ?withData ?fieldName'
         template="{{> productiondate-latestTemplate}}"
       >
         <template id="productiondate-latestTemplate">[[> rsp:MatchingCanditateFieldsVisualization]]</template>
@@ -375,27 +309,18 @@
       <!--############################### ORIGINAL RECORDS ###############################-->
       <!--################################################################################-->
       <semantic-query
-        query='
-				SELECT (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR=", ") AS ?labelA) (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR=", ") AS ?labelB) 
-        ?withData ?fieldName
-          WHERE 
- {
- SERVICE <https://artresearch.net/sparql> 
-          {
-          {
-	?value  owl:sameAs <{{bindings.0.subject1.value}}>.
-            ?value a crm:E21_Person.
-                          ?value rdfs:label ?label_a.
-          BIND(BOUND(?label_a) && strlen(?label_a)>0 as ?withData)
-          }
-          UNION{
-	?value_b  owl:sameAs <{{bindings.0.subject2.value}}>.
-            ?value_b a crm:E21_Person.
-          ?value_b rdfs:label ?label_b  
-          BIND(BOUND(?label_b) && strlen(?label_b)>0 as ?withData)
-          }
-          BIND("Original Records" as ?fieldName)
-        }}GROUP BY ?withData ?fieldName'
+        query=' SELECT (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR=", ") AS ?labelA) (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR=", ") AS ?labelB) ?withData ?fieldName WHERE {
+                  SERVICE <https://artresearch.net/sparql> {
+                    {
+                      <{{bindings.0.subject1.value}}> <https://pharos.artresearch.net/custom/has_original_record> ?label_a.
+                      BIND(BOUND(?label_a) && strlen(str(?label_a))>0 as ?withData)
+                    } UNION{
+                      <{{bindings.0.subject2.value}}> <https://pharos.artresearch.net/custom/has_original_record> ?label_b.  
+                      BIND(BOUND(?label_b) && strlen(str(?label_b))>0 as ?withData)
+                    }
+                    BIND("Original Records" as ?fieldName)
+                  }
+                }GROUP BY ?withData ?fieldName'
         template="{{> originalrecordsTemplate}}"
       >
         <template id="originalrecordsTemplate">[[> rsp:MatchingCanditateFieldsVisualization]]</template>
@@ -545,25 +470,19 @@
       <!--################################## REPOSITORY ##################################-->
       <!--################################################################################-->
       <semantic-query
-        query='
-				SELECT (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR=", ") AS ?labelA) (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR=", ") AS ?labelB) 
-        ?withData ?fieldName
-          WHERE 
- {
- SERVICE <https://artresearch.net/sparql> 
-          {
-          {
-          		<{{bindings.0.subject1.value}}> crm:P50_has_current_keeper ?value.
-                          ?value rdfs:label ?label_a.
-          BIND(BOUND(?label_a) && strlen(?label_a)>0 as ?withData)
-          }
-          UNION{
-            		<{{bindings.0.subject2.value}}> crm:P50_has_current_keeper ?value_b.
-          ?value_b rdfs:label ?label_b  
-          BIND(BOUND(?label_b) && strlen(?label_b)>0 as ?withData)
-          }
-          BIND("Repository" as ?fieldName)
-        }}GROUP BY ?withData ?fieldName'
+        query=' SELECT (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR=", ") AS ?labelA) (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR=", ") AS ?labelB) ?withData ?fieldName WHERE {
+                  {
+                    <{{bindings.0.subject1.value}}> <https://pharos.artresearch.net/resource/fr/Work_kept_by_Institution> ?actor_a.
+                    ?actor_a rdfs:label ?label_a.
+                    BIND(BOUND(?label_a) && strlen(?label_a)>0 as ?withData)
+                  } UNION{
+                    <{{bindings.0.subject2.value}}> <https://pharos.artresearch.net/resource/fr/Work_kept_by_Institution> ?actor_b.
+                    ?actor_b rdfs:label ?label_b  
+                    BIND(BOUND(?label_b) && strlen(?label_b)>0 as ?withData)
+                  }
+                  BIND("Repository" as ?fieldName)
+                }GROUP BY ?withData ?fieldName'
+
         template="{{> repositoryTemplate}}"
       >
         <template id="repositoryTemplate">[[> rsp:MatchingCanditateFieldsVisualization]]</template>

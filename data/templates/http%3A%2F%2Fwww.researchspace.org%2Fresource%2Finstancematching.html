@@ -1,25 +1,15 @@
 <semantic-query query='SELECT DISTINCT  ?similarity ?subject1 ?subject1Link ?subject2 ?subject2Link ?providerA ?providerB ?providerLabelA ?providerLabelB ?imageA ?imageB WHERE {
-
-                          ?subject1 <https://similarity.net/custom/matchedBy> ??.
-                          ?subject2 <https://similarity.net/custom/matchedBy> ??.
-                          ?subject1 skos:closeMatch ?subject2.
-                          
-                          ?subject1 <http://www.cidoc-crm.org/cidoc-crm/P138i_is_represented_by> ?visual_itemA.
-                          ?visual_itemA <http://www.cidoc-crm.org/cidoc-crm/P128i_is_carried_by> ?photoA.
-                          ?photoA <http://www.cidoc-crm.org/cidoc-crm/P129i_is_subject_of>  ?imageA.
-
-                          ?subject2 <http://www.cidoc-crm.org/cidoc-crm/P138i_is_represented_by> ?visual_itemB.
-                          ?visual_itemB <http://www.cidoc-crm.org/cidoc-crm/P128i_is_carried_by> ?photoB.
-                          ?photoB <http://www.cidoc-crm.org/cidoc-crm/P129i_is_subject_of>  ?imageB.
-
+                        ?subject1 <https://similarity.net/custom/matchedBy> ??.
+                        ?subject2 <https://similarity.net/custom/matchedBy> ??.
+                        ?subject1 skos:closeMatch ?subject2.
+                        ?subject1 <https://pharos.artresearch.net/custom/has_image>  ?imageA.
+                        ?subject2 <https://pharos.artresearch.net/custom/has_image>  ?imageB.
   											?imageA <http://purl.org/ontology/similarity/element> ?element.
   											?imageB <http://purl.org/ontology/similarity/element> ?element.
-  										  SERVICE <https://artresearch.net/sparql> {
-  												?subject1 <https://pharos.artresearch.net/custom/has_provider> ?providerA.
-                          ?providerA rdfs:label ?providerLabelA.
-                          ?subject2 <https://pharos.artresearch.net/custom/has_provider> ?providerB.
-                          ?providerB rdfs:label ?providerLabelB.
-                        }
+                        ?subject1 <https://pharos.artresearch.net/custom/has_provider> ?providerA.
+                        ?providerA rdfs:label ?providerLabelA.
+                        ?subject2 <https://pharos.artresearch.net/custom/has_provider> ?providerB.
+                        ?providerB rdfs:label ?providerLabelB.
                         BIND (?? as ?similarity)
                         BIND (STR(?subject1) as ?subject1Link)
                         BIND (STR(?subject2) as ?subject2Link)

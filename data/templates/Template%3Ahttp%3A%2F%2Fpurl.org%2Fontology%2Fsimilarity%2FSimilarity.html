@@ -3,12 +3,10 @@
                             ?imageB <http://purl.org/ontology/similarity/element> ??.
                             ?subject1 <https://pharos.artresearch.net/custom/has_image> ?imageA.
                             ?subject2 <https://pharos.artresearch.net/custom/has_image> ?imageB.
-                            SERVICE <https://artresearch.net/sparql> {
-                                ?subject1 <https://pharos.artresearch.net/custom/has_provider> ?providerA.
-                                ?providerA rdfs:label ?providerLabelA.
-                                ?subject2 <https://pharos.artresearch.net/custom/has_provider> ?providerB.
-                                ?providerB rdfs:label ?providerLabelB.
-                            }
+                            ?subject1 <https://pharos.artresearch.net/custom/has_provider> ?providerA.
+                            ?providerA rdfs:label ?providerLabelA.
+                            ?subject2 <https://pharos.artresearch.net/custom/has_provider> ?providerB.
+                            ?providerB rdfs:label ?providerLabelB.
                             BIND (STR(?subject1) as ?subject1Link)
                             BIND (STR(?subject2) as ?subject2Link)
                             BIND (?? as ?element)
@@ -36,7 +34,8 @@
                                             ?imageB_next <http://purl.org/ontology/similarity/element> ?nextElement.
                                             ?subject1_next <https://pharos.artresearch.net/custom/has_image> ?imageA_next.
                                             ?subject2_next <https://pharos.artresearch.net/custom/has_image> ?imageB_next.
-                                            # check if is verso
+                                            ?imageA_next <http://www.cidoc-crm.org/cidoc-crm/P2_has_type> ?type.
+                                            ?type rdfs:label "recto".
                                             FILTER(STR(?subject1_next)!=STR(?subject2_next))
                                             FILTER(STR(?element)!=STR(?nextElement))
                                             FILTER NOT EXISTS { ?nextElement <https://vision.artresearch.net/custom/reviewed> "true"^^xsd:boolean }
@@ -56,7 +55,7 @@
                                             post-action='{{bindings.0.nextElement.value}}' 
                                             form-id='IMReject' 
                                             fields='[[fieldDefinitions
-                                                reviewed="http://www.researchspace.org/fieldDefinition/Reviewed" 
+                                                        reviewed="http://www.researchspace.org/fieldDefinition/Reviewed" 
                                                     ]]'>
                                 <!-- to be uncommented
                                 <semantic-form-hidden-input for='reviewed' default-value='true'>

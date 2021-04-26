@@ -13,30 +13,28 @@
                     }'
                 number-of-displayed-rows="5"
                 query=' PREFIX skos: <http://www.w3.org/2004/02/skos/core#> 
-                SELECT DISTINCT ?similarity ?subject1 ?subject2 ?providerLabelA ?providerLabelB ?imgUrl_1 ?imgUrl_2 WHERE {
-                  ?subject1 <https://similarity.net/custom/matchedBy> ?similarity.
+                SELECT DISTINCT ?element ?subject1 ?subject2 ?providerLabelA ?providerLabelB ?imgUrl_1 ?imgUrl_2 WHERE {
                   ?subject1 <https://pharos.artresearch.net/custom/has_image> ?imageA.
                   ?imageA <http://purl.org/ontology/similarity/element> ?element.
-                  ?subject2 <https://similarity.net/custom/matchedBy> ?similarity.
                   ?subject2 <https://pharos.artresearch.net/custom/has_image> ?imageB.
                   ?imageB <http://purl.org/ontology/similarity/element> ?element.
-                  SERVICE <https://artresearch.net/sparql> {
-                    ?subject1 <https://pharos.artresearch.net/custom/has_provider> <[[urlParam "providera"]]>.
-                    <[[urlParam "providera"]]> rdfs:label ?providerLabelA.
-                    ?subject2 <https://pharos.artresearch.net/custom/has_provider> <[[urlParam "providerb"]]>.
-                    <[[urlParam "providerb"]]> rdfs:label ?providerLabelB.
-                  }.
-                  ?subject1 skos:closeMatch ?subject2.
-                  BIND(REPLACE(str(?imageA),"full/full","full/200,") AS ?imgUrl_1).
-                  BIND(REPLACE(str(?imageB),"full/full","full/200,") AS ?imgUrl_2).
-                  FILTER NOT EXISTS { ?similarity <https://similarity.net/custom/reviewedByUser> "true"^^xsd:boolean.}
+                    ?imageA <http://www.cidoc-crm.org/cidoc-crm/P2_has_type> ?type.
+                    ?type rdfs:label "recto".
+                  ?subject1 <https://pharos.artresearch.net/custom/has_provider> <[[urlParam "providera"]]>.
+                  <[[urlParam "providera"]]> rdfs:label ?providerLabelA.
+                  ?subject2 <https://pharos.artresearch.net/custom/has_provider> <[[urlParam "providerb"]]>.
+                  <[[urlParam "providerb"]]> rdfs:label ?providerLabelB.
+                  
+                  BIND(REPLACE(str(?imageA),"full/full","full/!200,200") AS ?imgUrl_1).
+                  BIND(REPLACE(str(?imageB),"full/full","full/!200,200") AS ?imgUrl_2).
+
                 } LIMIT 50
                 '
                 tuple-template="{{>tupleTemplate}}"
               >
                 <template id="tupleTemplate">      
                    	<div class="rs-grid-element panel panel-default artwork-card fade-in">
-                    	<semantic-link-container uri="{{similarity.value}}">
+                    	<semantic-link-container uri="{{element.value}}">
                       	<div class="panel-body row">
                           <bs-col class="cardInfo"
                             lg="2"
@@ -56,9 +54,9 @@
                               <mp-field-visualization
                                 subject="{{subject1.value}}"
                                 fields='[[fieldDefinitions  
-                              Title="https://pharos.artresearch.net/fieldDefinition/2"
-                              Creator="https://pharos.artresearch.net/fieldDefinition/1"
-                              ]]'
+                                        Title="https://pharos.artresearch.net/fieldDefinition/2"
+                                        Creator="https://pharos.artresearch.net/fieldDefinition/1"
+                                        ]]'
                                 template="{{>generalInfo}}"
                               >
                                 <template id="generalInfo">
@@ -90,9 +88,9 @@
                               <mp-field-visualization
                                 subject="{{subject2.value}}"
                                 fields='[[fieldDefinitions  
-                              Title="https://pharos.artresearch.net/fieldDefinition/2"
-                              Creator="https://pharos.artresearch.net/fieldDefinition/1"
-                              ]]'
+                                        Title="https://pharos.artresearch.net/fieldDefinition/2"
+                                        Creator="https://pharos.artresearch.net/fieldDefinition/1"
+                                        ]]'
                                 template="{{>generalInfo}}"
                               >
                                 <template id="generalInfo">
@@ -108,7 +106,7 @@
                         </semantic-link-container>
                         <div class="actions">
                           <semantic-form
-                          new-subject-template='{{similarity.value}}'
+                          new-subject-template='{{element.value}}'
                           browser-persistance=true
                           persistence='sparql'
                           post-action='reload'
@@ -130,7 +128,7 @@
                       </semantic-form>
                       
                       <semantic-form
-                          new-subject-template='{{similarity.value}}'
+                          new-subject-template='{{element.value}}'
                           browser-persistance=true    
                           persistence='sparql'
                           post-action='reload'

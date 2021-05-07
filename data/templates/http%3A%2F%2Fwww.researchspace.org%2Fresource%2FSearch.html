@@ -22,7 +22,7 @@
                     ?subject example:hasImageUrl "[[urlParam "image"]]".
                     ?subject example:hasScore ?score.
                     ?subject example:hasResultingIds ?id.
-                  }LIMIT 10'
+                  }ORDER BY DESC(?score)'
                   no-result-template='
                   <div style="
                   font-size: 29px;
@@ -39,8 +39,6 @@
                           SERVICE <https://artresearch.net/sparql> {
                             BIND(iri(CONCAT("https://vision.artresearch.net:4212/index/images/",str({{id}}))) as ?idProperty) 
                             ?subject <https://pharos.artresearch.net/resource/fr/Work_depicted_by_Photo> ?photo.
-                            #?subject crm:P2_has_type <https://pharos.artresearch.net/resource/type/pharos>.
-                            ?subject <http://www.w3.org/2002/07/owl#sameAs> ?pharos.
                             OPTIONAL {
                               ?subject rdfs:label ?title.
                             }
@@ -55,12 +53,6 @@
                           }
                         }'
                     template="{{> imageTemplate }}"
-                    no-result-template='
-                    <div style="
-                    font-size: 29px;
-                    font-style: italic;">
-                    No similar artworks found. Try another image or a higher resolution of your image.</div>
-                    '
                   >
                     <template id="imageTemplate">
                       <a

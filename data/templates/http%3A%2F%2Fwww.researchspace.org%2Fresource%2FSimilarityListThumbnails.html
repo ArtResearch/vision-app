@@ -1,55 +1,14 @@
-<semantic-query
+<semantic-carousel
   query='
-SELECT ?imgURL ?subject WHERE {                    
-  <[[iri]]> <https://pharos.artresearch.net/custom/has_image> ?image.
-  BIND(REPLACE(str(?image),"full/full","full/!200,200") AS ?imgURL).
-  BIND(str("[[iri]]") as ?subject)
-}'
-  template="
-{{> imageTemplate}}"
+        SELECT  ?thumbnail  WHERE {                    
+          <[[iri]]> <https://pharos.artresearch.net/custom/has_image> ?image
+          BIND(REPLACE(str(?image),"full/full","full/!200,200") AS ?thumbnail).
+        }'
+  tuple-template='{{>tuppleBoy}}'
 >
-  <template id="imageTemplate">
-    <div class="rs-page__summary-image summaryImages summary-image-with-thumbs">
-      <mp-event-target-template-render
-        id="event-target-{{bindings.0.subject.value}}"
-        template="{{> mainImageTemplate}}"
-      >
-        <template id="mainImageTemplate">
-            <div class="summary-image-main imageAndSourceContainer">
-              {{#ifCond imgURL "!==" undefined}}
-                  <img
-                    class="imageThumbnailSingle"
-                    alt="Issue with image provider"
-                    src="{{imgURL}}"
-                  />
-              {{/ifCond}} 
-              {{#ifCond imgURL "===" undefined}}
-                  <img
-                    class="imageThumbnailSingle"
-                    alt="Issue with image provider"
-                    src="{{bindings.0.imgURL.value}}"
-                  />
-              {{/ifCond}}
-            </div>
-        </template>
-      </mp-event-target-template-render>
-      <div class="summary-image-thumbs">
-        {{#ifCond (objectLength bindings) ">" 1 }} 
-          {{#each bindings}}
-              <mp-event-trigger
-                id="event-trigger"
-                type="Component.TemplateUpdate"
-                data='{"imgURL":"{{imgURL.value}}"}'
-                targets='["event-target-{{subject.value}}"]'
-              >
-                <img
-                  class="object-representations__image--rep smallThumbsSingle"
-                  src="{{imgURL.value}}"
-                />
-              </mp-event-trigger>
-          {{/each}} 
-        {{/ifCond}}
-      </div>
-    </div>
-  </template>
-</semantic-query>
+<template id="tuppleBoy">
+  <img src="{{thumbnail.value}}" style="width: 100%;
+  object-fit: contain;
+  max-height: 200px;"/>
+</template>
+</semantic-carousel>

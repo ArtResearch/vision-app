@@ -12,11 +12,11 @@
   z-index: 1;
   height: inherit;
 }
-#photo-search-page .selectedImageContainer img{
+#photo-search-page .selectedImageContainer div{
   transition: 0.4s;
   transform-style: preserve-3d;
 }
-#photo-search-page .selectedImageContainer img:hover{
+#photo-search-page .selectedImageContainer div:hover{
 transform: scale3d(1.7, 1.7, 1.7) translateY(70px);
 }
 

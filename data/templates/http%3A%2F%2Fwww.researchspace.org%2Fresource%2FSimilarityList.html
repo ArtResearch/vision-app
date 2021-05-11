@@ -16,22 +16,25 @@
                     }'
           number-of-displayed-rows="5"
           query=' PREFIX skos: <http://www.w3.org/2004/02/skos/core#> 
-                SELECT DISTINCT ?element ?subject1 ?subject2 ?providerLabelA ?providerLabelB ?imgUrl_1 ?imgUrl_2 WHERE {
-                  ?subject1 <https://pharos.artresearch.net/custom/has_image> ?imageA.
-                  ?imageA <http://purl.org/ontology/similarity/element> ?element.
-                  ?subject2 <https://pharos.artresearch.net/custom/has_image> ?imageB.
-                  ?imageB <http://purl.org/ontology/similarity/element> ?element.
-                  ?imageA <http://www.cidoc-crm.org/cidoc-crm/P2_has_type> ?type.
-                  ?type rdfs:label "recto".
-                  ?subject1 <https://pharos.artresearch.net/custom/has_provider> <[[urlParam "providera"]]>.
-                  <[[urlParam "providera"]]> rdfs:label ?providerLabelA.
-                  ?subject2 <https://pharos.artresearch.net/custom/has_provider> <[[urlParam "providerb"]]>.
-                  <[[urlParam "providerb"]]> rdfs:label ?providerLabelB.
-                  
-                  BIND(REPLACE(str(?imageA),"full/full","full/!200,200") AS ?imgUrl_1).
-                  BIND(REPLACE(str(?imageB),"full/full","full/!200,200") AS ?imgUrl_2).
-                  FILTER NOT EXISTS {?element <https://vision.artresearch.net/custom/reviewed> "true"^^xsd:boolean. }
-                } LIMIT 50
+          SELECT DISTINCT 
+          ?subject1 ?subject2
+          (SAMPLE(?simElement) as ?element) 
+          (SAMPLE(?providerLabelA) as ?providerLabelA)
+          (SAMPLE(?providerLabelB) as ?providerLabelB)
+           WHERE {
+            ?subject1 <https://pharos.artresearch.net/custom/has_image> ?imageA.
+            ?imageA <http://purl.org/ontology/similarity/element> ?simElement.
+            ?subject2 <https://pharos.artresearch.net/custom/has_image> ?imageB.
+            ?imageB <http://purl.org/ontology/similarity/element> ?simElement.
+            ?imageA crm:P2_has_type ?type.
+            ?type rdfs:label "recto".
+            ?subject1 <https://pharos.artresearch.net/custom/has_provider> <[[urlParam "providera"]]>.
+            <[[urlParam "providera"]]> rdfs:label ?providerLabelA.
+            ?subject2 <https://pharos.artresearch.net/custom/has_provider> <[[urlParam "providerb"]]>.
+            <[[urlParam "providerb"]]> rdfs:label ?providerLabelB.
+            FILTER NOT EXISTS {?simElement <https://vision.artresearch.net/custom/reviewed> "true"^^xsd:boolean. }
+          }GROUP BY ?subject1 ?subject2
+          LIMIT 50
                 '
           tuple-template="{{>tupleTemplate}}"
         >
@@ -42,11 +45,7 @@
               <semantic-link-container uri="{{element.value}}">
                 <div class="panel-body row">
                   <bs-col class="cardInfo" lg="2" xs="10">
-                    <img
-                      alt="   "
-                      class="thumbnailImage"
-                      src="{{imgUrl_1.value}}"
-                    />
+                    [[> :SimilarityListThumbnails iri="{{subject1.value}}"]]
                   </bs-col>
                   <bs-col class="cardInfo" lg="4" xs="10">
                     <div data-flex-layout="row md-column center-stretch">
@@ -72,11 +71,7 @@
                     </div>
                   </bs-col>
                   <bs-col class="cardInfo" lg="2" xs="10">
-                    <img
-                      alt="   "
-                      class="thumbnailImage"
-                      src="{{imgUrl_2.value}}"
-                    />
+                    [[> :SimilarityListThumbnails iri="{{subject2.value}}"]]
                   </bs-col>
 
                   <bs-col class="cardInfo" lg="4" xs="10">
@@ -109,7 +104,6 @@
                   new-subject-template="{{element.value}}"
                   browser-persistance="true"
                   persistence="sparql"
-                  message="AAA"
                   post-action="reload"
                   form-id="IMApprove1"
                   fields='[[fieldDefinitions
@@ -603,6 +597,19 @@
   }
   .rs-page__field-label-holder {
     min-width: 10vw;
+  }
+
+  .summary-image-main{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 220px;
+    max-height: 220px;
+  }
+
+  .summary-image-thumbs{
+    height: 100px;
+    overflow-y: scroll;
   }
 
   @media (max-width: 800px) {

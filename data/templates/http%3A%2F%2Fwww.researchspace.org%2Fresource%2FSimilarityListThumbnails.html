@@ -1,7 +1,8 @@
 <semantic-carousel
   query='
         SELECT  ?thumbnail  WHERE {                    
-          <[[iri]]> <https://pharos.artresearch.net/custom/has_image> ?image
+          <[[iri]]> <https://pharos.artresearch.net/custom/has_image> ?image.
+          ?image crm:P2_has_type ?type.
           BIND(REPLACE(str(?image),"full/full","full/!200,200") AS ?thumbnail).
         }'
   tuple-template='{{>tuppleBoy}}'
@@ -9,6 +10,7 @@
 <template id="tuppleBoy">
   <img src="{{thumbnail.value}}" style="width: 100%;
   object-fit: contain;
+  min-height: 200px;
   max-height: 200px;"/>
 </template>
 </semantic-carousel>

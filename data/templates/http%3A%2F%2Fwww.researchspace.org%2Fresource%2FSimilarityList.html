@@ -142,7 +142,10 @@
           (SAMPLE(?providerLabelA) as ?providerLabelA)
           (SAMPLE(?providerLabelB) as ?providerLabelB)
            WHERE {
-          }GROUP BY ?subject1 ?subject2
+            ?element <http://purl.org/ontology/similarity/method> ?asso_method.
+            ?asso_method <http://purl.org/ontology/similarity/weight> ?score.
+            ?asso_method <http://purl.org/ontology/similarity/method> <https://vision.artresearch.net/resource/Similarity/AssociationMethod/Pastec>.
+          }GROUP BY ?subject1 ?subject2 ORDER BY DESC (?score) 
           LIMIT 50
                 "
                 tuple-template="{{>tupleTemplate}}"
@@ -751,7 +754,16 @@
       width: 95% !important;
       left: 0% !important;
     }
+
+    
     @media (max-width: 800px) {
+
+      .action{
+        min-width: 120px !important;
+      }
+      #search-results-pane-2 .semantic-table-holder{
+        left: 5% !important;
+      }
       .thumbnailImageContainer {
         justify-content: center;
       }

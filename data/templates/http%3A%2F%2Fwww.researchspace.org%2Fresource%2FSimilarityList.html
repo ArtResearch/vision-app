@@ -85,26 +85,35 @@
       placeholder="Search for an artwork title"
       escape-lucene-syntax="false"
       default-query='PREFIX skos: <http://www.w3.org/2004/02/skos/core#> 
-    SELECT DISTINCT 
-    ?subject1 
-    ?subject2
-    ?element
-    ?providerLabelA
-    ?providerLabelB
-     WHERE {
-      ?subject1 <https://pharos.artresearch.net/custom/has_image> ?imageA.
-      ?imageA <http://purl.org/ontology/similarity/element> ?element.
-      ?subject2 <https://pharos.artresearch.net/custom/has_image> ?imageB.
-      ?imageB <http://purl.org/ontology/similarity/element> ?element.
-      ?imageA crm:P2_has_type ?type.
-      ?type rdfs:label "recto".
-      ?subject1 <https://pharos.artresearch.net/custom/has_provider> <[[urlParam "providera"]]>.
-      <[[urlParam "providera"]]> rdfs:label ?providerLabelA.
-      ?subject2 <https://pharos.artresearch.net/custom/has_provider> <[[urlParam "providerb"]]>.
-      <[[urlParam "providerb"]]> rdfs:label ?providerLabelB.
-      FILTER NOT EXISTS {?element <https://vision.artresearch.net/custom/reviewed> "true"^^xsd:boolean. }
-    }
-    LIMIT 50'
+        SELECT DISTINCT 
+        ?subject1 
+        ?subject2
+        ?score
+        (SAMPLE(?element) as ?element) 
+        (SAMPLE(?providerLabelA) as ?providerLabelA)
+        (SAMPLE(?providerLabelB) as ?providerLabelB)
+        WHERE {
+          ?subject1 <https://pharos.artresearch.net/custom/has_image> ?imageA.
+          ?imageA <http://purl.org/ontology/similarity/element> ?element.
+          ?subject2 <https://pharos.artresearch.net/custom/has_image> ?imageB.
+          ?imageB <http://purl.org/ontology/similarity/element> ?element.
+          {
+            ?imageA crm:P2_has_type ?type.
+            ?type rdfs:label "recto".
+          }UNION{
+            ?imageB crm:P2_has_type ?type.
+            ?type rdfs:label "recto".
+          }
+          ?element <http://purl.org/ontology/similarity/method> ?asso_method.
+          ?asso_method <http://purl.org/ontology/similarity/weight> ?score.
+          ?asso_method <http://purl.org/ontology/similarity/method> <https://vision.artresearch.net/resource/Similarity/AssociationMethod/Pastec>.
+          ?subject1 <https://pharos.artresearch.net/custom/has_provider> <[[urlParam "providera"]]>.
+          <[[urlParam "providera"]]> rdfs:label ?providerLabelA.
+          ?subject2 <https://pharos.artresearch.net/custom/has_provider> <[[urlParam "providerb"]]>.
+          <[[urlParam "providerb"]]> rdfs:label ?providerLabelB.
+          FILTER NOT EXISTS {?element <https://vision.artresearch.net/custom/reviewed> "true"^^xsd:boolean. }
+        }GROUP BY ?subject1 ?subject2 ?score ORDER BY DESC (?score) 
+        LIMIT 50'
       query="SELECT DISTINCT ?subject WHERE {
       ?subject ?p ?o #This will never run
     }LIMIT 1 
@@ -137,15 +146,8 @@
                 number-of-displayed-rows="5"
                 query=" PREFIX skos: <http://www.w3.org/2004/02/skos/core#> 
           SELECT DISTINCT  
-          ?subject1 ?subject2
-          (SAMPLE(?element) as ?element) 
-          (SAMPLE(?providerLabelA) as ?providerLabelA)
-          (SAMPLE(?providerLabelB) as ?providerLabelB)
-           WHERE {
-            ?element <http://purl.org/ontology/similarity/method> ?asso_method.
-            ?asso_method <http://purl.org/ontology/similarity/weight> ?score.
-            ?asso_method <http://purl.org/ontology/similarity/method> <https://vision.artresearch.net/resource/Similarity/AssociationMethod/Pastec>.
-          }GROUP BY ?subject1 ?subject2 ORDER BY DESC (?score) 
+            ?subject1 ?subject2 ?score ?element ?providerLabelA ?providerLabelB
+           WHERE {}ORDER BY DESC (?score) (?subject1)
           LIMIT 50
                 "
                 tuple-template="{{>tupleTemplate}}"
@@ -755,13 +757,11 @@
       left: 0% !important;
     }
 
-    
     @media (max-width: 800px) {
-
-      .action{
+      .action {
         min-width: 120px !important;
       }
-      #search-results-pane-2 .semantic-table-holder{
+      #search-results-pane-2 .semantic-table-holder {
         left: 5% !important;
       }
       .thumbnailImageContainer {

@@ -1,4 +1,5 @@
-<semantic-query query=' SELECT DISTINCT ?element ?subject1 ?subject1Link ?subject2 ?subject2Link ?providerLabelA ?providerLabelB ?imageA ?imageB WHERE {
+<semantic-query
+  query=" SELECT DISTINCT ?element ?subject1 ?subject1Link ?subject2 ?subject2Link ?providerLabelA ?providerLabelB ?imageA ?imageB WHERE {
                             ?imageA <http://purl.org/ontology/similarity/element> ??.
                             ?imageB <http://purl.org/ontology/similarity/element> ??.
                             ?subject1 <https://pharos.artresearch.net/custom/has_image> ?imageA.
@@ -12,11 +13,13 @@
                             BIND (?? as ?element)
                             FILTER (STR(?imageA)!=STR(?imageB))
 
-                        } Limit 1' template='{{>matchingTemplate}}'>
-    <template id="matchingTemplate">
-        <div class="instanceMatchingPage">
-            <!-- Photos & similarity information -->
-            <div class="pharosFieldViewer">
+                        } Limit 1"
+  template="{{>matchingTemplate}}"
+>
+  <template id="matchingTemplate">
+    <div class="instanceMatchingPage">
+      <!-- Photos & similarity information -->
+      <div class="pharosFieldViewer">
                 [[> rsp:MatchingCanditateImagesForVisualSimilarity]]
             </div>
             <div class="matchContainer">
@@ -62,201 +65,227 @@
                                
                                 <button name="submit" 
                                         class="btn btn-warning action reject"
-                                        title="Two instances are not the same">Not similar</button>
-                            </semantic-form>
+                  title="Two instances are not the same"
+                >
+                  Not similar
+                </button>
+              </semantic-form>
 
-                            <semantic-form  new-subject-template='{{bindings.0.element.value}}'
-                                            browser-persistance=true 
-                                            persistence='sparql'
-                                            post-action='{{bindings.0.nextElement.value}}' 
-                                            form-id='IMApprove1' fields='[[fieldDefinitions
+              <semantic-form
+                new-subject-template="{{bindings.0.element.value}}"
+                browser-persistance="true"
+                persistence="sparql"
+                post-action="{{bindings.0.nextElement.value}}"
+                form-id="IMApprove1"
+                fields='[[fieldDefinitions
                                             reviewed="http://www.researchspace.org/fieldDefinition/Reviewed"
                                             sameAs="http://www.researchspace.org/fieldDefinition/Same"
-                                            ]]'>
+                                            ]]'
+              >
+                <semantic-form-hidden-input
+                  for="reviewed"
+                  default-value="true"
+                ></semantic-form-hidden-input>
 
-                                <semantic-form-hidden-input for='reviewed' default-value='true'></semantic-form-hidden-input>
+                <semantic-form-hidden-input
+                  for="sameAs"
+                  default-value="{{bindings.0.subject_1.value}}"
+                ></semantic-form-hidden-input>
 
-                                <semantic-form-hidden-input for='sameAs' default-value='{{bindings.0.subject_1.value}}'></semantic-form-hidden-input>
-
-                                <button id="1234" 
-                                        name="submit" 
-                                        class="btn btn-default action approve"
-                                        title="Two instances are the same">Same</button>
-                            </semantic-form>
-                        </div>
-                    </template>
-                </semantic-query>
+                <button
+                  id="1234"
+                  name="submit"
+                  class="btn btn-default action approve"
+                  title="Two instances are the same"
+                >
+                  Same
+                </button>
+              </semantic-form>
             </div>
-        </div>
-    </template>
+          </template>
+        </semantic-query>
+      </div>
+    </div>
+  </template>
 </semantic-query>
 
 <style>
-    .semantic-form {
-        margin: 2vh;
-    }
+  .semantic-form {
+    margin: 2vh;
+  }
 
-    .sidebar {
-        display: flex;
-        flex-direction: column;
-        position: fixed;
-        width: 20%;
-        align-items: center;
-        height: fit-content;
-        right: 2%;
-        bottom: 5%
-    }
+  .sidebar {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    width: 20%;
+    align-items: center;
+    height: fit-content;
+    right: 2%;
+    bottom: 5%;
+  }
 
-    .instanceMatchingPage {
-        display: flex;
-        width: 100%;
-        align-items: center;
-        flex-direction: column;
-    }
+  .instanceMatchingPage {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    flex-direction: column;
+  }
 
-    .matchContainer {
-        display: flex;
-        width: 100%;
-        flex-direction: column;
-        justify-content: space-evenly
-    }
+  .matchContainer {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    justify-content: space-evenly;
+  }
 
-    .matchCandidate {
-        width: 45vw;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        padding: 1vw;
-    }
+  .matchCandidate {
+    width: 45vw;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 1vw;
+  }
 
-    .imageViewer {
-        width: 100%;
-        height: 45vh;
-    }
+  .imageViewer {
+    width: 100%;
+    height: 45vh;
+  }
 
-    .fieldViewer {
-        margin-top: 2vh;
-        position: relative;
-        width: 70%;
-        left: 5%;
-        height: fit-content;
-        padding: 1vh 2vw 2vw 2vw;
-        border-radius: 4px;
-        box-shadow: 1px 6px 14px 3px lightgrey;
-    }
+  .fieldViewer {
+    margin-top: 2vh;
+    position: relative;
+    width: 70%;
+    left: 5%;
+    height: fit-content;
+    padding: 1vh 2vw 2vw 2vw;
+    border-radius: 4px;
+    box-shadow: 1px 6px 14px 3px lightgrey;
+  }
 
-    .pharosFieldViewer {
-        display: flex;
-        align-items: center;
-        margin-top: 0vh;
-        height: 50vh;
-        justify-content: center;
-        padding: 1vh 2vw 1vw 2vw;
-        border-radius: 4px;
-        background: #c1c1c161;
-        overflow-y: scroll;
-        align-self: center;
-        margin-bottom: 3vh;
-        position: relative;
-        left: -10%;
-        width: 70%;
-    }
+  .pharosFieldViewer {
+    display: flex;
+    align-items: center;
+    margin-top: 0vh;
+    height: 50vh;
+    justify-content: center;
+    padding: 1vh 2vw 1vw 2vw;
+    border-radius: 4px;
+    background: #c1c1c161;
+    overflow-y: scroll;
+    align-self: center;
+    margin-bottom: 3vh;
+    position: relative;
+    left: -10%;
+    width: 70%;
+  }
 
-    .pharosFieldViewer button {
-        margin: 1vh;
-    }
+  .pharosFieldViewer button {
+    margin: 1vh;
+  }
 
-    .pharosFieldViewer .simInfo {
-        display: flex;
-        font-size: medium;
-    }
+  .pharosFieldViewer .simInfo {
+    display: flex;
+    font-size: medium;
+  }
 
-    .pharosFieldViewer .titleSimilarity {
-        width: 31px;
-        white-space: nowrap;
-        font-weight: bold;
-        overflow: hidden;
-        text-overflow: clip;
-    }
+  .pharosFieldViewer .titleSimilarity {
+    width: 31px;
+    white-space: nowrap;
+    font-weight: bold;
+    overflow: hidden;
+    text-overflow: clip;
+  }
 
+  .pharosFieldViewer img {
+    width: 100%;
+    height: 40vh;
+    object-fit: contain;
+    margin-top: 1vh;
+    cursor: pointer;
+  }
 
-    .pharosFieldViewer img {
-        width: 100%;
-        height: 40vh;
-        object-fit: contain;
-        margin-top: 1vh;
-        cursor: pointer;
-    }
+  .pharosFieldViewer .similarityInfo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin: 1vw;
+  }
 
-    .pharosFieldViewer .similarityInfo {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        margin: 1vw;
-    }
+  .rs-page-resource__field-label {
+    font-weight: bold;
+    font-size: medium;
+  }
 
+  .rs-page-resource__field-value {
+    font-size: medium;
+  }
 
+  .actions {
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: column;
+    min-width: 200px;
+    min-height: 200px;
+    height: 85vh;
+    background: #c1c1c161;
+    border-radius: 4px;
+    align-items: center;
+    width: 30vh;
+  }
 
-    .rs-page-resource__field-label {
-        font-weight: bold;
-        font-size: medium;
-    }
+  .actions .action {
+    color: white !important;
+    font-size: medium;
+    border: none !important;
+    min-height: 4vh;
+    width: 8vw;
+    min-width: 150px;
+    box-shadow: 0px 0px 10px 1px #bebebe;
+  }
 
-    .rs-page-resource__field-value {
-        font-size: medium;
-    }
+  button.btn.btn-default.action.optional {
+    background: #00a698;
+  }
 
+  .actions .action:hover {
+    box-shadow: 0px 0px 10px 1px #383838;
+  }
 
-    .actions {
-        display: flex;
-        justify-content: space-evenly;
-        flex-direction: column;
-        min-width: 200px;
-        min-height: 200px;
-        height: 85vh;
-        background: #c1c1c161;
-        border-radius: 4px;
-        align-items: center;
-        width: 30vh;
-    }
+  .approve {
+    background-color: #007bff !important;
+  }
 
-    .actions .action {
-        color: white !important;
-        font-size: medium;
-        border: none !important;
-        min-height: 4vh;
-        width: 8vw;
-        min-width: 150px;
-        box-shadow: 0px 0px 10px 1px #bebebe;
-    }
+  .reject {
+    background-color: #6c757d !important;
+  }
 
-    button.btn.btn-default.action.optional {
-        background: #00a698;
-    }
-
-    .actions .action:hover {
-        box-shadow: 0px 0px 10px 1px #383838;
-    }
-
-    .approve {
-        background-color: #007bff !important;
-    }
-
-    .reject {
-        background-color: #6c757d !important;
-    }
-
-    .sourceIcon {
-        border-top-left-radius: 100% !important;
-        border-top-right-radius: 100% !important;
-        margin-top: 0 !important;
-        border: none !important;
-        height: 18px !important;
-        width: 18px !important;
-        padding: 2px !important;
-        margin-right: 15px !important;
-        border-radius: 100% !important;
-        box-shadow: 1px 1px 3px 1px #e7e7e7 !important;
-    }
+  .imageFlex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    overflow-y: scroll;
+    width: 65px;
+    height: 42vh;
+  }
+  .smallThumbsSingle {
+    height: 4vh !important;
+    width: unset !important;
+    max-width: unset !important;
+    max-height: unset !important;
+  }
+  .sourceIcon {
+    border-top-left-radius: 100% !important;
+    border-top-right-radius: 100% !important;
+    margin-top: 0 !important;
+    border: none !important;
+    height: 18px !important;
+    width: 18px !important;
+    padding: 2px !important;
+    margin-right: 15px !important;
+    border-radius: 100% !important;
+    box-shadow: 1px 1px 3px 1px #e7e7e7 !important;
+  }
 </style>

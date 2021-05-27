@@ -2,7 +2,7 @@
 <div class="similarityInfo">
   <semantic-query
                   query='SELECT DISTINCT ?value WHERE {
-                            <{{bindings.0.element.value}}> <http://purl.org/ontology/similarity/method> ?asso_method.
+                            <[[element]]> <http://purl.org/ontology/similarity/method> ?asso_method.
                             ?asso_method <http://purl.org/ontology/similarity/weight> ?value.
                             ?asso_method <http://purl.org/ontology/similarity/method> <https://vision.artresearch.net/resource/Similarity/AssociationMethod/Pastec>.
                          }'
@@ -16,7 +16,7 @@
 <div class="similarityInfo">
   <semantic-query
                   query='SELECT DISTINCT ?value WHERE {
-                            <{{bindings.0.element.value}}> <http://purl.org/ontology/similarity/method> ?asso_method.
+                            <[[element]]> <http://purl.org/ontology/similarity/method> ?asso_method.
                             ?asso_method <http://purl.org/ontology/similarity/weight> ?value.
                             ?asso_method <http://purl.org/ontology/similarity/method> <https://vision.artresearch.net/resource/Similarity/AssociationMethod/Match>.
                          }'
@@ -30,8 +30,12 @@
 <div class="similarityInfo">
   <semantic-query
                   query=' SELECT DISTINCT ?value WHERE {
-                            <{{bindings.0.subject1.value}}> <https://similarity.net/custom/matchedBy> ?similarity.
-                            <{{bindings.0.subject2.value}}> <https://similarity.net/custom/matchedBy> ?similarity.
+                            ?subject1  <https://pharos.artresearch.net/custom/has_image> ?imageA.
+                            ?subject2  <https://pharos.artresearch.net/custom/has_image> ?imageB.
+                            ?imageA <http://purl.org/ontology/similarity/element> <[[element]]>.
+                            ?imageB <http://purl.org/ontology/similarity/element> <[[element]]>.
+                            ?subject1 <https://similarity.net/custom/matchedBy> ?similarity.
+                            ?subject2 <https://similarity.net/custom/matchedBy> ?similarity.
                             ?similarity <https://similarity.net/custom/hasConfidence> ?value.
                           }'
                   template='{{> titleSimInfo}}'

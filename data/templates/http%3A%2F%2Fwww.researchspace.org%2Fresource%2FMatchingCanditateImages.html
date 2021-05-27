@@ -1,12 +1,13 @@
 <!-- Create two thumbnails and respective modals with iiif viewer -->
 <!-- First candidate -->
-<semantic-query query='SELECT ?iiifServerUrlA ?iiifServerUrlB ?imageUrlA ?imageUrlB ?imageLabel ?thumbnailUrl WHERE{
+<semantic-query query='SELECT ?element ?iiifServerUrlA ?iiifServerUrlB ?imageUrlA ?imageUrlB ?imageLabel ?thumbnailUrl WHERE{
   BIND(STR("{{bindings.0.providerLabelA.value}}") as ?imageLabel).
-  BIND(STR("{{bindings.0.imageA.value}}") as ?imageUrlA).
-  BIND(REPLACE(STR(REPLACE(STR("{{bindings.0.imageA.value}}"),"/full/full/0/[a-zA-Z]*.jpg","")), "(^.*)\\/(.*)$", "$1") AS ?iiifServerUrlA).
-  BIND(REPLACE(STR("{{bindings.0.imageA.value}}"),"full/full","full/500,") AS ?thumbnailUrl).
-  BIND(STR("{{bindings.0.imageB.value}}") as ?imageUrlB).
-  BIND(REPLACE(STR(REPLACE(STR("{{bindings.0.imageB.value}}"),"/full/full/0/[a-zA-Z]*.jpg","")), "(^.*)\\/(.*)$", "$1") AS ?iiifServerUrlB).
+  BIND(STR("[[imageA]]") as ?imageUrlA).
+  BIND(REPLACE(STR(REPLACE(STR("[[imageA]]"),"/full/full/0/[a-zA-Z]*.jpg","")), "(^.*)\\/(.*)$", "$1") AS ?iiifServerUrlA).
+  BIND(REPLACE(STR("[[imageA]]"),"full/full","full/500,") AS ?thumbnailUrl).
+  BIND(STR("[[imageB]]") as ?imageUrlB).
+  BIND(<[[element]]> as ?element).
+  BIND(REPLACE(STR(REPLACE(STR("[[imageB]]"),"/full/full/0/[a-zA-Z]*.jpg","")), "(^.*)\\/(.*)$", "$1") AS ?iiifServerUrlB).
 }'
 template="{{> firstCanditateImage}}">
   <template id="firstCanditateImage">
@@ -42,20 +43,20 @@ template="{{> firstCanditateImage}}">
     </div>
   </mp-overlay-dialog-content>
 </mp-overlay-dialog>
-  </template>
-</semantic-query>
 <!-- Similarity fields between two images -->
 <div class="similarityFields"> 
-      [[> rsp:SimilarityBasicInfo]]
+  [[> rsp:SimilarityBasicInfoForVisualSimilarity element="{{bindings.0.element.value}}"]]
 </div>
+  </template>
+</semantic-query>
 <!-- Second candidate -->
 <semantic-query query='SELECT ?iiifServerUrlA ?iiifServerUrlB ?imageUrlA ?imageUrlB ?imageLabel ?thumbnailUrl WHERE{
   BIND(STR("{{bindings.0.providerLabelB.value}}") as ?imageLabel).
-  BIND(STR("{{bindings.0.imageA.value}}") as ?imageUrlA).
-  BIND(REPLACE(STR("{{bindings.0.imageB.value}}"),"full/full","full/500,") AS ?thumbnailUrl).
-  BIND(REPLACE(STR(REPLACE(STR("{{bindings.0.imageA.value}}"),"/full/full/0/[a-zA-Z]*.jpg","")), "(^.*)\\/(.*)$", "$1") AS ?iiifServerUrlA).
-  BIND(STR("{{bindings.0.imageB.value}}") as ?imageUrlB).
-  BIND(REPLACE(STR(REPLACE(STR("{{bindings.0.imageB.value}}"),"/full/full/0/[a-zA-Z]*.jpg","")), "(^.*)\\/(.*)$", "$1") AS ?iiifServerUrlB).
+  BIND(STR("[[imageA]]") as ?imageUrlA).
+  BIND(REPLACE(STR("[[imageB]]"),"full/full","full/500,") AS ?thumbnailUrl).
+  BIND(REPLACE(STR(REPLACE(STR("[[imageA]]"),"/full/full/0/[a-zA-Z]*.jpg","")), "(^.*)\\/(.*)$", "$1") AS ?iiifServerUrlA).
+  BIND(STR("[[imageB]]") as ?imageUrlB).
+  BIND(REPLACE(STR(REPLACE(STR("[[imageB]]"),"/full/full/0/[a-zA-Z]*.jpg","")), "(^.*)\\/(.*)$", "$1") AS ?iiifServerUrlB).
 }'
 template="{{> secondCanditateImage}}">
   <template id="secondCanditateImage">

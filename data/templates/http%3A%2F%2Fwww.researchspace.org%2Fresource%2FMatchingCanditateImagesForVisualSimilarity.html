@@ -4,7 +4,7 @@
   BIND(STR("{{bindings.0.providerLabelA.value}}") as ?imageLabel).
   BIND(STR("{{bindings.0.imageA.value}}") as ?imageUrlA).
   BIND(REPLACE(STR(REPLACE(STR("{{bindings.0.imageA.value}}"),"/full/full/0/[a-zA-Z]*.jpg","")), "(^.*)\\/(.*)$", "$1") AS ?iiifServerUrlA).
-  BIND(REPLACE(STR("{{bindings.0.imageA.value}}"),"full/full","full/500,") AS ?thumbnailUrl).
+  BIND(REPLACE(STR("{{bindings.0.imageA.value}}"),"full/full","full/!500,500") AS ?thumbnailUrl).
   BIND(STR("{{bindings.0.imageB.value}}") as ?imageUrlB).
   BIND(REPLACE(STR(REPLACE(STR("{{bindings.0.imageB.value}}"),"/full/full/0/[a-zA-Z]*.jpg","")), "(^.*)\\/(.*)$", "$1") AS ?iiifServerUrlB).
 }'
@@ -52,7 +52,7 @@ template="{{> firstCanditateImage}}">
 <semantic-query query='SELECT ?iiifServerUrlA ?iiifServerUrlB ?imageUrlA ?imageUrlB ?imageLabel ?thumbnailUrl WHERE{
   BIND(STR("{{bindings.0.providerLabelB.value}}") as ?imageLabel).
   BIND(STR("{{bindings.0.imageA.value}}") as ?imageUrlA).
-  BIND(REPLACE(STR("{{bindings.0.imageB.value}}"),"full/full","full/500,") AS ?thumbnailUrl).
+  BIND(REPLACE(STR("{{bindings.0.imageB.value}}"),"full/full","full/!500,500") AS ?thumbnailUrl).
   BIND(REPLACE(STR(REPLACE(STR("{{bindings.0.imageA.value}}"),"/full/full/0/[a-zA-Z]*.jpg","")), "(^.*)\\/(.*)$", "$1") AS ?iiifServerUrlA).
   BIND(STR("{{bindings.0.imageB.value}}") as ?imageUrlB).
   BIND(REPLACE(STR(REPLACE(STR("{{bindings.0.imageB.value}}"),"/full/full/0/[a-zA-Z]*.jpg","")), "(^.*)\\/(.*)$", "$1") AS ?iiifServerUrlB).

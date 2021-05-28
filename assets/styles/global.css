@@ -4,8 +4,11 @@
 @import "./start.css";
 @import "./photoTiles.css";
 @import "./photoSearch.css";
+@import "./matchings.css";
+@import "./matchingCanditateImages.css";
 @import "./matchingSelector.css";
-
+@import "./similarity.css";
+@import "./similarityList.css";
 body {
   font-size: 14px;
   line-height: 1.2;

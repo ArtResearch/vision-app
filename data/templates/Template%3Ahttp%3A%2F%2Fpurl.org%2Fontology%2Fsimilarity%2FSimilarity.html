@@ -37,9 +37,9 @@
       <semantic-query
       query='SELECT DISTINCT ?element ?imageA ?imageB ?thumbA ?thumbB WHERE{
                 <{{bindings.0.subject1.value}}>  <https://pharos.artresearch.net/custom/has_image> ?imageA.
-                BIND(REPLACE(STR(?imageA),"full/full","full/150,") AS ?thumbA).
+                BIND(REPLACE(STR(?imageA),"full/full","full/!150,150") AS ?thumbA).
                 <{{bindings.0.subject2.value}}>  <https://pharos.artresearch.net/custom/has_image> ?imageB.
-                BIND(REPLACE(STR(?imageB),"full/full","full/150,") AS ?thumbB).
+                BIND(REPLACE(STR(?imageB),"full/full","full/!150,150") AS ?thumbB).
                 ?imageA <http://purl.org/ontology/similarity/element> ?element.
                 ?imageB <http://purl.org/ontology/similarity/element> ?element.
             }'

@@ -1,0 +1,197 @@
+#similarity-template .semantic-form {
+  margin: 2vh;
+}
+
+#similarity-template .sidebar {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  width: 20%;
+  align-items: center;
+  height: fit-content;
+  right: 2%;
+  bottom: 5%;
+}
+
+#similarity-template .instanceMatchingPage {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  flex-direction: column;
+}
+
+#similarity-template .matchContainer {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+#similarity-template .matchCandidate {
+  width: 45vw;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 1vw;
+}
+
+#similarity-template .imageViewer {
+  width: 100%;
+  height: 45vh;
+}
+
+#similarity-template .fieldViewer {
+  margin-top: 2vh;
+  position: relative;
+  width: 70%;
+  left: 5%;
+  height: fit-content;
+  padding: 1vh 2vw 2vw 2vw;
+  border-radius: 4px;
+  box-shadow: 1px 6px 14px 3px lightgrey;
+}
+
+#similarity-template .pharosFieldViewer {
+  display: flex;
+  align-items: center;
+  margin-top: 0vh;
+  height: 50vh;
+  justify-content: center;
+  padding: 1vh 2vw 1vw 2vw;
+  border-radius: 4px;
+  background: #c1c1c161;
+  overflow-y: scroll;
+  align-self: center;
+  margin-bottom: 3vh;
+  position: relative;
+  left: -10%;
+  width: 70%;
+}
+
+#similarity-template .pharosFieldViewer button {
+  margin: 1vh;
+}
+
+#similarity-template .pharosFieldViewer .simInfo {
+  display: flex;
+  font-size: medium;
+}
+
+#similarity-template .pharosFieldViewer .titleSimilarity {
+  width: 31px;
+  white-space: nowrap;
+  font-weight: bold;
+  overflow: hidden;
+  text-overflow: clip;
+}
+
+#similarity-template .pharosFieldViewer img {
+  width: 100%;
+  height: 40vh;
+  object-fit: contain;
+  margin-top: 1vh;
+  cursor: pointer;
+}
+
+#similarity-template .pharosFieldViewer .similarityInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin: 1vw;
+}
+
+#similarity-template .rs-page-resource__field-label {
+  font-weight: bold;
+  font-size: medium;
+}
+
+#similarity-template .rs-page-resource__field-value {
+  font-size: medium;
+}
+
+#similarity-template .actions {
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: column;
+  min-width: 200px;
+  min-height: 200px;
+  height: 85vh;
+  background: #c1c1c161;
+  border-radius: 4px;
+  align-items: center;
+  width: 30vh;
+}
+
+#similarity-template .actions .action {
+  color: white !important;
+  font-size: medium;
+  border: none !important;
+  min-height: 4vh;
+  width: 8vw;
+  min-width: 150px;
+  box-shadow: 0px 0px 10px 1px #bebebe;
+}
+
+button.btn.btn-default.action.optional {
+  background: #00a698;
+}
+
+#similarity-template .actions .action:hover {
+  box-shadow: 0px 0px 10px 1px #383838;
+}
+
+#similarity-template .approve {
+  background-color: #007bff !important;
+}
+
+#similarity-template .reject {
+  background-color: #6c757d !important;
+}
+
+#similarity-template .imageFlex {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+  overflow-y: scroll;
+  height: 12vh;
+  position: relative;
+  left: -10%;
+  width: 70%;
+}
+#similarity-template .thumbPairContainer {
+  cursor: pointer;
+  margin-right: 1vw;
+  padding: 15px;
+  box-shadow: 1px 1px 9px 0px lightgrey;
+  transition: 0.3s;
+  border-radius: 4px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+}
+#similarity-template .thumbPairContainer:hover {
+  box-shadow: 1px 1px 9px 0px darkgray;
+}
+#similarity-template .smallThumbsSingle {
+  height: 8vh !important;
+  width: unset !important;
+  max-width: 65px;
+  max-height: unset !important;
+  margin-right: 5px;
+  object-fit: contain;
+  background: #e7e7e7;
+}
+#similarity-template .sourceIcon {
+  border-top-left-radius: 100% !important;
+  border-top-right-radius: 100% !important;
+  margin-top: 0 !important;
+  border: none !important;
+  height: 18px !important;
+  width: 18px !important;
+  padding: 2px !important;
+  margin-right: 15px !important;
+  border-radius: 100% !important;
+  box-shadow: 1px 1px 3px 1px #e7e7e7 !important;
+}

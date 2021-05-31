@@ -1,0 +1,518 @@
+#similarity-list-template
+  .notification.notification-error.notification-visible::before {
+  content: "Action not permitted";
+  height: 54px;
+}
+#similarity-list-template .notification-message {
+  visibility: hidden;
+}
+#similarity-list-template .actions {
+  display: flex;
+  justify-content: center;
+  min-height: 65px;
+  height: fit-content;
+  background: #c1c1c161;
+  border-radius: 4px;
+  align-items: center;
+  width: 100%;
+}
+
+#similarity-list-template .actions .action {
+  color: white !important;
+  font-size: medium;
+  border: none !important;
+  min-height: 4vh;
+  width: 8vw;
+  margin-right: 2vw;
+  min-width: 150px;
+  box-shadow: 0px 0px 10px 1px #bebebe;
+}
+
+#similarity-list-template .approve {
+  background-color: #007bff !important;
+}
+#similarity-list-template .reject {
+  background-color: #6c757d !important;
+  font-weight: normal !important;
+}
+
+#similarity-list-template .header-search {
+  background-color: #f3f3f1;
+  border-color: transparent;
+  position: absolute;
+  -webkit-box-shadow: 0px 4px 4px 0px rgba(170, 69, 69, 0.25);
+  -moz-box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+#similarity-list-template #header-search.search-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  background: white;
+  color: gray !important;
+  height: 12vh;
+  width: 100%;
+  position: sticky;
+  position: -webkit-sticky;
+  top: 5vh;
+}
+
+#similarity-list-template #header-search.home-page {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  z-index: 100;
+  color: gray !important;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-top: 2vh;
+  margin-bottom: 2vh;
+  flex-direction: column;
+}
+
+#similarity-list-template #header-search .semantic-form-input-decorator__header {
+  display: none;
+}
+
+#similarity-list-template #header-search .cardinality-support__remove-value {
+  display: none;
+}
+
+#similarity-list-template #header-search .cardinality-support__add-value {
+  display: none;
+}
+
+#similarity-list-template #header-search .form-switch {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#similarity-list-template #header-search .cardinality-support__group-instance {
+  padding: 0 !important;
+  box-shadow: none !important;
+}
+
+#similarity-list-template #header-search .form-switch__content {
+  margin: 0 !important;
+}
+
+#similarity-list-template #header-search .semantic-form-input-decorator {
+  margin: 0 !important;
+}
+
+#similarity-list-template #header-search .form-switch__select {
+  height: 5vh !important;
+  z-index: 100;
+  border: none !important;
+  border-radius: 4px 0px 0px 4px;
+  border-color: none;
+  outline: none;
+  box-shadow: 0px 0px 9px -10px #ababab;
+  text-transform: none !important;
+  cursor: pointer;
+}
+
+/* #header-search .researchspace-table-widget-holder{
+box-shadow: 2px 2px 10px 0px lightgrey;
+border-radius: 0px 0px 10px 10px;
+} */
+
+#similarity-list-template #header-search.search-page input {
+  color: black !important;
+  border-radius: 0px 4px 4px 0px;
+  width: 54vw;
+  height: 5vh;
+  align-self: center;
+  background: white;
+  box-shadow: 0px 0px 12px -5px #ababab;
+}
+
+#similarity-list-template #header-search.home-page input {
+  color: black !important;
+  border-radius: 0px 20px 20px 0px;
+  width: 41vw;
+  height: 5vh;
+  align-self: center;
+  background: white;
+  box-shadow: 0px 0px 12px -5px #ababab;
+}
+
+#similarity-list-template #header-search input:focus {
+  border: none !important;
+}
+
+#similarity-list-template #header-search .form-group {
+  margin: 0 !important;
+}
+
+#similarity-list-template #header-search-results {
+  display: none;
+  min-width: 100vw;
+  min-height: 100vh;
+}
+
+#similarity-list-template #search:focus-within #header-search-results {
+  display: block !important;
+}
+
+/* #search #header-search-results:hover {
+  display: block !important;
+} */
+#similarity-list-template #search:focus-within #header-search-results {
+  display: block !important;
+}
+
+#similarity-list-template #searchContent:focus-within + #homepageContent {
+  display: none !important;
+}
+
+/* #search #header-search-results:hover {
+  display: block !important;
+} */
+
+#similarity-list-template #header-search input::placeholder {
+  color: gray !important;
+}
+
+#similarity-list-template #header-search-select select {
+  height: 5vh !important;
+  z-index: 100;
+  border: none !important;
+  border-radius: 4px 0 0 4px;
+  border-color: none;
+  outline: none;
+  box-shadow: 0px 0px 2px 0px black;
+}
+
+#similarity-list-template #header-search-select .composite-input div {
+  display: flex;
+  flex-direction: row;
+}
+
+#similarity-list-template .artwork-card {
+  width: 100% !important;
+  min-height: 29vh;
+  height: fit-content;
+  padding: 2vh 0 2vh 0;
+}
+#similarity-list-template #search-results .rs-grid-element.panel {
+  background: white !important;
+}
+/* #search-results .rs-grid-element:hover {
+  box-shadow: 1px 2px 8px 0 #761f0e35, 1px 3px 12px 2px rgba(0, 0, 0, 0.07);
+} */
+#similarity-list-template .panel-body {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  user-select: unset !important;
+}
+#similarity-list-template .show-facet-button {
+  display: none;
+}
+#similarity-list-template .nav-tabs {
+  display: none;
+}
+#similarity-list-template .facet,
+#similarity-list-template .semantic-facet-holder {
+  width: 100% !important;
+  position: relative !important;
+  border: none !important;
+  padding: 0 !important;
+  display: flex;
+  justify-content: center;
+}
+
+#similarity-list-template .facet__category-selector-holder li {
+  border: none !important;
+  margin: 5px !important;
+}
+
+#similarity-list-template .facet__relation__content__category-image {
+  width: 20px;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+
+#similarity-list-template
+  .facet__category-selector-holder
+  .category-selector
+  .category-item-holder {
+  min-width: 30px;
+}
+
+#similarity-list-template .FacetSlider--range input.form-control {
+  width: 60px !important;
+  min-width: 0 !important;
+  padding: 4px !important;
+}
+#similarity-list-template .facet__category-selector-holder {
+  display: none !important;
+}
+
+#similarity-list-template .facet__relation__header {
+  border: 1px solid rgb(221, 221, 221);
+  margin-top: 5px;
+}
+
+#similarity-list-template .facet__relation__header:hover,
+#similarity-list-template .facet__relation__header:focus {
+  text-decoration: none;
+  color: #000000;
+  background-color: rgba(162, 51, 56, 0.06);
+}
+
+header h1 {
+  font-family: Georgia, Serif;
+}
+
+#similarity-list-template .rc-slider.FacetSlider--slider {
+  width: 80%;
+  margin-left: 10%;
+}
+
+#similarity-list-template .facet__relation__values__filter {
+  margin: 0;
+}
+
+#similarity-list-template .contentExcerpt {
+  display: inline-block;
+  overflow: hidden;
+  text-overflow: fade;
+  height: 65px;
+  margin-top: 10px;
+}
+
+#similarity-list-template .contentExcerpt:before {
+  content: "";
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  background: linear-gradient(transparent 50px, white);
+}
+
+#similarity-list-template .clearable-input {
+  filter: hue-rotate(117deg);
+  border-radius: 5px;
+}
+
+#similarity-list-template .facet__relation__header {
+  border: none !important;
+  border-radius: 4px !important;
+  box-shadow: 1px 1px 4px 0px lightgrey;
+  font-weight: bold;
+  height: 5vh;
+}
+
+#similarity-list-template .clearable-input__clear {
+  border: none !important;
+  border-radius: 5px !important;
+  height: 3vh;
+  display: flex;
+  justify-content: center;
+  box-shadow: 1px 1px 0px 0px lightgrey;
+  background: rgb(247 247 247);
+}
+#similarity-list-template .clearable-input__clear .fa {
+  color: unset !important;
+}
+
+header {
+  margin-top: 4vh;
+}
+
+h1 {
+  font-size: xx-large !important;
+}
+
+#similarity-list-template .filters-container {
+  margin-top: 8px;
+  position: sticky;
+  padding: 1vh;
+  top: 17vh;
+  z-index: 1;
+  background: white;
+}
+
+#similarity-list-template .filter-title {
+  width: 100%;
+  margin-bottom: 1vh;
+  text-align: center;
+  font-size: medium;
+  text-transform: uppercase;
+}
+#similarity-list-template .cardInfo {
+  align-self: center;
+  height: 100%;
+  background: #ffffffe8;
+  border-radius: 0px 0px 4px 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#similarity-list-template .cardInfoFields {
+  padding: 1vh;
+}
+
+#similarity-list-template .thumbnailImageContainer {
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+  align-items: center;
+  border-radius: 5px 0px 0px 5px;
+  padding: 0;
+  position: absolute;
+
+  left: 0;
+  top: 0;
+  min-height: 26vh;
+}
+#similarity-list-template .thumbnailImage {
+  width: fit-content;
+  max-height: 400px !important;
+  min-height: 26vh;
+  object-fit: contain;
+}
+
+#similarity-list-template .drawingInfo {
+  margin-bottom: 2vh;
+}
+
+#similarity-list-template .grid-info {
+  font-size: 16px !important;
+}
+
+#similarity-list-template .fade-in {
+  -webkit-animation: fade-in-fwd 0.8s cubic-bezier(0.39, 0.575, 0.565, 1) both;
+  animation: fade-in-fwd 0.8s cubic-bezier(0.39, 0.575, 0.565, 1) both;
+}
+
+#similarity-list-template .grid-demo b {
+  font-weight: normal;
+  color: #777777;
+}
+/* .facet__relation__values__value:hover {
+  background-color: #f5f5f5;
+} */
+#similarity-list-template .facet__relation__values__filter {
+  filter: none !important;
+  border: none;
+}
+
+#similarity-list-template #search-results .rs-grid-element.panel-default {
+  border-color: #e9e9e9;
+  overflow: hidden;
+  padding: 0;
+}
+#similarity-list-template #search-results .rs-grid-element .panel-body {
+  cursor: pointer;
+  font-size: large;
+  justify-content: center;
+  align-items: center;
+  padding: 2vh !important;
+  min-height: 30vh !important;
+  height: fit-content;
+  display: flex !important;
+}
+#similarity-list-template .rs-application .table > tbody > tr > td {
+  border-color: white !important;
+  padding: 4px 8px;
+}
+#similarity-list-template .rs-page__field {
+  display: flex;
+  justify-content: flex-start;
+}
+#similarity-list-template .rs-page__field-label {
+  font-weight: normal;
+  color: #777777;
+}
+#similarity-list-template .rs-page__field-label-holder {
+  min-width: 10vw;
+}
+
+#similarity-list-template .semantic-carousel {
+  width: 100%;
+  height: 260px;
+  overflow: hidden;
+}
+#similarity-list-template .slick-slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #f5f5f5;
+}
+#similarity-list-template .slick-dots {
+  position: unset;
+}
+#similarity-list-template .slick-next {
+  right: -70px !important;
+  top: 190px !important;
+}
+#similarity-list-template .slick-prev {
+  left: -70px !important;
+  top: 190px !important;
+}
+#similarity-list-template
+  .rs-application
+  .semantic-carousel
+  > .slick-slider
+  .slick-next:before,
+#similarity-list-template
+  .rs-application
+  .semantic-carousel
+  > .slick-slider
+  > .slick-prev:before {
+  color: #000000ba !important;
+}
+button.slick-arrow.slick-prev {
+  transition: 0.3s;
+}
+button.slick-arrow.slick-next {
+  transition: 0.3s;
+}
+#similarity-list-template
+  .slick-initialized.slick-slider:hover
+  > button.slick-arrow.slick-prev {
+  left: 0px !important;
+}
+#similarity-list-template
+  .slick-initialized.slick-slider:hover
+  > button.slick-arrow.slick-next {
+  right: 0px !important;
+}
+#similarity-list-template .search-bar {
+  display: none;
+}
+#similarity-list-template .semantic-table-holder {
+  width: 95% !important;
+  left: 0% !important;
+}
+
+@media (max-width: 800px) {
+  #similarity-list-template .action {
+    min-width: 120px !important;
+  }
+  #similarity-list-template #search-results-pane-2 .semantic-table-holder {
+    left: 5% !important;
+  }
+  #similarity-list-template .thumbnailImageContainer {
+    justify-content: center;
+  }
+  #similarity-list-template .cardInfo {
+    left: 0vw;
+    top: 0vh;
+  }
+  #similarity-list-template .rs-page__field {
+    flex-direction: column;
+  }
+  #similarity-list-template .table-responsive > .table {
+    overflow: hidden;
+  }
+}

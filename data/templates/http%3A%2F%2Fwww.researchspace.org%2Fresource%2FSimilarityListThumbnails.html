@@ -2,7 +2,8 @@
   query='
         SELECT  ?thumbnail  WHERE {                    
           <[[iri]]> <https://pharos.artresearch.net/custom/has_image> ?image.
-          ?image crm:P2_has_type ?type.
+            ?image crm:P2_has_type ?type.
+            ?type rdfs:label ?typeLabel.
           BIND(REPLACE(str(?image),"full/full","full/!200,200") AS ?thumbnail).
         }'
   tuple-template='{{>tuppleBoy}}'

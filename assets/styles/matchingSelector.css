@@ -48,13 +48,15 @@
   background: white !important;
 }
 .providerSelectHelper{
+    font-size: 20px !important;
   -webkit-animation: fade-in 1.5s cubic-bezier(0.39, 0.575, 0.565, 1) both;
   animation: fade-in 1.5s cubic-bezier(0.39, 0.575, 0.565, 1) both;
 }
 .linkTitle{
   transition: 0.4s;
+  font-size: 20px !important;
   color: #00356e !important;
 }
 .linkTitle:hover{
-  font-size: 22px;
+  font-size: 22px !important;
 }

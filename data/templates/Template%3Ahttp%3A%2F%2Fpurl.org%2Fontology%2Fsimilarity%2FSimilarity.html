@@ -153,18 +153,13 @@
                   post-action="{{bindings.0.nextElement.value}}"
                   form-id="IMApprove1"
                   fields='[[fieldDefinitions
-                                              reviewed="http://www.researchspace.org/fieldDefinition/Reviewed"
                                               sameAs="http://www.researchspace.org/fieldDefinition/Same"
                                               ]]'
                 >
-                  <semantic-form-hidden-input
-                    for="reviewed"
-                    default-value="true"
-                  ></semantic-form-hidden-input>
 
                   <semantic-form-hidden-input
                     for="sameAs"
-                    default-value="{{bindings.0.subject_1.value}}"
+                    default-value="true"
                   ></semantic-form-hidden-input>
 
                   <button

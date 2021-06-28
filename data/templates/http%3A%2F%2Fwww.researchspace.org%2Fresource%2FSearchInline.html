@@ -75,16 +75,6 @@
                               <h2 class="basicInfo opacityToLight">
                                 {{bindings.0.artist_label.value}}
                               </h2>
-                              <h1 class="pastecInfo opacityToLight">
-                                Pastec score:
-                                <semantic-query
-                                  query="
-                                select ?scoreText where {
-                                    BIND(str({{score}}) as ?scoreText) 
-                                }
-                                "
-                                ></semantic-query>
-                              </h1>
                             </div>
                           </div>
                         </div>

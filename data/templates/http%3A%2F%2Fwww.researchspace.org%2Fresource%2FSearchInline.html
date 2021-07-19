@@ -13,7 +13,7 @@
         
         <semantic-context repository="pastec">
         <div>
-          <div class="search-similar-title">Similar artworks</div> 
+          <div class="search-similar-title">Visually similar artworks</div> 
           <div class="griddle-custom-row">
             <semantic-query
               query='
@@ -27,7 +27,7 @@
                   <div style="
                   font-size: 29px;
                   font-style: italic;">
-                  No similar artworks found. Try another image or a higher resolution of your image.</div>
+                  No visually similar artworks found. Try another image or a higher resolution of your image.</div>
                   '
               template="{{>pastecTemplate}}"
             >
@@ -75,16 +75,6 @@
                               <h2 class="basicInfo opacityToLight">
                                 {{bindings.0.artist_label.value}}
                               </h2>
-                              <h1 class="pastecInfo opacityToLight">
-                                Pastec score:
-                                <semantic-query
-                                  query="
-                                select ?scoreText where {
-                                    BIND(str({{score}}) as ?scoreText) 
-                                }
-                                "
-                                ></semantic-query>
-                              </h1>
                             </div>
                           </div>
                         </div>

@@ -86,6 +86,28 @@
       </semantic-query>
 
       <!--################################################################################-->
+      <!--################################## REPOSITORY ##################################-->
+      <!--################################################################################-->
+      <semantic-query
+        query=' SELECT (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR=", ") AS ?labelA) (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR=", ") AS ?labelB) ?withData ?fieldName WHERE {
+                  {
+                    <{{bindings.0.subject1.value}}> <https://pharos.artresearch.net/resource/fr/Work_kept_by_Institution> ?actor_a.
+                    ?actor_a rdfs:label ?label_a.
+                    BIND(BOUND(?label_a) && strlen(?label_a)>0 as ?withData)
+                  } UNION{
+                    <{{bindings.0.subject2.value}}> <https://pharos.artresearch.net/resource/fr/Work_kept_by_Institution> ?actor_b.
+                    ?actor_b rdfs:label ?label_b  
+                    BIND(BOUND(?label_b) && strlen(?label_b)>0 as ?withData)
+                  }
+                  BIND("Repository" as ?fieldName)
+                }GROUP BY ?withData ?fieldName'
+
+        template="{{> repositoryTemplate}}"
+      >
+        <template id="repositoryTemplate">[[> rsp:MatchingCanditateFieldsVisualization]]</template>
+      </semantic-query>
+
+      <!--################################################################################-->
       <!--#################################### PHOTOS ####################################-->
       <!--################################################################################-->
       <semantic-query
@@ -464,28 +486,6 @@
         template="{{> collectionTemplate}}"
       >
         <template id="collectionTemplate">[[> rsp:MatchingCanditateFieldsVisualization]]</template>
-      </semantic-query>
-
-      <!--################################################################################-->
-      <!--################################## REPOSITORY ##################################-->
-      <!--################################################################################-->
-      <semantic-query
-        query=' SELECT (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR=", ") AS ?labelA) (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR=", ") AS ?labelB) ?withData ?fieldName WHERE {
-                  {
-                    <{{bindings.0.subject1.value}}> <https://pharos.artresearch.net/resource/fr/Work_kept_by_Institution> ?actor_a.
-                    ?actor_a rdfs:label ?label_a.
-                    BIND(BOUND(?label_a) && strlen(?label_a)>0 as ?withData)
-                  } UNION{
-                    <{{bindings.0.subject2.value}}> <https://pharos.artresearch.net/resource/fr/Work_kept_by_Institution> ?actor_b.
-                    ?actor_b rdfs:label ?label_b  
-                    BIND(BOUND(?label_b) && strlen(?label_b)>0 as ?withData)
-                  }
-                  BIND("Repository" as ?fieldName)
-                }GROUP BY ?withData ?fieldName'
-
-        template="{{> repositoryTemplate}}"
-      >
-        <template id="repositoryTemplate">[[> rsp:MatchingCanditateFieldsVisualization]]</template>
       </semantic-query>
 
       <!--################################################################################-->

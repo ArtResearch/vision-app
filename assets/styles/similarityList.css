@@ -114,6 +114,10 @@
   text-transform: none !important;
   cursor: pointer;
 }
+ 
+#similarity-list-template .jumbotron{
+  margin-bottom: 0 !important;
+}
 
 /* #header-search .researchspace-table-widget-holder{
 box-shadow: 2px 2px 10px 0px lightgrey;
@@ -214,9 +218,7 @@ border-radius: 0px 0px 10px 10px;
 #similarity-list-template .show-facet-button {
   display: none;
 }
-#similarity-list-template .nav-tabs {
-  display: none;
-}
+
 #similarity-list-template .facet,
 #similarity-list-template .semantic-facet-holder {
   width: 100% !important;

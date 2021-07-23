@@ -1,25 +1,11 @@
-<div id="similarity-list-template">
-<div class="jumbotron">
-  <h1 style="margin-left: 2vw" class="display-4">
-    <semantic-link iri="Default:matchings">
-      <div class="btn btn-secondary">
-        <i class="fa fa-arrow-left"></i> Back
-      </div>
-    </semantic-link>
-    Matching canditates</h1>
-  <p style="margin-left: 2vw" class="lead">
-    Bellow you can browse matching suggestions between institution artworks.
-    Click the cards to review matchings.
-  </p>
-</div>
-<semantic-search
+  <semantic-search
   limit="1000"
   relations='{
     "<https://pharos.artresearch.net/resource/field/Artist_Attribution>":[
       {
         "kind": "resource",
         "queryPattern": "
-         
+          
             $subject <https://pharos.artresearch.net/resource/fr/Work_created_from_Artist> ?__value__.
           "
       }
@@ -28,11 +14,10 @@
     {
       "kind": "resource",
       "queryPattern": "
-       
           $subject <https://pharos.artresearch.net/resource/fr/Work_kept_by_Institution> ?__value__.
-       "
+        "
     }]
-      }'
+  }'
   search-profile='{
         "categories":  
         [
@@ -55,6 +40,10 @@
           {
             "iri":"<http://www.w3.org/2001/XMLSchema#date>",
             "label":"Date"
+          },
+          {
+            "iri":"<https://pharos.artresearch.net/fieldDefinition/Photo_Archive>",
+            "label":"Photo archive"
           },
           {
             "iri":"<https://pharos.artresearch.net/fieldDefinition/Photo_similarity>",
@@ -82,6 +71,12 @@
             "label":"Repository",
             "hasDomain":"<http://www.cidoc-crm.org/cidoc-crm/E22_Man-Made_Object>",
             "hasRange":"<http://www.cidoc-crm.org/cidoc-crm/E39_Actor>"
+          },
+          {
+            "iri": "<https://pharos.artresearch.net/fieldDefinition/Photo_Archive>",
+            "label":"Photo archive",
+            "hasDomain":"<http://www.cidoc-crm.org/cidoc-crm/E22_Man-Made_Object>",
+            "hasRange":"<https://pharos.artresearch.net/fieldDefinition/Photo_Archive>"
           }
         ]
       }'
@@ -96,6 +91,7 @@
         ?subject1 
         ?subject2
         ?score
+        ?providerB
         (SAMPLE(?element) as ?element) 
         (SAMPLE(?providerLabelA) as ?providerLabelA)
         (SAMPLE(?providerLabelB) as ?providerLabelB)
@@ -114,13 +110,15 @@
           ?element <http://purl.org/ontology/similarity/method> ?asso_method.
           ?asso_method <http://purl.org/ontology/similarity/weight> ?score.
           ?asso_method <http://purl.org/ontology/similarity/method> <https://vision.artresearch.net/resource/Similarity/AssociationMethod/Pastec>.
-          ?subject1 <https://pharos.artresearch.net/custom/has_provider> <[[urlParam "providera"]]>.
-          <[[urlParam "providera"]]> rdfs:label ?providerLabelA.
-          ?subject2 <https://pharos.artresearch.net/custom/has_provider> <[[urlParam "providerb"]]>.
-          <[[urlParam "providerb"]]> rdfs:label ?providerLabelB.
+          ?subject1 <https://pharos.artresearch.net/custom/has_provider> <[[urlParam "partner"]]>.
+          <[[urlParam "partner"]]> rdfs:label ?providerLabelA.
+          ?subject2 <https://pharos.artresearch.net/custom/has_provider> ?providerB.
+          ?providerB rdfs:label ?providerLabelB.
+          FILTER(?providerLabelA != ?providerLabelB)
+          FILTER(?providerLabelB = "[[targetProviderLabel]]")
           FILTER NOT EXISTS {?element <https://vision.artresearch.net/custom/reviewed> "true"^^xsd:boolean. }
         }GROUP BY ?subject1 ?subject2 ?score ORDER BY DESC (?score) 
-        LIMIT 50'
+        LIMIT 500'
       query="SELECT DISTINCT ?subject WHERE {
       ?subject ?p ?o #This will never run
     }LIMIT 1 
@@ -152,9 +150,9 @@
                 number-of-displayed-rows="5"
                 query=" PREFIX skos: <http://www.w3.org/2004/02/skos/core#> 
           SELECT DISTINCT  
-            ?subject1 ?subject2 ?score ?element ?providerLabelA ?providerLabelB
-           WHERE {}ORDER BY DESC (?score) (?subject1)
-          LIMIT 50
+            ?subject1 ?subject2 ?score ?element ?providerB ?providerLabelA ?providerLabelB
+            WHERE {}ORDER BY DESC (?score) (?subject1)
+          LIMIT 500
                 "
                 tuple-template="{{>tupleTemplate}}"
               >
@@ -272,8 +270,8 @@
                         </button>
                       </semantic-form>
                       <semantic-link iri="{{element.value}}" 
-                      urlqueryparam-providera='[[urlParam "providera"]]'
-                      urlqueryparam-providerb='[[urlParam "providerb"]]'
+                      urlqueryparam-providera='[[urlParam "partner"]]'
+                      urlqueryparam-providerb='{{providerB.value}}'
                       >
                         <button class="btn action btn-success">
                           View details
@@ -288,5 +286,4 @@
       </semantic-search-result-holder>
     </bs-col>
   </div>
-</semantic-search>
-</div>
+  </semantic-search>

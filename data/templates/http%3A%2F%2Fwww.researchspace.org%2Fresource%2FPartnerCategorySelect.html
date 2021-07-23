@@ -22,92 +22,99 @@
       <div class="reconciled-stat">
         <semantic-query
         query='
-        SELECT 
-        (COUNT(?nextElement) as ?matched)  
-        (COUNT(?next)  as ?unmatched)   
-        (COUNT(?next) + COUNT(?nextElement) as ?total) WHERE{
-          {
-            ?imageA_next <http://purl.org/ontology/similarity/element> ?nextElement.
-            ?imageB_next <http://purl.org/ontology/similarity/element> ?nextElement.
-            ?subject1_next <https://pharos.artresearch.net/custom/has_image> ?imageA_next.
-            ?subject2_next <https://pharos.artresearch.net/custom/has_image> ?imageB_next.
-            ?subject1_next <https://pharos.artresearch.net/custom/has_provider> <[[urlParam "partner"]]>.
-            ?subject2_next <https://pharos.artresearch.net/custom/has_provider> ?provider2.
-            FILTER(STR(?subject1_next)!=STR(?subject2_next))
-            FILTER EXISTS { ?nextElement <https://vision.artresearch.net/custom/reviewed> "true"^^xsd:boolean }
-          }UNION{
-            ?imagea <http://purl.org/ontology/similarity/element> ?next.
-            ?imageb <http://purl.org/ontology/similarity/element> ?next.
-            ?sub1 <https://pharos.artresearch.net/custom/has_image> ?imagea.
-            ?sub2 <https://pharos.artresearch.net/custom/has_image> ?imageb.
-            ?sub1 <https://pharos.artresearch.net/custom/has_provider> <[[urlParam "partner"]]>.
-            ?sub2 <https://pharos.artresearch.net/custom/has_provider> ?provider2.
-            FILTER(STR(?sub1)!=STR(?sub2))
-            FILTER NOT EXISTS { ?next <https://vision.artresearch.net/custom/reviewed> "true"^^xsd:boolean }
-          }
+         SELECT ?matched WHERE{
+              SELECT  (COUNT (DISTINCT CONCAT(STR(?subjectMatched1),STR(?subjectMatched2))) AS ?matched) WHERE{
+                ?imageMatched1 <http://purl.org/ontology/similarity/element> ?elementMatched.
+                ?imageMatched2 <http://purl.org/ontology/similarity/element> ?elementMatched.
+                ?subjectMatched1 <https://pharos.artresearch.net/custom/has_image> ?imageMatched1.
+                ?subjectMatched2 <https://pharos.artresearch.net/custom/has_image> ?imageMatched2.
+                ?subjectMatched1 <https://pharos.artresearch.net/custom/has_provider> <[[urlParam "partner"]]>.
+                ?subjectMatched2 <https://pharos.artresearch.net/custom/has_provider> ?providerMatched2.
+                FILTER(<[[urlParam "partner"]]> != ?providerMatched2)
+                FILTER EXISTS { ?elementMatched <https://vision.artresearch.net/custom/reviewed> "true"^^xsd:boolean }
+              }
           }LIMIT 1
         '
-        template="{{>statVis}}"
+        template="{{>statUnmatched}}"
         >
-          <template id="statVis">
-          {{#each bindings}}
-              Artworks reconciled
-            <br/>
-            {{matched.value}} / {{total.value}} 
-            <semantic-chart
-            type = 'bar'
-            query='
-            SELECT ?matched ?unmatched WHERE{
-              BIND(  {{matched.value}} as ?matched)
-              BIND(  {{unmatched.value}} as ?unmatched)
+          <template id="statUnmatched">
+            <semantic-query query='
+            SELECT 
+            (COUNT (DISTINCT CONCAT(STR(?subjectUnmatched1),STR(?subjectUnmatched2))) + {{bindings.0.matched.value}} as ?total) 
+            ({{bindings.0.matched.value}} as ?matched) 
+            (COUNT (DISTINCT CONCAT(STR(?subjectUnmatched1),STR(?subjectUnmatched2))) AS ?unmatched) WHERE{
+                ?imageUnmatched1 <http://purl.org/ontology/similarity/element> ?elementUnmatched.
+                ?imageUnmatched2 <http://purl.org/ontology/similarity/element> ?elementUnmatched.
+                ?subjectUnmatched1 <https://pharos.artresearch.net/custom/has_image> ?imageUnmatched1.
+                ?subjectUnmatched2 <https://pharos.artresearch.net/custom/has_image> ?imageUnmatched2.
+                ?subjectUnmatched1 <https://pharos.artresearch.net/custom/has_provider> <[[urlParam "partner"]]>.
+                ?subjectUnmatched2 <https://pharos.artresearch.net/custom/has_provider> ?providerUnmatched2.
+                FILTER(<[[urlParam "partner"]]> != ?providerUnmatched2)
+                FILTER NOT EXISTS { ?elementUnmatched <https://vision.artresearch.net/custom/reviewed> "true"^^xsd:boolean }
+            }LIMIT 1
+            '
+            template="{{>statMatched}}"
+            >
+                <template id="statMatched">
+                 {{#each bindings}}
+                 Artworks reconciled
+                 <br/>
+                 {{matched.value}} / {{total.value}} 
+                 <semantic-chart
+                type = 'bar'
+                query='
+                SELECT ?matched ?unmatched WHERE{
+                  BIND(  {{matched.value}} as ?matched)
+                  BIND(  {{unmatched.value}} as ?unmatched)
 
-            }LIMIT 1'
-          sets='[
-            {"dataSetName": "Matched", "category": "matched", "value": "matched"},
-            {"dataSetName": "Unmatched", "category": "matched", "value": "unmatched"}
-          ]'
-          styles='[{
-            
-            "provider": "chartjs",
-            "style": {
-              "options": {
-                "scales": {
-                  "xAxes": [{
-                    "stacked": true
-                  }],
-                  "yAxes": [{
-                    "stacked": true
-                  }]
-                }
-              },
-              "data": {
-                "datasets": [
-                  {
-                    "backgroundColor": "rgba(2, 184, 2, 0.7)",
-                    "pointBackgroundColor": "rgb(2, 184, 2)",
-                    "pointHoverBackgroundColor": "rgb(2, 184, 2)",
-                    "borderColor": "rgb(2, 184, 2)",
-                    "pointBorderColor": "#fff",
-                    "pointHoverBorderColor": "rgb(2, 184, 2)"
+                }LIMIT 1'
+              sets='[
+                {"dataSetName": "Matched", "category": "matched", "value": "matched"},
+                {"dataSetName": "Unmatched", "category": "matched", "value": "unmatched"}
+              ]'
+              styles='[{
+                
+                "provider": "chartjs",
+                "style": {
+                  "options": {
+                    "scales": {
+                      "xAxes": [{
+                        "stacked": true
+                      }],
+                      "yAxes": [{
+                        "stacked": true
+                      }]
+                    }
                   },
-                  { "backgroundColor": "rgba(189, 189, 189, 0.7)",
-                    "pointBackgroundColor": "rgb(189, 189, 189)",
-                    "pointHoverBackgroundColor": "rgb(189, 189, 189)",
-                    "borderColor": "rgb(189, 189, 189)",
-                    "pointBorderColor": "#fff",
-                    "pointHoverBorderColor": "rgb(189, 189, 189)"
+                  "data": {
+                    "datasets": [
+                      {
+                        "backgroundColor": "rgba(2, 184, 2, 0.7)",
+                        "pointBackgroundColor": "rgb(2, 184, 2)",
+                        "pointHoverBackgroundColor": "rgb(2, 184, 2)",
+                        "borderColor": "rgb(2, 184, 2)",
+                        "pointBorderColor": "#fff",
+                        "pointHoverBorderColor": "rgb(2, 184, 2)"
+                      },
+                      { "backgroundColor": "rgba(189, 189, 189, 0.7)",
+                        "pointBackgroundColor": "rgb(189, 189, 189)",
+                        "pointHoverBackgroundColor": "rgb(189, 189, 189)",
+                        "borderColor": "rgb(189, 189, 189)",
+                        "pointBorderColor": "#fff",
+                        "pointHoverBorderColor": "rgb(189, 189, 189)"
+                      }
+                    ]
                   }
-                ]
-              }
-            }
-          }]'>
-          </semantic-chart>  
-          {{/each}}
-       
-          </template>
-        </semantic-query>
-          </div>
-    </div>
+                }
+              }]'>
+                  </semantic-chart>  
+                  {{/each}}
+                </template>
+              </semantic-query>
+           </template>
+          </semantic-query>
+        </div>
+      </div>
         <semantic-query  
         query='SELECT ?partnerUri ?partnerLabel WHERE{
             VALUES(?partnerUri)
@@ -134,13 +141,14 @@
               <bs-nav-item event-key="{{@index}}"><div style="display:flex;">{{partnerLabel.value}}
                 (
                   <semantic-query query='
-                   SELECT (COUNT(DISTINCT ?artwork) AS ?count) WHERE{
-                    ?artwork <https://pharos.artresearch.net/custom/has_image> ?imageA.
+                   SELECT  (COUNT (DISTINCT CONCAT(STR(?subject1),STR(?subject2))) AS ?count)  WHERE{
+                    ?subject1 <https://pharos.artresearch.net/custom/has_image> ?imageA.
                     ?imageA <http://purl.org/ontology/similarity/element> ?element.
-                    ?artwork <https://pharos.artresearch.net/custom/has_provider> <[[urlParam "partner"]]>.
+                    ?subject1 <https://pharos.artresearch.net/custom/has_provider> <[[urlParam "partner"]]>.
                     ?subject2 <https://pharos.artresearch.net/custom/has_image> ?imageB.
                     ?imageB <http://purl.org/ontology/similarity/element> ?element.
                     ?subject2 <https://pharos.artresearch.net/custom/has_provider> {{partnerUri}}.
+                    FILTER NOT EXISTS { ?element <https://vision.artresearch.net/custom/reviewed> "true"^^xsd:boolean}
                    }
                  '></semantic-query>)
                 </div>

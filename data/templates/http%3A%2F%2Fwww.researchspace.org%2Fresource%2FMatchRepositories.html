@@ -7,7 +7,13 @@
           <!-- <img style="border-radius: 100%; object-fit: fill; height: 100px; width: 100px;"  src="http://commons.wikimedia.org/wiki/Special:FilePath/Michelangelo%20Daniele%20da%20Volterra%20%28dettaglio%29.jpg?width=500" /> -->
           <div style="display: flex; flex-direction: column; margin-left: 15px;">
             <h1 style="font-size: 32px !important">     
-              <mp-label iri="[[repositoryA]]" ></mp-label>
+              <mp-label iri="[[repositoryA]]" ></mp-label> 
+              [[#if providerA]]
+              (<mp-label iri='[[urlParam "providera"]]' ></mp-label>)
+              [[/if]]
+              [[#if providerB]]
+              (<mp-label iri='[[urlParam "providerb"]]' ></mp-label>)
+              [[/if]]
             </h1>
             <small><a target="_viewSubjectRepository" href="https://artresearch.net/resource/?uri=[[repositoryA]]">View on artresearch</a></small>
           </div>

@@ -510,6 +510,11 @@ button.slick-arrow.slick-next {
   align-items: center;
   text-align: center;
 }
+
+.reconciled-stat .semantic-chart + .reconciled-stat-loading{
+  display: none !important ;
+}
+
 .reconciled-stat .semantic-chart{
   height: 100% !important;
   width: 100% !important;
@@ -518,6 +523,30 @@ button.slick-arrow.slick-next {
   height: 100% !important;
   width: 100% !important;
 }
+
+.animated-background {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1vh;
+  border-radius: 5px;
+  animation-duration: 1.5s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  animation-name: placeHolderShimmer;
+  background: #f6f7f8;
+  background: linear-gradient(to right, #eeeeee 8%, #dddddd 18%, #eeeeee 33%);
+  background-size: 800px 104px;
+  height: 96px;
+  position: relative;
+}
+
+@keyframes placeHolderShimmer {
+  0%{ background-position: -468px 0; }
+  100%{ background-position: 468px 0; }
+}
+
 
 
 

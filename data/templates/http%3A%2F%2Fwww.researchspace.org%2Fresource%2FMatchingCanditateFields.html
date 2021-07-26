@@ -68,18 +68,30 @@
       <!--################################### CREATOR ###################################-->
       <!--################################################################################-->
       <semantic-query
-        query=' SELECT (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR=", ") AS ?labelA) (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR=", ") AS ?labelB) ?withData ?fieldName WHERE {
+        query=' SELECT
+        (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR=", ") AS ?labelA) 
+        (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR=", ") AS ?labelB) 
+        (SAMPLE(?value) AS ?value)
+        (SAMPLE(?value_b) AS ?value_b)
+        (SAMPLE(?ulanArtist_a) AS ?ulanArtist_a)
+        (SAMPLE(?ulanArtist_b) AS ?ulanArtist_b)  ?withData ?fieldName WHERE {
                   {
                     <{{bindings.0.subject1.value}}> <https://pharos.artresearch.net/resource/fr/Work_created_from_Artist> ?value.
                     ?value rdfs:label ?label_a.
+                    OPTIONAL{
+                      ?value owl:sameAs ?ulanArtist_a.
+                    }
                     BIND(BOUND(?label_a) && strlen(?label_a)>0 as ?withData)
                   } UNION{ 
                     <{{bindings.0.subject2.value}}> <https://pharos.artresearch.net/resource/fr/Work_created_from_Artist> ?value_b.
                     ?value_b rdfs:label ?label_b.  
+                    OPTIONAL{
+                      ?value_b owl:sameAs ?ulanArtist_b.
+                    }
                     BIND(BOUND(?label_b) && strlen(?label_b)>0 as ?withData)
-                  }  
+                  } 
                   BIND("Creator" as ?fieldName)
-                }GROUP BY ?withData ?fieldName'
+                }GROUP BY ?withData ?fieldName '
         template="{{> creatorTemplate}}"
       >
         <template id="creatorTemplate">[[> rsp:MatchingCanditateFieldsVisualization]]</template>
@@ -89,14 +101,27 @@
       <!--################################## REPOSITORY ##################################-->
       <!--################################################################################-->
       <semantic-query
-        query=' SELECT (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR=", ") AS ?labelA) (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR=", ") AS ?labelB) ?withData ?fieldName WHERE {
+        query=' SELECT 
+        (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR=", ") AS ?labelA)
+         (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR=", ") AS ?labelB)
+         (SAMPLE(?actor_a) AS ?actor_a)
+         (SAMPLE(?actor_b) AS ?actor_b) 
+         (SAMPLE(?wikiRepo_a) AS ?wikiRepo_a)
+         (SAMPLE(?wikiRepo_b) AS ?wikiRepo_b)
+         ?withData ?fieldName WHERE {
                   {
                     <{{bindings.0.subject1.value}}> <https://pharos.artresearch.net/resource/fr/Work_kept_by_Institution> ?actor_a.
                     ?actor_a rdfs:label ?label_a.
+                    OPTIONAL{
+                      ?actor_a owl:sameAs ?wikiRepo_a.
+                    }
                     BIND(BOUND(?label_a) && strlen(?label_a)>0 as ?withData)
                   } UNION{
                     <{{bindings.0.subject2.value}}> <https://pharos.artresearch.net/resource/fr/Work_kept_by_Institution> ?actor_b.
-                    ?actor_b rdfs:label ?label_b  
+                    ?actor_b rdfs:label ?label_b.
+                    OPTIONAL{
+                      ?actor_b owl:sameAs ?wikiRepo_b.
+                    }
                     BIND(BOUND(?label_b) && strlen(?label_b)>0 as ?withData)
                   }
                   BIND("Repository" as ?fieldName)

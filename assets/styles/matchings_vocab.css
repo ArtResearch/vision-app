@@ -1,0 +1,134 @@
+#matchings-vocab .separatingLine {
+  display: flex;
+  border-left: 2px solid gainsboro;
+}
+
+#matchings-vocab .matchingContainer {
+  display: flex;
+}
+#matchings-vocab .matchingContainer .canditate {
+  display: flex;
+  flex-direction: column;
+  width: 45%;
+  margin-left: 5%;
+}
+
+#matchings-vocab .matchingImage {
+  height: 18vh !important;
+  margin: 0vw !important;
+}
+#matchings-vocab .recommendedText {
+  color: darkblue !important;
+}
+
+#matchings-vocab .matchingCard {
+  width: 90%;
+  height: fit-content;
+  background: white;
+  border-radius: 4px;
+  padding: 2vh;
+  margin-bottom: 2vh;
+  box-shadow: 1px 1px 8px 3px #ebebeb;
+}
+#matchings-vocab .matchingCard .matchingCardHeader {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+#matchings-vocab .matchingCard .matchingCardHeader img {
+  height: 85px;
+  border-radius: 100%;
+  width: 85px;
+  margin-right: 8px;
+  object-fit: cover;
+  min-width: 85px;
+  background: whitesmoke;
+  min-height: 85px;
+}
+#matchings-vocab .matchingCard .matchingCardHeader .matchingCardHeaderInfo {
+  display: flex;
+  flex-direction: column;
+  margin-right: 2vw;
+}
+#matchings-vocab .actions {
+  display: flex;
+  justify-content: center;
+  min-height: 65px;
+  height: fit-content;
+  align-items: center;
+}
+
+#matchings-vocab .actions .action {
+  color: white !important;
+  font-size: medium;
+  border: none !important;
+  min-height: 4vh;
+  width: 8vw;
+  margin-right: 2vw;
+  border-radius: 4px;
+  min-width: 80px;
+}
+
+#matchings-vocab .actions .generate{
+  background: white !important;
+  color: black !important;
+  box-shadow: 1px 1px 15px 5px #f0f0f0 !important;
+  position: absolute;
+  border-radius: 5px;
+  top: 200px;
+  right: 4.5vw;
+  min-width: 150px !important;
+  margin: 0 !important;
+}
+
+#matchings-vocab .actions .generate:active{
+  background: white !important;
+  color: black !important;
+}
+
+#matchings-vocab .actions .generate::before{
+  margin-right: 5px;
+}
+
+#matchings-vocab .approve {
+  background-color: #007bff !important;
+}
+
+#matchings-vocab .reject {
+  background-color: #6c757d !important;
+  font-weight: normal !important;
+}
+
+#matchings-vocab .jumbotron {
+  padding-top: 15px !important;
+  padding-bottom: 15px !important;
+}
+#matchings-vocab .jumbotron .h1,
+#matchings-vocab .jumbotron h1 {
+  font-size: 45px;
+}
+
+#matchings-vocab .semantic-form button[name="cancel"],
+.semantic-form button[name="delete"],
+.semantic-form button[name="reset"],
+.semantic-form button[name="submit"] {
+  height: initial !important;
+  text-transform: initial !important;
+  letter-spacing: initial !important;
+  border-radius: initial !important;
+  font-weight: initial !important;
+  padding: initial !important;
+  margin-left: initial !important;
+  color: white !important;
+  font-size: medium !important;
+  border: none !important;
+  min-height: 4vh !important;
+  width: 8vw !important;
+  margin-right: 2vw !important;
+  border-radius: 4px !important;
+  min-width: 80px !important;
+}
+#matchings-vocab .semantic-form button[name=submit]:focus, .semantic-form button[name=submit]:focus-within, .semantic-form button[name=submit]:hover {
+  box-shadow: initial !important;
+}

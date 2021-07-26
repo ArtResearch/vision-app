@@ -159,6 +159,8 @@ button.btn.btn-default.action.optional {
   position: relative;
   left: -10%;
   width: 70%;
+  margin-top: 15px;
+  margin-bottom: 15px;
 }
 #similarity-template .thumbPairContainer {
   cursor: pointer;

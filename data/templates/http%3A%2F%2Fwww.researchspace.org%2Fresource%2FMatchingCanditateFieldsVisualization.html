@@ -43,13 +43,12 @@
               placement="bottom"
               trigger='["hover","focus"]'
             >
-              <div id="simple-search-include">
-                Match artists
+              <div id="match-button">
+               <span class="fa fa-external-link" style="margin-right: 5px;"></span>  Match artists
               </div>
             </mp-overlay-dialog-trigger>
             <mp-overlay-dialog-content style="background: white">
               <div>
-                [[> :MatchArtists artistA="{{value_b.value}}" providerB="true" match="{{ulanArtist_a.value}}"]]
               </div>
             </mp-overlay-dialog-content>
           </mp-overlay-dialog>
@@ -61,13 +60,12 @@
             placement="bottom"
             trigger='["hover","focus"]'
           >
-            <div id="simple-search-include">
-              Match artists
+            <div id="match-button">
+             <span class="fa fa-external-link" style="margin-right: 5px;"></span>  Match artists
             </div>
           </mp-overlay-dialog-trigger>
           <mp-overlay-dialog-content style="background: white">
             <div>
-              [[> :MatchArtists artistA="{{value.value}}"  providerA="true" match="{{ulanArtist_b.value}}"]]
             </div>
           </mp-overlay-dialog-content>
         </mp-overlay-dialog>
@@ -80,45 +78,43 @@
       <!-- WIKIDATA REPOSITORIES -->
       
       {{#ifCond wikiRepo_a.value "&&" wikiRepo_b.value}}  
-      <!-- Both are WIKI?? -->
-    {{else}}
-     {{#if wikiRepo_a.value}}
-      <!-- First is WIKI-->`
+        <!-- Both are WIKI?? -->
+      {{else}}
+      {{#if wikiRepo_a.value}}
+        <!-- First is WIKI-->`
+          <mp-overlay-dialog type=lightbox title="Match Repositories">
+            <mp-overlay-dialog-trigger
+              placement="bottom"
+              trigger='["hover","focus"]'
+            >
+              <div id="match-button">
+               <span class="fa fa-external-link" style="margin-right: 5px;"></span>  Match Repositories
+              </div>
+            </mp-overlay-dialog-trigger>
+            <mp-overlay-dialog-content style="background: white">
+              <div>
+              </div>
+            </mp-overlay-dialog-content>
+          </mp-overlay-dialog>
+        {{else}}
+        {{#if wikiRepo_b.value}}
+        <!-- Second is WIKI-->
         <mp-overlay-dialog type=lightbox title="Match Repositories">
           <mp-overlay-dialog-trigger
             placement="bottom"
             trigger='["hover","focus"]'
           >
-            <div id="simple-search-include">
-              Match Repositories
+            <div id="match-button">
+              <span class="fa fa-external-link" style="margin-right: 5px;"></span>  Match Repositories
             </div>
           </mp-overlay-dialog-trigger>
           <mp-overlay-dialog-content style="background: white">
             <div>
-              [[> :MatchRepositories repositoryA="{{actor_b.value}}" providerB="true" match="{{wikiRepo_a.value}}"]]
             </div>
           </mp-overlay-dialog-content>
         </mp-overlay-dialog>
-      {{else}}
-       {{#if wikiRepo_b.value}}
-      <!-- Second is WIKI-->
-       <mp-overlay-dialog type=lightbox title="Match Repositories">
-        <mp-overlay-dialog-trigger
-          placement="bottom"
-          trigger='["hover","focus"]'
-        >
-          <div id="simple-search-include">
-            Match Repositories
-          </div>
-        </mp-overlay-dialog-trigger>
-        <mp-overlay-dialog-content style="background: white">
-          <div>
-            [[> :MatchRepositories repositoryA="{{actor_a.value}}"  providerA="true" match="{{wikiRepo_b.value}}"]]
-          </div>
-        </mp-overlay-dialog-content>
-      </mp-overlay-dialog>
-       {{/if}}
-     {{/if}}
+        {{/if}}
+      {{/if}}
     {{/ifCond}}  
       
     </td>

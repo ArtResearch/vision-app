@@ -132,3 +132,10 @@
 #matchings-vocab .semantic-form button[name=submit]:focus, .semantic-form button[name=submit]:focus-within, .semantic-form button[name=submit]:hover {
   box-shadow: initial !important;
 }
+
+div#match-button {
+  color: #005db0 !important;
+  cursor: pointer;
+  text-align: center;
+  font-weight: bold;
+}

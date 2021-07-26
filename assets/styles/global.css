@@ -9,6 +9,8 @@
 @import "./matchingSelector.css";
 @import "./similarity.css";
 @import "./similarityList.css";
+@import "./matchings_vocab.css";
+
 body {
   font-size: 14px;
   line-height: 1.2;

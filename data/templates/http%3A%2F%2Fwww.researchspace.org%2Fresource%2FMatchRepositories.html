@@ -1,4 +1,4 @@
-<div id="matchings">
+<div id="matchings-vocab">
   <!-- PHAROS SECTION -->
   <div>
     <div class="matchingContainer" >
@@ -18,24 +18,10 @@
             <small><a target="_viewSubjectRepository" href="https://artresearch.net/resource/?uri=[[repositoryA]]">View on artresearch</a></small>
           </div>
         </div>
-        <div>
-          <mp-field-visualization
-          subject="[[repositoryA]]"
-          fields='[[ fieldDefinitionsFromQuery "SELECT ?field WHERE {  ?field <http://www.researchspace.org/resource/system/fields/category>  <https://pharos.artresearch.net/resource/custom/fc/institution>. OPTIONAL {?field <http://www.researchspace.org/resource/system/fields/order> ?w. BIND(xsd:integer(?w) as ?orderNo)} } ORDER BY ASC(?orderNo)" ]]'
-          template='{{>workInfo}}'
-          >
-        <template id="workInfo">
-          <div class="workInfoContainer">
-            [[> :ResourceFieldBasedVisualization subject=[[repositoryA]] ]]
-          </div>
-        </template>
-        </mp-field-visualization>
-        </div>
       </div>
       <div class="separatingLine"></div>
       <div class="canditate">
         <h2 style="font-size: 22px; margin-bottom: 4vh;">Click on "Same" button to verify suggested matches</h2 style="font-size: 22px;">
-          <small>or click "Generate" to create new Pharos URI</small>
           <semantic-query
           query='SELECT ?match ?recommended ?currentCanditate ?image WHERE {
             OPTIONAL{
@@ -48,30 +34,6 @@
          template="{{>possibleMatchesTemplate}}"
          >  
          <template id="possibleMatchesTemplate">
-          <div class="actions">
-            <semantic-form
-              new-subject-template="{{bindings.0.currentCanditate.value}}"
-              browser-persistance="true"
-              persistence="sparql"
-              post-action="reload"
-              form-id="samehash"
-              fields='[[  fieldDefinitions
-                          confirmed="http://www.researchspace.org/fieldDefinition/Confirmed_Matched_Institutions_Hash"
-                      ]]'
-            >
-              <semantic-form-hidden-input
-                for="confirmed"
-                default-value="true"
-              ></semantic-form-hidden-input>
-  
-              <button
-                id="12345"
-                name="submit"
-                class="btn fa fa-plus generate"
-                title="Click to generate new Pharos URI"
-              >Generate</button>
-            </semantic-form>
-          </div>
            {{#each bindings}}
               <div class="matchingCard">
                 <div class="matchingCardHeader">
@@ -82,11 +44,6 @@
                   <h2  style="font-size: 24px; font-weight: bold;">
                     <mp-label iri="{{match.value}}" ></mp-label>
                     </h2>
-                    {{#ifCond recommended.value "===" match.value }}
-                    <h2 class="recommendedText">
-                      Recommended
-                    </h2>
-                    {{/ifCond}}
                     <mp-overlay-dialog title="‎‎{{match.value}}" type="lightbox">
                       <mp-overlay-dialog-trigger
                         >
@@ -122,19 +79,6 @@
                   > Same </button>
                 </semantic-form>
                 </div>
-              </div>
-              <div class="matchingCardBody">
-                <mp-field-visualization
-                subject="{{match.value}}"
-                fields='[[ fieldDefinitionsFromQuery "SELECT ?field WHERE {  ?field <http://www.researchspace.org/resource/system/fields/category>  <http://www.researchspace.org/ontologies/platform/FieldCategories/external_info>. OPTIONAL {?field <http://www.researchspace.org/resource/system/fields/order> ?w. BIND(xsd:integer(?w) as ?orderNo)} } ORDER BY ASC(?orderNo)" ]]'
-                template='{{>workInfo}}'
-                >
-              <template id="workInfo">
-                <div class="workInfoContainer">
-                  [[> :ResourceFieldBasedVisualization subject="{{match.value}}" ]]
-                </div>
-              </template>
-              </mp-field-visualization>
               </div>
             </div>
           {{/each}}

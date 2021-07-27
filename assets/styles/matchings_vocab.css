@@ -142,5 +142,10 @@ div#match-button-text {
 
 .matching-modal__dialog{
   width: 65vw !important; 
-  height: 40vh; top: 30%;
+  height: 40vh; 
+  top: 30%;
+}
+
+.clickable{
+  cursor: pointer;
 }

@@ -22,12 +22,9 @@
       <div class="canditate">
         <h2 style="font-size: 22px; margin-bottom: 4vh;">Click on "Same" button to verify suggested matches</h2 style="font-size: 22px;">
           <semantic-query
-          query='SELECT ?match ?recommended ?currentCanditate ?image WHERE {
-            OPTIONAL{
-              ?match <https://pharos.artresearch.net/resource/fr/Institution_depicted_by> ?wikiImage.
-              BIND(str(?wikiImage) as ?image)
-            }
+          query='SELECT ?match ?matchUrl ?currentCanditate WHERE {
             BIND(<[[match]]> as ?match)
+            BIND(REPLACE("[[match]]","http:","https:") as ?matchUrl).
             BIND(<[[repositoryA]]> as ?currentCanditate)
          }'
          template="{{>possibleMatchesTemplate}}"
@@ -49,7 +46,7 @@
                     <small class="clickable">View at WikiData</small>
                       </mp-overlay-dialog-trigger>
                       <mp-overlay-dialog-content>
-                        <iframe src="{{match.value}}"></iframe>
+                        <iframe src="{{matchUrl.value}}"></iframe>
                       </mp-overlay-dialog-content>
                     </mp-overlay-dialog>
                 </div>

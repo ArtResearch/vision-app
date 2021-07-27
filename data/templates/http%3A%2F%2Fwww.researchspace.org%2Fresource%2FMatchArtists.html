@@ -22,11 +22,7 @@
       <div class="canditate">
         <h2 style="font-size: 22px; margin-bottom: 4vh;">Click on "Same" button to verify suggested matches</h2 style="font-size: 22px;">
       <semantic-query
-      query='SELECT ?match ?matchId ?image ?currentCanditate WHERE {
-        OPTIONAL{
-          ?match <https://pharos.artresearch.net/resource/fr/Person_depicted_by> ?wikiImage.
-          BIND(str(?wikiImage) as ?image)
-        }
+      query='SELECT ?match ?matchId ?currentCanditate WHERE {
         BIND(<[[match]]> as ?match)
         BIND(<[[artistA]]> as ?currentCanditate)
         BIND(REPLACE(str(?match),"http://vocab.getty.edu/ulan/","") as ?matchId).
@@ -38,9 +34,6 @@
        {{#each bindings}}
            <div class="matchingCard">
              <div class="matchingCardHeader">
-               {{#if image.value}}
-                 <img src="{{image.value}}?width=250"/>
-               {{/if}}
                <div class="matchingCardHeaderInfo">
                  <h2  style="font-size: 24px; font-weight: bold;">
                    <mp-label iri="{{match.value}}" ></mp-label>

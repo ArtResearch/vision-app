@@ -139,3 +139,8 @@ div#match-button-text {
   text-align: center;
   font-weight: bold;
 }
+
+.matching-modal__dialog{
+  width: 65vw !important; 
+  height: 40vh; top: 30%;
+}

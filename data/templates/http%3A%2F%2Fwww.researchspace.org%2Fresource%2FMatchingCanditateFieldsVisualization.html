@@ -40,7 +40,8 @@
         <!-- First is ULAN -->
         {{#if value_b}}
         <!-- Second artist is not null -->
-          <mp-overlay-dialog type=lightbox title="Match artists">
+          <mp-overlay-dialog class="matching-modal"
+          title="Match artists">
             <mp-overlay-dialog-trigger
               placement="bottom"
               trigger='["hover","focus"]'
@@ -51,7 +52,7 @@
             </mp-overlay-dialog-trigger>
             <mp-overlay-dialog-content style="background: white">
               <div>
-              {{value_b.value}} {{ulanArtist_a.value}}
+                [[> :MatchArtists providerA="true" artistA="{{value_b.value}}" match="{{ulanArtist_a.value}}" ]]
               </div>
             </mp-overlay-dialog-content>
           </mp-overlay-dialog>
@@ -61,7 +62,7 @@
         <!-- Second is ULAN -->
         {{#if value}}
         <!-- First artist is not null -->
-         <mp-overlay-dialog type=lightbox title="Match artists">
+         <mp-overlay-dialog class="matching-modal" title="Match artists">
           <mp-overlay-dialog-trigger
             placement="bottom"
             trigger='["hover","focus"]'
@@ -72,7 +73,7 @@
           </mp-overlay-dialog-trigger>
           <mp-overlay-dialog-content style="background: white">
             <div>
-              {{value.value}} {{ulanArtist_b.value}}
+              [[> :MatchArtists providerA="true" artistA="{{value.value}}" match="{{ulanArtist_b.value}}" ]]
             </div>
           </mp-overlay-dialog-content>
         </mp-overlay-dialog>
@@ -92,7 +93,7 @@
         <!-- First is WIKI-->`
         {{#if actor_b}}
         <!-- Second repo is not null -->
-          <mp-overlay-dialog type=lightbox title="Match Repositories">
+          <mp-overlay-dialog class="matching-modal" title="Match Repositories">
             <mp-overlay-dialog-trigger
               placement="bottom"
               trigger='["hover","focus"]'
@@ -103,7 +104,6 @@
             </mp-overlay-dialog-trigger>
             <mp-overlay-dialog-content style="background: white">
               <div>
-               {{actor_b.value}} {{wikiRepo_a.value}}
               </div>
             </mp-overlay-dialog-content>
           </mp-overlay-dialog>
@@ -113,7 +113,7 @@
         <!-- Second is WIKI-->
         {{#if actor_a}}
         <!-- First repo is not null -->
-        <mp-overlay-dialog type=lightbox title="Match Repositories">
+        <mp-overlay-dialog class="matching-modal" title="Match Repositories">
           <mp-overlay-dialog-trigger
             placement="bottom"
             trigger='["hover","focus"]'

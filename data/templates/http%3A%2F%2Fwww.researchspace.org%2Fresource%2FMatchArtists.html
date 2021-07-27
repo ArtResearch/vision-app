@@ -19,21 +19,10 @@
             <small class="clickable"><a target="_viewSubjectArtist" href="https://artresearch.net/resource/?uri=[[artistA]]">View on artresearch</a></small>
           </div>
         </div>
-        <div>
-          <mp-field-visualization
-          subject="[[artistA]]"
-          fields='[[ fieldDefinitionsFromQuery "SELECT ?field WHERE {  ?field <http://www.researchspace.org/resource/system/fields/domain> crm:E21_Person. OPTIONAL {?field <http://www.researchspace.org/resource/system/fields/order> ?w. BIND(xsd:integer(?w) as ?orderNo)} } ORDER BY ASC(?orderNo)" ]]'
-          template='{{>workInfo}}'
-          >
-        <template id="workInfo">
-          <div class="workInfoContainer">
-            [[> :ResourceFieldBasedVisualization subject=artistA ]]
-          </div>
-        </template>
-        </mp-field-visualization>
-        </div>
       </div>
       <div class="separatingLine"></div>
+      <div class="canditate">
+        <h2 style="font-size: 22px; margin-bottom: 4vh;">Click on "Same" button to verify suggested matches</h2 style="font-size: 22px;">
       <semantic-query
       query='SELECT ?match ?matchId ?image ?currentCanditate WHERE {
         OPTIONAL{
@@ -47,30 +36,7 @@
       template="{{>possibleMatchesTemplate}}"
       > 
       <template id="possibleMatchesTemplate">
-       <div class="actions">
-         <semantic-form
-           new-subject-template="{{bindings.0.currentCanditate.value}}"
-           browser-persistance="true"
-           persistence="sparql"
-           post-action="reload"
-           form-id="samehash"
-           fields='[[  fieldDefinitions
-                       confirmed="http://www.researchspace.org/fieldDefinition/Confirmed_Matched_Artists_Hash"
-                   ]]'
-         >
-           <semantic-form-hidden-input
-             for="confirmed"
-             default-value="true"
-           ></semantic-form-hidden-input>
-
-           <button
-             id="12345"
-             name="submit"
-             class="btn fa fa-plus generate"
-             title="Click to generate new Pharos URI"
-           >Generate</button>
-         </semantic-form>
-       </div> 
+   
        {{#each bindings}}
            <div class="matchingCard">
              <div class="matchingCardHeader">
@@ -122,22 +88,11 @@
                </semantic-form>
                </div>
              </div>
-             <div class="matchingCardBody">
-               <mp-field-visualization
-               subject="{{match.value}}"
-               fields='[[ fieldDefinitionsFromQuery "SELECT ?field WHERE {  ?field <http://www.researchspace.org/resource/system/fields/category>  <http://www.researchspace.org/ontologies/platform/FieldCategories/external_info>. OPTIONAL {?field <http://www.researchspace.org/resource/system/fields/order> ?w. BIND(xsd:integer(?w) as ?orderNo)} } ORDER BY ASC(?orderNo)" ]]'
-               template='{{>workInfo}}'
-               >
-             <template id="workInfo">
-               <div class="workInfoContainer">
-                 [[> :ResourceFieldBasedVisualization subject="{{match.value}}" ]]
-               </div>
-             </template>
-             </mp-field-visualization>
-             </div>
+       
            </div>
          {{/each}}
       </template>
       </semantic-query>
+    </div>
     </div>
 </div>

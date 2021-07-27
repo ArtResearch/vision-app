@@ -73,7 +73,7 @@
           </mp-overlay-dialog-trigger>
           <mp-overlay-dialog-content style="background: white">
             <div>
-              [[> :MatchArtists providerA="true" artistA="{{value.value}}" match="{{ulanArtist_b.value}}" ]]
+              [[> :MatchArtists providerB="true" artistA="{{value.value}}" match="{{ulanArtist_b.value}}" ]]
             </div>
           </mp-overlay-dialog-content>
         </mp-overlay-dialog>
@@ -104,6 +104,7 @@
             </mp-overlay-dialog-trigger>
             <mp-overlay-dialog-content style="background: white">
               <div>
+                [[> :MatchRepositories providerA="true" repositoryA="{{actor_b.value}}" match="{{wikiRepo_a.value}}" ]]
               </div>
             </mp-overlay-dialog-content>
           </mp-overlay-dialog>
@@ -124,8 +125,7 @@
           </mp-overlay-dialog-trigger>
           <mp-overlay-dialog-content style="background: white">
             <div>
-              {{actor_a.value}} {{wikiRepo_b.value}}
-
+              [[> :MatchRepositories providerB="true" repositoryA="{{actor_a.value}}" match="{{wikiRepo_b.value}}" ]]
             </div>
           </mp-overlay-dialog-content>
         </mp-overlay-dialog>

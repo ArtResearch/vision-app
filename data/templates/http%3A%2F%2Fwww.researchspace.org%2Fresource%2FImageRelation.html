@@ -170,14 +170,28 @@
       <template id="resultVisualization">
         {{#if image_a}}
           {{#ifCond (objectLength image_a) "!==" 1}}
-              <div class="selected-a"><mp-label iri="{{image_a}}"></mp-label></div>
+          <mp-popover title="Image IRI">
+            <mp-popover-trigger placement="top"  trigger='["hover","focus"]'> 
+              <div class="selected-a" ><mp-label iri="{{image_a}}"></mp-label></div>
+            </mp-popover-trigger>
+            <mp-popover-content style="background:white; width:fit-content !important;">
+              {{image_a}}
+            </mp-popover-content>
+          </mp-popover>
           {{/ifCond}}
         {{/if}}
         [[relationLabel]]
         {{#if image_b}}
           {{#ifCond (objectLength image_b) "!==" 1}}
             {{#ifCond image_a "!==" image_b}}
-             <div class="selected-b"><mp-label iri="{{image_b}}"></mp-label></div>
+            <mp-popover title="Image IRI">
+              <mp-popover-trigger placement="top"  trigger='["hover","focus"]'> 
+                <div class="selected-b" title="{{image_b}}"><mp-label iri="{{image_b}}"></mp-label></div>
+              </mp-popover-trigger>
+              <mp-popover-content style="background:white; width:fit-content !important;">
+                {{image_b}}
+              </mp-popover-content>
+            </mp-popover>
             {{/ifCond}}
           {{/ifCond}}
         {{/if}}
@@ -212,6 +226,9 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    width: 30vw;
+    min-width:300px;
+    flex-wrap: wrap;
     margin-left: 25px;
     border:1px solid #dedede;
     padding: 1vh;
@@ -277,5 +294,11 @@
   }
   .confirm-relation-btn:hover{
     box-shadow: 0px 0px 4px 1px #272727;
+  }
+  .popover-content{
+    overflow-wrap: anywhere !important;
+  }
+  .popover.top>.arrow, .popover.top>.arrow:after {
+    border-top-color: black !important;
   }
 </style>

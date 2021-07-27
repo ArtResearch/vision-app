@@ -97,17 +97,17 @@
               <template id="imageInfoTemplate">
                 <div class="actions">
          
-                  <mp-overlay-dialog type="lightbox" title="Imitation/Copy of - Select the relation">
+                  <mp-overlay-dialog type="lightbox" title="Imitation/Copy of - Please select a pair of images">
                     <mp-overlay-dialog-trigger
                       placement="bottom"
                       trigger='["hover","focus"]'
                     >
-                    <button
-                    class="btn btn-default action optional"
-                    title="Imitation/Copy of"
-                  >
-                    Imitation/Copy of
-                  </button>
+                        <button
+                        class="btn btn-default action optional"
+                        title="Imitation/Copy of"
+                      >
+                        Imitation/Copy of
+                      </button>
                     </mp-overlay-dialog-trigger>
                     <mp-overlay-dialog-content style="background: white">
                       <div>
@@ -115,30 +115,84 @@
                       </div>
                     </mp-overlay-dialog-content>
                   </mp-overlay-dialog>
-                  <button
-                    class="btn btn-default action optional"
-                    title="Two instances are the same"
-                  >
-                    Style of
-                  </button>
-                  <button
-                    class="btn btn-default action optional"
-                    title="Two instances are the same"
-                  >
-                    School of
-                  </button>
-                  <button
-                    class="btn btn-default action optional"
-                    title="Two instances are the same"
-                  >
-                    Study/Sketch of
-                  </button>
-                  <button
-                    class="btn btn-default action optional"
-                    title="Two instances are the same"
-                  >
-                    Same negative
-                  </button>
+                 
+                  <mp-overlay-dialog type="lightbox" title="Style of - Please select a pair of images">
+                    <mp-overlay-dialog-trigger
+                    placement="bottom"
+                    trigger='["hover","focus"]'
+                    >
+                     <button
+                      class="btn btn-default action optional"
+                      title="Style of"
+                    >
+                      Style of
+                    </button>
+                  </mp-overlay-dialog-trigger>
+                  <mp-overlay-dialog-content style="background: white">
+                    <div>
+                      [[> :ImageRelation relationLabel="is in the style of" simElement="{{bindings.0.element.value}}" ]]
+                    </div>
+                  </mp-overlay-dialog-content>
+                  </mp-overlay-dialog>
+
+
+                  <mp-overlay-dialog type="lightbox" title="School of - Please select a pair of images">
+                    <mp-overlay-dialog-trigger
+                    placement="bottom"
+                    trigger='["hover","focus"]'
+                    >
+                     <button
+                      class="btn btn-default action optional"
+                      title="School of"
+                    >
+                      School of
+                    </button>
+                  </mp-overlay-dialog-trigger>
+                  <mp-overlay-dialog-content style="background: white">
+                    <div>
+                      [[> :ImageRelation relationLabel="is from the same school as" simElement="{{bindings.0.element.value}}" ]]
+                    </div>
+                  </mp-overlay-dialog-content>
+                  </mp-overlay-dialog>
+
+                  <mp-overlay-dialog type="lightbox" title="Study/Sketch of - Please select a pair of images">
+                    <mp-overlay-dialog-trigger
+                    placement="bottom"
+                    trigger='["hover","focus"]'
+                    >
+                     <button
+                      class="btn btn-default action optional"
+                      title="Study/Sketch of"
+                    >
+                      Study/Sketch of
+                    </button>
+                  </mp-overlay-dialog-trigger>
+                  <mp-overlay-dialog-content style="background: white">
+                    <div>
+                      [[> :ImageRelation relationLabel="is a study/sketch of" simElement="{{bindings.0.element.value}}" ]]
+                    </div>
+                  </mp-overlay-dialog-content>
+                  </mp-overlay-dialog>
+
+                  <mp-overlay-dialog type="lightbox" title="Same negative - Please select a pair of images">
+                    <mp-overlay-dialog-trigger
+                    placement="bottom"
+                    trigger='["hover","focus"]'
+                    >
+                     <button
+                      class="btn btn-default action optional"
+                      title="Same negative"
+                    >
+                      Same negative
+                    </button>
+                  </mp-overlay-dialog-trigger>
+                  <mp-overlay-dialog-content style="background: white">
+                    <div>
+                      [[> :ImageRelation relationLabel="is the same negative as" simElement="{{bindings.0.element.value}}" ]]
+                    </div>
+                  </mp-overlay-dialog-content>
+                  </mp-overlay-dialog>
+
                   <semantic-form
                     new-subject-template="{{bindings.0.element.value}}"
                     browser-persistance="true"

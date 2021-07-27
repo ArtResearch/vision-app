@@ -12,26 +12,187 @@
   >
     <template id="imageOptionsSubjects">
     <semantic-query query='
-    SELECT DISTINCT ?element ?imageA ?imageB ?thumbA ?thumbB WHERE{
+    SELECT DISTINCT ?subject1 ?subject2 ?element ?imageA ?imageB ?thumbA ?thumbB WHERE{
       <{{bindings.0.subject1.value}}>  <https://pharos.artresearch.net/custom/has_image> ?imageA.
-      BIND(REPLACE(STR(?imageA),"full/full","full/!150,150") AS ?thumbA).
+      BIND(REPLACE(STR(?imageA),"full/full","full/!250,250") AS ?thumbA).
       <{{bindings.0.subject2.value}}>  <https://pharos.artresearch.net/custom/has_image> ?imageB.
-      BIND(REPLACE(STR(?imageB),"full/full","full/!150,150") AS ?thumbB).
+      BIND(REPLACE(STR(?imageB),"full/full","full/!250,250") AS ?thumbB).
       ?imageA <http://purl.org/ontology/similarity/element> ?element.
       ?imageB <http://purl.org/ontology/similarity/element> ?element.
+      BIND(<{{bindings.0.subject1.value}}> AS ?subject1)
+      BIND(<{{bindings.0.subject2.value}}> AS ?subject2)
+
   }'
     template="{{> imageOptions}}"
     >
     <template id="imageOptions">
     <div class="image-options">
+      <div class="artwork-title">
+        <mp-label iri="{{bindings.0.subject1.value}}"></mp-label>
+      </div>
       {{#each bindings}}
-      <img src='{{imageA.value}}'/>
+      <mp-event-target-template-render
+      id="rel-image-container"
+      template="{{> relImageContainer}}"
+    >
+      <template id="relImageContainer">
+      <mp-event-trigger
+        id="rel-image"
+        type="Component.TemplateUpdate"
+        data='{
+        {{#ifCond image_a "&&" image_b}}
+          {{#ifCond (objectLength image_a) "!==" 1}}
+            {{#ifCond (objectLength image_b) "!==" 1}}    
+              "image_a":"{{imageA.value}}",
+              "image_b":"1"
+            {{else}}
+              {{#ifCond (objectLength image_a) "!==" 1}}
+              "image_a":"{{image_a}}",
+              "image_b":"{{imageA.value}}"
+              {{else}}
+                "image_a":"{{imageA.value}}",
+                "image_b":
+                {{#ifCond (objectLength image_b) "!==" 1}}
+                  "{{image_a}}"
+                {{else}}
+                  "1"
+                {{/ifCond}}
+              {{/ifCond}}
+            {{/ifCond}}
+            {{else}}
+            {{#ifCond (objectLength image_a) "!==" 1}}
+              "image_a":"{{image_a}}",
+              "image_b":"{{imageA.value}}"
+            {{else}}
+              "image_a":"{{imageA.value}}",
+              "image_b":
+              {{#ifCond (objectLength image_b) "!==" 1}}
+                "{{image_a}}"
+              {{else}}
+                "1"
+              {{/ifCond}}
+            {{/ifCond}}
+          {{/ifCond}}
+        {{else}}
+          "image_a":"{{imageA.value}}",
+          "image_b":"1"
+        {{/ifCond}}
+        }'
+        targets='["rel-image-container","result-visualizer"]'
+        >
+        {{#ifCond image_a "===" imageA.value}}
+        <img class="selected-img" src='{{thumbA.value}}'/>
+      {{else}}
+      {{#ifCond image_b "===" imageA.value}}
+         <img class="selected-img-b" src='{{thumbA.value}}'/>
+       {{else}}
+        <img src='{{thumbA.value}}'/>
+       {{/ifCond}}
+      {{/ifCond}}
+      </mp-event-trigger>
+      </template>
+      </mp-event-target-template-render>
       {{/each}}
     </div>
     <div class="image-options">
+      <div class="artwork-title">
+        <mp-label iri="{{bindings.0.subject2.value}}"></mp-label>
+      </div>
       {{#each bindings}}
-      <img src='{{imageB.value}}'/>
+      <mp-event-target-template-render
+      id="rel-image-container"
+      template="{{> relImageContainer}}"
+    >
+      <template id="relImageContainer">
+      <mp-event-trigger
+        id="rel-image"
+        type="Component.TemplateUpdate"
+        data='{
+          {{#ifCond image_a "&&" image_b}}
+          {{#ifCond (objectLength image_a) "!==" 1}}
+            {{#ifCond (objectLength image_b) "!==" 1}}    
+              "image_a":"{{imageB.value}}",
+              "image_b":"1"
+            {{else}}
+              {{#ifCond (objectLength image_a) "!==" 1}}
+              "image_a":"{{image_a}}",
+              "image_b":"{{imageB.value}}"
+              {{else}}
+                "image_a":"{{imageB.value}}",
+                "image_b":
+                {{#ifCond (objectLength image_b) "!==" 1}}
+                  "{{image_a}}"
+                {{else}}
+                  "1"
+                {{/ifCond}}
+              {{/ifCond}}
+            {{/ifCond}}
+            {{else}}
+            {{#ifCond (objectLength image_a) "!==" 1}}
+              "image_a":"{{image_a}}",
+              "image_b":"{{imageB.value}}"
+            {{else}}
+              "image_a":"{{imageB.value}}",
+              "image_b":
+              {{#ifCond (objectLength image_b) "!==" 1}}
+                "{{image_a}}"
+              {{else}}
+                "1"
+              {{/ifCond}}
+            {{/ifCond}}
+          {{/ifCond}}
+        {{else}}
+          "image_a":"{{imageA.value}}",
+          "image_b":"1"
+        {{/ifCond}}
+        }'
+        targets='["rel-image-container","result-visualizer"]'
+      >
+      {{#ifCond image_a "===" imageB.value}}
+        <img class="selected-img" src='{{thumbB.value}}'/>
+      {{else}}
+      {{#ifCond image_b "===" imageB.value}}
+         <img class="selected-img-b" src='{{thumbB.value}}'/>
+       {{else}}
+        <img src='{{thumbB.value}}'/>
+       {{/ifCond}}
+      {{/ifCond}}
+      </mp-event-trigger>
+      </template>
+      </mp-event-target-template-render>
       {{/each}}
+    </div>
+    <div class="resulting-title">
+      <mp-event-target-template-render
+      id="result-visualizer"
+      template="{{> resultVisualization}}"
+    >
+      <template id="resultVisualization">
+        {{#if image_a}}
+          {{#ifCond (objectLength image_a) "!==" 1}}
+              <div class="selected-a"><mp-label iri="{{image_a}}"></mp-label></div>
+          {{/ifCond}}
+        {{/if}}
+        [[relationLabel]]
+        {{#if image_b}}
+          {{#ifCond (objectLength image_b) "!==" 1}}
+            {{#ifCond image_a "!==" image_b}}
+             <div class="selected-b"><mp-label iri="{{image_b}}"></mp-label></div>
+            {{/ifCond}}
+          {{/ifCond}}
+        {{/if}}
+        {{#ifCond image_a "&&" image_b}}
+          {{#ifCond (objectLength image_a) "!==" 1}}
+             {{#ifCond (objectLength image_b) "!==" 1}}
+                {{#ifCond image_a "!==" image_b}}
+                    <div class="confirm-relation-btn">Confirm</div>
+               {{/ifCond}}
+             {{/ifCond}}
+          {{/ifCond}}
+        {{/ifCond}}
+        
+      </template>
+      </mp-event-target-template-render>
     </div>
     </template>
   </template>
@@ -41,14 +202,80 @@
 <style>
   .image-rel-container{
     display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    margin-top: 25px;
+    padding-bottom: 15vh;
   }
   .image-options{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin-left: 25px;
+    border:1px solid #dedede;
+    padding: 1vh;
   }
   .image-options img{
-    height: 25vh;
+    height: 30vh;
+    transition: 0.4s;
+    cursor: pointer;
+    margin-top: 40px;
+  }
+  .image-options img:hover{
+    box-shadow: 0px 0px 8px 1px #aaaaaa;
+  }
+  .image-options .artwork-title{
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 15px;
+  }
+  .resulting-title{
+    font-size: 16px;
+    background: white;
+    position: fixed;
+    display: flex;
+    bottom: 0;
+    width: 100%;
+    height: 7vh;
+    box-shadow: 0px -3px 12px 1px #cccccc;
+    justify-content: center;
+    align-items: center;
+  }
+  .selected-img{
+    border-radius: 5px;
+    border:3px solid green;
+  }
+  .selected-img-b{
+    border-radius: 5px;
+    border:3px solid darkblue;
+  }
+  .selected-a {
+    font-weight: bold;
+    margin-right: 15px;
+  }
+  .selected-b {
+    font-weight: bold;
+    margin-left: 15px;
+  }
+
+  .confirm-relation-btn{
+    margin-left: 15px;
+    color: white !important;
+    height: 85%;
+    cursor: pointer;
+    width: 20%;
+    box-shadow: 0px 0px 3px 0px #787878;
+    background: rgb(61, 105, 170);
+    border-radius: 5px;
+    font-size: 18px;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    max-width: 200px;
+    transition: 0.4s;
+  }
+  .confirm-relation-btn:hover{
+    box-shadow: 0px 0px 4px 1px #272727;
   }
 </style>

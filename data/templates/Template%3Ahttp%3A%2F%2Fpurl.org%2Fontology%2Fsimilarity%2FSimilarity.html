@@ -111,14 +111,10 @@
                     </mp-overlay-dialog-trigger>
                     <mp-overlay-dialog-content style="background: white">
                       <div>
-                        {{bindings.0.element.value}}
+                        [[> :ImageRelation relationLabel="is imitation/copy of" simElement="{{bindings.0.element.value}}" ]]
                       </div>
                     </mp-overlay-dialog-content>
                   </mp-overlay-dialog>
-
-
-
-
                   <button
                     class="btn btn-default action optional"
                     title="Two instances are the same"

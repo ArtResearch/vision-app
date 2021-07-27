@@ -79,29 +79,46 @@
           <div class="sidebar">
             <semantic-query
               query=' SELECT ?element ?nextElement WHERE {
-                                                ?imageA_next <http://purl.org/ontology/similarity/element> ?nextElement.
-                                                ?imageB_next <http://purl.org/ontology/similarity/element> ?nextElement.
-                                                ?subject1_next <https://pharos.artresearch.net/custom/has_image> ?imageA_next.
-                                                ?subject2_next <https://pharos.artresearch.net/custom/has_image> ?imageB_next.
-                                                ?subject1_next <https://pharos.artresearch.net/custom/has_provider> <[[urlParam "providera"]]>.
-                                                ?subject2_next <https://pharos.artresearch.net/custom/has_provider> <[[urlParam "providerb"]]>.
-                                                ?imageA_next <http://www.cidoc-crm.org/cidoc-crm/P2_has_type> ?type.
-                                                ?type rdfs:label "recto".
-                                                FILTER(STR(?subject1_next)!=STR(?subject2_next))
-                                                FILTER(STR(?element)!=STR(?nextElement))
-                                                FILTER NOT EXISTS { ?nextElement <https://vision.artresearch.net/custom/reviewed> "true"^^xsd:boolean }
-                                                BIND (<{{bindings.0.element.value}}> AS ?element)
-                                            }LIMIT 1'
+                      ?imageA_next <http://purl.org/ontology/similarity/element> ?nextElement.
+                      ?imageB_next <http://purl.org/ontology/similarity/element> ?nextElement.
+                      ?subject1_next <https://pharos.artresearch.net/custom/has_image> ?imageA_next.
+                      ?subject2_next <https://pharos.artresearch.net/custom/has_image> ?imageB_next.
+                      ?subject1_next <https://pharos.artresearch.net/custom/has_provider> <[[urlParam "providera"]]>.
+                      ?subject2_next <https://pharos.artresearch.net/custom/has_provider> <[[urlParam "providerb"]]>.
+                      ?imageA_next <http://www.cidoc-crm.org/cidoc-crm/P2_has_type> ?type.
+                      ?type rdfs:label "recto".
+                      FILTER(?subject1_next != ?subject2_next)
+                      FILTER(?element != ?nextElement)
+                      FILTER NOT EXISTS { ?nextElement <https://vision.artresearch.net/custom/reviewed> "true"^^xsd:boolean }
+                      BIND (<{{bindings.0.element.value}}> AS ?element)
+                  }LIMIT 1'
               template="{{>imageInfoTemplate}}"
             >
               <template id="imageInfoTemplate">
                 <div class="actions">
-                  <button
+         
+                  <mp-overlay-dialog type="lightbox" title="Imitation/Copy of - Select the relation">
+                    <mp-overlay-dialog-trigger
+                      placement="bottom"
+                      trigger='["hover","focus"]'
+                    >
+                    <button
                     class="btn btn-default action optional"
-                    title="Two instances are the same"
+                    title="Imitation/Copy of"
                   >
                     Imitation/Copy of
                   </button>
+                    </mp-overlay-dialog-trigger>
+                    <mp-overlay-dialog-content style="background: white">
+                      <div>
+                        {{bindings.0.element.value}}
+                      </div>
+                    </mp-overlay-dialog-content>
+                  </mp-overlay-dialog>
+
+
+
+
                   <button
                     class="btn btn-default action optional"
                     title="Two instances are the same"

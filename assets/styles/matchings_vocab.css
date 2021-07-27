@@ -129,6 +129,7 @@
   border-radius: 4px !important;
   min-width: 80px !important;
 }
+
 #matchings-vocab .semantic-form button[name=submit]:focus, .semantic-form button[name=submit]:focus-within, .semantic-form button[name=submit]:hover {
   box-shadow: initial !important;
 }

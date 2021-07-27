@@ -1,0 +1,54 @@
+
+<div class="image-rel-container">
+  <semantic-query query='
+  SELECT DISTINCT ?subject1 ?subject2 WHERE {
+    ?imageA <http://purl.org/ontology/similarity/element> <[[simElement]]>.
+    ?imageB <http://purl.org/ontology/similarity/element> <[[simElement]]>.
+    ?subject1 <https://pharos.artresearch.net/custom/has_image> ?imageA.
+    ?subject2 <https://pharos.artresearch.net/custom/has_image> ?imageB.
+    FILTER (STR(?imageA)!=STR(?imageB))
+  }LIMIT 1'
+  template="{{> imageOptionsSubjects}}"
+  >
+    <template id="imageOptionsSubjects">
+    <semantic-query query='
+    SELECT DISTINCT ?element ?imageA ?imageB ?thumbA ?thumbB WHERE{
+      <{{bindings.0.subject1.value}}>  <https://pharos.artresearch.net/custom/has_image> ?imageA.
+      BIND(REPLACE(STR(?imageA),"full/full","full/!150,150") AS ?thumbA).
+      <{{bindings.0.subject2.value}}>  <https://pharos.artresearch.net/custom/has_image> ?imageB.
+      BIND(REPLACE(STR(?imageB),"full/full","full/!150,150") AS ?thumbB).
+      ?imageA <http://purl.org/ontology/similarity/element> ?element.
+      ?imageB <http://purl.org/ontology/similarity/element> ?element.
+  }'
+    template="{{> imageOptions}}"
+    >
+    <template id="imageOptions">
+    <div class="image-options">
+      {{#each bindings}}
+      <img src='{{imageA.value}}'/>
+      {{/each}}
+    </div>
+    <div class="image-options">
+      {{#each bindings}}
+      <img src='{{imageB.value}}'/>
+      {{/each}}
+    </div>
+    </template>
+  </template>
+  </semantic-query>
+</div>
+
+<style>
+  .image-rel-container{
+    display: flex;
+  }
+  .image-options{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .image-options img{
+    height: 25vh;
+  }
+</style>

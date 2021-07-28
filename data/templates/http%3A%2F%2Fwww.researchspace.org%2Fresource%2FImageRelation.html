@@ -199,7 +199,14 @@
           {{#ifCond (objectLength image_a) "!==" 1}}
              {{#ifCond (objectLength image_b) "!==" 1}}
                 {{#ifCond image_a "!==" image_b}}
-                    <div class="confirm-relation-btn">Confirm</div>
+
+                <button
+                  id="confirm-submit"
+                  name="submit"
+                  class="confirm-relation-btn"
+                  title="Click to confirm two Artist instances as the same"
+                > Confirm </button>
+ 
                {{/ifCond}}
              {{/ifCond}}
           {{/ifCond}}

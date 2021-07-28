@@ -54,29 +54,30 @@
                    </mp-overlay-dialog>
                </div>
                <div class="actions">
+                <semantic-context repository="vocab">
+                  <semantic-form
+                    new-subject-template="{{currentCanditate.value}}"
+                    browser-persistance="true"
+                    persistence="sparql"
+                    post-action="reload"
+                    form-id="IMApprove1"
+                    fields='[[  fieldDefinitions
+                                confirmed="http://www.researchspace.org/fieldDefinition/Confirmed_Matched_Artists"
+                            ]]'
+                  >
+                    <semantic-form-hidden-input
+                      for="confirmed"
+                      default-value="{{match.value}}"
+                    ></semantic-form-hidden-input>
 
-                 <semantic-form
-                   new-subject-template="{{currentCanditate.value}}"
-                   browser-persistance="true"
-                   persistence="sparql"
-                   post-action="reload"
-                   form-id="IMApprove1"
-                   fields='[[  fieldDefinitions
-                               confirmed="http://www.researchspace.org/fieldDefinition/Confirmed_Matched_Artists"
-                           ]]'
-                 >
-                   <semantic-form-hidden-input
-                     for="confirmed"
-                     default-value="{{match.value}}"
-                   ></semantic-form-hidden-input>
-
-                   <button
-                     id="1234"
-                     name="submit"
-                     class="btn btn-default action approve"
-                     title="Click to confirm two Artist instances as the same"
-                   > Same </button>
-               </semantic-form>
+                    <button
+                      id="1234"
+                      name="submit"
+                      class="btn btn-default action approve"
+                      title="Click to confirm two Artist instances as the same"
+                    > Same </button>
+                  </semantic-form>
+                </semantic-context>
                </div>
              </div>
        

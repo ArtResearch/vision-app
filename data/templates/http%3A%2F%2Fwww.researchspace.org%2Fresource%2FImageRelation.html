@@ -1,4 +1,3 @@
-
 <div class="image-rel-container">
   <semantic-query query='
   SELECT DISTINCT ?subject1 ?subject2 WHERE {
@@ -51,11 +50,10 @@
               "image_b":"{{imageA.value}}"
               {{else}}
                 "image_a":"{{imageA.value}}",
-                "image_b":
                 {{#ifCond (objectLength image_b) "!==" 1}}
-                  "{{image_a}}"
+                "image_b": "{{image_a}}"
                 {{else}}
-                  "1"
+                "image_b": "1"
                 {{/ifCond}}
               {{/ifCond}}
             {{/ifCond}}
@@ -65,11 +63,10 @@
               "image_b":"{{imageA.value}}"
             {{else}}
               "image_a":"{{imageA.value}}",
-              "image_b":
               {{#ifCond (objectLength image_b) "!==" 1}}
-                "{{image_a}}"
+              "image_b":"{{image_a}}"
               {{else}}
-                "1"
+              "image_b": "1"
               {{/ifCond}}
             {{/ifCond}}
           {{/ifCond}}
@@ -119,11 +116,10 @@
               "image_b":"{{imageB.value}}"
               {{else}}
                 "image_a":"{{imageB.value}}",
-                "image_b":
                 {{#ifCond (objectLength image_b) "!==" 1}}
-                  "{{image_a}}"
+                "image_b":"{{image_a}}"
                 {{else}}
-                  "1"
+                "image_b":"1"
                 {{/ifCond}}
               {{/ifCond}}
             {{/ifCond}}
@@ -133,11 +129,10 @@
               "image_b":"{{imageB.value}}"
             {{else}}
               "image_a":"{{imageB.value}}",
-              "image_b":
               {{#ifCond (objectLength image_b) "!==" 1}}
-                "{{image_a}}"
+              "image_b":"{{image_a}}"
               {{else}}
-                "1"
+              "image_b": "1"
               {{/ifCond}}
             {{/ifCond}}
           {{/ifCond}}
@@ -195,18 +190,34 @@
             {{/ifCond}}
           {{/ifCond}}
         {{/if}}
+        
         {{#ifCond image_a "&&" image_b}}
           {{#ifCond (objectLength image_a) "!==" 1}}
              {{#ifCond (objectLength image_b) "!==" 1}}
                 {{#ifCond image_a "!==" image_b}}
+                
+                  <semantic-form
+                    new-subject-template="{{image_a}}"
+                    browser-persistance="true"
+                    persistence="sparql"
+                    post-action="reload"
+                    form-id="confirm-image-relation"
+                    fields='[  fieldDefinitions
+                              confirmed="http://www.researchspace.org/fieldDefinition/Imitation_Copy_of"
+                            ]'
+                  >
+                    <semantic-form-hidden-input
+                      for="confirmed"
+                      default-value="{{image_b}}"
+                    ></semantic-form-hidden-input>
 
-                <button
-                  id="confirm-submit"
-                  name="submit"
-                  class="confirm-relation-btn"
-                  title="Click to confirm two Artist instances as the same"
-                > Confirm </button>
- 
+                    <button
+                      id="confirm-submit"
+                      name="submit"
+                      class="confirm-relation-btn"
+                      title="Click to assert values"
+                    > Confirm </button>
+                  </semantic-form>
                {{/ifCond}}
              {{/ifCond}}
           {{/ifCond}}

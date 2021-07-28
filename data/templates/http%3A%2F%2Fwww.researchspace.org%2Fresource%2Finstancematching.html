@@ -65,39 +65,39 @@
           <button class="btn btn-default action optional" title="Two instances are the same">Same negative</button>
 
 
-            <semantic-form
-              new-subject-template='{{bindings.0.similarity.value}}'
-              browser-persistance=true
-              persistence='ldp'
-            post-action='{{bindings.0.nextSimilarity.value}}'
-              form-id='IMApprove1'         
-              fields='[[fieldDefinitions
-                        sameAs="http://www.researchspace.org/fieldDefinition/Same"
-                      ]]'>
-											<semantic-form-hidden-input 
-                        for='sameAs'
-                        default-value='true'>
-                      </semantic-form-hidden-input>
-                      
-              <button id="1234" name="submit" class="btn btn-default action approve" title="Two instances are the same">Same</button>
+          <semantic-form
+            new-subject-template='{{bindings.0.similarity.value}}'
+            browser-persistance=true
+            persistence='ldp'
+          post-action='{{bindings.0.nextSimilarity.value}}'
+            form-id='IMApprove1'         
+            fields='[[fieldDefinitions
+                      sameAs="http://www.researchspace.org/fieldDefinition/Same"
+                    ]]'>
+                    <semantic-form-hidden-input 
+                      for='sameAs'
+                      default-value='true'>
+                    </semantic-form-hidden-input>
+                    
+            <button id="1234" name="submit" class="btn btn-default action approve" title="Two instances are the same">Same</button>
           </semantic-form>
           
           <semantic-form
-              new-subject-template='{{bindings.0.similarity.value}}'
-              browser-persistance=true    
-              persistence='ldp'
-              post-action='{{bindings.0.nextSimilarity.value}}'
-              form-id='IMReject'         
-              fields='[[fieldDefinitions
-                        reviewed="http://www.researchspace.org/fieldDefinition/reviewedByUser"
-                      ]]'>
+            new-subject-template='{{bindings.0.similarity.value}}'
+            browser-persistance=true    
+            persistence='ldp'
+            post-action='{{bindings.0.nextSimilarity.value}}'
+            form-id='IMReject'         
+            fields='[[fieldDefinitions
+            reviewed="http://www.researchspace.org/fieldDefinition/reviewedByUser"
+            ]]'>
 
-              				<semantic-form-hidden-input 
-                        for='reviewed'
-                        default-value='true'>
-                      </semantic-form-hidden-input>
-              <button name="submit" class="btn btn-warning action reject" title="Two instances are not the same">Not similar</button>
-            </semantic-form>
+            <semantic-form-hidden-input 
+            for='reviewed'
+            default-value='true'>
+            </semantic-form-hidden-input>
+            <button name="submit" class="btn btn-warning action reject" title="Two instances are not the same">Not similar</button>
+          </semantic-form>
         </div>
       </template>
      </semantic-query>

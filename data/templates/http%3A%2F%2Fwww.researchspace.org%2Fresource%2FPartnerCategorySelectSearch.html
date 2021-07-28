@@ -90,8 +90,8 @@
         SELECT DISTINCT 
         ?subject1 
         ?subject2
-        ?score
-        ?providerB
+        (SAMPLE(?score) as ?score) 
+        (SAMPLE(?providerB) as ?providerB) 
         (SAMPLE(?element) as ?element) 
         (SAMPLE(?providerLabelA) as ?providerLabelA)
         (SAMPLE(?providerLabelB) as ?providerLabelB)
@@ -117,8 +117,7 @@
           FILTER(?providerLabelA != ?providerLabelB)
           FILTER(?providerLabelB = "[[targetProviderLabel]]")
           FILTER NOT EXISTS {?element <https://vision.artresearch.net/custom/reviewed> "true"^^xsd:boolean. }
-        }GROUP BY ?subject1 ?subject2 ?score ORDER BY DESC (?score) 
-        LIMIT 500'
+        }'
       query="SELECT DISTINCT ?subject WHERE {
       ?subject ?p ?o #This will never run
     }LIMIT 1 
@@ -149,10 +148,16 @@
                     }'
                 number-of-displayed-rows="5"
                 query=" PREFIX skos: <http://www.w3.org/2004/02/skos/core#> 
-          SELECT DISTINCT  
-            ?subject1 ?subject2 ?score ?element ?providerB ?providerLabelA ?providerLabelB
-            WHERE {}ORDER BY DESC (?score) (?subject1)
-          LIMIT 500
+                  SELECT DISTINCT  
+                  ?subject1 
+                  ?subject2
+                  (SAMPLE(?score) as ?score) 
+                  (SAMPLE(?providerB) as ?providerB) 
+                  (SAMPLE(?element) as ?element) 
+                  (SAMPLE(?providerLabelA) as ?providerLabelA)
+                  (SAMPLE(?providerLabelB) as ?providerLabelB)
+                    WHERE {}GROUP BY ?subject1 ?subject2 ORDER BY DESC (?score) (?subject1)
+                  LIMIT 500
                 "
                 tuple-template="{{>tupleTemplate}}"
               >

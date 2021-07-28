@@ -95,7 +95,7 @@
         SELECT DISTINCT 
         ?subject1 
         ?subject2
-        ?score
+        (SAMPLE(?score) as ?score) 
         (SAMPLE(?element) as ?element) 
         (SAMPLE(?providerLabelA) as ?providerLabelA)
         (SAMPLE(?providerLabelB) as ?providerLabelB)
@@ -119,8 +119,7 @@
           ?subject2 <https://pharos.artresearch.net/custom/has_provider> <[[urlParam "providerb"]]>.
           <[[urlParam "providerb"]]> rdfs:label ?providerLabelB.
           FILTER NOT EXISTS {?element <https://vision.artresearch.net/custom/reviewed> "true"^^xsd:boolean. }
-        }GROUP BY ?subject1 ?subject2 ?score ORDER BY DESC (?score) 
-        LIMIT 50'
+        }'
       query="SELECT DISTINCT ?subject WHERE {
       ?subject ?p ?o #This will never run
     }LIMIT 1 
@@ -151,11 +150,16 @@
                     }'
                 number-of-displayed-rows="5"
                 query=" PREFIX skos: <http://www.w3.org/2004/02/skos/core#> 
-          SELECT DISTINCT  
-            ?subject1 ?subject2 ?score ?element ?providerLabelA ?providerLabelB
-           WHERE {}ORDER BY DESC (?score) (?subject1)
-          LIMIT 50
-                "
+                  SELECT DISTINCT  
+                  ?subject1 
+                  ?subject2
+                  (SAMPLE(?score) as ?score) 
+                  (SAMPLE(?element) as ?element) 
+                  (SAMPLE(?providerLabelA) as ?providerLabelA)
+                  (SAMPLE(?providerLabelB) as ?providerLabelB)
+                  WHERE {}GROUP BY ?subject1 ?subject2 ORDER BY DESC (?score) (?subject1)
+                  LIMIT 50
+                        "
                 tuple-template="{{>tupleTemplate}}"
               >
                 <template id="tupleTemplate">

@@ -108,28 +108,6 @@
 #matchings-vocab .jumbotron h1 {
   font-size: 45px;
 }
-
-#matchings-vocab .semantic-form button[name="cancel"],
-.semantic-form button[name="delete"],
-.semantic-form button[name="reset"],
-.semantic-form button[name="submit"] {
-  height: initial !important;
-  text-transform: initial !important;
-  letter-spacing: initial !important;
-  border-radius: initial !important;
-  font-weight: initial !important;
-  padding: initial !important;
-  margin-left: initial !important;
-  color: white !important;
-  font-size: medium !important;
-  border: none !important;
-  min-height: 4vh !important;
-  width: 8vw !important;
-  margin-right: 2vw !important;
-  border-radius: 4px !important;
-  min-width: 80px !important;
-}
-
 #matchings-vocab .semantic-form button[name=submit]:focus, .semantic-form button[name=submit]:focus-within, .semantic-form button[name=submit]:hover {
   box-shadow: initial !important;
 }

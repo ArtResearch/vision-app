@@ -88,7 +88,7 @@
       escape-lucene-syntax="false"
       default-query='PREFIX skos: <http://www.w3.org/2004/02/skos/core#> 
         SELECT DISTINCT 
-        ?subject1 
+        ?subject 
         ?subject2
         (SAMPLE(?score) as ?score) 
         (SAMPLE(?providerB) as ?providerB) 
@@ -96,7 +96,7 @@
         (SAMPLE(?providerLabelA) as ?providerLabelA)
         (SAMPLE(?providerLabelB) as ?providerLabelB)
         WHERE {
-          ?subject1 <https://pharos.artresearch.net/custom/has_image> ?imageA.
+          ?subject <https://pharos.artresearch.net/custom/has_image> ?imageA.
           ?imageA <http://purl.org/ontology/similarity/element> ?element.
           ?subject2 <https://pharos.artresearch.net/custom/has_image> ?imageB.
           ?imageB <http://purl.org/ontology/similarity/element> ?element.
@@ -110,7 +110,7 @@
           ?element <http://purl.org/ontology/similarity/method> ?asso_method.
           ?asso_method <http://purl.org/ontology/similarity/weight> ?score.
           ?asso_method <http://purl.org/ontology/similarity/method> <https://vision.artresearch.net/resource/Similarity/AssociationMethod/Pastec>.
-          ?subject1 <https://pharos.artresearch.net/custom/has_provider> <[[urlParam "partner"]]>.
+          ?subject <https://pharos.artresearch.net/custom/has_provider> <[[urlParam "partner"]]>.
           <[[urlParam "partner"]]> rdfs:label ?providerLabelA.
           ?subject2 <https://pharos.artresearch.net/custom/has_provider> ?providerB.
           ?providerB rdfs:label ?providerLabelB.
@@ -149,14 +149,14 @@
                 number-of-displayed-rows="5"
                 query=" PREFIX skos: <http://www.w3.org/2004/02/skos/core#> 
                   SELECT DISTINCT  
-                  ?subject1 
+                  ?subject 
                   ?subject2
                   (SAMPLE(?score) as ?score) 
                   (SAMPLE(?providerB) as ?providerB) 
                   (SAMPLE(?element) as ?element) 
                   (SAMPLE(?providerLabelA) as ?providerLabelA)
                   (SAMPLE(?providerLabelB) as ?providerLabelB)
-                    WHERE {}GROUP BY ?subject1 ?subject2 ORDER BY DESC (?score) (?subject1)
+                    WHERE {}GROUP BY ?subject ?subject2 ORDER BY DESC (?score) (?subject)
                   LIMIT 500
                 "
                 tuple-template="{{>tupleTemplate}}"
@@ -172,7 +172,7 @@
                   >
                     <div class="panel-body row">
                       <bs-col class="cardInfo" lg="2" xs="10">
-                        [[> :SimilarityListThumbnails iri="{{subject1.value}}"]]
+                        [[> :SimilarityListThumbnails iri="{{subject.value}}"]]
                       </bs-col>
                       <bs-col class="cardInfo" lg="4" xs="10">
                         <div data-flex-layout="row md-column center-stretch">
@@ -182,7 +182,7 @@
                               providerLabel="{{providerLabelA.value}}"]]{{providerLabelA.value}}
                             </h2>
                             <mp-field-visualization
-                              subject="{{subject1.value}}"
+                              subject="{{subject.value}}"
                               fields='[[fieldDefinitions  
                                       Title="https://pharos.artresearch.net/fieldDefinition/2"
                                       Creator="https://pharos.artresearch.net/fieldDefinition/1"
@@ -191,7 +191,7 @@
                             >
                               <template id="generalInfo">
                                 [[> rsp:ResourceFieldBasedVisualization
-                                subject="{{subject1.value}}" ]]
+                                subject="{{subject.value}}" ]]
                               </template>
                             </mp-field-visualization>
                           </bs-row>

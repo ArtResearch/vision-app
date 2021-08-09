@@ -261,6 +261,10 @@ input::placeholder {
   box-shadow: none;
 }
 
+.modal .close, .panel-default .close {
+  font-size: 60px;
+}
+
 .thumbnailImage {
   height: 20vh;
   max-height: 185px;

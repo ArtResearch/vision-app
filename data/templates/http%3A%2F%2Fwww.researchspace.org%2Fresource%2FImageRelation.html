@@ -1,6 +1,6 @@
 <div class="image-rel-container">
   <semantic-query query='
-  SELECT DISTINCT ?subject1 ?subject2 WHERE {
+  SELECT DISTINCT ?subject1 ?subject2  WHERE {
     ?imageA <http://purl.org/ontology/similarity/element> <[[simElement]]>.
     ?imageB <http://purl.org/ontology/similarity/element> <[[simElement]]>.
     ?subject1 <https://pharos.artresearch.net/custom/has_image> ?imageA.
@@ -11,20 +11,17 @@
   >
     <template id="imageOptionsSubjects">
     <semantic-query query='
-    SELECT DISTINCT ?subject1 ?subject2 ?element ?imageA ?imageB ?thumbA ?thumbB WHERE{
+    SELECT DISTINCT ?subject1 ?imageA ?thumbA  WHERE{
       <{{bindings.0.subject1.value}}>  <https://pharos.artresearch.net/custom/has_image> ?imageA.
       BIND(REPLACE(STR(?imageA),"full/full","full/!250,250") AS ?thumbA).
       <{{bindings.0.subject2.value}}>  <https://pharos.artresearch.net/custom/has_image> ?imageB.
-      BIND(REPLACE(STR(?imageB),"full/full","full/!250,250") AS ?thumbB).
       ?imageA <http://purl.org/ontology/similarity/element> ?element.
       ?imageB <http://purl.org/ontology/similarity/element> ?element.
       BIND(<{{bindings.0.subject1.value}}> AS ?subject1)
-      BIND(<{{bindings.0.subject2.value}}> AS ?subject2)
-
   }'
-    template="{{> imageOptions}}"
+    template="{{> imageOptionsA}}"
     >
-    <template id="imageOptions">
+    <template id="imageOptionsA">
     <div class="image-options">
       <div class="artwork-title">
         <mp-label iri="{{bindings.0.subject1.value}}"></mp-label>
@@ -91,6 +88,22 @@
       </mp-event-target-template-render>
       {{/each}}
     </div>
+  </template>
+</semantic-query>
+<semantic-query query='
+SELECT DISTINCT ?subject2 ?imageB ?thumbB WHERE{
+  <{{bindings.0.subject1.value}}>  <https://pharos.artresearch.net/custom/has_image> ?imageA.
+  <{{bindings.0.subject2.value}}>  <https://pharos.artresearch.net/custom/has_image> ?imageB.
+  BIND(REPLACE(STR(?imageB),"full/full","full/!250,250") AS ?thumbB).
+  ?imageA <http://purl.org/ontology/similarity/element> ?element.
+  ?imageB <http://purl.org/ontology/similarity/element> ?element.
+  BIND(<{{bindings.0.subject2.value}}> AS ?subject2)
+
+
+}'
+template="{{> imageOptionsB}}"
+>
+<template id="imageOptionsB">
     <div class="image-options">
       <div class="artwork-title">
         <mp-label iri="{{bindings.0.subject2.value}}"></mp-label>
@@ -157,6 +170,8 @@
       </mp-event-target-template-render>
       {{/each}}
     </div>
+    </template>
+    </semantic-query>
     <div class="resulting-title">
       <mp-event-target-template-render
       id="result-visualizer"
@@ -226,7 +241,6 @@
       </template>
       </mp-event-target-template-render>
     </div>
-    </template>
   </template>
   </semantic-query>
 </div>

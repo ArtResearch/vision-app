@@ -560,8 +560,7 @@
   		?dimension crm:P90_has_value ?dvalue .
   		?dimension crm:P91_has_unit ?unit_uri .
   		?unit_uri rdfs:label ?unit.
-    	BIND(CONCAT(STR(?dvalue)," ",?unit," ","(",?qualifier,")") as ?value).
-                          ?value rdfs:label ?label_a.
+    	BIND(CONCAT(STR(?dvalue)," ",?unit," ","(",?qualifier,")") as ?label_a).
           BIND(BOUND(?label_a) && strlen(?label_a)>0 as ?withData)
           }
           UNION{
@@ -571,7 +570,7 @@
   		?dimension_b crm:P90_has_value ?dvalue_b .
   		?dimension_b crm:P91_has_unit ?unit_uri_b .
   		?unit_uri_b rdfs:label ?unit_b.
-    	BIND(CONCAT(STR(?dvalue_b)," ",?unit_b," ","(",?qualifier_b,")") as ?value_b).
+    	BIND(CONCAT(STR(?dvalue_b)," ",?unit_b," ","(",?qualifier_b,")") as ?label_b).
     BIND(BOUND(?label_b) && strlen(?label_b)>0 as ?withData)
           }
           BIND("Dimensions" as ?fieldName)

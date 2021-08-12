@@ -548,33 +548,30 @@
       <semantic-query
         query='
 				SELECT (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR=", ") AS ?labelA) (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR=", ") AS ?labelB) 
-        ?withData ?fieldName
-          WHERE 
- {
- SERVICE <https://artresearch.net/sparql> 
-          {
-          {
-  		<{{bindings.0.subject1.value}}> crm:P43_has_dimension ?dimension.
- 		?dimension crm:P2_has_type ?type.
-  		?type rdfs:label ?qualifier.
-  		?dimension crm:P90_has_value ?dvalue .
-  		?dimension crm:P91_has_unit ?unit_uri .
-  		?unit_uri rdfs:label ?unit.
-    	BIND(CONCAT(STR(?dvalue)," ",?unit," ","(",?qualifier,")") as ?label_a).
-          BIND(BOUND(?label_a) && strlen(?label_a)>0 as ?withData)
+        ?withData ?fieldName WHERE {
+          SERVICE <https://artresearch.net/sparql> {
+            {
+              <{{bindings.0.subject1.value}}> crm:P43_has_dimension ?dimension.
+              ?dimension crm:P2_has_type ?type.
+              ?type rdfs:label ?qualifier.
+              ?dimension crm:P90_has_value ?dvalue .
+              ?dimension crm:P91_has_unit ?unit_uri .
+              ?unit_uri rdfs:label ?unit.
+              BIND(CONCAT(STR(?dvalue)," ",?unit," ","(",?qualifier,")") as ?label_a).
+              BIND(BOUND(?label_a) && strlen(?label_a)>0 as ?withData)
+            } UNION{
+              <{{bindings.0.subject2.value}}> crm:P43_has_dimension ?dimension_b.
+              ?dimension_b crm:P2_has_type ?type_b.
+              ?type_b rdfs:label ?qualifier_b.
+              ?dimension_b crm:P90_has_value ?dvalue_b .
+              ?dimension_b crm:P91_has_unit ?unit_uri_b .
+              ?unit_uri_b rdfs:label ?unit_b.
+              BIND(CONCAT(STR(?dvalue_b)," ",?unit_b," ","(",?qualifier_b,")") as ?label_b).
+              BIND(BOUND(?label_b) && strlen(?label_b)>0 as ?withData)
+            }
+            BIND("Dimensions" as ?fieldName)
           }
-          UNION{
-  		<{{bindings.0.subject2.value}}> crm:P43_has_dimension ?dimension_b.
- 		?dimension_b crm:P2_has_type ?type_b.
-  		?type_b rdfs:label ?qualifier_b.
-  		?dimension_b crm:P90_has_value ?dvalue_b .
-  		?dimension_b crm:P91_has_unit ?unit_uri_b .
-  		?unit_uri_b rdfs:label ?unit_b.
-    	BIND(CONCAT(STR(?dvalue_b)," ",?unit_b," ","(",?qualifier_b,")") as ?label_b).
-    BIND(BOUND(?label_b) && strlen(?label_b)>0 as ?withData)
-          }
-          BIND("Dimensions" as ?fieldName)
-        }}GROUP BY ?withData ?fieldName'
+        }GROUP BY ?withData ?fieldName'
         template="{{> dimensionsTemplate}}"
       >
         <template id="dimensionsTemplate">[[> rsp:MatchingCanditateFieldsVisualization]]</template>

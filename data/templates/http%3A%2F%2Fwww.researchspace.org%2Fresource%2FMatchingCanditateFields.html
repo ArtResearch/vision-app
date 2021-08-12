@@ -532,7 +532,7 @@
  }
           UNION{
   		<{{bindings.0.subject2.value}}> crm:P55_has_current_location ?value_b.
- 			?value_b rdfs:label ?label_b  
+ 			?value_b rdfs:label ?label_b.  
           BIND(BOUND(?label_b) && strlen(?label_b)>0 as ?withData)      
           }
           BIND("Current Location" as ?fieldName)

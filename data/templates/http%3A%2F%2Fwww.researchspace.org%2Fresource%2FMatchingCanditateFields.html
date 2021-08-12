@@ -553,9 +553,9 @@
             {
               <{{bindings.0.subject1.value}}> crm:P43_has_dimension ?dimension.
               ?dimension crm:P2_has_type ?type.
-              SELECT ?qualifier WHERE {
+              {SELECT ?qualifier WHERE {
                 ?type rdfs:label ?qualifier.
-              } LIMIT 1
+              } LIMIT 1}
               ?dimension crm:P90_has_value ?dvalue .
               ?dimension crm:P91_has_unit ?unit_uri .
               ?unit_uri rdfs:label ?unit.
@@ -564,9 +564,9 @@
             } UNION{
               <{{bindings.0.subject2.value}}> crm:P43_has_dimension ?dimension_b.
               ?dimension_b crm:P2_has_type ?type_b.
-              SELECT ?qualifier_b WHERE {
+              {SELECT ?qualifier_b WHERE {
                 ?type_b rdfs:label ?qualifier_b.
-              } LIMIT 1
+              } LIMIT 1}
               ?dimension_b crm:P90_has_value ?dvalue_b .
               ?dimension_b crm:P91_has_unit ?unit_uri_b .
               ?unit_uri_b rdfs:label ?unit_b.

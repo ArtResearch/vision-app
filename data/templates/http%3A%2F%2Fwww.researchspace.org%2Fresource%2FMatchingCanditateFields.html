@@ -527,14 +527,12 @@
           {
           {
   		<{{bindings.0.subject1.value}}> crm:P55_has_current_location ?value.
- 			?value crm:P2_has_type ?qualifier_uri.
-    		?qualifier_uri rdfs:label ?label_a.
+ 			?value rdfs:label ?label_a.
           BIND(BOUND(?label_a) && strlen(?label_a)>0 as ?withData)    
  }
           UNION{
   		<{{bindings.0.subject2.value}}> crm:P55_has_current_location ?value_b.
- 			?value_b crm:P2_has_type ?qualifier_uri_b.
-    		?qualifier_uri_b rdfs:label ?label_b  
+ 			?value_b rdfs:label ?label_b  
           BIND(BOUND(?label_b) && strlen(?label_b)>0 as ?withData)      
           }
           BIND("Current Location" as ?fieldName)

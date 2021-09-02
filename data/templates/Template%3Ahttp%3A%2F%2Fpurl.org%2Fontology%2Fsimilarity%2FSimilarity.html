@@ -2,10 +2,8 @@
   <semantic-query
     
     query=" SELECT DISTINCT ?element ?subject1 ?subject1Link ?subject2 ?subject2Link ?providerLabelA ?providerLabelB ?imageA ?imageB WHERE {
-                              GRAPH ?g {
-                                ?imageA <http://purl.org/ontology/similarity/element> ??.
-                                ?imageB <http://purl.org/ontology/similarity/element> ??.
-                              }
+                              ?imageA <http://purl.org/ontology/similarity/element> ??.
+                              ?imageB <http://purl.org/ontology/similarity/element> ??.
                               ?subject1 <https://pharos.artresearch.net/custom/has_image> ?imageA.
                               ?subject2 <https://pharos.artresearch.net/custom/has_image> ?imageB.
                               ?subject1 <https://pharos.artresearch.net/custom/has_provider> ?providerA.

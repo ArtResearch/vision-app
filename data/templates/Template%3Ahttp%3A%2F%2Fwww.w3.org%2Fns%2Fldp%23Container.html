@@ -124,7 +124,7 @@
                 [[> http://www.researchspace.org/resource/assets/LdpContainerActionExport]]
               </div>
               <semantic-context repository='assets'>
-                [[> http://www.researchspace.org/resource/assets/LdpResources container=(this) query='SELECT DISTINCT ?subject ?ModificationDate ?attribution ?label ?L WHERE { ?? <http://www.w3.org/ns/ldp#contains> ?subject . ?subject <http://www.w3.org/ns/prov#generatedAtTime> ?ModificationDate ; <http://www.w3.org/ns/prov#wasAttributedTo> ?attribution. OPTIONAL { ?subject rdfs:label ?label . } BIND(IRI(CONCAT(STR(?subject),"/context")) AS ?graph) OPTIONAL{GRAPH ?graph { ?a owl:sameAs ?b. } ?a rdfs:label ?aL. ?b rdfs:label ?bL. BIND(CONCAT(?aL,"-",?bL) as ?L)} }']]
+                [[> http://www.researchspace.org/resource/assets/LdpResources container=(this) query='SELECT DISTINCT ?subject (SAMPLE(?ModificationDate) AS ?ModificationDate) (SAMPLE(?attribution) AS ?attribution) (SAMPLE(?label) AS ?label) (SAMPLE(?L) AS ?L) WHERE { ?? <http://www.w3.org/ns/ldp#contains> ?subject . ?subject <http://www.w3.org/ns/prov#generatedAtTime> ?ModificationDate ; <http://www.w3.org/ns/prov#wasAttributedTo> ?attribution. OPTIONAL { ?subject rdfs:label ?label . } BIND(IRI(CONCAT(STR(?subject),"/context")) AS ?graph) OPTIONAL{GRAPH ?graph { ?a owl:sameAs ?b. } ?a rdfs:label ?aL. ?b rdfs:label ?bL. BIND(CONCAT(?aL,"-",?bL) as ?L)} } GROUP BY ?subject']]
               </semantic-context>
             [[/if]]
             

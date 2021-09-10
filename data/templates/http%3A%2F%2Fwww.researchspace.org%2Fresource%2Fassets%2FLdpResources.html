@@ -14,6 +14,8 @@
     <semantic-context repository='assets'>
       {{#if label}}
         <semantic-link style='max-width: 70px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;' uri='{{subject.value}}' title='{{label.value}}'>{{label.value}}</semantic-link>
+      {{else if L}}
+      <semantic-link style='max-width: 70px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;' uri='{{subject.value}}' title='{{L.value}}'>{{L.value}}</semantic-link>
       {{else}}
         <semantic-link style='max-width: 70px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;' uri='{{subject.value}}'></semantic-link>
       {{/if}}

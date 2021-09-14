@@ -158,7 +158,7 @@
           ?value_b rdfs:label ?label_b  
           BIND(BOUND(?label_b) && strlen(?label_b)>0 as ?withData)
           }
-          BIND("Photos" as ?fieldName)
+          BIND("Photo I.D. No." as ?fieldName)
         }}GROUP BY ?withData ?fieldName'
         template="{{> photosTemplate}}"
       >
@@ -354,7 +354,7 @@
       </semantic-query>
 
       <!--################################################################################-->
-      <!--############################### ORIGINAL RECORDS ###############################-->
+      <!--############################### PHOTO ARCHIVE RECORDS ###############################-->
       <!--################################################################################-->
       <semantic-query
         query=' SELECT (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR=", ") AS ?labelA) (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR=", ") AS ?labelB) ?withData ?fieldName WHERE {
@@ -366,7 +366,7 @@
                       <{{bindings.0.subject2.value}}> <https://pharos.artresearch.net/custom/has_original_record> ?label_b.  
                       BIND(BOUND(?label_b) && strlen(str(?label_b))>0 as ?withData)
                     }
-                    BIND("Original Records" as ?fieldName)
+                    BIND("Photo archive records" as ?fieldName)
                   }
                 }GROUP BY ?withData ?fieldName'
         template="{{> originalrecordsTemplate}}"

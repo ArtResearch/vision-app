@@ -3,7 +3,6 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-
 }
 
 .providerList {
@@ -25,14 +24,13 @@
 
 .selected {
   background: #f5f5f5 !important;
-  border-color:  #007bff !important;
+  border-color: #007bff !important;
 }
 
 .selectedSecond {
   background: #f5f5f5 !important;
-  border-color:  #ff0000!important;
+  border-color: #ff0000 !important;
 }
-
 
 .providerListContainer .sourceIcon {
   border-top-left-radius: 100% !important;
@@ -47,16 +45,18 @@
   box-shadow: 1px 1px 3px 1px #e7e7e7 !important;
   background: white !important;
 }
-.providerSelectHelper{
-    font-size: 20px !important;
+.providerSelectHelper {
+  margin-right: 5vw;
+  margin-left: 5vw;
+  font-size: 20px !important;
   -webkit-animation: fade-in 1.5s cubic-bezier(0.39, 0.575, 0.565, 1) both;
   animation: fade-in 1.5s cubic-bezier(0.39, 0.575, 0.565, 1) both;
 }
-.linkTitle{
+.linkTitle {
   transition: 0.4s;
   font-size: 20px !important;
   color: #00356e !important;
 }
-.linkTitle:hover{
+.linkTitle:hover {
   font-size: 22px !important;
 }

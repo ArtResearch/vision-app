@@ -8,26 +8,16 @@
           <semantic-link class="rs-header-logo" iri="Default:start">Pharos Vision</semantic-link></div>
     <div class="collapse navbar-collapse" id="rs-navbar">
       <ul class="nav navbar-nav">
-        <li style="margin-left: 2vw;">
-          <semantic-link class="rs-body-m-M" iri="Default:start">Search</semantic-link>
-        </li>
+        <mp-anonymous-hidden>
         <li>
           <semantic-link class="rs-body-m-M" iri="Default:matchings">Artwork matchings</semantic-link>
         </li>
-
+        </mp-anonymous-hidden>
       </ul>
       <ul class="nav navbar-nav">
-        <li class="rs-xs-none "><a href="/resource/:ThinkingFrames?view=simple-search"
-            title="http://www.researchspace.org/resource/ThinkingFrames" class="" target="_self" draggable="true"
-            style="padding-right: 5px; padding-top: 3px;"><i class="rs-icon rs-icon-search"></i></a></li>
-        <li class="rs-xs-none"><a href="/resource/:Documentation"
-            title="http://www.researchspace.org/resource/Documentation" class="rs-setting-icon" target="_self"
-            draggable="true" style="padding-right: 5px;"><i class="fa fa-question-circle"></i></a></li>
-        <li class="rs-only-xs"><a href="/resource/:Documentation"
-            title="http://www.researchspace.org/resource/Documentation" class="" target="_self" draggable="true">
-            Documentation
-          </a></li>
-
+          <li class="">
+            <a href="/sparql" title="logout" class="rs-body-m-M">SPARQL</a>
+          </li>
         <mp-anonymous-hidden>
           <li class="">
             <a href="/resource/:admin" title="logout" class="rs-body-m-M">Admin</a>

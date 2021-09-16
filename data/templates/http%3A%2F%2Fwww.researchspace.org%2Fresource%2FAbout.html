@@ -43,14 +43,14 @@
     </p>
     <img src="/assets/images/media/sparql_example.png" />
   </section>
-  <semantic-context repository="pastec">
   <section class="section-about" title="Sample SPARQL queries">
     <h2>Sample SPARQL queries</h2>
     <p>
       Running the following query against the pastec repository will return the
       Pastec ID of similar images:
     </p>
-    <mp-code-block mode='application/sparql-query'>
+    <semantic-context repository="pastec">
+      <mp-code-block mode='application/sparql-query'>
       <![CDATA[
 PREFIX example: <http://www.example.org/ontology#>
 
@@ -61,7 +61,7 @@ SELECT ?subject ?score ?id WHERE {
 } ORDER BY DESC (?score)
       ]]>
       </mp-code-block>
-
+    </semantic-context>
       <p>
         To query the pastec image API with an external image 
         and return Artwork URI matches from ArtResearch.net, select the default repository in the SPARQL editor.
@@ -139,7 +139,6 @@ SERVICE <https://artresearch.net/sparql> {
     Additional documentation about the SPARQL endpoint will be expanded with more examples in the near future.
   </p>
     </section>
-  </semantic-context>
 </div>
 <style>
   .section-about {

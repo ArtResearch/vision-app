@@ -2,13 +2,14 @@
   [[> rsp:photoTiles]]
   <div class="mainContent">
     <div id="photoSearch" data-flex-layout="column center-center">
-      <div class="logoLarge">
-        <img src="../../assets/images/vision-ar-header_large.png" />
-      </div>
+      <div class="logoLarge"><div class="logo-title"><div class="logo-title-super">visual</div> search for  the</div>
+        <i> Pharos Image Collections </i>
+           </div>
       <div style="margin-top: 10vh">[[> rsp:Searchbar]]</div>
     </div>
-  </div>
-  <h1 style="position:absolute; left: 12vw; bottom: 22vh;">Featured matched artworks</h1>
+ 
+  <section class="feature-section" title="featured matched artworks">
+  <h1 >Featured matched artworks</h1>
   <div id="featured-selections">
     <semantic-link iri="https://vision.artresearch.net/resource/Similarity/35545767782677875982682646">
       <div id="zeri-itatti" class="flip-card-feature">
@@ -392,16 +393,13 @@
       </div>
     </semantic-link>
   </div>
+  </section>
+</div>
 </div>
 <style>
   #featured-selections {
-    position: absolute;
-    bottom: -25vh;
-    height: 40vh;
-    width: 90%;
-    left: 5%;
     display: flex;
-    justify-content: center;
+    margin-top: 50px;
     flex-wrap: wrap;
   }
   .flip-card-feature {

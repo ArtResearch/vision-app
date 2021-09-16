@@ -6,8 +6,43 @@
 
 #start-page .logoLarge {
   text-align: center;
-  border-radius: 45px;
-  background: #ffffffd6;
+  border-radius: 5px;
+  font-size: 26px;
+  min-height: 12vh;
+  min-width: 280px;
+  width: 19vw;
+  margin-top: 3vh;
+  color: white !important;
+  background: #0000008a;
+  padding: 8px;
+  box-shadow: 0px 0px 8px 1px #201f1f;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.feature-section{
+  margin-top: 15vh;
+  display: flex;
+  padding-left: 10vw !important;
+  justify-content: center;
+  padding: 35px;
+  flex-direction: column;
+}
+
+.logo-title{
+  display: flex;
+  gap: 5px;
+  color: white !important;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo-title-super{
+  color: #d13e3e !important;
+  font-weight: bold;
+  filter: drop-shadow(0px 0px 1px black);
 }
 
 #start-page .component-page-toolbar {
@@ -131,6 +166,11 @@
   filter: drop-shadow(2px 4px 6px black);
 }
 
+@media(max-width:1200px){
+  #start-page .mainContent {
+    top:13% !important;
+  }
+}
 
 
 /**

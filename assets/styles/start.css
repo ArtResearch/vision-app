@@ -166,9 +166,16 @@
   filter: drop-shadow(2px 4px 6px black);
 }
 
+#about-page{
+  padding: 5vh 20vw 5vh 20vw;
+}
+
 @media(max-width:1200px){
   #start-page .mainContent {
     top:13% !important;
+  }
+  #about-page{
+    padding: 5vh 10vw 5vh 10vw !important;
   }
 }
 

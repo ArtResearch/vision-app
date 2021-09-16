@@ -1,0 +1,167 @@
+<div id="about-page">
+  <h1>About</h1>
+  <section class="section-about" title="Data access">
+    <h2>Data access</h2>
+    <p>
+      Access to existing visual similarity data between artworks in the
+      ArtResearch platform is available through the SPARQL endpoint:
+      <semantic-link iri=":sparql">
+        https://vision.artresearch.net/sparql</semantic-link
+      >
+      Data dumps are currently not available, as the platform is still in
+      evolution and most of the artwork matches still need to be reviewed by
+      collection curators.
+    </p>
+  </section>
+  <section class="section-about" title="License">
+    <h2>License</h2>
+    <p>
+      The data contained within this endpoint is Licensed under a
+      <a href="https://creativecommons.org/licenses/by-sa/4.0/"
+        >Creative Commons Attribution-ShareAlike 4.0 License.</a
+      >
+    </p>
+  </section>
+  <section class="section-about" title="ArtVision API">
+    <h2>ArtVision API</h2>
+    <p>
+      The API that handles the exchange of data between the ResearchSpace graph
+      database and Computer vision APIs can be found here:
+      <a href="https://github.com/ArtResearch/vision-api/">
+        https://github.com/ArtResearch/vision-api
+      </a>
+    </p>
+  </section>
+  <section class="section-about" title="SPARQL endpoint">
+    <h2>SPARQL endpoint</h2>
+    <p>
+      The SPARQL endpoint is available for querying both existing similarity
+      data within the ArtVision platform and external Computer Vision APIs in
+      real-time through SPARQL federation. Each computer vision API is
+      registered as a separate repository within the SPARQL editor, and can be
+      queried directly:
+    </p>
+    <img src="/assets/images/media/sparql_example.png" />
+  </section>
+  <semantic-context repository="pastec">
+  <section class="section-about" title="Sample SPARQL queries">
+    <h2>Sample SPARQL queries</h2>
+    <p>
+      Running the following query against the pastec repository will return the
+      Pastec ID of similar images:
+    </p>
+    <mp-code-block mode='application/sparql-query'>
+      <![CDATA[
+PREFIX example: <http://www.example.org/ontology#>
+
+SELECT ?subject ?score ?id WHERE {
+  ?subject example:hasImageUrl "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg/240px-Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg";
+  example:hasScore ?score;
+  example:hasResultingIds ?id.
+} ORDER BY DESC (?score)
+      ]]>
+      </mp-code-block>
+
+      <p>
+        To query the pastec image API with an external image 
+        and return Artwork URI matches from ArtResearch.net, select the default repository in the SPARQL editor.
+      </p>
+      <mp-code-block mode='application/sparql-query'>
+        <![CDATA[
+PREFIX example: <http://www.example.org/ontology#>
+PREFIX fc: <https://pharos.artresearch.net/resource/fc/>
+PREFIX crm: <http://www.cidoc-crm.org/cidoc-crm/>
+
+SELECT DISTINCT ?pharos WHERE {
+
+  SERVICE <https://vision.artresearch.net/sparql?repository=pastec> {
+    ?subject example:hasImageUrl "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg/240px-Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg";
+      example:hasScore ?score;
+      example:hasResultingIds ?id.
+  }
+  BIND(iri(CONCAT("https://vision.artresearch.net:4212/index/images/",str(?id))) as ?idProperty)
+
+  SERVICE <https://artresearch.net/sparql> {
+      ?imgUri <https://pharos.artresearch.net/resource/vocab/vision/pastec/has_index> ?idProperty.
+      ?photo crm:P129i_is_subject_of ?imgUri.
+      ?pharos <https://pharos.artresearch.net/resource/fr/Work_depicted_by_Photo> ?photo.
+      ?pharos a fc:work.
+  }
+  
+} GROUP BY (?pharos) ORDER BY DESC (AVG(?score))
+        
+        
+        ]]>
+      </mp-code-block>
+
+      <p>
+        The query below will return matching artwork URIs, title, artist, 
+        and repository for a given image:
+      </p>
+      <mp-code-block mode='application/sparql-query'>
+        <![CDATA[
+PREFIX example: <http://www.example.org/ontology#>
+PREFIX fc: <https://pharos.artresearch.net/resource/fc/>
+PREFIX crm: <http://www.cidoc-crm.org/cidoc-crm/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX fr: <https://pharos.artresearch.net/resource/fr/>
+SELECT DISTINCT ?pharos ?title ?artist ?repository WHERE {
+SERVICE <https://vision.artresearch.net/sparql?repository=pastec> {
+  ?subject example:hasImageUrl "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg/240px-Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg";
+    example:hasScore ?score;
+    example:hasResultingIds ?id.
+}
+  BIND(iri(CONCAT("https://vision.artresearch.net:4212/index/images/",str(?id))) as ?idProperty)
+
+
+SERVICE <https://artresearch.net/sparql> {
+    ?imgUri <https://pharos.artresearch.net/resource/vocab/vision/pastec/has_index> ?idProperty.
+    ?photo crm:P129i_is_subject_of ?imgUri.
+    ?pharos <https://pharos.artresearch.net/resource/fr/Work_depicted_by_Photo> ?photo.
+    ?pharos a fc:work.
+
+  OPTIONAL {
+    ?pharos rdfs:label ?title. }
+  OPTIONAL {
+    ?pharos fr:Work_influenced_by_Artist|fr:Work_created_from_Artist ?artist_uri.
+    ?artist_uri rdfs:label ?artist . }
+  OPTIONAL {
+    ?pharos fr:Work_kept_by_Institution ?repo_uri.
+    ?repo_uri rdfs:label ?repository. }
+}}
+        ]]>
+      </mp-code-block>
+
+
+  <p>
+    <b>Although the results will show PHAROS URIs, those will become dereferencable in 2022 when the platform is published.
+    </b>
+    Additional documentation about the SPARQL endpoint will be expanded with more examples in the near future.
+  </p>
+    </section>
+  </semantic-context>
+</div>
+<style>
+  .section-about {
+    margin-top: 50px;
+  }
+  .section-about h2 {
+    font-size: 22px;
+    border-bottom: 1px solid #e4e3e3;
+    padding-bottom: 5px;
+  }
+  .section-about p {
+    font-size: 18px;
+  }
+  .section-about img{
+    height: 30vh;
+    object-fit: contain;
+    max-width: 65vw;
+    
+  }
+  a.btn.btn-primary.run-query-button:hover,
+  a.btn.btn-primary.run-query-button {
+    border:1px solid white !important;
+    background: #1f96ce !important;
+  }
+</style>

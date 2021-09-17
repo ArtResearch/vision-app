@@ -45,16 +45,31 @@
               <bs-nav-item event-key="{{@index}}"><div style="display:flex;">{{partnerLabel.value}}
                 (
                   <semantic-query query='
-                   SELECT  (COUNT (DISTINCT CONCAT(STR(?subject1),STR(?subject2))) AS ?count)  WHERE{
-                    ?subject1 <https://pharos.artresearch.net/custom/has_provider> <[[urlParam "partner"]]>.
-                    ?subject2 <https://pharos.artresearch.net/custom/has_provider> {{partnerUri}}.
-                    ?subject1 <https://pharos.artresearch.net/custom/has_image> ?imageA.
-                    ?subject2 <https://pharos.artresearch.net/custom/has_image> ?imageB.
-                    ?imageA <http://purl.org/ontology/similarity/element> ?element.
-                    ?imageB <http://purl.org/ontology/similarity/element> ?element.
-                    FILTER NOT EXISTS { ?element <https://vision.artresearch.net/custom/reviewed> "true"^^xsd:boolean}
-                   }
-                 '></semantic-query>)
+                  SELECT (COUNT(DISTINCT ?concatSub) AS ?count) WHERE{
+                    SELECT DISTINCT ?concatSub WHERE{
+                      ?subject1 <https://pharos.artresearch.net/custom/has_provider> <[[urlParam "partner"]]>.
+                      ?subject2 <https://pharos.artresearch.net/custom/has_provider> {{partnerUri}}.
+                      ?subject1 <https://pharos.artresearch.net/custom/has_image> ?imageA.
+                      ?subject2 <https://pharos.artresearch.net/custom/has_image> ?imageB.
+                      ?imageA <http://purl.org/ontology/similarity/element> ?element.
+                      ?imageB <http://purl.org/ontology/similarity/element> ?element.
+                      BIND(CONCAT(STR(?subject1),STR(?subject2)) as ?concatSub)  
+                      FILTER NOT EXISTS { ?element <https://vision.artresearch.net/custom/reviewed> true }
+                   }LIMIT 1001
+                  }
+                 '
+                 template="{{> countTemplate}}"
+                 >
+                <template id="countTemplate">
+                  {{#each bindings}}
+                    {{#ifCond count.value ">" 1000}}
+                      >1000
+                    {{else}}
+                      {{count.value}}
+                    {{/ifCond}}  
+                  {{/each}}
+                </template>
+                 </semantic-query>)
                 </div>
                </bs-nav-item>
                {{/each}}

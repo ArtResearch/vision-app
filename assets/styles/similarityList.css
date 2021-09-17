@@ -551,12 +551,16 @@ button.slick-arrow.slick-next {
 
 
 @media (max-width: 800px) {
+  #similarity-list-template .semantic-table-holder {
+    left: 5% !important;
+
+  }
+
+
   #similarity-list-template .action {
     min-width: 120px !important;
   }
-  #similarity-list-template #search-results-pane-2 .semantic-table-holder {
-    left: 5% !important;
-  }
+
   #similarity-list-template .thumbnailImageContainer {
     justify-content: center;
   }

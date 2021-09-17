@@ -1,54 +1,23 @@
 <div id="search-bar">
-  <semantic-search>
-    <semantic-search-query-keyword
-      placeholder="Provide an image url and search for similar artworks"
-      domain="<http://www.w3.org/2000/01/rdf-schema#Resource>"
-      default-query="
-    SELECT ?keywords  WHERE {
-      ?keywords a <http://no-result>
-    }
-  "
-      query='
-      SELECT ?keywords  WHERE {
-        BIND(REPLACE(?__token__,"\\\\:",":") AS ?norm1).
-        BIND(REPLACE(?norm1,"\\\\","") AS ?norm2). 
-         BIND(REPLACE(?norm2,"\\*","") AS ?keywords). 
-      }'
-      debounce="10"
-    ></semantic-search-query-keyword>
-    <semantic-search-result-holder>
-      <semantic-search-result>
-        <semantic-query
-          id="view-more"
-          query="SELECT ?keywords WHERE {}"
-          template="{{>viewMoreButton}}"
-        >
-          <template id="viewMoreButton">
-            <click-element targetId="search-click" keyboardKey="Enter"></click-element>
-            <semantic-link
-              class="search-btn-activated"
-              iri="rsp:Search"
-              urlqueryparam-image="{{bindings.0.keywords.value}}"
-            >
-              <div id="search-click" style="background: white; height: 39px" class="btn searchBtn">
-                Search
-                <i class="rs-icon rs-icon-search"></i>
-              </div>
-            </semantic-link>
-          </template>
-        </semantic-query>
-        <semantic-link
-        iri="#"
-        class="search-btn-disabled"
-      >
-        <div 
-        title="Provide an image URL"
-        style="background: white; height: 39px" class="btn searchBtn">
-          Search
-          <i class="rs-icon rs-icon-search"></i>
-        </div>
-      </semantic-link>
-      </semantic-search-result>
-    </semantic-search-result-holder>
-  </semantic-search>
+          <form>
+            <input
+              required
+              minlength="2"
+              class="form-control"
+              placeholder="Search the collection"
+              type="search"
+              title="Type at least 2 characters, only alphanumeric e.g. (Mona Lisa 1503)"
+              id="site-search"
+              name="image"
+              aria-label="Search through site content"
+            />
+            <input type="hidden" name="uri" value="Default:Search" />
+            <button
+            type="submit"
+            style="background: white; height: 39px"
+            class="btn searchBtn"
+          >
+            Search<i class="fa fa-search" style="margin-left: 5px;"></i>
+          </button>
+          </form>
 </div>

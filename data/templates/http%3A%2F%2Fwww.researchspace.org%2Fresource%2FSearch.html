@@ -95,6 +95,9 @@
                 {{/each}}
               </template>
             </semantic-query>
+            <div class="searching animated-background">
+                Searching for similar artworks
+            </div>
           </div>
         </div>
         </semantic-context>
@@ -103,3 +106,19 @@
       </div>
   </div>
 </div>
+<style>
+  .searching{
+    font-size: 30px;
+    display: none;
+    height: 30vh;
+    width: 400px;
+    text-align: center;
+    height: 30vh;
+  }
+  .system-spinner+.searching{
+    display: flex !important; 
+  }
+  .system-spinner {
+    display: none !important;
+  }
+</style>

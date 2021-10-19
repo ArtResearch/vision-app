@@ -18,17 +18,19 @@
         
       </p>
 
+        [[> :StatisticTotal]]
+
       </div>
         <semantic-query  
-        query='SELECT ?partnerUri ?partnerLabel WHERE{
-            VALUES(?partnerUri)
+        query='SELECT ?partnerUri ?relationUri ?partnerLabel WHERE{
+            VALUES(?partnerUri ?relationUri)
             {
-             (<https://pharos.artresearch.net/resource/frick/source/Frick>)
-             (<https://pharos.artresearch.net/resource/hertziana/source/Hertziana>)
-             (<https://pharos.artresearch.net/resource/itatti/source/ITatti>)
-             (<https://pharos.artresearch.net/resource/khi/source/KHI>)
-             (<https://pharos.artresearch.net/resource/marburg/source/Marburg>)
-             (<https://pharos.artresearch.net/resource/zeri/source/Zeri>)
+             (<https://pharos.artresearch.net/resource/frick/source/Frick> <https://pharos.artresearch.net/custom/numOfNonmatchedFrick>)
+             (<https://pharos.artresearch.net/resource/hertziana/source/Hertziana> <https://pharos.artresearch.net/custom/numOfNonmatchedHertziana>)
+             (<https://pharos.artresearch.net/resource/itatti/source/ITatti> <https://pharos.artresearch.net/custom/numOfNonmatchedItatti>)
+             (<https://pharos.artresearch.net/resource/khi/source/KHI>  <https://pharos.artresearch.net/custom/numOfNonmatchedKHI>)
+             (<https://pharos.artresearch.net/resource/marburg/source/Marburg> <https://pharos.artresearch.net/custom/numOfNonmatchedMarburg>)
+             (<https://pharos.artresearch.net/resource/zeri/source/Zeri> <https://pharos.artresearch.net/custom/numOfNonmatchedZeri>)
             }
 
             ?partnerUri rdfs:label ?partnerLabel.
@@ -44,30 +46,20 @@
               {{#each bindings}}
               <bs-nav-item event-key="{{@index}}"><div style="display:flex;">{{partnerLabel.value}}
                 (
+                  
                   <semantic-query query='
-                  SELECT (COUNT(DISTINCT ?concatSub) AS ?count) WHERE{
-                    SELECT DISTINCT ?concatSub WHERE{
-                      ?subject1 <https://pharos.artresearch.net/custom/has_provider> <[[urlParam "partner"]]>.
-                      ?subject2 <https://pharos.artresearch.net/custom/has_provider> {{partnerUri}}.
-                      ?subject1 <https://pharos.artresearch.net/custom/has_image> ?imageA.
-                      ?subject2 <https://pharos.artresearch.net/custom/has_image> ?imageB.
-                      ?imageA <http://purl.org/ontology/similarity/element> ?element.
-                      ?imageB <http://purl.org/ontology/similarity/element> ?element.
-                      BIND(CONCAT(STR(?subject1),STR(?subject2)) as ?concatSub)  
-                      FILTER NOT EXISTS { ?element <https://vision.artresearch.net/custom/reviewed> true }
-                   }LIMIT 1001
-                  }
+                  SELECT ?count WHERE{
+                    GRAPH ?graph {
+                     <[[urlParam "partner"]]> <{{relationUri.value}}> ?count
+                    }  
+                    ?statistics <https://pharos.artresearch.net/custom/consists_of> ?graph.
+                    ?statistics <https://pharos.artresearch.net/custom/has_date> ?date.
+                   }ORDER BY DESC (?date) LIMIT 1
                  '
                  template="{{> countTemplate}}"
                  >
                 <template id="countTemplate">
-                  {{#each bindings}}
-                    {{#ifCond count.value ">" 1000}}
-                      >1000
-                    {{else}}
-                      {{count.value}}
-                    {{/ifCond}}  
-                  {{/each}}
+                      {{bindings.0.count.value}}
                 </template>
                  </semantic-query>)
                 </div>

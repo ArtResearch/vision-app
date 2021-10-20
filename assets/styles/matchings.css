@@ -23,6 +23,23 @@
   /* -webkit-animation: focus-in-contract 0.7s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 	        animation: focus-in-contract 0.7s cubic-bezier(0.250, 0.460, 0.450, 0.940) both; */
 }
+#matchings .grid-list {
+  position: relative;
+  width: 80%;
+  left: 11%;
+  gap:25px;
+  grid-template-columns: repeat(3,1fr);
+  display: grid;
+  margin-bottom: 15vh;
+}
+
+#matchings .grid-list > div {
+  box-shadow: 0px 0px 8px 1px #ececec;
+  padding: 15px;
+  border-radius: 5px;
+}
+
+
 
 #matchings .card-list {
   position: relative;
@@ -171,6 +188,10 @@
   }
 }
 @media (max-width:800px) {
+#matchings .grid-list {
+  grid-template-columns: repeat(1, 1fr);
+
+}
   .card-list-grid {
     grid-template-columns: repeat(1, 1fr);
   }

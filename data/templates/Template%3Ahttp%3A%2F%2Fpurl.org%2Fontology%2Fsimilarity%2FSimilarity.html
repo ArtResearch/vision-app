@@ -155,6 +155,55 @@
                   </mp-overlay-dialog-content>
                   </mp-overlay-dialog>
                             
+                  <mp-overlay-dialog title="‎‎Confirm two artworks are similar (but not the same)" >
+                    <mp-overlay-dialog-trigger
+                      >
+                          <button
+                          id="1234"
+                          name="submit"
+                          class="btn btn-default action optional"
+                          title="Two instances are similar"
+                        > Similar </button>
+                        </mp-overlay-dialog-trigger>
+                        <mp-overlay-dialog-content>
+                            <h1>Are you sure the two artworks are similar?</h1>
+                            <h2>If yes, click on "Confirm" button bellow.</h2>
+                            <semantic-form
+                            new-subject-template="{{bindings.0.element.value}}"
+                            browser-persistance="true"
+                            persistence='ldp'
+                            urlqueryparam-providera='[[urlParam "providera"]]'
+                            urlqueryparam-providerb='[[urlParam "providerb"]]'
+                            post-action='{{bindings.0.nextElement.value}}'
+                            form-id="IMApprove1"
+                            fields='[[fieldDefinitions
+                                                        sameAs="http://www.researchspace.org/fieldDefinition/Same"
+                                                        ]]'
+                          >
+        
+                            <semantic-form-hidden-input
+                              for="sameAs"
+                              default-value="true"
+                            ></semantic-form-hidden-input>
+          
+                            <button
+                            id="1234"
+                            style="  
+                            font-size: medium;
+                            border: none ;
+                            min-height: 4vh;
+                            width: 8vw;
+                            color:white;
+                            min-width: 150px;
+                            box-shadow: 0px 0px 10px 1px #bebebe;"
+                            name="submit"
+                            class="btn btn-default action approve"
+                            title="Two instances are similar"
+                            > <div style="color: white !important;"> Confirm</div> </button>
+                          </semantic-form>
+                          </mp-overlay-dialog-content>
+                  </mp-overlay-dialog>
+
                   <mp-overlay-dialog title="‎‎Confirm two artworks are the same" >
                     <mp-overlay-dialog-trigger
                       >

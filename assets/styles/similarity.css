@@ -125,6 +125,7 @@
 
 #similarity-template .actions .action {
   color: white !important;
+  transition: 0.4s;
   font-size: medium;
   border: none !important;
   border-radius: 4px;

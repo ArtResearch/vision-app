@@ -62,6 +62,7 @@
 #matchings-vocab .actions .action {
   color: white !important;
   font-size: medium;
+  transition: 0.4s;
   border: none !important;
   min-height: 4vh;
   width: 8vw;

@@ -19,6 +19,7 @@
 
 #similarity-list-template .actions .action {
   color: white !important;
+  transition: 0.4s;
   font-size: medium;
   border: none !important;
   min-height: 4vh;

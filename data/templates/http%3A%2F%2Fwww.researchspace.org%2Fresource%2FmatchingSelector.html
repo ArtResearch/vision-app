@@ -12,7 +12,9 @@
           >
             <template id="providerImage">
               <div class="logoContainer">
+                {{#ifCond providerImageA "!==" undefined}}
                 <img src=" {{providerImageA}}" />
+                {{/ifCond}}
               </div>
               <div class="submitContainer">
                 {{#ifCond providerA "&&" providerB}}
@@ -28,7 +30,9 @@
                 {{/ifCond}}
               </div>
               <div class="logoContainer">
+                {{#ifCond providerImageB "!==" undefined}}
                 <img src=" {{providerImageB}}" />
+                {{/ifCond}}
               </div>
             </template>
           </mp-event-target-template-render>

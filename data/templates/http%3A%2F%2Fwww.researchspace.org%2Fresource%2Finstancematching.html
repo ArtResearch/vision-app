@@ -58,9 +58,10 @@
       <template id="imageInfoTemplate">
 
         <div class="actions">
-          <button class="btn btn-default action optional" title="Two instances are the same">Imitation/Copy of</button>
-          <button class="btn btn-default action optional" title="Two instances are the same">Study/Sketch of</button>
-          <button class="btn btn-default action optional" title="Two instances are the same">Same negative</button>
+          <button class="btn btn-default action optional" title="Select similarity">Imitation/Copy of</button>
+          <button class="btn btn-default action optional" title="Select similarity">Study/Sketch of</button>
+          <button class="btn btn-default action optional" title="Select similarity">Same negative</button>
+          <button class="btn btn-default action optional" title="Similar but not the same">Similar</button>
 
 
           <semantic-form
@@ -232,6 +233,7 @@
     color:white !important;
     font-size: medium;
     border:none !important;
+    transition: 0.4s;
     border-radius: 4px;
     min-height:4vh;
     width: 8vw;

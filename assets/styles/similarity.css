@@ -144,9 +144,11 @@ button.btn.btn-default.action.optional {
 
 .approve {
   background-color: #007bff !important;
+  font-weight: bold !important;
 }
 
 .reject {
+  font-weight: bold !important;
   background-color: #6c757d !important;
 }
 

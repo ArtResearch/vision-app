@@ -92,12 +92,13 @@
 }
 
 #matchings-vocab .approve {
+  font-weight: bold !important;
   background-color: #007bff !important;
 }
 
 #matchings-vocab .reject {
   background-color: #6c757d !important;
-  font-weight: normal !important;
+  font-weight: bold !important;
 }
 
 #matchings-vocab .jumbotron {

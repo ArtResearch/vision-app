@@ -110,6 +110,20 @@
   font-size: medium;
 }
 
+#similarity-template .title-actions {
+  height: unset !important;
+  width: unset !important;
+  min-width: unset !important;
+  min-height: unset !important;
+  background: none !important;
+  justify-content: flex-start !important;
+  flex-direction: row !important;
+}
+
+.color-white{
+  color: white !important;
+}
+
 #similarity-template .actions {
   display: flex;
   justify-content: space-evenly;

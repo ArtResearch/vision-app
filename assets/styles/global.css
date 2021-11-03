@@ -100,6 +100,10 @@ body.loading .loading-modal {
     height: 100%;
     width: 100%;
   }
+  .image-to-upload{
+    padding-top:15px !important;
+    width: 100% !important;
+  }
 
   .loading-table {
     margin-left: auto;

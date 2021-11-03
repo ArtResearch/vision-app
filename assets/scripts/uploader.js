@@ -49,18 +49,18 @@ class ImageUpload extends HTMLElement {
             try {
               response = JSON.parse(this.responseText);
             } catch (err) {
-              response = JSON.parse(
-                '{"data": {"id": "orunSTu","title": null,"description": null,"datetime": 1495556889,"type": "image/gif","animated": false,"width": 1,"height": 1,"size": 42,"views": 0,"bandwidth": 0,"vote": null,"favorite": false,"nsfw": null,"section": null,"account_url": null,"account_id": 0,"is_ad": false,"in_most_viral": false,"tags": [],"ad_type": 0,"ad_url": "","in_gallery": false,"deletehash": "x70po4w7BVvSUzZ","name": "","link": "http://i.imgur.com/orunSTu.gif"},"success": true,"status": 200}'
-              );
-              // response = this.responseText;
+            //   response = JSON.parse(
+            //     '{"data": {"id": "orunSTu","title": null,"description": null,"datetime": 1495556889,"type": "image/gif","animated": false,"width": 1,"height": 1,"size": 42,"views": 0,"bandwidth": 0,"vote": null,"favorite": false,"nsfw": null,"section": null,"account_url": null,"account_id": 0,"is_ad": false,"in_most_viral": false,"tags": [],"ad_type": 0,"ad_url": "","in_gallery": false,"deletehash": "x70po4w7BVvSUzZ","name": "","link": "http://i.imgur.com/orunSTu.gif"},"success": true,"status": 200}'
+            //   );
+               response = this.responseText;
             }
             callback.call(that._shadowRoot, response);
           } else {
-            response = JSON.parse(
-              '{"data": {"id": "orunSTu","title": null,"description": null,"datetime": 1495556889,"type": "image/gif","animated": false,"width": 1,"height": 1,"size": 42,"views": 0,"bandwidth": 0,"vote": null,"favorite": false,"nsfw": null,"section": null,"account_url": null,"account_id": 0,"is_ad": false,"in_most_viral": false,"tags": [],"ad_type": 0,"ad_url": "","in_gallery": false,"deletehash": "x70po4w7BVvSUzZ","name": "","link": "http://i.imgur.com/orunSTu.gif"},"success": true,"status": 200}'
-            );
+            // response = JSON.parse(
+            //   '{"data": {"id": "orunSTu","title": null,"description": null,"datetime": 1495556889,"type": "image/gif","animated": false,"width": 1,"height": 1,"size": 42,"views": 0,"bandwidth": 0,"vote": null,"favorite": false,"nsfw": null,"section": null,"account_url": null,"account_id": 0,"is_ad": false,"in_most_viral": false,"tags": [],"ad_type": 0,"ad_url": "","in_gallery": false,"deletehash": "x70po4w7BVvSUzZ","name": "","link": "http://i.imgur.com/orunSTu.gif"},"success": true,"status": 200}'
+            // );
             callback.call(that._shadowRoot, response);
-            // throw new Error("yes - ya");
+             throw new Error("yes - ya");
           }
         }
       };
@@ -225,10 +225,10 @@ class ImageUpload extends HTMLElement {
           '<input type="hidden" name="image" class="image-url" value="' +
           get_link +
           '"/>' +
-          '<img class="img-to-upload" alt="Imgur-Upload" src="' +
+          '<img class="img-to-upload"  style="padding-top:15px !important; width: 100% !important;" alt="Imgur-Upload" src="' +
           get_link +
           '"/>' +
-          '<button type="submit" style="background: white; height: 39px" class="btn searchBtn">' +
+          '<button type="submit" style=" height: 39px" class="btn searchBtn">' +
           'Search<i class="fa fa-search" style="margin-left: 5px;"></i>' +
           "</button>" +
           "</form>";

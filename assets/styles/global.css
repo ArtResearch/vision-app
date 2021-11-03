@@ -57,8 +57,6 @@ body.loading .loading-modal {
   }
 
   .dropzone p {
-    /*height: 100%;*/
-    /*line-height: 200px;*/
     margin: 0%;
     text-align: center;
     width: 100%;

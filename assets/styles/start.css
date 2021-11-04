@@ -3,7 +3,18 @@
   width: 100%;
   position: absolute;
 }
+.big-or >h1{
+  margin-top:30px !important;
+  color: white !important;
+}
 
+.image-uploader-section{
+  margin-top: 3vh;
+  border: #c7c7c7 solid 1px;
+  border-radius: 4px;
+  padding: 9px 25px 20px;
+
+}
 #start-page .logoLarge {
   text-align: center;
   border-radius: 5px;
@@ -23,7 +34,7 @@
 }
 
 .feature-section{
-  margin-top: 15vh;
+  margin-top: 5vh;
   display: flex;
   padding-left: 10vw !important;
   justify-content: center;

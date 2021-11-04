@@ -225,6 +225,7 @@ tr.standard-row {
     margin-bottom: 1vh;
     text-align: center;
     color: #777777 !important;
+    visibility: hidden;
 }
 #photo-search-page .search-similar-title{
   font-size: 30px;

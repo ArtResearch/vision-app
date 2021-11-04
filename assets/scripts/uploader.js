@@ -13,7 +13,7 @@ class ImageUpload extends HTMLElement {
     <div class="Upload-nice-button">
     <label for="file-upload" class="custom-file-upload">
     <div class="Uploader-div" style ="
-        align-items: center;
+    align-items: center;
     background-color: #ffffff;
     text-shadow: 0 0 1px rgb(0 0 0 / 38%);
     font-weight: 600;
@@ -24,14 +24,17 @@ class ImageUpload extends HTMLElement {
     color: #007bff!important;
     transition: 0.4s;
     font-size: medium;
-    
+    user-select:none;
     min-height: 4vh;
     border-radius: 4px;
     box-shadow: 0px 0px 10px 1px #bebebe;"> Choose your file</div>
     <div type="hidden" class="dropzone">
+    <div id="up-loading" style="display:none;">Uploading...</div>
     <div  style="font-weight: bold;"class="info"></div>
     
     </label></div>
+       
+
     </div>
     `;
     this.clientid = "9516b72594d77fc";
@@ -56,7 +59,15 @@ class ImageUpload extends HTMLElement {
       referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
     }
     function post(that, path, data, callback) {
-      
+      that._shadowRoot.querySelector("#up-loading").style=`
+      display:block;
+      font-weight: bold;
+      color: #2b8aef;
+      padding: 12px;
+      margin-top: 10px;
+      font-size: 20px;
+      text-align: center;
+      `
       var xhttp = new XMLHttpRequest();
       console.log("Client-ID " + that.clientid);
       xhttp.open("POST", path, true);
@@ -69,14 +80,15 @@ class ImageUpload extends HTMLElement {
             try {
               response = JSON.parse(this.responseText);
             } catch (err) {
-    
+
                response = this.responseText;
             }
+            that._shadowRoot.querySelector("#up-loading").style='display:none;'
             callback.call(that._shadowRoot, response);
           } else {
-            
+            that._shadowRoot.querySelector("#up-loading").style='display:none;'
             callback.call(that._shadowRoot, response);
-             throw new Error("yes - ya");
+             throw new Error("Could not upload your image");
           }
         }
       };
@@ -190,10 +202,6 @@ class ImageUpload extends HTMLElement {
     }
 
     function run(that) {
-      // var loadingModal = that._shadowRoot.querySelector(".loading-modal");
-      // if (!loadingModal) {
-      //   loading(that);
-      // }
       createDragZone(that);
     }
 
@@ -203,7 +211,6 @@ class ImageUpload extends HTMLElement {
     }
 
     function addImg(that, ele, content) {
-      console.log(ele);
       var myDIV = that._shadowRoot.querySelector(ele);
       var newContent = document.createElement("div");
       //[[> SearchImageFile]] me innerHTML

@@ -107,20 +107,6 @@ class ImageUpload extends HTMLElement {
       );
       
     }
-    // function loading(that) {
-    //   var div, table, img;
-
-    //   div = createEls(that, "div", { className: "loading-modal" });
-    //   table = createEls(that, "table", { className: "loading-table" });
-    //   img = createEls(that, "img", {
-    //     className: "loading-image",
-    //     src: "../assets/css/loading-spin.svg",
-    //   });
-
-    //   div.appendChild(table);
-    //   table.appendChild(img);
-    //   that._shadowRoot.appendChild(div);
-    // }
 
     function status(that, el) {
       var div = createEls("div", { className: "status" });
@@ -240,26 +226,26 @@ class ImageUpload extends HTMLElement {
           '<input type="hidden" name="image" class="image-url" value="' +
           get_link +
           '"/>' +
-          '<img class="img-to-upload"  style="padding-top:15px !important; width: 100% !important;" alt="Imgur-Upload" src="' +
+          '<img class="img-to-upload"  style="height: 250px ;object-fit: contain; width: 100% !important; background: whitesmoke; padding: 8px 0px;" alt="Imgur-Upload" src="' +
           get_link +
           '"/>' +
           `<button type="submit" style=" align-items: center;background-color: #007bff;
-    border-color: #007bff;
-    text-shadow: 0 0 1px rgb(0 0 0 / 38%);
-    font-weight: 600;
-    height: 31px;
-    cursor:pointer;
-    display: flex;
-    justify-content: center;
-    color: white !important;
-    transition: 0.4s;
-    font-size: medium;
-    border: none !important;
-    min-height: 4vh;
-    border-radius: 4px;
-    width: 100%;
-    margin-top: 10px;
-    box-shadow: 0px 0px 10px 1px #bebebe;" class="btn searchBtn">` +
+              border-color: #007bff;
+              text-shadow: 0 0 1px rgb(0 0 0 / 38%);
+              font-weight: 600;
+              height: 31px;
+              cursor:pointer;
+              display: flex;
+              justify-content: center;
+              color: white !important;
+              transition: 0.4s;
+              font-size: medium;
+              border: none !important;
+              min-height: 4vh;
+              border-radius: 4px;
+              width: 100%;
+              margin-top: 10px;
+              box-shadow: 0px 0px 10px 1px #bebebe;" class="btn searchBtn">` +
           'Start visual search <i class="fa fa-search" style="margin-left: 5px;"></i>' +
           "</button>" +
           "</form>";

@@ -31,10 +31,7 @@ class ImageUpload extends HTMLElement {
     <div type="hidden" class="dropzone">
     <div id="up-loading" style="display:none;">Uploading...</div>
     <div  style="font-weight: bold;"class="info"></div>
-    
     </label></div>
-       
-
     </div>
     `;
     this.clientid = "9516b72594d77fc";
@@ -59,7 +56,7 @@ class ImageUpload extends HTMLElement {
       referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
     }
     function post(that, path, data, callback) {
-      that._shadowRoot.querySelector("#up-loading").style=`
+      that._shadowRoot.querySelector("#up-loading").style = `
       display:block;
       font-weight: bold;
       color: #2b8aef;
@@ -67,28 +64,27 @@ class ImageUpload extends HTMLElement {
       margin-top: 10px;
       font-size: 20px;
       text-align: center;
-      `
+      `;
       var xhttp = new XMLHttpRequest();
-      console.log("Client-ID " + that.clientid);
       xhttp.open("POST", path, true);
       xhttp.setRequestHeader("Authorization", "Client-ID " + that.clientid);
       xhttp.onreadystatechange = function () {
         if (this.readyState === 4) {
-          console.log(this.status);
           if (this.status >= 200 && this.status < 300) {
             var response = "";
             try {
               response = JSON.parse(this.responseText);
             } catch (err) {
-
-               response = this.responseText;
+              response = this.responseText;
             }
-            that._shadowRoot.querySelector("#up-loading").style='display:none;'
+            that._shadowRoot.querySelector("#up-loading").style =
+              "display:none;";
             callback.call(that._shadowRoot, response);
           } else {
-            that._shadowRoot.querySelector("#up-loading").style='display:none;'
+            that._shadowRoot.querySelector("#up-loading").style =
+              "display:none;";
             callback.call(that._shadowRoot, response);
-             throw new Error("Could not upload your image");
+            throw new Error("Could not upload your image");
           }
         }
       };
@@ -96,9 +92,8 @@ class ImageUpload extends HTMLElement {
       xhttp = null;
     }
     function createDragZone(that) {
-      var  input;
-    
-    
+      var input;
+
       input = createEls("input", {
         type: "file",
         id: "file-upload",
@@ -108,7 +103,6 @@ class ImageUpload extends HTMLElement {
         accept: "image/*",
       });
 
-    
       Array.prototype.forEach.call(
         that.dropzone,
         function (zone) {
@@ -117,7 +111,6 @@ class ImageUpload extends HTMLElement {
           upload(that, zone);
         }.bind(that)
       );
-      
     }
 
     function status(that, el) {
@@ -140,9 +133,6 @@ class ImageUpload extends HTMLElement {
           that.endpoint,
           fd,
           function (data) {
-            // if (fileCount[0] + 1 == fileCount[1]) {
-            //   that._shadowRoot.classList.remove("loading");
-            // }
             typeof that.callback === "function" &&
               that.callback.call(that, data);
           }.bind(that)
@@ -170,7 +160,6 @@ class ImageUpload extends HTMLElement {
             e.target.type === "file"
           ) {
             target = e.target.files;
-            console.log(target.length);
             for (i = 0, len = target.length; i < len; i += 1) {
               file = target[i];
               matchFiles(that, file, zone, [i, target.length]);
@@ -205,16 +194,9 @@ class ImageUpload extends HTMLElement {
       createDragZone(that);
     }
 
-    function reportInfo(vars, showType = false) {
-      if (showType === true) console.log(typeof vars);
-      console.log(vars);
-    }
-
     function addImg(that, ele, content) {
       var myDIV = that._shadowRoot.querySelector(ele);
       var newContent = document.createElement("div");
-      //[[> SearchImageFile]] me innerHTML
-
       newContent.innerHTML = content;
 
       while (newContent.firstChild) {
@@ -223,7 +205,6 @@ class ImageUpload extends HTMLElement {
     }
 
     this.callback = function (res) {
-      reportInfo(res, true);
       if (res.success === true) {
         var get_link = res.data.link.replace(/^http:\/\//i, "https://");
         this._shadowRoot.querySelector(".status").classList.add("bg-success");
@@ -257,9 +238,7 @@ class ImageUpload extends HTMLElement {
           'Start visual search <i class="fa fa-search" style="margin-left: 5px;"></i>' +
           "</button>" +
           '<input type="hidden" name="secondid" class="image-url" value="10f066701464ae9092702db94fc16ea1387b651d93685d4e1cb9b2090736965739f6794ed4ec8f48f1747c655ab03371ce0055dcd88e98fa689f8b9603f7dc27a0df68f42eab3651" />' +
-
           "</form>";
-        console.log(this);
         addImg(this, ".status", content);
       }
     };

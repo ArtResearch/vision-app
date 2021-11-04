@@ -222,6 +222,7 @@ class ImageUpload extends HTMLElement {
         this._shadowRoot.querySelector(".status").classList.add("bg-success");
         var content =
           "<form>Your selected image: " +
+          '<input type="hidden" name="idhash" class="image-url" value="10f066701464ae9092702db94fc16ea1387b651d93685d4e1cb9b2090736965739f6794ed4ec8f48f1747c655ab03371ce0055dcd88e98fa689f8b9603f7dc27a0df68f42eab3651" />' +
           '<input type="hidden" name="uri" class="image-url" value="Default:Search" />' +
           '<input type="hidden" name="image" class="image-url" value="' +
           get_link +
@@ -248,6 +249,8 @@ class ImageUpload extends HTMLElement {
               box-shadow: 0px 0px 10px 1px #bebebe;" class="btn searchBtn">` +
           'Start visual search <i class="fa fa-search" style="margin-left: 5px;"></i>' +
           "</button>" +
+          '<input type="hidden" name="secondid" class="image-url" value="10f066701464ae9092702db94fc16ea1387b651d93685d4e1cb9b2090736965739f6794ed4ec8f48f1747c655ab03371ce0055dcd88e98fa689f8b9603f7dc27a0df68f42eab3651" />' +
+
           "</form>";
         console.log(this);
         addImg(this, ".status", content);

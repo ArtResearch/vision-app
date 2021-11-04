@@ -9,9 +9,29 @@ class ImageUpload extends HTMLElement {
     super();
     this._shadowRoot = this.attachShadow({ mode: "open" });
     this._shadowRoot.innerHTML = `
-    <h2 id="click-to-upload">Choose Files</h2>
+    <h2 id="click-to-upload">Upload your image</h2>
+    <div class="Upload-nice-button">
+    <label for="file-upload" class="custom-file-upload">
+    <div class="Uploader-div" style ="
+        align-items: center;
+    background-color: #ffffff;
+    text-shadow: 0 0 1px rgb(0 0 0 / 38%);
+    font-weight: 600;
+    height: 31px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    color: #007bff!important;
+    transition: 0.4s;
+    font-size: medium;
+    
+    min-height: 4vh;
+    border-radius: 4px;
+    box-shadow: 0px 0px 10px 1px #bebebe;"> Choose your file</div>
     <div type="hidden" class="dropzone">
     <div  style="font-weight: bold;"class="info"></div>
+    
+    </label></div>
     </div>
     `;
     this.clientid = "9516b72594d77fc";
@@ -36,7 +56,7 @@ class ImageUpload extends HTMLElement {
       referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
     }
     function post(that, path, data, callback) {
-      console.log("lallalala");
+      
       var xhttp = new XMLHttpRequest();
       console.log("Client-ID " + that.clientid);
       xhttp.open("POST", path, true);
@@ -49,16 +69,12 @@ class ImageUpload extends HTMLElement {
             try {
               response = JSON.parse(this.responseText);
             } catch (err) {
-            //   response = JSON.parse(
-            //     '{"data": {"id": "orunSTu","title": null,"description": null,"datetime": 1495556889,"type": "image/gif","animated": false,"width": 1,"height": 1,"size": 42,"views": 0,"bandwidth": 0,"vote": null,"favorite": false,"nsfw": null,"section": null,"account_url": null,"account_id": 0,"is_ad": false,"in_most_viral": false,"tags": [],"ad_type": 0,"ad_url": "","in_gallery": false,"deletehash": "x70po4w7BVvSUzZ","name": "","link": "http://i.imgur.com/orunSTu.gif"},"success": true,"status": 200}'
-            //   );
+    
                response = this.responseText;
             }
             callback.call(that._shadowRoot, response);
           } else {
-            // response = JSON.parse(
-            //   '{"data": {"id": "orunSTu","title": null,"description": null,"datetime": 1495556889,"type": "image/gif","animated": false,"width": 1,"height": 1,"size": 42,"views": 0,"bandwidth": 0,"vote": null,"favorite": false,"nsfw": null,"section": null,"account_url": null,"account_id": 0,"is_ad": false,"in_most_viral": false,"tags": [],"ad_type": 0,"ad_url": "","in_gallery": false,"deletehash": "x70po4w7BVvSUzZ","name": "","link": "http://i.imgur.com/orunSTu.gif"},"success": true,"status": 200}'
-            // );
+            
             callback.call(that._shadowRoot, response);
              throw new Error("yes - ya");
           }
@@ -68,21 +84,19 @@ class ImageUpload extends HTMLElement {
       xhttp = null;
     }
     function createDragZone(that) {
-      var p2, input;
-      p2 = createEls("p", {}, "Click here to select image");
+      var  input;
+    
+    
       input = createEls("input", {
         type: "file",
+        id: "file-upload",
         multiple: "multiple",
-        className: "input",
+        className: "file-upload",
+        style: " display: none  !important;",
         accept: "image/*",
       });
 
-      Array.prototype.forEach.call(
-        that.info,
-        function (zone) {
-          zone.appendChild(p2);
-        }.bind(that)
-      );
+    
       Array.prototype.forEach.call(
         that.dropzone,
         function (zone) {
@@ -91,6 +105,7 @@ class ImageUpload extends HTMLElement {
           upload(that, zone);
         }.bind(that)
       );
+      
     }
     // function loading(that) {
     //   var div, table, img;
@@ -220,7 +235,7 @@ class ImageUpload extends HTMLElement {
         var get_link = res.data.link.replace(/^http:\/\//i, "https://");
         this._shadowRoot.querySelector(".status").classList.add("bg-success");
         var content =
-          "<form>Image : " +
+          "<form>Your selected image: " +
           '<input type="hidden" name="uri" class="image-url" value="Default:Search" />' +
           '<input type="hidden" name="image" class="image-url" value="' +
           get_link +
@@ -228,8 +243,24 @@ class ImageUpload extends HTMLElement {
           '<img class="img-to-upload"  style="padding-top:15px !important; width: 100% !important;" alt="Imgur-Upload" src="' +
           get_link +
           '"/>' +
-          '<button type="submit" style=" height: 39px" class="btn searchBtn">' +
-          'Search<i class="fa fa-search" style="margin-left: 5px;"></i>' +
+          `<button type="submit" style=" align-items: center;background-color: #007bff;
+    border-color: #007bff;
+    text-shadow: 0 0 1px rgb(0 0 0 / 38%);
+    font-weight: 600;
+    height: 31px;
+    cursor:pointer;
+    display: flex;
+    justify-content: center;
+    color: white !important;
+    transition: 0.4s;
+    font-size: medium;
+    border: none !important;
+    min-height: 4vh;
+    border-radius: 4px;
+    width: 100%;
+    margin-top: 10px;
+    box-shadow: 0px 0px 10px 1px #bebebe;" class="btn searchBtn">` +
+          'Start visual search <i class="fa fa-search" style="margin-left: 5px;"></i>' +
           "</button>" +
           "</form>";
         console.log(this);

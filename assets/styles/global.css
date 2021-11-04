@@ -19,6 +19,28 @@ body {
   font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
 }
 
+.Uploader-div{
+    border-radius: 10px;
+    align-items: center;
+    background-color: var(--color-success,#23ba98);
+    border-color: var(--color-success,#23ba98);
+    text-shadow: 0 0 1px rgb(0 0 0 / 38%);
+    font-weight: 600;
+    height: 31px;
+    display: flex;
+    justify-content: center;
+    color: white !important;
+    transition: 0.4s;
+    font-size: medium;
+    border: none !important;
+    min-height: 4 vh;
+    width: 8 vw;
+    margin-right: 2 vw;
+    border-radius: 4 px;
+    min-width: 150 px;
+    box-shadow: 0px 0px 10px 1px #bebebe;
+}
+
 .rs-header-logo {
   font-size: 0 !important;
   width: 10vw;
@@ -102,7 +124,10 @@ body.loading .loading-modal {
     padding-top:15px !important;
     width: 100% !important;
   }
-
+.Wrapper-to-center{
+      text-align: -webkit-center;
+      padding-bottom: 20px;
+}
   .loading-table {
     margin-left: auto;
     margin-right: auto;

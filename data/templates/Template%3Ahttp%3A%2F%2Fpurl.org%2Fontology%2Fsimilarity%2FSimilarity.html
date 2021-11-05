@@ -250,7 +250,7 @@
                           </mp-overlay-dialog-content>
                   </mp-overlay-dialog>
           
-                  <mp-overlay-dialog title="‎‎Confirm two artworks are the same" >
+                  <mp-overlay-dialog title="Confirm two artworks are the same" >
                     <mp-overlay-dialog-trigger
                       >
                           <button
@@ -263,92 +263,63 @@
                         <mp-overlay-dialog-content>
                             <h1>Are you sure the two artworks are the same?</h1>
                             <h2>If yes, select a preferred title bellow.</h2>
-                            <semantic-form
-                            new-subject-template="{{bindings.0.element.value}}"
-                            browser-persistance="true"
-                            persistence='ldp'
-                            urlqueryparam-providera='[[urlParam "providera"]]'
-                            urlqueryparam-providerb='[[urlParam "providerb"]]'
-                            post-action='{{bindings.0.nextElement.value}}'
-                            form-id="IMApprove1"
-                            fields='[[fieldDefinitions
-                                                        sameAs="http://www.researchspace.org/fieldDefinition/Same"
-                                                        ]]'
-                          >
-        
-                            <semantic-form-hidden-input
-                              for="sameAs"
-                              default-value="true"
-                            ></semantic-form-hidden-input>
+
                             <semantic-query
-                            query='SELECT (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR=", ") AS ?labelA) (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR=", ") AS ?labelB) ?withData ?fieldName WHERE {
-                              {
-                                <{{bindings.0.subject1.value}}>  rdfs:label ?label_a.
-                                BIND(BOUND(?label_a) && strlen(?label_a)>0 as ?withData)
-                              } UNION{
-                                <{{bindings.0.subject2.value}}>  rdfs:label ?label_b  
-                                BIND(BOUND(?label_b) && strlen(?label_b)>0 as ?withData)
-                              }
-                              BIND("Title" as ?fieldName)
-                            }GROUP BY ?withData ?fieldName' 
+                            query='SELECT ?label ?element ?nextElement WHERE {
+                              ?image <http://purl.org/ontology/similarity/element> <{{bindings.0.element.value}}>.
+                              ?work <https://pharos.artresearch.net/custom/has_image> ?image.
+                              ?work owl:sameAs ?pharos.
+                              ?work rdfs:label ?label.
+                              BIND(<{{bindings.0.element.value}}> as ?element)
+                              BIND(<{{bindings.0.nextElement.value}}> as ?nextElement)
+                            }' 
                             template='{{> titleTemplate}}'>
                               <template id="titleTemplate">
+                                <div class="forms-in-a-row" >
                                 {{#each bindings}}
-                                {{#ifCond labelA.value.length "!==" 0}}
+                                <semantic-form
+                                new-subject-template="{{bindings.0.element.value}}"
+                                browser-persistance="true"
+                                persistence='ldp'
+                                urlqueryparam-providera='[[urlParam "providera"]]'
+                                urlqueryparam-providerb='[[urlParam "providerb"]]'
+                                post-action='{{bindings.0.nextElement.value}}'
+                                form-id="IMApprove1"
+                                fields='[[fieldDefinitions
+                                sameAs="http://www.researchspace.org/fieldDefinition/Same"
+                                title="http://www.researchspace.org/fieldDefinition/Preferred_title"
+                                ]]'
+                              >
+                                <semantic-form-hidden-input
+                                  for="sameAs"
+                                  default-value="true"
+                                ></semantic-form-hidden-input>
+                                <semantic-form-hidden-input
+                                  for="title"
+                                  default-value="{{label.value}}"
+                                ></semantic-form-hidden-input>
                                 <td>
-                                  {{#ifCond fieldName.value "===" "Title"}}
                                   <button
                                   style="
                                   font-size: medium;
                                   border: none ;
+                                  white-space: pre-wrap;
+                                  text-transform: none;
+                                  height: 100%;
                                   min-height: 4vh;
-                           
                                   box-shadow: 0px 0px 10px 1px #bebebe;"
                                     name="submit"
                                     class="btn btn-warning action approve"
                                     title="Two instances are not the same"
                                   >
-                                  <div class="color-white"> {{labelA.value}}</div>
+                                  <div class="color-white"> {{label.value}}</div>
                                 </button>
-                                  {{else}}
-                                  <span class="rs-page-resource__field-value">{{labelA.value}}</span> 
-                                  {{/ifCond}}
                                 </td>
-                                  {{#ifCond labelB.value.length "===" 0}}
-                                  <td>
-                                    <span class="rs-page-resource__field-value">-</span>
-                                  </td>
-                                  {{/ifCond}}
-                                {{/ifCond}}
-                              {{#ifCond labelB.value.length "!==" 0}}
-                              {{#ifCond labelA.value.length "===" 0}}
-                              <td>
-                                <span class="rs-page-resource__field-value">-</span>
-                              </td>
-                              {{/ifCond}}
-                              <td>
-                                {{#ifCond  fieldName.value "===" "Title"}}
-                                <button
-                                  style="
-                                  font-size: medium;
-                                  border: none ;
-                                  min-height: 4vh;
-                                  box-shadow: 0px 0px 10px 1px #bebebe;"
-                                    name="submit"
-                                    class="btn btn-warning action approve"
-                                    title="Two instances are not the same"
-                                  >
-                                  <div class="color-white"> {{labelB.value}}</div>
-                                </button>
-                                {{else}}
-                                <span class="rs-page-resource__field-value">{{labelB.value}}</span> 
-                                {{/ifCond}}
-                              </td>
-                              {{/ifCond}} 
+                              </semantic-form>
                               {{/each}}
-                              </template>
-                            </semantic-query>
-                          </semantic-form>
+                            </div>
+                            </template>
+                          </semantic-query>
                           </mp-overlay-dialog-content>
                   </mp-overlay-dialog>
                 </div>

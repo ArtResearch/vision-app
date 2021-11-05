@@ -120,7 +120,7 @@
   flex-direction: row !important;
 }
 
-.color-white{
+.color-white {
   color: white !important;
 }
 
@@ -135,6 +135,12 @@
   border-radius: 4px;
   align-items: center;
   width: 30vh;
+}
+
+.forms-in-a-row {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
 #similarity-template .actions .action {

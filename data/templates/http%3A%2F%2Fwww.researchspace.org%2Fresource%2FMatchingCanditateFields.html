@@ -16,19 +16,19 @@
       <!--#################################### TITLE #####################################-->
       <!--################################################################################-->
       <semantic-query
-        query=' SELECT (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR=", ") AS ?labelA) (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR=", ") AS ?labelB) ?withData ?fieldName WHERE {
+        query=' SELECT ?labelA ?labelB ?withDataA ?withDataB ?fieldName WHERE {
                   {
-                    <{{bindings.0.subject1.value}}>  rdfs:label ?label_a.
-                    BIND(BOUND(?label_a) && strlen(?label_a)>0 as ?withData)
+                    <{{bindings.0.subject1.value}}>  rdfs:label ?labelA.
+                    BIND(BOUND(?labelA) && strlen(?labelA)>0 as ?withDataA)
                   } UNION{
-                    <{{bindings.0.subject2.value}}>  rdfs:label ?label_b  
-                    BIND(BOUND(?label_b) && strlen(?label_b)>0 as ?withData)
+                    <{{bindings.0.subject2.value}}>  rdfs:label ?labelB  
+                    BIND(BOUND(?labelB) && strlen(?labelB)>0 as ?withDataB)
                   }
                   BIND("Title" as ?fieldName)
-                }GROUP BY ?withData ?fieldName' 
+                }' 
         template='{{> titleTemplate}}'>
         <template id="titleTemplate">
-            [[> rsp:MatchingCanditateFieldsVisualization]]  
+            [[> rsp:MatchingCanditateTitleSame]]  
         </template>
       </semantic-query>
 

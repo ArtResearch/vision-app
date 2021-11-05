@@ -1,0 +1,140 @@
+<!-- Only creates row if data are found-->
+<tr class="rs-page-resource__field">
+  <!-- Field name -->
+  <td class="rs-page-resource__field-label-holder">
+    <span class="rs-page-resource__field-label">
+      {{bindings.0.fieldName.value}}
+    </span>
+  </td>
+  <td>
+    <div style="
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    ">
+    {{#each bindings}} 
+
+      {{#if withDataA}}
+        <div class="actions title-actions">
+          <mp-overlay-dialog title="Confirm two artworks are the same">
+            <mp-overlay-dialog-trigger>
+              <button class="action approve">{{labelA.value}}</button>
+            </mp-overlay-dialog-trigger>
+            <mp-overlay-dialog-content>
+              <h1>Are you sure the two artworks are the same?</h1>
+              <h2>If yes, click on "Confirm" button bellow.</h2>
+              <h2>You have selected {{labelA.value}} as the preferred title</h2>
+
+              <semantic-form
+                new-subject-template="{{bindings.0.element.value}}"
+                browser-persistance="true"
+                persistence="ldp"
+                urlqueryparam-providera='[[urlParam "providera"]]'
+                urlqueryparam-providerb='[[urlParam "providerb"]]'
+                post-action="{{bindings.0.nextElement.value}}"
+                form-id="IMApprove1"
+                fields='[[fieldDefinitions
+                      sameAs="http://www.researchspace.org/fieldDefinition/Same"
+                      title="http://www.researchspace.org/fieldDefinition/Title_form"
+                      ]]'
+              >
+                <semantic-form-hidden-input
+                  for="sameAs"
+                  default-value="true"
+                ></semantic-form-hidden-input>
+                <semantic-form-hidden-input
+                  for="title"
+                  default-value="{{labelA.value}}"
+                ></semantic-form-hidden-input>
+
+                <button
+                  id="1234"
+                  style="
+                    font-size: medium;
+                    border: none;
+                    min-height: 4vh;
+                    width: 8vw;
+                    color: white;
+                    min-width: 150px;
+                    box-shadow: 0px 0px 10px 1px #bebebe;
+                  "
+                  name="submit"
+                  class="btn btn-default action approve"
+                  title="Two instances are similar"
+                >
+                  <div class="color-white">Confirm</div>
+                </button>
+              </semantic-form>
+            </mp-overlay-dialog-content>
+          </mp-overlay-dialog>
+        </div>
+      {{/if}} 
+    {{/each}}
+    </div>
+  </td>    
+  <td>
+    <div style="
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    ">
+    {{#each bindings}}
+    {{#if withDataB}}
+        <div class="actions title-actions">
+          <mp-overlay-dialog title="Confirm two artworks are the same">
+            <mp-overlay-dialog-trigger>
+              <button class="action approve">{{labelB.value}}</button>
+            </mp-overlay-dialog-trigger>
+            <mp-overlay-dialog-content>
+              <h1>Are you sure the two artworks are the same?</h1>
+              <h2>If yes, click on "Confirm" button bellow.</h2>
+              <h2>You have selected {{labelB.value}} as the preferred title</h2>
+
+              <semantic-form
+                new-subject-template="{{bindings.0.element.value}}"
+                browser-persistance="true"
+                persistence="ldp"
+                urlqueryparam-providera='[[urlParam "providera"]]'
+                urlqueryparam-providerb='[[urlParam "providerb"]]'
+                post-action="{{bindings.0.nextElement.value}}"
+                form-id="IMApprove1"
+                fields='[[fieldDefinitions
+                      sameAs="http://www.researchspace.org/fieldDefinition/Same"
+                      title="http://www.researchspace.org/fieldDefinition/Title_form"
+                      ]]'
+              >
+                <semantic-form-hidden-input
+                  for="sameAs"
+                  default-value="true"
+                ></semantic-form-hidden-input>
+                <semantic-form-hidden-input
+                  for="title"
+                  default-value="{{labelB.value}}"
+                ></semantic-form-hidden-input>
+
+                <button
+                  id="1234"
+                  style="
+                    font-size: medium;
+                    border: none;
+                    min-height: 4vh;
+                    width: 8vw;
+                    color: white;
+                    min-width: 150px;
+                    box-shadow: 0px 0px 10px 1px #bebebe;
+                  "
+                  name="submit"
+                  class="btn btn-default action approve"
+                  title="Two instances are similar"
+                >
+                  <div class="color-white">Confirm</div>
+                </button>
+              </semantic-form>
+            </mp-overlay-dialog-content>
+          </mp-overlay-dialog>
+        </div>
+      {{/if}}  
+    {{/each}}
+    </div>
+  </td>
+</tr>

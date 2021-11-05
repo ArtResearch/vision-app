@@ -278,6 +278,7 @@
                                 <div class="forms-in-a-row" >
                                 {{#each bindings}}
                                 <semantic-form
+                                subject="{{bindings.0.element.value}}"
                                 new-subject-template="{{bindings.0.element.value}}"
                                 browser-persistance="true"
                                 persistence='ldp'
@@ -294,6 +295,7 @@
                                   for="sameAs"
                                   default-value="true"
                                 ></semantic-form-hidden-input>
+                                
                                 <semantic-form-hidden-input
                                   for="title"
                                   default-value="{{label.value}}"

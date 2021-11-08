@@ -278,13 +278,12 @@
                                 <div class="forms-in-a-row" >
                                 {{#each bindings}}
                                 <semantic-form
-                                subject="{{bindings.0.element.value}}"
-                                new-subject-template="{{bindings.0.element.value}}"
+                                new-subject-template="{{element.value}}"
                                 browser-persistance="true"
                                 persistence='ldp'
                                 urlqueryparam-providera='[[urlParam "providera"]]'
                                 urlqueryparam-providerb='[[urlParam "providerb"]]'
-                                post-action='{{bindings.0.nextElement.value}}'
+                                post-action='{{nextElement.value}}'
                                 form-id="IMApprove1"
                                 fields='[[fieldDefinitions
                                 sameAs="http://www.researchspace.org/fieldDefinition/Same"

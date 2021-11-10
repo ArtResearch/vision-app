@@ -16,9 +16,10 @@
 
       {{#if withDataA}}
         <div class="actions title-actions">
+          <div class="selected-title">{{labelA.value}}</div>
           <mp-overlay-dialog title="Confirm two artworks are the same">
             <mp-overlay-dialog-trigger>
-              <button class="action approve">{{labelA.value}}</button>
+              <button class="action approve select-title-button ">Select</button>
             </mp-overlay-dialog-trigger>
             <mp-overlay-dialog-content>
               <h1>Are you sure the two artworks are the same?</h1>
@@ -81,9 +82,10 @@
     {{#each bindings}}
     {{#if withDataB}}
         <div class="actions title-actions">
+          <div class="selected-title">{{labelB.value}}</div>
           <mp-overlay-dialog title="Confirm two artworks are the same">
             <mp-overlay-dialog-trigger>
-              <button class="action approve">{{labelB.value}}</button>
+              <button class="action approve select-title-button">Select</button>
             </mp-overlay-dialog-trigger>
             <mp-overlay-dialog-content>
               <h1>Are you sure the two artworks are the same?</h1>
@@ -138,3 +140,14 @@
     </div>
   </td>
 </tr>
+
+<style>
+  .select-title-button{
+        min-width: unset !important;
+        margin: 10px;
+  }
+  .selected-title{
+    font-weight: bold;
+    width: min-content !important;
+  }
+</style>

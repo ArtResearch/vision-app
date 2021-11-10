@@ -251,8 +251,7 @@
                   </mp-overlay-dialog>
           
                   <mp-overlay-dialog title="Confirm two artworks are the same" >
-                    <mp-overlay-dialog-trigger
-                      >
+                    <mp-overlay-dialog-trigger>
                           <button
                           id="1234"
                           name="submit"
@@ -323,6 +322,42 @@
                           </semantic-query>
                           </mp-overlay-dialog-content>
                   </mp-overlay-dialog>
+
+                  <semantic-form
+                    new-subject-template="{{bindings.0.element.value}}"
+                    browser-persistance="true"
+                    persistence='ldp'
+                    urlqueryparam-providera='[[urlParam "providera"]]'
+                    urlqueryparam-providerb='[[urlParam "providerb"]]'
+                    post-action='{{bindings.0.nextElement.value}}'
+                    form-id="IMApprove1"
+                    fields='[[fieldDefinitions
+                              skipped="http://www.researchspace.org/fieldDefinition/Skipped"
+                    ]]'
+                  >
+                  <semantic-form-hidden-input
+                    for="skipped"
+                    default-value="true"
+                  ></semantic-form-hidden-input>
+
+                  <td>
+                    <button
+                      style="
+                      font-size: medium;
+                      border: none ;
+                      white-space: pre-wrap;
+                      text-transform: none;
+                      height: 100%;
+                      min-height: 4vh;
+                      box-shadow: 0px 0px 10px 1px #bebebe;"
+                        name="submit"
+                        class="btn btn-warning action approve"
+                        title="Two instances are not the same"
+                      >
+                      <div class="color-white"> SKIP</div>
+                    </button>
+                  </td>
+                </semantic-form>
                 </div>
               </template>
             </semantic-query>

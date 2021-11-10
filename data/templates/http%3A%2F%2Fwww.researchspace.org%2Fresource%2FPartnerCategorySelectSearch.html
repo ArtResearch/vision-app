@@ -117,6 +117,7 @@
           FILTER(?providerLabelA != ?providerLabelB)
           FILTER(?providerLabelB = "[[targetProviderLabel]]")
           FILTER NOT EXISTS {?element <https://vision.artresearch.net/custom/reviewed> "true"^^xsd:boolean. }
+          FILTER NOT EXISTS {?element <https://vision.artresearch.net/custom/skipped> "true"^^xsd:boolean. }
         }'
       query="SELECT DISTINCT ?subject WHERE {
       ?subject ?p ?o #This will never run

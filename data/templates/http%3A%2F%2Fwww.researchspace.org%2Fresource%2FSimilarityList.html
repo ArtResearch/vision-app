@@ -119,6 +119,7 @@
           ?subject2 <https://pharos.artresearch.net/custom/has_provider> <[[urlParam "providerb"]]>.
           <[[urlParam "providerb"]]> rdfs:label ?providerLabelB.
           FILTER NOT EXISTS {?element <https://vision.artresearch.net/custom/reviewed> "true"^^xsd:boolean. }
+          FILTER NOT EXISTS {?element <https://vision.artresearch.net/custom/skipped> "true"^^xsd:boolean. }
         }'
       query="SELECT DISTINCT ?subject WHERE {
       ?subject ?p ?o #This will never run

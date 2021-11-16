@@ -44,6 +44,7 @@
             <bs-nav bs-style="tabs">
           
               {{#each bindings}}
+             
               <bs-nav-item event-key="{{@index}}"><div style="display:flex;">{{partnerLabel.value}}
                 (
                   
@@ -64,14 +65,18 @@
                  </semantic-query>)
                 </div>
                </bs-nav-item>
+           
                {{/each}}
             </bs-nav>
     
             <bs-tab-content unmount-on-exit=true>
               {{#each bindings}}
+              
+              {{#ifCond bindings.0.count.value "!==" "0"}}
               <bs-tab-pane event-key="{{@index}}">
                 [[> :PartnerCategorySelectSearch targetProviderLabel="{{partnerLabel.value}}"]]
               </bs-tab-pane>
+              {{/ifCond}}
               {{/each}}
             </bs-tab-content>
           </div>

@@ -6,6 +6,7 @@
       {{bindings.0.fieldName.value}}
     </span>
   </td>
+  <div class ="Wrapper-box">
   <td class="box-labelA">
     <div style="
       display: flex;
@@ -78,6 +79,7 @@
   </td>    
   <td class="box-labelB">
     <div style="
+      width: 0px;
       display: flex;
       flex-direction: column;
       gap: 8px;
@@ -144,6 +146,7 @@
     {{/each}}
     </div>
   </td>
+  </div>
 </tr>
 
 <style>
@@ -164,8 +167,12 @@
     width: 100%;
   }
 
-  .title-row-select{
+  /* .title-row-select{
     display: -webkit-inline-box !important;
+  } */
+
+  .Wrapper-box{
+    display: flex;
   }
   .box-labelA {
     vertical-align:unset !important;
@@ -175,15 +182,5 @@
     vertical-align:unset !important;
     display: flex;
   }
-  #similarity-template > div > div.matchContainer > div > div > table > tbody > tr.rs-page-resource__field.title-row-select > td.rs-page-resource__field-label-holder
-  {
-    vertical-align:unset !important;
-  }
-  /* #similarity-template > div > div.matchContainer > div > div > table > tbody > tr.rs-page-resource__field.title-row-select > td.box-labelB{
-     vertical-align:unset !important;
-  }
 
-  #similarity-template > div > div.matchContainer > div > div > table > tbody > tr.rs-page-resource__field.title-row-select > td.box-labelA{
-
-  } */
 </style>

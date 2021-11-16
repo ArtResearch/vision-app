@@ -1,12 +1,12 @@
 <!-- Only creates row if data are found-->
-<tr class="rs-page-resource__field">
+<tr class="rs-page-resource__field title-row-select">
   <!-- Field name -->
   <td class="rs-page-resource__field-label-holder">
     <span class="rs-page-resource__field-label">
       {{bindings.0.fieldName.value}}
     </span>
   </td>
-  <td>
+  <td class="box-labelA">
     <div style="
       display: flex;
       flex-direction: column;
@@ -15,10 +15,12 @@
     {{#each bindings}} 
 
       {{#if withDataA}}
-        <div class="actions title-actions">
+        <div class="actions title-actions myaction">
+         
+         <div class="mp-overlay-dialog-Wrapper">
           <mp-overlay-dialog title="Confirm two artworks are the same">
             <mp-overlay-dialog-trigger>
-              <button class="action approve">{{labelA.value}}</button>
+              <button class="action approve select-title-button ">Select</button>
             </mp-overlay-dialog-trigger>
             <mp-overlay-dialog-content>
               <h1>Are you sure the two artworks are the same?</h1>
@@ -26,12 +28,12 @@
               <h2>You have selected {{labelA.value}} as the preferred title</h2>
 
               <semantic-form
-                new-subject-template="{{bindings.0.element.value}}"
+                new-subject-template="{{element.value}}"
                 browser-persistance="true"
                 persistence="ldp"
                 urlqueryparam-providera='[[urlParam "providera"]]'
                 urlqueryparam-providerb='[[urlParam "providerb"]]'
-                post-action="{{bindings.0.nextElement.value}}"
+                post-action="{{nextElement.value}}"
                 form-id="IMApprove1"
                 fields='[[fieldDefinitions
                       sameAs="http://www.researchspace.org/fieldDefinition/Same"
@@ -67,12 +69,14 @@
               </semantic-form>
             </mp-overlay-dialog-content>
           </mp-overlay-dialog>
+          </div>
+          <div class="selected-title">{{labelA.value}}</div>
         </div>
       {{/if}} 
     {{/each}}
     </div>
   </td>    
-  <td>
+  <td class="box-labelB">
     <div style="
       display: flex;
       flex-direction: column;
@@ -80,10 +84,11 @@
     ">
     {{#each bindings}}
     {{#if withDataB}}
-        <div class="actions title-actions">
+        <div class="actions title-actions myaction">
+          <div class="mp-overlay-dialog-Wrapper">
           <mp-overlay-dialog title="Confirm two artworks are the same">
             <mp-overlay-dialog-trigger>
-              <button class="action approve">{{labelB.value}}</button>
+              <button class="action approve select-title-button">Select</button>
             </mp-overlay-dialog-trigger>
             <mp-overlay-dialog-content>
               <h1>Are you sure the two artworks are the same?</h1>
@@ -91,12 +96,12 @@
               <h2>You have selected {{labelB.value}} as the preferred title</h2>
 
               <semantic-form
-                new-subject-template="{{bindings.0.element.value}}"
+                new-subject-template="{{element.value}}"
                 browser-persistance="true"
                 persistence="ldp"
                 urlqueryparam-providera='[[urlParam "providera"]]'
                 urlqueryparam-providerb='[[urlParam "providerb"]]'
-                post-action="{{bindings.0.nextElement.value}}"
+                post-action="{{nextElement.value}}"
                 form-id="IMApprove1"
                 fields='[[fieldDefinitions
                       sameAs="http://www.researchspace.org/fieldDefinition/Same"
@@ -132,9 +137,53 @@
               </semantic-form>
             </mp-overlay-dialog-content>
           </mp-overlay-dialog>
+          </div>
+          <div class="selected-title">{{labelB.value}}</div>
         </div>
       {{/if}}  
     {{/each}}
     </div>
   </td>
 </tr>
+
+<style>
+  .select-title-button{
+        min-width: unset !important;
+        margin: 10px;
+  }
+  .selected-title{
+    font-weight: bold;
+    width: 100% !important;
+    padding-left: 10px;
+  }
+  .myaction{
+    display: flex !important;
+    flex-wrap: wrap;
+  }
+  .mp-overlay-dialog-Wrapper{
+    width: 100%;
+  }
+
+  .title-row-select{
+    display: -webkit-inline-box !important;
+  }
+  .box-labelA {
+    vertical-align:unset !important;
+    display: flex;
+  }
+  .box-labelB{
+    vertical-align:unset !important;
+    display: flex;
+  }
+  #similarity-template > div > div.matchContainer > div > div > table > tbody > tr.rs-page-resource__field.title-row-select > td.rs-page-resource__field-label-holder
+  {
+    vertical-align:unset !important;
+  }
+  /* #similarity-template > div > div.matchContainer > div > div > table > tbody > tr.rs-page-resource__field.title-row-select > td.box-labelB{
+     vertical-align:unset !important;
+  }
+
+  #similarity-template > div > div.matchContainer > div > div > table > tbody > tr.rs-page-resource__field.title-row-select > td.box-labelA{
+
+  } */
+</style>

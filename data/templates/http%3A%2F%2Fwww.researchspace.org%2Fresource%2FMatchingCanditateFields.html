@@ -16,19 +16,43 @@
       <!--#################################### TITLE #####################################-->
       <!--################################################################################-->
       <semantic-query
-        query=' SELECT ?labelA ?labelB ?withDataA ?withDataB ?fieldName WHERE {
-                  {
-                    <{{bindings.0.subject1.value}}>  rdfs:label ?labelA.
-                    BIND(BOUND(?labelA) && strlen(?labelA)>0 as ?withDataA)
-                  } UNION{
-                    <{{bindings.0.subject2.value}}>  rdfs:label ?labelB  
-                    BIND(BOUND(?labelB) && strlen(?labelB)>0 as ?withDataB)
-                  }
+        query=' SELECT ?element ?labelA ?labelB ?withDataA ?withDataB ?fieldName WHERE {
+                  <{{bindings.0.subject1.value}}>  rdfs:label ?labelA.
+                  BIND(BOUND(?labelA) && strlen(?labelA)>0 as ?withDataA)
+                  <{{bindings.0.subject2.value}}>  rdfs:label ?labelB  
+                  BIND(BOUND(?labelB) && strlen(?labelB)>0 as ?withDataB)
                   BIND("Title" as ?fieldName)
+                  BIND (<[[element]]> AS ?element)
                 }' 
         template='{{> titleTemplate}}'>
         <template id="titleTemplate">
-            [[> rsp:MatchingCanditateTitleSame]]  
+          <semantic-query query='SELECT ?element ?nextElement ?labelA ?labelB ?withDataA ?withDataB ?fieldName  WHERE {
+                      ?imageA_next <http://purl.org/ontology/similarity/element> ?nextElement.
+                      ?imageB_next <http://purl.org/ontology/similarity/element> ?nextElement.
+                      ?subject1_next <https://pharos.artresearch.net/custom/has_image> ?imageA_next.
+                      ?subject2_next <https://pharos.artresearch.net/custom/has_image> ?imageB_next.
+                      ?subject1_next <https://pharos.artresearch.net/custom/has_provider> <https://pharos.artresearch.net/resource/hertziana/source/Hertziana>.
+                      ?subject2_next <https://pharos.artresearch.net/custom/has_provider> <https://pharos.artresearch.net/resource/itatti/source/ITatti>.
+                      ?imageA_next <http://www.cidoc-crm.org/cidoc-crm/P2_has_type> ?type.
+                      ?type rdfs:label "recto".
+                      FILTER(?element != ?nextElement)
+                      FILTER NOT EXISTS { ?nextElement <https://vision.artresearch.net/custom/reviewed> "true"^^xsd:boolean }
+                      FILTER NOT EXISTS { ?nextElement <https://vision.artresearch.net/custom/skipped> "true"^^xsd:boolean }
+                      BIND (<{{bindings.0.element.value}}> AS ?element)
+                      BIND ("{{bindings.0.labelA.value}}" AS ?labelA)
+                      BIND ("{{bindings.0.labelB.value}}" AS ?labelB)
+                      BIND(BOUND(?labelA) && strlen(?labelA)>0 as ?withDataA)
+                      BIND(BOUND(?labelB) && strlen(?labelB)>0 as ?withDataB)
+                      BIND("Title" as ?fieldName)
+                  }LIMIT 1' 
+                template='{{> titleTemplate2}}'>
+            <template id="titleTemplate2">
+              
+                
+              [[> rsp:MatchingCanditateTitleSame]] 
+            </template>
+          </semantic-query>
+         
         </template>
       </semantic-query>
 

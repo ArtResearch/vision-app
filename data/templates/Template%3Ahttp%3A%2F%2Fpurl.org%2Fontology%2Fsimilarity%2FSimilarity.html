@@ -71,7 +71,7 @@
       </semantic-query>
         <div class="matchContainer">
           <!-- Matching candidates fields comparison table -->
-          <div class="fieldViewer">[[> rsp:MatchingCanditateFields]]</div>
+          <div class="fieldViewer">[[> rsp:MatchingCanditateFields element="{{bindings.0.element.value}}" ]]</div>
         </div>
         <p></p>
         <p></p>
@@ -300,11 +300,12 @@
                                   default-value="{{label.value}}"
                                 ></semantic-form-hidden-input>
                                 <td>
+                                  <div class="selectionWrapper">
+                                   <div class="Label-value"> {{label.value}}</div>
                                   <button
                                   style="
                                   font-size: medium;
                                   border: none ;
-                                  white-space: pre-wrap;
                                   text-transform: none;
                                   height: 100%;
                                   min-height: 4vh;
@@ -313,8 +314,9 @@
                                     class="btn btn-warning action approve"
                                     title="Two instances are not the same"
                                   >
-                                  <div class="color-white"> {{label.value}}</div>
+                                  <div class="color-white"> Select: </div>
                                 </button>
+                               </div>
                                 </td>
                               </semantic-form>
                               {{/each}}
@@ -378,6 +380,20 @@
 }
 .skip{
   background: #a5a5a5 !important;
+}
+.forms-in-a-row{
+  padding-top:20px !important;
+}
+.Label-value{
+    padding-left: 20px;
+    display: flex;
+    font-weight: bold;
+    padding-bottom: 10px;
+}
+
+.selectionWrapper{
+    display: flex;
+    flex-direction: row-reverse;
 }
 </style>
 

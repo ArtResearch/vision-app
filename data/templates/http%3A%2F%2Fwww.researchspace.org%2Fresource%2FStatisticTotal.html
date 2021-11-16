@@ -31,8 +31,9 @@
 } GROUP BY ?matched'
   template='{{> statsTotal }}'>
   <template id="statsTotal">
-
+    
   {{#each bindings}}
+  
            Artworks reconciled
            <br/>
            {{matched.value}} / {{total.value}} 
@@ -82,8 +83,10 @@
             }
           }
         }]'>
-            </semantic-chart>  
+            </semantic-chart>
+            
             {{/each}}
+            
           </template>
         </semantic-query>
     <div class="reconciled-stat-loading animated-background">

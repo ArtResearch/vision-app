@@ -316,6 +316,8 @@ header h1 {
 }
 
 #similarity-list-template .clearable-input__clear {
+  position: absolute;
+  right: 0;
   border: none !important;
   border-radius: 5px !important;
   height: 3vh;

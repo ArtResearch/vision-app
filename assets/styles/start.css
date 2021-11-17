@@ -43,7 +43,7 @@
 .feature-section{
   margin-top: 5vh;
   display: flex;
-  padding-left: 10vw !important;
+  padding: 5vw !important;
   justify-content: center;
   padding: 35px;
   flex-direction: column;

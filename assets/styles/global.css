@@ -19,6 +19,21 @@ body {
   font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
 }
 
+@media screen and (min-width:1350px) {
+  .navbar-header {
+    width: 15vw !important;
+  }
+}
+@media screen and (min-width:1070px) and (max-width:1349px) {
+  .navbar-header{
+    width: 19vw !important;
+  }
+}
+@media screen and (min-width:780px) and (max-width:1070px){
+  .navbar-header{
+     width: 27vw !important;
+  }
+}
 .Uploader-div{
     border-radius: 10px;
     align-items: center;
@@ -167,7 +182,6 @@ body.loading .loading-modal {
 
   background: url(/assets/images/vision-ar-header.png);
   font-size: 0 !important;
-  width: 10vw;
   background-position: right;
   background-repeat: no-repeat;
 }

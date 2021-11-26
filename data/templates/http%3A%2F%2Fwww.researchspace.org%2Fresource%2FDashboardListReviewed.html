@@ -6,6 +6,7 @@ number-of-displayed-rows=10
 query='
 SELECT DISTINCT 
 ?subject 
+?g
 (SAMPLE(?work) as ?work)
 (SAMPLE(?work2) as ?work2)
 (SAMPLE(?similarity) as ?similarity)
@@ -14,10 +15,10 @@ SELECT DISTINCT
 (SAMPLE(?modifiedAt) AS ?modifiedAt) 
 (SAMPLE(?attribution) AS ?attribution)   WHERE {
   GRAPH ?g {
-  <http://www.researchspace.org/resource/system/formContainer> <http://www.w3.org/ns/ldp#contains> ?subject. 
-  ?subject <http://www.w3.org/ns/prov#generatedAtTime> ?modifiedAt ; 
-  <http://www.w3.org/ns/prov#wasAttributedTo> ?attribution.
-  ?similarity <https://vision.artresearch.net/custom/reviewed> "true"^^xsd:boolean. 
+    <http://www.researchspace.org/resource/system/formContainer> <http://www.w3.org/ns/ldp#contains> ?subject. 
+    ?subject <http://www.w3.org/ns/prov#generatedAtTime> ?modifiedAt ; 
+    <http://www.w3.org/ns/prov#wasAttributedTo> ?attribution.
+    ?similarity <https://vision.artresearch.net/custom/reviewed> "true"^^xsd:boolean. 
   }
   ?work <https://pharos.artresearch.net/custom/has_image> ?imageA.
   ?imageA <http://purl.org/ontology/similarity/element> ?similarity.
@@ -36,7 +37,7 @@ SELECT DISTINCT
   ?provb rdfs:label ?providerLabelB.
   FILTER(?work != ?work2)
   BIND(?__useruri__ as ?attribution)
-}GROUP BY ?subject 
+}GROUP BY ?subject ?g
 '
 tuple-template='{{>reviewedCards}}'
 no-result-template='<h1 style="margin-top:150px;">There are no reviewed matchings</h1>'
@@ -118,9 +119,43 @@ no-result-template='<h1 style="margin-top:150px;">There are no reviewed matching
                 View details
               </button>
             </semantic-link>
-            <mp-ldp-remove-from-container-action iri="{{subject.value}}" container="http://www.researchspace.org/resource/system/formContainer">
-              <button title="This action will remove the item from your reviewed list. It will be then available under artwork matchings for you or another reviewer to review." class="btn action btn-danger" style="margin-right:8px;"><i style="color: white;" class="fa fa-trash" aria-hidden=true></i> Delete</button>
-            </mp-ldp-remove-from-container-action>
+            <semantic-query
+              query='
+              SELECT DISTINCT * WHERE {
+                GRAPH <{{g.value}}>{
+                    ?work1 <https://similarity.net/custom/is_deprecated> ?pharos1;
+                        owl:sameAs ?pharos2.
+                }
+                ?work1 owl:sameAs ?pharos1.
+                FILTER NOT EXISTS{?work1 <https://similarity.net/custom/is_deprecated> ?pharos2.}
+                BIND(<{{subject.value}}> as ?subject)
+            }LIMIT 1 '
+              template='{{> revertOption }}'
+              no-result-template='{{> deleteOption}}'>
+               <template id='revertOption'>
+                 {{#each bindings}}
+                 <semantic-form
+                 new-subject-template="{{subject.value}}"
+                 browser-persistance="true"
+                 persistence="sparql"
+                 post-action="reload"
+                 form-id="revert"
+                 fields='[[  fieldDefinitions
+                     revert="http://www.researchspace.org/fieldDefinition/Revert"
+                 ]]'
+                 >
+                 <semantic-form-hidden-input for="revert" default-value="true"></semantic-form-hidden-input>
+                  <button title="This action will remove the item from artresearch.net. It will be then available under artwork matchings for you or another reviewer to review."  name="submit" class="btn action btn-warn" style="margin-right:8px;background:grey;"><i class="fa fa-refresh" aria-hidden=true></i> Revert </button>
+                 </semantic-form>
+                 {{/each}}
+               </template>
+               <template id='deleteOption'>
+                <mp-ldp-remove-from-container-action iri="{{subject.value}}" container="http://www.researchspace.org/resource/system/formContainer">
+                  <button title="This action will remove the item from your reviewed list. It will be then available under artwork matchings for you or another reviewer to review." class="btn action btn-danger" style="margin-right:8px;"><i style="color: white;" class="fa fa-trash" aria-hidden=true></i> Delete</button>
+                </mp-ldp-remove-from-container-action>
+              </template>
+            </semantic-query>
+      
           </div>
         </div>
 </template>
@@ -137,5 +172,7 @@ no-result-template='<h1 style="margin-top:150px;">There are no reviewed matching
     height: 18vh !important;
     margin: 0vw !important;
   }
-
+  .fa.fa-refresh{
+    color:white !important; 
+  }
 </style>

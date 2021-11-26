@@ -35,6 +35,8 @@
                       ?subject2_next <https://pharos.artresearch.net/custom/has_provider> <https://pharos.artresearch.net/resource/itatti/source/ITatti>.
                       ?imageA_next <http://www.cidoc-crm.org/cidoc-crm/P2_has_type> ?type.
                       ?type rdfs:label "recto".
+                      ?imageB_next <http://www.cidoc-crm.org/cidoc-crm/P2_has_type> ?typeB.
+                      ?typeB rdfs:label "recto".
                       FILTER(?element != ?nextElement)
                       FILTER NOT EXISTS { ?nextElement <https://vision.artresearch.net/custom/reviewed> "true"^^xsd:boolean }
                       FILTER NOT EXISTS { ?nextElement <https://vision.artresearch.net/custom/skipped> "true"^^xsd:boolean }

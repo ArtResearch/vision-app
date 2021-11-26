@@ -1,0 +1,82 @@
+<semantic-table id='resources-results'
+                number-of-displayed-rows=10
+                query='
+                  SELECT DISTINCT 
+                  ?subject 
+                  (SAMPLE(?ModificationDate) AS ?ModificationDate) 
+                  (SAMPLE(?attribution) AS ?attribution) 
+                  (SAMPLE(?label) AS ?label) 
+                  (SAMPLE(?L) AS ?L) WHERE {
+                    <http://www.researchspace.org/resource/system/formContainer> <http://www.w3.org/ns/ldp#contains> ?subject. 
+                    ?subject <http://www.w3.org/ns/prov#generatedAtTime> ?ModificationDate ; 
+                    <http://www.w3.org/ns/prov#wasAttributedTo> ?attribution. 
+                    OPTIONAL { 
+                      ?subject rdfs:label ?label . 
+                      } 
+                      BIND(IRI(CONCAT(STR(?subject),"/context")) AS ?graph) 
+                      OPTIONAL{
+                        GRAPH ?graph { 
+                          ?a owl:sameAs ?b. 
+                        } 
+                        ?a rdfs:label ?aL. 
+                        ?b rdfs:label ?bL.
+                        BIND(CONCAT(?aL,"-",?bL) as ?L)
+                      } 
+                  }GROUP BY ?subject
+                '
+                column-configuration='[
+                              {"variableName":"subject","displayName":"Field", "cellTemplate": "{{> field}}"},
+                              {"variableName":"ModificationDate","displayName":"Modified", "cellTemplate": "{{dateTimeFormat ModificationDate.value \"LLL\"}}" },
+                              {"variableName":"attribution","displayName":"Attribution", "cellTemplate": "<mp-label iri=\"{{attribution.value}}\"></mp-label>" },
+                              {"displayName":"Actions", "cellTemplate": "{{> actions}}"}
+                          ]'
+>
+<template id='field'>
+  <span>{{log "here" this}}
+    <mp-selection-toggle selection="resource-selection" tag="{{subject.value}}"></mp-selection-toggle>
+    <semantic-context repository='assets'>
+      {{#if label}}
+        <semantic-link style='max-width: 70px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;' uri='{{subject.value}}' title='{{label.value}}'>{{label.value}}</semantic-link>
+      {{else if L}}
+      <semantic-link style='max-width: 70px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;' uri='{{subject.value}}' title='{{L.value}}'>{{L.value}}</semantic-link>
+      {{else}}
+        <semantic-link style='max-width: 70px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;' uri='{{subject.value}}'></semantic-link>
+      {{/if}}
+    </semantic-context>
+  </span>
+</template>
+<template id='actions'>
+  <div>
+    <mp-ldp-duplicate-resource-action iri="{{subject.value}}" container="http://www.researchspace.org/resource/system/formContainer">
+      <button class="btn-grey" style="margin-right:8px;"><i class="fa fa-files-o" aria-hidden=true></i> Duplicate</button>
+    </mp-ldp-duplicate-resource-action>
+
+    <mp-ldp-export-resource iri="{{subject.value}}">
+      <button class="btn-grey" style="margin-right: 8px">
+        <i class='fa fa-download' aria-hidden=true></i> Export
+      </button>
+    </mp-ldp-export-resource>
+
+    <mp-ldp-remove-from-container-action iri="{{subject.value}}" container="http://www.researchspace.org/resource/system/formContainer">
+      <button class="btn-grey btn-danger" style="margin-right:8px;"><i class="fa fa-trash" aria-hidden=true></i> Delete</button>
+    </mp-ldp-remove-from-container-action>
+
+    {{#ifCond "http://www.researchspace.org/resource/system/formContainer" "===" "http://www.researchspace.org/resource/system/formContainer"}}
+      <semantic-form
+        new-subject-template="{{subject.value}}"
+        browser-persistance="true"
+        persistence="sparql"
+        post-action="reload"
+        form-id="revert"
+        fields='[[  fieldDefinitions
+                    revert="http://www.researchspace.org/fieldDefinition/Revert"
+                ]]'
+      >
+        <semantic-form-hidden-input for="revert" default-value="true"></semantic-form-hidden-input>
+
+        <button name="submit" class="btn-grey" style="margin-right:8px;background:grey;"><i class="fa fa-refresh" aria-hidden=true></i> Revert </button>
+      </semantic-form>
+  {{/ifCond}}
+  </div>
+</template>
+</semantic-table>

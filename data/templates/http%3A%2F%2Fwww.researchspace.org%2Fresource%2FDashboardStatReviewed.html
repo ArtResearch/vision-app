@@ -1,7 +1,7 @@
 <semantic-query
 query='
 SELECT DISTINCT 
-(COUNT(?subject)/2 as ?count) 
+(COUNT(DISTINCT ?subject) as ?count) 
 WHERE {
   GRAPH ?g {
   <http://www.researchspace.org/resource/system/formContainer> <http://www.w3.org/ns/ldp#contains> ?subject. 

@@ -1,7 +1,7 @@
 <semantic-query
 query='
 SELECT DISTINCT 
-(COUNT(?subject) as ?count) 
+(COUNT(DISTINCT ?subject) as ?count) 
 WHERE {
 <http://www.researchspace.org/resource/system/formContainer> <http://www.w3.org/ns/ldp#contains> ?subject. 
 

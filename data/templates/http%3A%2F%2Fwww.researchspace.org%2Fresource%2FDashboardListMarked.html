@@ -12,11 +12,13 @@ SELECT DISTINCT
 (SAMPLE(?providerLabelA) as ?providerLabelA)
 (SAMPLE(?providerLabelB) as ?providerLabelB)
 (SAMPLE(?modifiedAt) AS ?modifiedAt) 
-(SAMPLE(?attribution) AS ?attribution)  WHERE {
-  <http://www.researchspace.org/resource/system/formContainer> <http://www.w3.org/ns/ldp#contains> ?subject. 
-  ?subject <http://www.w3.org/ns/prov#generatedAtTime> ?modifiedAt ; 
-           <http://www.w3.org/ns/prov#wasAttributedTo> ?attribution.
-  ?similarity <https://vision.artresearch.net/custom/skipped> "true"^^xsd:boolean.
+(SAMPLE(?attribution) AS ?attribution) WHERE {
+  GRAPH ?g {
+    <http://www.researchspace.org/resource/system/formContainer> <http://www.w3.org/ns/ldp#contains> ?subject. 
+    ?subject <http://www.w3.org/ns/prov#generatedAtTime> ?modifiedAt ; 
+            <http://www.w3.org/ns/prov#wasAttributedTo> ?attribution.
+    ?similarity <https://vision.artresearch.net/custom/skipped> "true"^^xsd:boolean.
+  }
   ?work <https://pharos.artresearch.net/custom/has_image> ?imageA.
   ?imageA <http://purl.org/ontology/similarity/element> ?similarity.
   ?work2 <https://pharos.artresearch.net/custom/has_image> ?imageB.
@@ -50,6 +52,12 @@ no-result-template='<h1 style="margin-top:150px;">There are no matchings marked 
             fade-in
           "
         >
+        <h2 style="display: flex;
+        width: 100%;
+        gap: 5px;
+        font-size: 16px;
+        justify-content: flex-end;
+        padding-right: 15px;">by <mp-label iri="{{attribution.value}}"></mp-label> at {{dateTimeFormat modifiedAt.value "DD/MM/YY HH:mm:ss"}}</h2>
           <div class="panel-body row">
             <bs-col class="cardInfo" lg="2" xs="10">
               [[> :SimilarityListThumbnails iri="{{work.value}}"]]
@@ -123,7 +131,7 @@ no-result-template='<h1 style="margin-top:150px;">There are no matchings marked 
             >
             <semantic-form-hidden-input for="revert" default-value="true"></semantic-form-hidden-input>
             
-            <button name="submit" class="btn action btn-warning" style="margin-right:8px;background:grey;"><i class="fa fa-refresh" aria-hidden=true></i> Revert </button>
+            <button name="submit" class="btn action btn-warn" style="margin-right:8px;background:grey;"><i class="fa fa-refresh" aria-hidden=true></i> Revert </button>
             </semantic-form>
             
           </div>

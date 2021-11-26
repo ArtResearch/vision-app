@@ -5,35 +5,18 @@
 number-of-displayed-rows=10
 query='
 SELECT DISTINCT 
-?subject 
+?similarity
 (SAMPLE(?work) as ?work)
 (SAMPLE(?work2) as ?work2)
-(SAMPLE(?similarity) as ?similarity)
+(SAMPLE(?subject) as ?subject)
 (SAMPLE(?providerLabelA) as ?providerLabelA)
 (SAMPLE(?providerLabelB) as ?providerLabelB)
-(SAMPLE(?ModificationDate) AS ?ModificationDate) 
-(SAMPLE(?attribution) AS ?attribution) 
-(SAMPLE(?label) AS ?label) 
-(SAMPLE(?L) AS ?L) WHERE {
-<http://www.researchspace.org/resource/system/formContainer> <http://www.w3.org/ns/ldp#contains> ?subject. 
-
-?subject <http://www.w3.org/ns/prov#generatedAtTime> ?ModificationDate ; 
-<http://www.w3.org/ns/prov#wasAttributedTo> ?attribution.
-?similarity <https://vision.artresearch.net/custom/skipped> "true"^^xsd:boolean.
-OPTIONAL { 
-  ?subject rdfs:label ?label . 
-  } 
-  BIND(IRI(CONCAT(STR(?subject),"/context")) AS ?graph) 
-  OPTIONAL{
-    GRAPH ?graph { 
-      ?a owl:sameAs ?b. 
-    } 
-    ?a rdfs:label ?aL. 
-    ?b rdfs:label ?bL.
-    BIND(CONCAT(?aL,"-",?bL) as ?L)
-  } 
-
-
+(SAMPLE(?modifiedAt) AS ?modifiedAt) 
+(SAMPLE(?attribution) AS ?attribution)  WHERE {
+  <http://www.researchspace.org/resource/system/formContainer> <http://www.w3.org/ns/ldp#contains> ?subject. 
+  ?subject <http://www.w3.org/ns/prov#generatedAtTime> ?modifiedAt ; 
+           <http://www.w3.org/ns/prov#wasAttributedTo> ?attribution.
+  ?similarity <https://vision.artresearch.net/custom/skipped> "true"^^xsd:boolean.
   ?work <https://pharos.artresearch.net/custom/has_image> ?imageA.
   ?imageA <http://purl.org/ontology/similarity/element> ?similarity.
   ?work2 <https://pharos.artresearch.net/custom/has_image> ?imageB.
@@ -49,11 +32,10 @@ OPTIONAL {
   ?provA rdfs:label ?providerLabelA.
   ?work2 <https://pharos.artresearch.net/custom/has_provider> ?provb.
   ?provb rdfs:label ?providerLabelB.
-
-
-
   BIND(?__useruri__ as ?attribution)
-}GROUP BY ?subject
+  ?similarity ?a ?b
+  FILTER(?work != ?work2)
+}GROUP BY ?similarity
 '
 tuple-template='{{>markedCards}}'
 no-result-template='<h1 style="margin-top:150px;">There are no matchings marked for review</h1>'

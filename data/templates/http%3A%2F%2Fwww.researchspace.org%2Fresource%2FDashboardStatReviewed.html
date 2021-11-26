@@ -1,7 +1,7 @@
 <semantic-query
 query='
 SELECT DISTINCT 
-(COUNT(DISTINCT ?subject) as ?count) 
+(COUNT(DISTINCT ?similarity) as ?count) 
 WHERE {
   GRAPH ?g {
   <http://www.researchspace.org/resource/system/formContainer> <http://www.w3.org/ns/ldp#contains> ?subject. 
@@ -37,8 +37,9 @@ WHERE {
   ?provA rdfs:label ?providerLabelA.
   ?work2 <https://pharos.artresearch.net/custom/has_provider> ?provb.
   ?provb rdfs:label ?providerLabelB.
+  FILTER(?work != ?work2)
   BIND(?__useruri__ as ?attribution)
-}
+}GROUP BY ?similarity
 '
 >
 </semantic-query>

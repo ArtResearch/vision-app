@@ -87,8 +87,6 @@
                       ?subject2_next <https://pharos.artresearch.net/custom/has_provider> <[[urlParam "providerb"]]>.
                       ?imageA_next <http://www.cidoc-crm.org/cidoc-crm/P2_has_type> ?type.
                       ?type rdfs:label "recto".
-                      ?imageB_next <http://www.cidoc-crm.org/cidoc-crm/P2_has_type> ?typeB.
-                      ?typeB rdfs:label "recto".
                       BIND(<{{bindings.0.subject1.value}}> AS ?subject1)
                       BIND(<{{bindings.0.subject2.value}}> AS ?subject2)
                       FILTER(?subject1_next != ?subject2_next)

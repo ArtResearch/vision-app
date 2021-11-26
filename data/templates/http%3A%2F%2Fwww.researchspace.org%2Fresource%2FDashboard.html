@@ -22,6 +22,7 @@
                         ?b rdfs:label ?bL.
                         BIND(CONCAT(?aL,"-",?bL) as ?L)
                       } 
+                      BIND(?__useruri__ as ?attribution)
                   }GROUP BY ?subject
                 '
                 column-configuration='[

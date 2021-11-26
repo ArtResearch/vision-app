@@ -1,0 +1,167 @@
+<div class="row" style="margin-top: 40px;">
+  <bs-col sm="1"></bs-col>
+<bs-col sm="10">
+<semantic-table id='resources-results'
+number-of-displayed-rows=10
+query='
+SELECT DISTINCT 
+?subject 
+(SAMPLE(?work) as ?work)
+(SAMPLE(?work2) as ?work2)
+(SAMPLE(?similarity) as ?similarity)
+(SAMPLE(?providerLabelA) as ?providerLabelA)
+(SAMPLE(?providerLabelB) as ?providerLabelB)
+(SAMPLE(?ModificationDate) AS ?ModificationDate) 
+(SAMPLE(?attribution) AS ?attribution) 
+(SAMPLE(?label) AS ?label) 
+(SAMPLE(?L) AS ?L) WHERE {
+<http://www.researchspace.org/resource/system/formContainer> <http://www.w3.org/ns/ldp#contains> ?subject. 
+
+?subject <http://www.w3.org/ns/prov#generatedAtTime> ?ModificationDate ; 
+<http://www.w3.org/ns/prov#wasAttributedTo> ?attribution.
+?similarity <https://vision.artresearch.net/custom/skipped> "true"^^xsd:boolean.
+OPTIONAL { 
+  ?subject rdfs:label ?label . 
+  } 
+  BIND(IRI(CONCAT(STR(?subject),"/context")) AS ?graph) 
+  OPTIONAL{
+    GRAPH ?graph { 
+      ?a owl:sameAs ?b. 
+    } 
+    ?a rdfs:label ?aL. 
+    ?b rdfs:label ?bL.
+    BIND(CONCAT(?aL,"-",?bL) as ?L)
+  } 
+
+
+  ?work <https://pharos.artresearch.net/custom/has_image> ?imageA.
+  ?imageA <http://purl.org/ontology/similarity/element> ?similarity.
+  ?work2 <https://pharos.artresearch.net/custom/has_image> ?imageB.
+  ?imageB <http://purl.org/ontology/similarity/element> ?similarity.
+  {
+    ?imageA crm:P2_has_type ?type.
+    ?type rdfs:label "recto".
+  }UNION{
+    ?imageB crm:P2_has_type ?type.
+    ?type rdfs:label "recto".
+  }
+  ?work <https://pharos.artresearch.net/custom/has_provider> ?provA.
+  ?provA rdfs:label ?providerLabelA.
+  ?work2 <https://pharos.artresearch.net/custom/has_provider> ?provb.
+  ?provb rdfs:label ?providerLabelB.
+
+
+
+  BIND(?__useruri__ as ?attribution)
+}GROUP BY ?subject
+'
+tuple-template='{{>markedCards}}'
+no-result-template='<h1 style="margin-top:150px;">There are no matchings marked for review</h1>'
+>
+
+<template id="markedCards">
+        <div
+          class="
+            rs-grid-element
+            panel panel-default
+            artwork-card
+            fade-in
+          "
+        >
+          <div class="panel-body row">
+            <bs-col class="cardInfo" lg="2" xs="10">
+              [[> :SimilarityListThumbnails iri="{{work.value}}"]]
+            </bs-col>
+            <bs-col class="cardInfo" lg="4" xs="10">
+              <div data-flex-layout="row md-column center-stretch">
+                <bs-row class="cardInfoFields">
+                  <h2>
+                    [[> rsp:SourceIcon
+                    providerLabel="{{providerLabelA.value}}"]]{{providerLabelA.value}}
+                  </h2>
+                  <mp-field-visualization
+                    subject="{{work.value}}"
+                    fields='[[fieldDefinitions  
+                            Title="https://pharos.artresearch.net/fieldDefinition/2"
+                            Creator="https://pharos.artresearch.net/fieldDefinition/1"
+                            ]]'
+                    template="{{>generalInfo}}"
+                  >
+                    <template id="generalInfo">
+                      [[> rsp:ResourceFieldBasedVisualization
+                      subject="{{work.value}}" ]]
+                    </template>
+                  </mp-field-visualization>
+                </bs-row>
+              </div>
+            </bs-col>
+            <bs-col class="cardInfo" lg="2" xs="10">
+              [[> :SimilarityListThumbnails iri="{{work2.value}}"]]
+            </bs-col>
+
+            <bs-col class="cardInfo" lg="4" xs="10">
+              <div data-flex-layout="row md-column center-stretch">
+                <bs-row class="cardInfoFields">
+                  <h2>
+                    [[> rsp:SourceIcon
+                    providerLabel="{{providerLabelB.value}}"]]{{providerLabelB.value}}
+                  </h2>
+                  <mp-field-visualization
+                    subject="{{work2.value}}"
+                    fields='[[fieldDefinitions  
+                              Title="https://pharos.artresearch.net/fieldDefinition/2"
+                              Creator="https://pharos.artresearch.net/fieldDefinition/1"
+                              ]]'
+                    template="{{>generalInfo}}"
+                  >
+                    <template id="generalInfo">
+                      [[> rsp:ResourceFieldBasedVisualization
+                      subject="{{work2.value}}" ]]
+                    </template>
+                  </mp-field-visualization>
+                </bs-row>
+              </div>
+            </bs-col>
+          </div>
+          <div class="actions">
+            <semantic-link iri="{{similarity.value}}">
+              <button class="btn action btn-success">
+                View details
+              </button>
+            </semantic-link>
+            <semantic-form
+            new-subject-template="{{subject.value}}"
+            browser-persistance="true"
+            persistence="sparql"
+            post-action="reload"
+            form-id="revert"
+            fields='[[  fieldDefinitions
+                revert="http://www.researchspace.org/fieldDefinition/Revert"
+            ]]'
+            >
+            <semantic-form-hidden-input for="revert" default-value="true"></semantic-form-hidden-input>
+            
+            <button name="submit" class="btn action btn-warning" style="margin-right:8px;background:grey;"><i class="fa fa-refresh" aria-hidden=true></i> Revert </button>
+            </semantic-form>
+            
+          </div>
+        </div>
+</template>
+
+
+
+</semantic-table>
+</bs-col>
+<bs-col sm="1"></bs-col>
+</div>
+
+<style>
+  .actions{
+  gap: 150px;
+  }
+  .matchingImage {
+    height: 18vh !important;
+    margin: 0vw !important;
+  }
+
+</style>

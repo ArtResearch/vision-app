@@ -276,6 +276,9 @@ select,
 .fa {
   color: #000000 !important;
 }
+.fa.fa-trash{
+  color: white !important;
+}
 .filetype-text {
   color: #000000 !important;
 }

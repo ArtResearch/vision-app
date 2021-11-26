@@ -21,7 +21,6 @@ OPTIONAL {
     BIND(CONCAT(?aL,"-",?bL) as ?L)
   } 
 
-
   ?work <https://pharos.artresearch.net/custom/has_image> ?imageA.
   ?imageA <http://purl.org/ontology/similarity/element> ?similarity.
   ?work2 <https://pharos.artresearch.net/custom/has_image> ?imageB.
@@ -38,10 +37,8 @@ OPTIONAL {
   ?work2 <https://pharos.artresearch.net/custom/has_provider> ?provb.
   ?provb rdfs:label ?providerLabelB.
 
-
-
   BIND(?__useruri__ as ?attribution)
-}GROUP BY ?subject
+}
 '
 no-result-template="0"
 >

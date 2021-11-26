@@ -1,0 +1,48 @@
+<semantic-query
+query='
+SELECT DISTINCT 
+(COUNT(?subject) as ?count) 
+WHERE {
+<http://www.researchspace.org/resource/system/formContainer> <http://www.w3.org/ns/ldp#contains> ?subject. 
+
+?subject <http://www.w3.org/ns/prov#generatedAtTime> ?ModificationDate ; 
+<http://www.w3.org/ns/prov#wasAttributedTo> ?attribution.
+?similarity <https://vision.artresearch.net/custom/skipped> "true"^^xsd:boolean.
+OPTIONAL { 
+  ?subject rdfs:label ?label . 
+  } 
+  BIND(IRI(CONCAT(STR(?subject),"/context")) AS ?graph) 
+  OPTIONAL{
+    GRAPH ?graph { 
+      ?a owl:sameAs ?b. 
+    } 
+    ?a rdfs:label ?aL. 
+    ?b rdfs:label ?bL.
+    BIND(CONCAT(?aL,"-",?bL) as ?L)
+  } 
+
+
+  ?work <https://pharos.artresearch.net/custom/has_image> ?imageA.
+  ?imageA <http://purl.org/ontology/similarity/element> ?similarity.
+  ?work2 <https://pharos.artresearch.net/custom/has_image> ?imageB.
+  ?imageB <http://purl.org/ontology/similarity/element> ?similarity.
+  {
+    ?imageA crm:P2_has_type ?type.
+    ?type rdfs:label "recto".
+  }UNION{
+    ?imageB crm:P2_has_type ?type.
+    ?type rdfs:label "recto".
+  }
+  ?work <https://pharos.artresearch.net/custom/has_provider> ?provA.
+  ?provA rdfs:label ?providerLabelA.
+  ?work2 <https://pharos.artresearch.net/custom/has_provider> ?provb.
+  ?provb rdfs:label ?providerLabelB.
+
+
+
+  BIND(?__useruri__ as ?attribution)
+}GROUP BY ?subject
+'
+no-result-template="0"
+>
+</semantic-query>

@@ -135,7 +135,7 @@ no-result-template='<h1 style="margin-top:150px;">There are no reviewed matching
            
                <template id='deleteOption'>
                 {{#each bindings}}
-                  <mp-ldp-remove-from-container-action iri="{{subject.value}}" container="http://www.researchspace.org/resource/system/formContainer">
+                  <mp-ldp-remove-from-container-action  urlqueryparam-tab='reviewed' iri="{{subject.value}}" container="http://www.researchspace.org/resource/system/formContainer">
                     <button title="This action will remove the item from your reviewed list. It will be then available under artwork matchings for you or another reviewer to review." class="btn action btn-danger" style="margin-right:8px;"><i style="color: white;" class="fa fa-trash" aria-hidden=true></i> Delete</button>
                   </mp-ldp-remove-from-container-action>
                 {{/each}}
@@ -146,6 +146,7 @@ no-result-template='<h1 style="margin-top:150px;">There are no reviewed matching
                 browser-persistance="true"
                 persistence="sparql"
                 post-action="reload"
+                urlqueryparam-tab='reviewed'
                 form-id="revert"
                 fields='[[  fieldDefinitions
                     revert="http://www.researchspace.org/fieldDefinition/Revert"

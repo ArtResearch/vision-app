@@ -100,10 +100,13 @@
           ?imageA <http://purl.org/ontology/similarity/element> ?element.
           ?subject2 <https://pharos.artresearch.net/custom/has_image> ?imageB.
           ?imageB <http://purl.org/ontology/similarity/element> ?element.
-          ?imageA crm:P2_has_type ?type.
-          ?type rdfs:label "recto".
-          ?imageB crm:P2_has_type ?typeB.
-          ?typeB rdfs:label "recto".
+          {
+            ?imageA crm:P2_has_type ?type.
+            ?type rdfs:label "recto".
+          }UNION{
+            ?imageB crm:P2_has_type ?type.
+            ?type rdfs:label "recto".
+          }
           ?element <http://purl.org/ontology/similarity/method> ?asso_method.
           ?asso_method <http://purl.org/ontology/similarity/weight> ?score.
           ?asso_method <http://purl.org/ontology/similarity/method> <https://vision.artresearch.net/resource/Similarity/AssociationMethod/Pastec>.

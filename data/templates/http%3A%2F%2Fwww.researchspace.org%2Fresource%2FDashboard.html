@@ -8,11 +8,7 @@
         Here you can view, delete & revert matchings that have been reviewed or are marked for review 
       </p>
     </div>
-[[#if (urlParam "tab")]]
-<bs-tab-container id="tab-container" class="page__body-navtabs--borderless" default-active-key="[[urlParam 'tab']]">
-  [[else]]
   <bs-tab-container id="tab-container" class="page__body-navtabs--borderless" default-active-key="reviewed">
-    [[/if]]
   <div>
     <bs-nav bs-style='tabs'>
       <bs-nav-item event-key='reviewed'><div style="display: flex;">Reviewed(

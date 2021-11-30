@@ -160,6 +160,7 @@
                     WHERE {}GROUP BY ?subject ?subject2 ORDER BY DESC (?score) (?subject)
                   LIMIT 500
                 "
+                no-result-template="<h1>No matchings found for this Photo archive</h1><h2>Try switching to a different Photo archive tab</h2>"
                 tuple-template="{{>tupleTemplate}}"
               >
                 <template id="tupleTemplate">

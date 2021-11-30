@@ -138,7 +138,8 @@
       id="artwork-filter-search"
     >
       <div class="filter-title">Filters</div>
-      <semantic-search-facet open-by-default="true"></semantic-search-facet>
+      <semantic-search-facet open-by-default="true">
+      </semantic-search-facet>
     </bs-col>
     <bs-col lg="9" md="8" sm="7">
       <semantic-search-result-holder>
@@ -162,6 +163,7 @@
                   LIMIT 50
                         "
                 tuple-template="{{>tupleTemplate}}"
+                no-result-template="<h1>No matchings found for this Photo archive</h1><h2>Try selecting a different pair</h2>"
               >
                 <template id="tupleTemplate">
                   <div

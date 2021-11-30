@@ -17,11 +17,12 @@
   margin-top: 3vh;
   border: #c7c7c7 solid 1px;
   border-radius: 4px;
+  margin-top: 150px;
   padding: 9px 25px 20px;
   min-width: 400px;
   min-height: 150px;
-
 }
+
 #start-page .logoLarge {
   text-align: center;
   border-radius: 5px;

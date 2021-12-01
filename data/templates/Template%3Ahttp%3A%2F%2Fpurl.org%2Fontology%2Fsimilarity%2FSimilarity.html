@@ -76,15 +76,13 @@
          {{#if '[[urlParam "providera"]]'}}
           <div class="sidebar">
             <semantic-query
-              query=' SELECT ?element ?nextElement ?subject1 ?subject2 WHERE {
+              query='SELECT ?element ?nextElement ?subject1 ?subject2 WHERE {
                       ?imageA_next <http://purl.org/ontology/similarity/element> ?nextElement.
                       ?imageB_next <http://purl.org/ontology/similarity/element> ?nextElement.
                       ?subject1_next <https://pharos.artresearch.net/custom/has_image> ?imageA_next.
                       ?subject2_next <https://pharos.artresearch.net/custom/has_image> ?imageB_next.
                       ?subject1_next <https://pharos.artresearch.net/custom/has_provider> <[[urlParam "providera"]]>.
                       ?subject2_next <https://pharos.artresearch.net/custom/has_provider> <[[urlParam "providerb"]]>.
-                      ?imageA_next <http://www.cidoc-crm.org/cidoc-crm/P2_has_type> ?type.
-                      ?type rdfs:label "recto".
                       BIND(<{{bindings.0.subject1.value}}> AS ?subject1)
                       BIND(<{{bindings.0.subject2.value}}> AS ?subject2)
                       FILTER(?subject1_next != ?subject2_next)
@@ -102,17 +100,17 @@
 
               <template id="noNextSimilarity">
                 <semantic-query
-                query=' SELECT ?element ?nextElement ?subject1 ?subject2 WHERE {
-                        BIND(Default:SimilarityList as ?nextElement)
-                        BIND(<{{bindings.0.subject1.value}}> AS ?subject1)
-                        BIND(<{{bindings.0.subject2.value}}> AS ?subject2)
-                        BIND (<{{bindings.0.element.value}}> AS ?element)
-                    }LIMIT 1'
-                template="{{>sidebarWithNoNext}}"
-              >
-                <template id="sidebarWithNoNext">
-                  [[> :Sidebar]]
-                </template>
+                  query=' SELECT ?element ?nextElement ?subject1 ?subject2 WHERE {
+                          BIND(Default:SimilarityList as ?nextElement)
+                          BIND(<{{bindings.0.subject1.value}}> AS ?subject1)
+                          BIND(<{{bindings.0.subject2.value}}> AS ?subject2)
+                          BIND (<{{bindings.0.element.value}}> AS ?element)
+                      }LIMIT 1'
+                  template="{{>sidebarWithNoNext}}"
+                >
+                  <template id="sidebarWithNoNext">
+                    [[> :Sidebar]]
+                  </template>
                 </semantic-query>
               </template>
 

@@ -1,21 +1,19 @@
 <div id="similarity-template"> 
   <semantic-query
-    
     query=" SELECT DISTINCT ?element ?subject1 ?subject1Link ?subject2 ?subject2Link ?providerLabelA ?providerLabelB ?imageA ?imageB WHERE {
-                              ?imageA <http://purl.org/ontology/similarity/element> ??.
-                              ?imageB <http://purl.org/ontology/similarity/element> ??.
-                              ?subject1 <https://pharos.artresearch.net/custom/has_image> ?imageA.
-                              ?subject2 <https://pharos.artresearch.net/custom/has_image> ?imageB.
-                              ?subject1 <https://pharos.artresearch.net/custom/has_provider> ?providerA.
-                              ?providerA rdfs:label ?providerLabelA.
-                              ?subject2 <https://pharos.artresearch.net/custom/has_provider> ?providerB.
-                              ?providerB rdfs:label ?providerLabelB.
-                              BIND (STR(?subject1) as ?subject1Link)
-                              BIND (STR(?subject2) as ?subject2Link)
-                              BIND (?? as ?element)
-                              FILTER (STR(?imageA)!=STR(?imageB))
-
-                          } Limit 1"
+      ?imageA <http://purl.org/ontology/similarity/element> ??.
+      ?imageB <http://purl.org/ontology/similarity/element> ??.
+      ?subject1 <https://pharos.artresearch.net/custom/has_image> ?imageA.
+      ?subject2 <https://pharos.artresearch.net/custom/has_image> ?imageB.
+      ?subject1 <https://pharos.artresearch.net/custom/has_provider> ?providerA.
+      ?providerA rdfs:label ?providerLabelA.
+      ?subject2 <https://pharos.artresearch.net/custom/has_provider> ?providerB.
+      ?providerB rdfs:label ?providerLabelB.
+      BIND (STR(?subject1) as ?subject1Link)
+      BIND (STR(?subject2) as ?subject2Link)
+      BIND (?? as ?element)
+      FILTER (STR(?imageA)!=STR(?imageB))
+  } Limit 1"
     template="{{>matchingTemplate}}"
   >
     <template id="matchingTemplate">
@@ -358,6 +356,29 @@
                 </div>
               </template>
             </semantic-query>
+          </div>
+          {{else}}
+          <div class="sidebar reviewed-box">
+            <h2>This matching has been reviewed</h2>
+            <semantic-query
+              query='SELECT (SAMPLE(?modifiedAt) AS ?modifiedAt) 
+              (SAMPLE(?attribution) AS ?attribution) WHERE {
+                GRAPH ?g {
+                  <http://www.researchspace.org/resource/system/formContainer> <http://www.w3.org/ns/ldp#contains> ?subject. 
+                  ?subject <http://www.w3.org/ns/prov#generatedAtTime> ?modifiedAt ; 
+                  <http://www.w3.org/ns/prov#wasAttributedTo> ?attribution.
+                  ?? <https://vision.artresearch.net/custom/reviewed> "true"^^xsd:boolean.
+                }
+              }'
+                template="{{>reviewedMatching}}"
+            >
+            <template id="reviewedMatching">
+                {{#each bindings}}
+                <h2>by <mp-label iri='{{attribution.value}}'></mp-label></h2>
+                <h2>at {{modifiedAt.value}}</h2>
+                {{/each}}
+              </template>
+          </semantic-query>
           </div>
         {{/if}}
       </div>

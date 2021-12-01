@@ -1,6 +1,6 @@
 <div id="similarity-template"> 
   <semantic-query
-    query=" SELECT DISTINCT ?element ?subject1 ?subject1Link ?subject2 ?subject2Link ?providerLabelA ?providerLabelB ?imageA ?imageB WHERE {
+    query=" SELECT DISTINCT ?element ?subject1 ?subject1Link ?subject2 ?subject2Link ?providerA ?providerB ?providerLabelA ?providerLabelB ?imageA ?imageB WHERE {
       ?imageA <http://purl.org/ontology/similarity/element> ??.
       ?imageB <http://purl.org/ontology/similarity/element> ??.
       ?subject1 <https://pharos.artresearch.net/custom/has_image> ?imageA.
@@ -69,7 +69,7 @@
       </semantic-query>
         <div class="matchContainer">
           <!-- Matching candidates fields comparison table -->
-          <div class="fieldViewer">[[> rsp:MatchingCanditateFields element="{{bindings.0.element.value}}" ]]</div>
+          <div class="fieldViewer">[[> rsp:MatchingCanditateFields]]</div>
         </div>
         <p></p>
         <p></p>

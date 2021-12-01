@@ -16,46 +16,40 @@
       <!--#################################### TITLE #####################################-->
       <!--################################################################################-->
       <semantic-query
-        query=' SELECT ?element ?labelA ?labelB ?withDataA ?withDataB ?fieldName WHERE {
-                  <{{bindings.0.subject1.value}}>  rdfs:label ?labelA.
+        query='SELECT ?element ?nextElement ?subject1 ?subject2 WHERE {
+                  ?imageA_next <http://purl.org/ontology/similarity/element> ?nextElement.
+                  ?imageB_next <http://purl.org/ontology/similarity/element> ?nextElement.
+                  ?subject1_next <https://pharos.artresearch.net/custom/has_image> ?imageA_next.
+                  ?subject2_next <https://pharos.artresearch.net/custom/has_image> ?imageB_next.
+                  ?subject1_next <https://pharos.artresearch.net/custom/has_provider> <{{bindings.0.providerA.value}}>.
+                  ?subject2_next <https://pharos.artresearch.net/custom/has_provider> <{{bindings.0.providerB.value}}>.
+                  FILTER(?element != ?nextElement)
+                  FILTER NOT EXISTS { ?nextElement <https://vision.artresearch.net/custom/reviewed> "true"^^xsd:boolean }
+                  FILTER NOT EXISTS { ?nextElement <https://vision.artresearch.net/custom/skipped> "true"^^xsd:boolean }
+                  BIND("Title" as ?fieldName)
+                  BIND(<{{bindings.0.element.value}}> AS ?element)
+                  BIND(<{{bindings.0.subject1.value}}> as ?subject1)
+                  BIND(<{{bindings.0.subject2.value}}> as ?subject2)
+                }LIMIT 1' 
+        template='{{> titleWithNextSimilarity}}'>
+        <template id="titleWithNextSimilarity">
+      <semantic-query
+        query='SELECT ?element ?nextElement ?labelA ?labelB ?withDataA ?withDataB ?fieldName WHERE {
+                  <{{bindings.0.subject1.value}}> rdfs:label ?labelA.
+                  <{{bindings.0.subject2.value}}> rdfs:label ?labelB.
                   BIND(BOUND(?labelA) && strlen(?labelA)>0 as ?withDataA)
-                  <{{bindings.0.subject2.value}}>  rdfs:label ?labelB  
                   BIND(BOUND(?labelB) && strlen(?labelB)>0 as ?withDataB)
                   BIND("Title" as ?fieldName)
-                  BIND (<[[element]]> AS ?element)
+                  BIND (<{{bindings.0.element.value}}> AS ?element)
+                  BIND (<{{bindings.0.nextElement.value}}> AS ?nextElement)
                 }' 
         template='{{> titleTemplate}}'>
         <template id="titleTemplate">
-          <semantic-query query='SELECT ?element ?nextElement ?labelA ?labelB ?withDataA ?withDataB ?fieldName  WHERE {
-                      ?imageA_next <http://purl.org/ontology/similarity/element> ?nextElement.
-                      ?imageB_next <http://purl.org/ontology/similarity/element> ?nextElement.
-                      ?subject1_next <https://pharos.artresearch.net/custom/has_image> ?imageA_next.
-                      ?subject2_next <https://pharos.artresearch.net/custom/has_image> ?imageB_next.
-                      ?subject1_next <https://pharos.artresearch.net/custom/has_provider> <https://pharos.artresearch.net/resource/hertziana/source/Hertziana>.
-                      ?subject2_next <https://pharos.artresearch.net/custom/has_provider> <https://pharos.artresearch.net/resource/itatti/source/ITatti>.
-                      ?imageA_next <http://www.cidoc-crm.org/cidoc-crm/P2_has_type> ?type.
-                      ?type rdfs:label "recto".
-                      FILTER(?element != ?nextElement)
-                      FILTER NOT EXISTS { ?nextElement <https://vision.artresearch.net/custom/reviewed> "true"^^xsd:boolean }
-                      FILTER NOT EXISTS { ?nextElement <https://vision.artresearch.net/custom/skipped> "true"^^xsd:boolean }
-                      BIND (<{{bindings.0.element.value}}> AS ?element)
-                      BIND ("{{bindings.0.labelA.value}}" AS ?labelA)
-                      BIND ("{{bindings.0.labelB.value}}" AS ?labelB)
-                      BIND(BOUND(?labelA) && strlen(?labelA)>0 as ?withDataA)
-                      BIND(BOUND(?labelB) && strlen(?labelB)>0 as ?withDataB)
-                      BIND("Title" as ?fieldName)
-                  }LIMIT 1' 
-                template='{{> titleTemplate2}}'>
-            <template id="titleTemplate2">
-              
-                
               [[> rsp:MatchingCanditateTitleSame]] 
-            </template>
-          </semantic-query>
-         
         </template>
       </semantic-query>
-
+      </template>
+      </semantic-query>
       <!--################################################################################-->
       <!--############################ ICONCLASS INFORMATION ############################--> 
       <!--################################################################################-->

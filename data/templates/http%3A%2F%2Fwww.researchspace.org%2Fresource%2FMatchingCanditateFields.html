@@ -15,6 +15,7 @@
       <!--################################################################################-->
       <!--#################################### TITLE #####################################-->
       <!--################################################################################-->
+      {{#if '[[urlParam "providera"]]'}}
       <semantic-query
         query='SELECT ?element ?nextElement ?subject1 ?subject2 WHERE {
                   ?imageA_next <http://purl.org/ontology/similarity/element> ?nextElement.
@@ -50,6 +51,21 @@
       </semantic-query>
       </template>
       </semantic-query>
+      {{else}}
+      <semantic-query
+      query='SELECT ?labelA ?labelB ?withData ?fieldName WHERE {
+                <{{bindings.0.subject1.value}}> rdfs:label ?labelA.
+                <{{bindings.0.subject2.value}}> rdfs:label ?labelB.
+                BIND(BOUND(?labelA) && strlen(?labelA)>0 as ?withData)
+                BIND(BOUND(?labelB) && strlen(?labelB)>0 as ?withData)
+                BIND("Title" as ?fieldName)
+              }' 
+      template='{{> titleTemplate}}'>
+      <template id="titleTemplate">
+        [[> rsp:MatchingCanditateFieldsVisualization]]
+      </template>
+    </semantic-query>
+      {{/if}}
       <!--################################################################################-->
       <!--############################ ICONCLASS INFORMATION ############################--> 
       <!--################################################################################-->

@@ -94,10 +94,29 @@
                       BIND (<{{bindings.0.element.value}}> AS ?element)
                   }LIMIT 1'
               template="{{>imageInfoTemplate}}"
+              no-result-template="{{>noNextSimilarity}}"
             >
               <template id="imageInfoTemplate">
                 [[> :Sidebar]]
               </template>
+
+              <template id="noNextSimilarity">
+                <semantic-query
+                query=' SELECT ?element ?nextElement ?subject1 ?subject2 WHERE {
+                        BIND(Default:SimilarityList as ?nextElement)
+                        BIND(<{{bindings.0.subject1.value}}> AS ?subject1)
+                        BIND(<{{bindings.0.subject2.value}}> AS ?subject2)
+                        BIND (<{{bindings.0.element.value}}> AS ?element)
+                    }LIMIT 1'
+                template="{{>sidebarWithNoNext}}"
+              >
+                <template id="sidebarWithNoNext">
+                  [[> :Sidebar]]
+                </template>
+                </semantic-query>
+              </template>
+
+
             </semantic-query>
           </div>
           {{else}}

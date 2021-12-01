@@ -32,6 +32,7 @@
                   BIND(<{{bindings.0.subject1.value}}> as ?subject1)
                   BIND(<{{bindings.0.subject2.value}}> as ?subject2)
                 }LIMIT 1' 
+        no-result-template='{{> noNextSimilarity}}'
         template='{{> titleWithNextSimilarity}}'>
         <template id="titleWithNextSimilarity">
       <semantic-query
@@ -49,6 +50,24 @@
               [[> rsp:MatchingCanditateTitleSame]] 
         </template>
       </semantic-query>
+      </template>
+      <template id="noNextSimilarity">
+        <semantic-query
+        query=' SELECT ?element ?nextElement ?labelA ?labelB ?withDataA ?withDataB ?fieldName  WHERE {
+              <{{bindings.0.subject1.value}}> rdfs:label ?labelA.
+              <{{bindings.0.subject2.value}}> rdfs:label ?labelB.
+              BIND(BOUND(?labelA) && strlen(?labelA)>0 as ?withDataA)
+              BIND(BOUND(?labelB) && strlen(?labelB)>0 as ?withDataB)
+              BIND("Title" as ?fieldName)
+              BIND (<{{bindings.0.element.value}}> AS ?element)
+              BIND (Default:SimilarityList AS ?nextElement)
+            }LIMIT 1'
+        template="{{>titleOptionsWithNoNext}}"
+      >
+        <template id="titleOptionsWithNoNext">
+          [[> rsp:MatchingCanditateTitleSame]] 
+        </template>
+        </semantic-query>
       </template>
       </semantic-query>
       {{else}}

@@ -121,14 +121,33 @@
           <div class="sidebar reviewed-box">
             <h2>This matching has been reviewed</h2>
             <semantic-query
-              query='SELECT (SAMPLE(?modifiedAt) AS ?modifiedAt) 
-              (SAMPLE(?attribution) AS ?attribution) WHERE {
-                GRAPH ?g {
-                  <http://www.researchspace.org/resource/system/formContainer> <http://www.w3.org/ns/ldp#contains> ?subject. 
-                  ?subject <http://www.w3.org/ns/prov#generatedAtTime> ?modifiedAt ; 
-                  <http://www.w3.org/ns/prov#wasAttributedTo> ?attribution.
-                  ?? <https://vision.artresearch.net/custom/reviewed> "true"^^xsd:boolean.
+              query='select distinct ?modifiedAt ?attribution where {
+                ?image1 <http://purl.org/ontology/similarity/element> ??.
+                ?image2 <http://purl.org/ontology/similarity/element> ??.
+                ?s1 <https://pharos.artresearch.net/custom/has_image> ?image1.
+                ?s2 <https://pharos.artresearch.net/custom/has_image> ?image2.
+                ?image1 <http://purl.org/ontology/similarity/element> ??.
+                ?image2 <http://purl.org/ontology/similarity/element> ??.
+                {
+                  GRAPH ?g {
+                    <http://www.researchspace.org/resource/system/formContainer> <http://www.w3.org/ns/ldp#contains> ?subject. 
+                    ?subject <http://www.w3.org/ns/prov#generatedAtTime> ?modifiedAt ; 
+                    <http://www.w3.org/ns/prov#wasAttributedTo> ?attribution.
+                    ?? <https://vision.artresearch.net/custom/reviewed> "true"^^xsd:boolean.
+                  }
+                } UNION {
+                  ?s1 <https://pharos.artresearch.net/custom/has_image> ?image1_ext.
+                  ?s2 <https://pharos.artresearch.net/custom/has_image> ?image2_ext.
+                  ?image1_ext <http://purl.org/ontology/similarity/element> ?sim.
+                  ?image2_ext <http://purl.org/ontology/similarity/element> ?sim.
+                  GRAPH ?g {
+                    <http://www.researchspace.org/resource/system/formContainer> <http://www.w3.org/ns/ldp#contains> ?subject. 
+                    ?subject <http://www.w3.org/ns/prov#generatedAtTime> ?modifiedAt ; 
+                             <http://www.w3.org/ns/prov#wasAttributedTo> ?attribution.
+                    ?sim <https://vision.artresearch.net/custom/reviewed> "true"^^xsd:boolean.
+                  }
                 }
+                FILTER(?s1!=?s2)
               }'
                 template="{{>reviewedMatching}}"
             >

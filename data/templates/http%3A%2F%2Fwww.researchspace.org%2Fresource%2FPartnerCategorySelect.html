@@ -47,16 +47,14 @@
              
               <bs-nav-item event-key="{{@index}}"><div style="display:flex;">{{partnerLabel.value}}
                 (
-                  
                   <semantic-query query='
                   SELECT ?count WHERE{
-                    GRAPH ?graph {
-                     <[[urlParam "partner"]]> <{{relationUri.value}}> ?count
-                    }  
+                    ?statistics <https://pharos.artresearch.net/custom/latest> true.
                     ?statistics <https://pharos.artresearch.net/custom/consists_of> ?graph.
-                    ?statistics <https://pharos.artresearch.net/custom/has_date> ?date.
-                   }ORDER BY DESC (?date) LIMIT 1
-                 '
+                    GRAPH ?graph {
+                      <[[urlParam "partner"]]> <{{relationUri.value}}> ?count.
+                    }  
+                  }'
                  template="{{> countTemplate}}"
                  >
                 <template id="countTemplate">

@@ -77,13 +77,13 @@
                                               <[[urlParam "partner"]]> <{{relationUri.value}}> ?count.
                                             }  
                                           }'
-                  template="{{> manolis}}"
+                  template="{{>ShowTab}}"
                   >
-                    <template id="manolis">
+                    <template id="ShowTab">
                             {{#ifCond bindings.0.count.value "!==" "0"}}
                               [[> :PartnerCategorySelectSearch targetProviderLabel="{{partnerLabel.value}}"]]
                             {{else}}
-                              <h2>{{bindings.0.count.value}} </h2>
+                             <h1>No matchings found for this Photo archive</h1><h2>Try switching to a different Photo archive tab</h2>
                             {{/ifCond}}
                     </template>
                   </semantic-query> 

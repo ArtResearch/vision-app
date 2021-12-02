@@ -104,13 +104,6 @@
           ?imageA <http://purl.org/ontology/similarity/element> ?element.
           ?subject2 <https://pharos.artresearch.net/custom/has_image> ?imageB.
           ?imageB <http://purl.org/ontology/similarity/element> ?element.
-          {
-            ?imageA crm:P2_has_type ?type.
-            ?type rdfs:label "recto".
-          }UNION{
-            ?imageB crm:P2_has_type ?type.
-            ?type rdfs:label "recto".
-          }
           ?element <http://purl.org/ontology/similarity/method> ?asso_method.
           ?asso_method <http://purl.org/ontology/similarity/weight> ?score.
           ?asso_method <http://purl.org/ontology/similarity/method> <https://vision.artresearch.net/resource/Similarity/AssociationMethod/Pastec>.
@@ -120,6 +113,8 @@
           <[[urlParam "providerb"]]> rdfs:label ?providerLabelB.
           FILTER NOT EXISTS {?element <https://vision.artresearch.net/custom/reviewed> "true"^^xsd:boolean. }
           FILTER NOT EXISTS {?element <https://vision.artresearch.net/custom/skipped> "true"^^xsd:boolean. }
+          FILTER NOT EXISTS {?imageA <http://www.cidoc-crm.org/cidoc-crm/P2_has_type> <http://vocab.getty.edu/aat/300010292>.}
+          FILTER NOT EXISTS {?imageB <http://www.cidoc-crm.org/cidoc-crm/P2_has_type> <http://vocab.getty.edu/aat/300010292>.}  
         }'
       query="SELECT DISTINCT ?subject WHERE {
       ?subject ?p ?o #This will never run

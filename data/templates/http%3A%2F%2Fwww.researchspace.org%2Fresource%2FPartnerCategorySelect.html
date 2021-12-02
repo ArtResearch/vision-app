@@ -69,12 +69,26 @@
     
             <bs-tab-content unmount-on-exit=true>
               {{#each bindings}}
-              
-              {{#ifCond bindings.0.count.value "!==" "0"}}
-              <bs-tab-pane event-key="{{@index}}">
-                [[> :PartnerCategorySelectSearch targetProviderLabel="{{partnerLabel.value}}"]]
-              </bs-tab-pane>
-              {{/ifCond}}
+                <bs-tab-pane event-key="{{@index}}">
+                <semantic-query query=' SELECT ?count WHERE{
+                                          ?statistics <https://pharos.artresearch.net/custom/latest> true.
+                                          ?statistics <https://pharos.artresearch.net/custom/consists_of> ?graph.
+                                            GRAPH ?graph {
+                                              <[[urlParam "partner"]]> <{{relationUri.value}}> ?count.
+                                            }  
+                                          }'
+                  template="{{> manolis}}"
+                  >
+                    <template id="manolis">
+                            {{#ifCond bindings.0.count.value "!==" "0"}}
+                              [[> :PartnerCategorySelectSearch targetProviderLabel="{{partnerLabel.value}}"]]
+                            {{else}}
+                              <h2>{{bindings.0.count.value}} </h2>
+                            {{/ifCond}}
+                    </template>
+                  </semantic-query> 
+                </bs-tab-pane>
+
               {{/each}}
             </bs-tab-content>
           </div>

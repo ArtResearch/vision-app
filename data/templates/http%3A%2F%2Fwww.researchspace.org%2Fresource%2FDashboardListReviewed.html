@@ -24,18 +24,13 @@ SELECT DISTINCT
   ?imageA <http://purl.org/ontology/similarity/element> ?similarity.
   ?work2 <https://pharos.artresearch.net/custom/has_image> ?imageB.
   ?imageB <http://purl.org/ontology/similarity/element> ?similarity.
-  {
-    ?imageA crm:P2_has_type ?type.
-    ?type rdfs:label "recto".
-  }UNION{
-    ?imageB crm:P2_has_type ?type.
-    ?type rdfs:label "recto".
-  }
   ?work <https://pharos.artresearch.net/custom/has_provider> ?provA.
   ?provA rdfs:label ?providerLabelA.
   ?work2 <https://pharos.artresearch.net/custom/has_provider> ?provb.
   ?provb rdfs:label ?providerLabelB.
   FILTER(?work != ?work2)
+  FILTER NOT EXISTS {?imageA <http://www.cidoc-crm.org/cidoc-crm/P2_has_type> <http://vocab.getty.edu/aat/300010292>.}
+  FILTER NOT EXISTS {?imageB <http://www.cidoc-crm.org/cidoc-crm/P2_has_type> <http://vocab.getty.edu/aat/300010292>.}
   BIND(?__useruri__ as ?attribution)
 }GROUP BY ?subject ?g
 '

@@ -24,11 +24,7 @@
     }
   }
   ?statistics <https://pharos.artresearch.net/custom/consists_of> ?graph.
-  { 
-    SELECT ?statistics WHERE {
-      ?statistics <https://pharos.artresearch.net/custom/has_date> ?date.
-    } order by desc(?date) limit 1
-  }
+  ?statistics <https://pharos.artresearch.net/custom/latest> true.
 } GROUP BY ?matched ?partnerLabel'
   template='{{> statsTotal }}'>
   <template id="statsTotal">
@@ -119,12 +115,12 @@
                       <div style="padding: 5px;">
                       <semantic-query query='
                       SELECT ?count WHERE{
+                        ?statistics <https://pharos.artresearch.net/custom/latest> true.
+                        ?statistics <https://pharos.artresearch.net/custom/consists_of> ?graph.
                         GRAPH ?graph {
                          <[[partnerUri]]> <{{relationUri.value}}> ?count
-                        }  
-                        ?statistics <https://pharos.artresearch.net/custom/consists_of> ?graph.
-                        ?statistics <https://pharos.artresearch.net/custom/has_date> ?date.
-                       }ORDER BY DESC (?date) LIMIT 1
+                        }
+                       }
                      '
                      template="{{> countTemplate}}"
                      >

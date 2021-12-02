@@ -22,12 +22,8 @@
       <[[urlParam "partner"]]>   <https://pharos.artresearch.net/custom/numOfNonmatchedZeri> ?unmatched
     }
   }
+  ?statistics <https://pharos.artresearch.net/custom/latest> true.
   ?statistics <https://pharos.artresearch.net/custom/consists_of> ?graph.
-  { 
-    SELECT ?statistics WHERE {
-      ?statistics <https://pharos.artresearch.net/custom/has_date> ?date.
-    } order by desc(?date) limit 1
-  }
 } GROUP BY ?matched'
   template='{{> statsTotal }}'>
   <template id="statsTotal">

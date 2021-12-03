@@ -1,46 +1,39 @@
 <div id="photo-search-page">
-  <div style="margin:1vh;margin-top:40px; display: flex;justify-content: center;">
+  <div class="search-section">
     [[> rsp:Searchbar]]
+    <div class="search-description">Searched for: [[urlParam "image"]] </div>
+      <div class="image-uploader-section" style="width: 20vw; margin-top: 20px ;">
+        <upload-image></upload-image>
+        <div class="selectedImageContainer">
+          <img src='[[urlParam "image"]]' />
+        </div>
+      </div>
   </div>
   <div data-flex-layout="row stretch-stretch" style="margin-bottom:150px;">
-      <div id="resultHolder" data-flex-self="md-full">
-        <div class="search-description">Searched for: [[urlParam "image"]] </div>
-        <div class="Wrapper-to-center">
-        <div class="image-uploader-section" style="width: 20vw; margin-top: 20px ;"> 
-          <upload-image></upload-image>
-        </div>
-        </div>
-        <div class="selectedImageContainer">
-          <a href='[[urlParam "image"]]' title="Inspect image in a new tab" target="newTabVision">
-          <img src='[[urlParam "image"]]' />
-        </a>
-        </div>
-        
-        <semantic-context repository="pastec">
+    <div id="resultHolder" data-flex-self="md-full">
+
+
+
+      <semantic-context repository="pastec">
         <div>
-          <div class="search-similar-title">Similar artworks</div> 
+          <div class="search-similar-title">Similar artworks</div>
           <div class="griddle-custom-row">
-            <semantic-query
-              query='
+            <semantic-query query='
                   PREFIX example: <http://www.example.org/ontology#>
                   SELECT ?subject ?score ?id WHERE{
                     ?subject example:hasImageUrl "[[urlParam "image"]]".
                     ?subject example:hasScore ?score.
                     ?subject example:hasResultingIds ?id.
-                  }ORDER BY DESC(?score)'
-                  no-result-template='
+                  }ORDER BY DESC(?score)' no-result-template='
                   <div style="
                   font-size: 29px;
                   font-style: italic;">
                   No similar artworks found. Try another image or a higher resolution of your image.</div>
-                  '
-              template="{{>pastecTemplate}}"
-            >
+                  ' template="{{>pastecTemplate}}">
               <template id="pastecTemplate">
                 {{#each bindings}}
                 <semantic-context repository="default">
-                  <semantic-query
-                    query='SELECT DISTINCT ?imgUrl ?subject ?title ?artist_label WHERE {
+                  <semantic-query query='SELECT DISTINCT ?imgUrl ?subject ?title ?artist_label WHERE {
                           SERVICE <https://artresearch.net/sparql> {
                             BIND(iri(CONCAT("https://vision.artresearch.net:4212/index/images/",str({{id}}))) as ?idProperty) 
                             ?subject <https://pharos.artresearch.net/resource/fr/Work_depicted_by_Photo> ?photo.
@@ -56,22 +49,13 @@
                             BIND(REPLACE(STR(?imgUri),"full/full","full/!200,200") AS ?imgUrl).
                             BIND(REPLACE(?label,"@en","") AS ?artist_label)                                  
                           }
-                        }'
-                    template="{{> imageTemplate }}"
-                  >
+                        }' template="{{> imageTemplate }}">
                     <template id="imageTemplate">
-                      <a
-                        href="https://artresearch.net/resource/?uri={{bindings.0.subject.value}}"
-                        target="_null"
-                      >
+                      <a href="https://artresearch.net/resource/?uri={{bindings.0.subject.value}}" target="_null">
                         <div class="similar-artwork-card fade-in-fwd">
                           <div class="panel-body">
                             <div class="thumbnailImageContainer">
-                              <img
-                                alt="   "
-                                class="thumbnailImage"
-                                src="{{bindings.0.imgUrl.value}}"
-                              />
+                              <img alt="   " class="thumbnailImage" src="{{bindings.0.imgUrl.value}}" />
                             </div>
                             <div>
                               <h2 class="titleInfo opacityToLight">
@@ -82,13 +66,11 @@
                               </h2>
                               <h1 class="pastecInfo opacityToLight">
                                 Pastec score:
-                                <semantic-query
-                                  query="
+                                <semantic-query query="
                                 select ?scoreText where {
                                     BIND(str({{score}}) as ?scoreText) 
                                 }
-                                "
-                                ></semantic-query>
+                                "></semantic-query>
                               </h1>
                             </div>
                           </div>
@@ -101,18 +83,18 @@
               </template>
             </semantic-query>
             <div class="searching animated-background">
-                Searching for similar artworks
+              Searching for similar artworks
             </div>
           </div>
         </div>
-        </semantic-context>
+      </semantic-context>
 
-        </semantic-context>
-      </div>
+      </semantic-context>
+    </div>
   </div>
 </div>
 <style>
-  .searching{
+  .searching {
     font-size: 30px;
     display: none;
     height: 30vh;
@@ -120,9 +102,11 @@
     text-align: center;
     height: 30vh;
   }
-  .system-spinner+.searching{
-    display: flex !important; 
+
+  .system-spinner+.searching {
+    display: flex !important;
   }
+
   .system-spinner {
     display: none !important;
   }

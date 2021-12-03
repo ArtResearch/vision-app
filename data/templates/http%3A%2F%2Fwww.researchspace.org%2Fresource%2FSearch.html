@@ -1,12 +1,14 @@
 <div id="photo-search-page">
-  <div style="margin:1vh; display: flex;justify-content: center;">
+  <div style="margin:1vh;margin-top:40px; display: flex;justify-content: center;">
     [[> rsp:Searchbar]]
   </div>
-  <div data-flex-layout="row stretch-stretch">
+  <div data-flex-layout="row stretch-stretch" style="margin-bottom:150px;">
       <div id="resultHolder" data-flex-self="md-full">
         <div class="search-description">Searched for: [[urlParam "image"]] </div>
         <div class="Wrapper-to-center">
-        <div class="image-uploader-section" style="width: 20vw;  ">  <upload-image></upload-image></div>
+        <div class="image-uploader-section" style="width: 20vw; margin-top: 20px ;"> 
+          <upload-image></upload-image>
+        </div>
         </div>
         <div class="selectedImageContainer">
           <a href='[[urlParam "image"]]' title="Inspect image in a new tab" target="newTabVision">

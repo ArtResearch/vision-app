@@ -73,55 +73,12 @@
         </div>
         <p></p>
         <p></p>
-         {{#if '[[urlParam "providera"]]'}}
-          <div class="sidebar">
-            <semantic-query
-              query='SELECT ?element ?nextElement ?subject1 ?subject2 WHERE {
-                      ?imageA_next <http://purl.org/ontology/similarity/element> ?nextElement.
-                      ?imageB_next <http://purl.org/ontology/similarity/element> ?nextElement.
-                      ?subject1_next <https://pharos.artresearch.net/custom/has_image> ?imageA_next.
-                      ?subject2_next <https://pharos.artresearch.net/custom/has_image> ?imageB_next.
-                      ?subject1_next <https://pharos.artresearch.net/custom/has_provider> <[[urlParam "providera"]]>.
-                      ?subject2_next <https://pharos.artresearch.net/custom/has_provider> <[[urlParam "providerb"]]>.
-                      BIND(<{{bindings.0.subject1.value}}> AS ?subject1)
-                      BIND(<{{bindings.0.subject2.value}}> AS ?subject2)
-                      FILTER(?subject1_next != ?subject2_next)
-                      FILTER(?element != ?nextElement)
-                      FILTER NOT EXISTS { ?nextElement <https://vision.artresearch.net/custom/reviewed> "true"^^xsd:boolean }
-                      FILTER NOT EXISTS { ?nextElement <https://vision.artresearch.net/custom/skipped> "true"^^xsd:boolean }
-                      BIND (<{{bindings.0.element.value}}> AS ?element)
-                  }LIMIT 1'
-              template="{{>imageInfoTemplate}}"
-              no-result-template="{{>noNextSimilarity}}"
-            >
-              <template id="imageInfoTemplate">
-                [[> :Sidebar]]
-              </template>
-
-              <template id="noNextSimilarity">
-                <semantic-query
-                  query=' SELECT ?element ?nextElement ?subject1 ?subject2 WHERE {
-                          BIND(Default:SimilarityList as ?nextElement)
-                          BIND(<{{bindings.0.subject1.value}}> AS ?subject1)
-                          BIND(<{{bindings.0.subject2.value}}> AS ?subject2)
-                          BIND (<{{bindings.0.element.value}}> AS ?element)
-                      }LIMIT 1'
-                  template="{{>sidebarWithNoNext}}"
-                >
-                  <template id="sidebarWithNoNext">
-                    [[> :Sidebar]]
-                  </template>
-                </semantic-query>
-              </template>
-
-
-            </semantic-query>
-          </div>
-          {{else}}
+        [[#if (ask "ASK WHERE { ?image1 <http://purl.org/ontology/similarity/element> ??. ?image2 <http://purl.org/ontology/similarity/element> ??. ?s1 <https://pharos.artresearch.net/custom/has_image> ?image1. ?s2 <https://pharos.artresearch.net/custom/has_image> ?image2. ?s1 <https://pharos.artresearch.net/custom/has_image> ?image1_ext. ?s2 <https://pharos.artresearch.net/custom/has_image> ?image2_ext. ?image1_ext <http://purl.org/ontology/similarity/element> ?sim. ?image2_ext <http://purl.org/ontology/similarity/element> ?sim. ?sim <https://vision.artresearch.net/custom/reviewed> true. FILTER(?s1!=?s2) }")]]
           <div class="sidebar reviewed-box">
+            {{bindings.0.modifiedAt.value}}
             <h2>This matching has been reviewed</h2>
             <semantic-query
-              query='select distinct ?modifiedAt ?attribution where {
+              query='SELECT DISTINCT ?modifiedAt ?attribution WHERE {
                 ?image1 <http://purl.org/ontology/similarity/element> ??.
                 ?image2 <http://purl.org/ontology/similarity/element> ??.
                 ?s1 <https://pharos.artresearch.net/custom/has_image> ?image1.
@@ -148,7 +105,51 @@
               </template>
           </semantic-query>
           </div>
-        {{/if}}
+        [[else]]
+          {{#if '[[urlParam "providera"]]'}}
+            <div class="sidebar">
+              <semantic-query
+                query='SELECT ?element ?nextElement ?subject1 ?subject2 WHERE {
+                        ?imageA_next <http://purl.org/ontology/similarity/element> ?nextElement.
+                        ?imageB_next <http://purl.org/ontology/similarity/element> ?nextElement.
+                        ?subject1_next <https://pharos.artresearch.net/custom/has_image> ?imageA_next.
+                        ?subject2_next <https://pharos.artresearch.net/custom/has_image> ?imageB_next.
+                        ?subject1_next <https://pharos.artresearch.net/custom/has_provider> <[[urlParam "providera"]]>.
+                        ?subject2_next <https://pharos.artresearch.net/custom/has_provider> <[[urlParam "providerb"]]>.
+                        BIND(<{{bindings.0.subject1.value}}> AS ?subject1)
+                        BIND(<{{bindings.0.subject2.value}}> AS ?subject2)
+                        FILTER(?subject1_next != ?subject2_next)
+                        FILTER(?element != ?nextElement)
+                        FILTER NOT EXISTS { ?nextElement <https://vision.artresearch.net/custom/reviewed> "true"^^xsd:boolean }
+                        FILTER NOT EXISTS { ?nextElement <https://vision.artresearch.net/custom/skipped> "true"^^xsd:boolean }
+                        BIND (<{{bindings.0.element.value}}> AS ?element)
+                    }'
+                template="{{>imageInfoTemplate}}"
+                no-result-template="{{>noNextSimilarity}}"
+              >
+                <template id="imageInfoTemplate">
+                  [[> :Sidebar]]
+                </template>
+
+                <template id="noNextSimilarity">
+                  <semantic-query
+                    query=' SELECT ?element ?nextElement ?subject1 ?subject2 WHERE {
+                            BIND(Default:SimilarityList as ?nextElement)
+                            BIND(<{{bindings.0.subject1.value}}> AS ?subject1)
+                            BIND(<{{bindings.0.subject2.value}}> AS ?subject2)
+                            BIND (<{{bindings.0.element.value}}> AS ?element)
+                        }LIMIT 1'
+                    template="{{>sidebarWithNoNext}}"
+                  >
+                    <template id="sidebarWithNoNext">
+                      [[> :Sidebar]]
+                    </template>
+                  </semantic-query>
+                </template>
+              </semantic-query>
+            </div>
+          {{/if}}
+        [[/if]]
       </div>
     </template>
   </semantic-query>

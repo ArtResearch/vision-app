@@ -1,24 +1,16 @@
 <semantic-query
-query='
-SELECT DISTINCT 
-(COUNT(DISTINCT ?similarity) as ?count) 
-WHERE {
-  GRAPH ?g {
-    <http://www.researchspace.org/resource/system/formContainer> <http://www.w3.org/ns/ldp#contains> ?subject. 
-    ?subject <http://www.w3.org/ns/prov#wasAttributedTo> ?attribution.
-    ?similarity <https://vision.artresearch.net/custom/reviewed> "true"^^xsd:boolean.
-  }
-  ?work <https://pharos.artresearch.net/custom/has_image> ?imageA.
-  ?imageA <http://purl.org/ontology/similarity/element> ?similarity.
-  ?work2 <https://pharos.artresearch.net/custom/has_image> ?imageB.
-  ?imageB <http://purl.org/ontology/similarity/element> ?similarity.
-  ?work <https://pharos.artresearch.net/custom/has_provider> ?provA.
-  ?provA rdfs:label ?providerLabelA.
-  ?work2 <https://pharos.artresearch.net/custom/has_provider> ?provb.
-  ?provb rdfs:label ?providerLabelB.
-  FILTER(?work != ?work2)
-  BIND(?__useruri__ as ?attribution)
-}
-'
->
+query=' SELECT (COUNT(DISTINCT CONCAT(STR(?work), STR(?work2))) as ?count) WHERE {
+          GRAPH ?g {
+            <http://www.researchspace.org/resource/system/formContainer> <http://www.w3.org/ns/ldp#contains> ?subject. 
+            ?subject <http://www.w3.org/ns/prov#wasAttributedTo> ?attribution.
+            ?similarity <https://vision.artresearch.net/custom/reviewed> "true"^^xsd:boolean.
+          }
+          ?work <https://pharos.artresearch.net/custom/has_image> ?imageA.
+          ?imageA <http://purl.org/ontology/similarity/element> ?similarity.
+          ?work2 <https://pharos.artresearch.net/custom/has_image> ?imageB.
+          ?imageB <http://purl.org/ontology/similarity/element> ?similarity.
+          FILTER(?work != ?work2)
+          BIND(?__useruri__ as ?attribution)
+        } GROUP BY ?work ?work2
+'>
 </semantic-query>

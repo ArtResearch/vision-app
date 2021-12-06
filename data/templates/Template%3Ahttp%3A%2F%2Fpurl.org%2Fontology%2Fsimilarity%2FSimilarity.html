@@ -73,28 +73,19 @@
         </div>
         <p></p>
         <p></p>
-        [[#if (ask "ASK WHERE { ?image1 <http://purl.org/ontology/similarity/element> ??. ?image2 <http://purl.org/ontology/similarity/element> ??. ?s1 <https://pharos.artresearch.net/custom/has_image> ?image1. ?s2 <https://pharos.artresearch.net/custom/has_image> ?image2. ?s1 <https://pharos.artresearch.net/custom/has_image> ?image1_ext. ?s2 <https://pharos.artresearch.net/custom/has_image> ?image2_ext. ?image1_ext <http://purl.org/ontology/similarity/element> ?sim. ?image2_ext <http://purl.org/ontology/similarity/element> ?sim. ?sim <https://vision.artresearch.net/custom/reviewed> true. FILTER(?s1!=?s2) }")]]
+        [[#if (ask "ASK WHERE { ?? <https://vision.artresearch.net/custom/reviewed> true}")]]
           <div class="sidebar reviewed-box">
             {{bindings.0.modifiedAt.value}}
             <h2>This matching has been reviewed</h2>
             <semantic-query
-              query='SELECT DISTINCT ?modifiedAt ?attribution WHERE {
-                ?image1 <http://purl.org/ontology/similarity/element> ??.
-                ?image2 <http://purl.org/ontology/similarity/element> ??.
-                ?s1 <https://pharos.artresearch.net/custom/has_image> ?image1.
-                ?s2 <https://pharos.artresearch.net/custom/has_image> ?image2.
-                ?s1 <https://pharos.artresearch.net/custom/has_image> ?image1_ext.
-                ?s2 <https://pharos.artresearch.net/custom/has_image> ?image2_ext.
-                ?image1_ext <http://purl.org/ontology/similarity/element> ?sim.
-                ?image2_ext <http://purl.org/ontology/similarity/element> ?sim.
+              query='SELECT DISTINCT ?attribution (SAMPLE(?modifiedAt) AS ?modifiedAt)  WHERE {
                 GRAPH ?g {
                   <http://www.researchspace.org/resource/system/formContainer> <http://www.w3.org/ns/ldp#contains> ?subject. 
                   ?subject <http://www.w3.org/ns/prov#generatedAtTime> ?modifiedAt ; 
                             <http://www.w3.org/ns/prov#wasAttributedTo> ?attribution.
-                  ?sim <https://vision.artresearch.net/custom/reviewed> "true"^^xsd:boolean.
+                  ?? <https://vision.artresearch.net/custom/reviewed> true
                 }
-                FILTER(?s1!=?s2)
-              }'
+              } GROUP BY ?attribution'
                 template="{{>reviewedMatching}}"
             >
             <template id="reviewedMatching">

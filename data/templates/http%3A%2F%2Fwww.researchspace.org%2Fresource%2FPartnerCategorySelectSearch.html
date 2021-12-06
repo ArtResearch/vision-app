@@ -109,8 +109,8 @@
           ?providerB rdfs:label ?providerLabelB.
           FILTER(?providerLabelA != ?providerLabelB)
           FILTER(?providerLabelB = "[[targetProviderLabel]]")
-          FILTER NOT EXISTS {?element <https://vision.artresearch.net/custom/reviewed> "true"^^xsd:boolean. }
-          FILTER NOT EXISTS {?element <https://vision.artresearch.net/custom/skipped> "true"^^xsd:boolean. }
+          FILTER NOT EXISTS {?element <https://vision.artresearch.net/custom/reviewed> true }
+          FILTER NOT EXISTS {?element <https://vision.artresearch.net/custom/skipped> true }
           FILTER NOT EXISTS {?imageA <http://www.cidoc-crm.org/cidoc-crm/P2_has_type> <http://vocab.getty.edu/aat/300010292>.}
           FILTER NOT EXISTS {?imageB <http://www.cidoc-crm.org/cidoc-crm/P2_has_type> <http://vocab.getty.edu/aat/300010292>.}  
         }'

@@ -99,8 +99,8 @@
             >
             <template id="reviewedMatching">
                 {{#each bindings}}
-                <h2>by <mp-label iri='{{attribution.value}}'></mp-label></h2>
-                <h2>at {{modifiedAt.value}}</h2>
+                  <h2>by <mp-label iri='{{attribution.value}}'></mp-label></h2>
+                  <h2>at {{modifiedAt.value}}</h2>
                 {{/each}}
               </template>
           </semantic-query>
@@ -110,18 +110,19 @@
             <div class="sidebar">
               <semantic-query
                 query='SELECT ?element ?nextElement ?subject1 ?subject2 WHERE {
+                        ?subject1_next <https://pharos.artresearch.net/custom/has_provider> <[[urlParam "providera"]]>;
+                          <https://pharos.artresearch.net/custom/has_image> ?imageA_next.
+                        ?subject2_next <https://pharos.artresearch.net/custom/has_provider> <[[urlParam "providerb"]]>;
+                          <https://pharos.artresearch.net/custom/has_image> ?imageB_next.
                         ?imageA_next <http://purl.org/ontology/similarity/element> ?nextElement.
                         ?imageB_next <http://purl.org/ontology/similarity/element> ?nextElement.
-                        ?subject1_next <https://pharos.artresearch.net/custom/has_image> ?imageA_next.
-                        ?subject2_next <https://pharos.artresearch.net/custom/has_image> ?imageB_next.
-                        ?subject1_next <https://pharos.artresearch.net/custom/has_provider> <[[urlParam "providera"]]>.
-                        ?subject2_next <https://pharos.artresearch.net/custom/has_provider> <[[urlParam "providerb"]]>.
-                        BIND(<{{bindings.0.subject1.value}}> AS ?subject1)
-                        BIND(<{{bindings.0.subject2.value}}> AS ?subject2)
-                        FILTER(?subject1_next != ?subject2_next)
                         FILTER(?element != ?nextElement)
                         FILTER NOT EXISTS { ?nextElement <https://vision.artresearch.net/custom/reviewed> "true"^^xsd:boolean }
                         FILTER NOT EXISTS { ?nextElement <https://vision.artresearch.net/custom/skipped> "true"^^xsd:boolean }
+                        FILTER NOT EXISTS {?imageA_next <http://www.cidoc-crm.org/cidoc-crm/P2_has_type> <http://vocab.getty.edu/aat/300010292>.}
+                        FILTER NOT EXISTS {?imageA_next <http://www.cidoc-crm.org/cidoc-crm/P2_has_type> <http://vocab.getty.edu/aat/300010292>.} 
+                        BIND(<{{bindings.0.subject1.value}}> AS ?subject1)
+                        BIND(<{{bindings.0.subject2.value}}> AS ?subject2)
                         BIND (<{{bindings.0.element.value}}> AS ?element)
                     }LIMIT 1'
                 template="{{>imageInfoTemplate}}"

@@ -10,14 +10,18 @@
   align-items: center;
   height: fit-content;
   right: 2%;
-  bottom: 5%;
+  bottom: 40%;
 }
 
 #similarity-template .reviewed-box {
   padding: 15px;
-  background: #d3e8ff;
+  background: #23ba98;
+  color: white !important;
   box-shadow: 0px 0px 8px 2px #e3e3e3;
   border-radius: 5px;
+}
+#similarity-template .reviewed-box >h2{
+  color: white !important;
 }
 
 #similarity-template .instanceMatchingPage {

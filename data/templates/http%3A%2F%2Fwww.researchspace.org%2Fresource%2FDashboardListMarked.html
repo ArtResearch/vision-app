@@ -3,35 +3,34 @@
 <bs-col sm="10">
 <semantic-table id='resources-results'
 number-of-displayed-rows=10
-query='
-SELECT DISTINCT 
-?similarity
-(SAMPLE(?work) as ?work)
-(SAMPLE(?work2) as ?work2)
-(SAMPLE(?subject) as ?subject)
-(SAMPLE(?providerA) as ?providerA)
-(SAMPLE(?providerB) as ?providerB)
-(SAMPLE(?providerLabelA) as ?providerLabelA)
-(SAMPLE(?providerLabelB) as ?providerLabelB)
-(SAMPLE(?modifiedAt) AS ?modifiedAt) 
-(SAMPLE(?attribution) AS ?attribution) WHERE {
-  GRAPH ?g {
-    <http://www.researchspace.org/resource/system/formContainer> <http://www.w3.org/ns/ldp#contains> ?subject. 
-    ?subject <http://www.w3.org/ns/prov#generatedAtTime> ?modifiedAt ; 
-            <http://www.w3.org/ns/prov#wasAttributedTo> ?attribution.
-    ?similarity <https://vision.artresearch.net/custom/skipped> "true"^^xsd:boolean.
-  }
-  ?work <https://pharos.artresearch.net/custom/has_image> ?imageA.
-  ?imageA <http://purl.org/ontology/similarity/element> ?similarity.
-  ?work2 <https://pharos.artresearch.net/custom/has_image> ?imageB.
-  ?imageB <http://purl.org/ontology/similarity/element> ?similarity.
-  ?work <https://pharos.artresearch.net/custom/has_provider> ?providerA.
-  ?providerA rdfs:label ?providerLabelA.
-  ?work2 <https://pharos.artresearch.net/custom/has_provider> ?providerB.
-  ?providerB rdfs:label ?providerLabelB.
-  BIND(?__useruri__ as ?attribution)
-}GROUP BY ?similarity
-'
+query=' SELECT DISTINCT 
+        (SAMPLE(?similarity) as ?similarity)
+        (SAMPLE(?work) as ?work)
+        (SAMPLE(?work2) as ?work2)
+        (SAMPLE(?subject) as ?subject)
+        (SAMPLE(?providerA) as ?providerA)
+        (SAMPLE(?providerB) as ?providerB)
+        (SAMPLE(?providerLabelA) as ?providerLabelA)
+        (SAMPLE(?providerLabelB) as ?providerLabelB)
+        (SAMPLE(?modifiedAt) AS ?modifiedAt) 
+        (SAMPLE(?attribution) AS ?attribution) WHERE {
+          GRAPH ?g {
+            <http://www.researchspace.org/resource/system/formContainer> <http://www.w3.org/ns/ldp#contains> ?subject. 
+            ?subject <http://www.w3.org/ns/prov#generatedAtTime> ?modifiedAt ; 
+                    <http://www.w3.org/ns/prov#wasAttributedTo> ?attribution.
+            ?similarity <https://vision.artresearch.net/custom/skipped> "true"^^xsd:boolean.
+          }
+          ?work <https://pharos.artresearch.net/custom/has_image> ?imageA.
+          ?imageA <http://purl.org/ontology/similarity/element> ?similarity.
+          ?work2 <https://pharos.artresearch.net/custom/has_image> ?imageB.
+          ?imageB <http://purl.org/ontology/similarity/element> ?similarity.
+          ?work <https://pharos.artresearch.net/custom/has_provider> ?providerA.
+          ?providerA rdfs:label ?providerLabelA.
+          ?work2 <https://pharos.artresearch.net/custom/has_provider> ?providerB.
+          ?providerB rdfs:label ?providerLabelB.
+          FILTER(STR(?work)>STR(?work2))
+          BIND(?__useruri__ as ?attribution)
+        }GROUP BY ?g'
 tuple-template='{{>markedCards}}'
 no-result-template='<h1 style="margin-top:150px;">There are no matchings marked for review</h1>'
 >

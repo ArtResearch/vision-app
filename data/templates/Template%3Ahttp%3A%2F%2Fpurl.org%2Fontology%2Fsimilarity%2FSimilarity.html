@@ -123,7 +123,7 @@
                         FILTER NOT EXISTS { ?nextElement <https://vision.artresearch.net/custom/reviewed> "true"^^xsd:boolean }
                         FILTER NOT EXISTS { ?nextElement <https://vision.artresearch.net/custom/skipped> "true"^^xsd:boolean }
                         BIND (<{{bindings.0.element.value}}> AS ?element)
-                    }'
+                    }LIMIT 1'
                 template="{{>imageInfoTemplate}}"
                 no-result-template="{{>noNextSimilarity}}"
               >

@@ -190,7 +190,7 @@ button.btn.btn-default.action.optional {
   align-items: center;
   flex-wrap: wrap;
   overflow-y: scroll;
-  height: 12vh;
+  height: 20vh;
   position: relative;
   left: -10%;
   width: 70%;
@@ -200,7 +200,6 @@ button.btn.btn-default.action.optional {
 #similarity-template .thumbPairContainer {
   cursor: pointer;
   margin-right: 1vw;
-  padding: 15px;
   box-shadow: 1px 1px 9px 0px lightgrey;
   transition: 0.3s;
   border-radius: 4px;

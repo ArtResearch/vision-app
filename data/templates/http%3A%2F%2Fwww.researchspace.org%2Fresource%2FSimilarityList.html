@@ -111,8 +111,8 @@
           <[[urlParam "providera"]]> rdfs:label ?providerLabelA.
           ?subject2 <https://pharos.artresearch.net/custom/has_provider> <[[urlParam "providerb"]]>.
           <[[urlParam "providerb"]]> rdfs:label ?providerLabelB.
-          FILTER NOT EXISTS {?element <https://vision.artresearch.net/custom/reviewed> "true"^^xsd:boolean. }
-          FILTER NOT EXISTS {?element <https://vision.artresearch.net/custom/skipped> "true"^^xsd:boolean. }
+          FILTER NOT EXISTS {?element <https://vision.artresearch.net/custom/reviewed> true }
+          FILTER NOT EXISTS {?element <https://vision.artresearch.net/custom/skipped> true }
           FILTER NOT EXISTS {?imageA <http://www.cidoc-crm.org/cidoc-crm/P2_has_type> <http://vocab.getty.edu/aat/300010292>.}
           FILTER NOT EXISTS {?imageB <http://www.cidoc-crm.org/cidoc-crm/P2_has_type> <http://vocab.getty.edu/aat/300010292>.}  
         }'

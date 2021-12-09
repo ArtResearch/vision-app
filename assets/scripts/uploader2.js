@@ -9,7 +9,6 @@ class ImageUpload extends HTMLElement {
     super();
     this._shadowRoot = this.attachShadow({ mode: "open" });
     this._shadowRoot.innerHTML = `
-    <div class="dropzone">
     <h2 id="click-to-upload">Upload your image</h2>
     <div class="Upload-nice-button">
     <label for="file-upload" class="custom-file-upload">
@@ -29,17 +28,19 @@ class ImageUpload extends HTMLElement {
     min-height: 4vh;
     border-radius: 4px;
     box-shadow: 0px 0px 10px 1px #bebebe;"> Choose your file</div>
-    <div id="up-loading" style="display:none;">Uploading...</div>
+    <div  class="dropzone">
+    <div id="up-loading" hidden">Uploading...</div>
     <div  style="font-weight: bold;"class="info"></div>
+    <label for="file-upload"  class="dragndrop" >
+    ok
     </label>
+    </label></div>
     </div>
-      <label for="file-upload" class="custom-file-upload"></label>
-     </div>
-  
     `;
     this.clientid = "9516b72594d77fc";
     this.endpoint = "https://api.imgur.com/3/image";
     this.dropzone = this._shadowRoot.querySelectorAll(".dropzone");
+    this.dragzone = this._shadowRoot.querySelectorAll(".dragndrop");
     this.info = this._shadowRoot.querySelectorAll(".info");
 
     function createEls(name, props, text) {
@@ -95,25 +96,42 @@ class ImageUpload extends HTMLElement {
       xhttp = null;
     }
     function createDragZone(that) {
-      var input;
+         var p1, p2, input;
 
-      input = createEls("input", {
-        type: "file",
-        id: "file-upload",
-        multiple: "multiple",
-        className: "file-upload",
-        accept: "image/*",
-      });
+         p1 = createEls("p", {}, "Drop Image File Here");
+         p2 = createEls("p", {}, "Or click here to select image");
+         input = createEls("input", {
+           type: "file",
+           id: "file-upload",
+           style: "display:none",
+           multiple: "multiple",
+           className: "file-upload",
+           accept: "image/*",
+         });
+          //  input = createEls("input", {
+          //    type: "file",
+          //    id: "file-upload",
+          //    multiple: "multiple",
+          //    className: "file-upload",
+          //    style: " display: none  !important;",
+          //    accept: "image/*",
+          //  });
 
-      Array.prototype.forEach.call(
-        that.dropzone,
-        function (zone) {
-          zone.appendChild(input);
-          status(that, zone);
-          console.log("ok");
-          upload(that,input );
-        }.bind(that)
-      );
+         Array.prototype.forEach.call(
+           that.info,
+           function (zone) {
+             zone.appendChild(p1);
+             zone.appendChild(p2);
+           }.bind(that)
+         );
+         Array.prototype.forEach.call(
+           that.dragzone,
+           function (zone) {
+             zone.appendChild(input);
+             that.status(zone);
+             that.upload(zone);
+           }.bind(that)
+         );
     }
 
     function status(that, el) {
@@ -126,8 +144,8 @@ class ImageUpload extends HTMLElement {
       var status = zone.nextSibling;
 
       if (file.type.match(/image/) && file.type !== "image/svg+xml") {
-        // status.classList.remove("bg-success", "bg-danger");
-        // status.innerHTML = "";
+        status.classList.remove("bg-success", "bg-danger");
+        status.innerHTML = "";
 
         var fd = new FormData();
         fd.append("image", file);
@@ -141,9 +159,9 @@ class ImageUpload extends HTMLElement {
           }.bind(that)
         );
       } else {
-        // status.classList.remove("bg-success");
-        // status.classList.add("bg-danger");
-        // status.innerHTML = "Invalid archive";
+        status.classList.remove("bg-success");
+        status.classList.add("bg-danger");
+        status.innerHTML = "Invalid archive";
       }
     }
 
@@ -153,7 +171,6 @@ class ImageUpload extends HTMLElement {
         target,
         i,
         len;
-
 
       zone.addEventListener(
         "change",
@@ -183,9 +200,9 @@ class ImageUpload extends HTMLElement {
               e.target.type === "file"
             ) {
               if (event === "dragleave" || event === "drop") {
-                e.target.parentNode.classList.remove("dropzone");
+                e.target.parentNode.classList.remove("dropzone-dragging");
               } else {
-                // e.target.parentNode.classList.add("dropzone-dragging");
+                e.target.parentNode.classList.add("dropzone-dragging");
               }
             }
           },

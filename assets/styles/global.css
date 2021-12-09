@@ -55,7 +55,9 @@ body {
   min-width: 150 px;
   box-shadow: 0px 0px 10px 1px #bebebe;
 }
-
+a.rs-header-logo.undefined{
+  width: 15vw;
+}
 .rs-header-logo {
   font-size: 0 !important;
   width: 13vw;

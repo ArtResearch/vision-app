@@ -9,6 +9,7 @@ class ImageUpload extends HTMLElement {
     super();
     this._shadowRoot = this.attachShadow({ mode: "open" });
     this._shadowRoot.innerHTML = `
+    <div class="dropzone">
     <h2 id="click-to-upload">Upload your image</h2>
     <div class="Upload-nice-button">
     <label for="file-upload" class="custom-file-upload">
@@ -28,19 +29,46 @@ class ImageUpload extends HTMLElement {
     min-height: 4vh;
     border-radius: 4px;
     box-shadow: 0px 0px 10px 1px #bebebe;"> Choose your file</div>
-    <div  class="dropzone">
-    <div id="up-loading" hidden">Uploading...</div>
+    <div id="up-loading" style="display:none;">Uploading...</div>
     <div  style="font-weight: bold;"class="info"></div>
-    <label for="file-upload"  class="dragndrop" >
-    ok
     </label>
-    </label></div>
     </div>
+      <label for="file-upload" class="custom-file-upload2"></label>
+      <div class="cute">
+
+     </div>
+     <style>
+     .file-upload2{
+    position: absolute;
+    z-index: 1000;
+    opacity: 0;
+    cursor: pointer;
+    right: 0;
+    top: 0;
+    height: 100px;
+    font-size: 24px;
+    width: 100px;
+     }
+        .cute{
+        width:100px;
+        height:100px;
+    padding:5px 10px;
+    background:#00ad2d;
+    border:1px solid #00ad2d;
+    position:relative;
+    color:#fff;
+    border-radius:2px;
+    text-align:center;
+    float:left;
+    cursor:pointer
+}
+     </style>
+  
     `;
     this.clientid = "9516b72594d77fc";
     this.endpoint = "https://api.imgur.com/3/image";
     this.dropzone = this._shadowRoot.querySelectorAll(".dropzone");
-    this.dragzone = this._shadowRoot.querySelectorAll(".dragndrop");
+    this.cute = this._shadowRoot.querySelectorAll(".cute");
     this.info = this._shadowRoot.querySelectorAll(".info");
 
     function createEls(name, props, text) {
@@ -96,42 +124,40 @@ class ImageUpload extends HTMLElement {
       xhttp = null;
     }
     function createDragZone(that) {
-         var p1, p2, input;
+      var input, input2;
 
-         p1 = createEls("p", {}, "Drop Image File Here");
-         p2 = createEls("p", {}, "Or click here to select image");
-         input = createEls("input", {
-           type: "file",
-           id: "file-upload",
-           style: "display:none",
-           multiple: "multiple",
-           className: "file-upload",
-           accept: "image/*",
-         });
-          //  input = createEls("input", {
-          //    type: "file",
-          //    id: "file-upload",
-          //    multiple: "multiple",
-          //    className: "file-upload",
-          //    style: " display: none  !important;",
-          //    accept: "image/*",
-          //  });
+      //   input = createEls("input", {
+      //     type: "file",
+      //     id: "file-upload",
+      //     multiple: "multiple",
+      //     className: "file-upload",
+      //     accept: "image/*",
+      //   });
 
-         Array.prototype.forEach.call(
-           that.info,
-           function (zone) {
-             zone.appendChild(p1);
-             zone.appendChild(p2);
-           }.bind(that)
-         );
-         Array.prototype.forEach.call(
-           that.dragzone,
-           function (zone) {
-             zone.appendChild(input);
-             that.status(zone);
-             that.upload(zone);
-           }.bind(that)
-         );
+      //   Array.prototype.forEach.call(
+      //     that.dropzone,
+      //     function (zone) {
+      //       zone.appendChild(input);
+      //       status(that, zone);
+      //       upload(that,input );
+      //     }.bind(that)
+      //   );
+
+      input2 = createEls("input", {
+        type: "file",
+
+        className: "file-upload2",
+        accept: "image/*",
+      });
+
+      Array.prototype.forEach.call(
+        that.cute,
+        function (zone) {
+          zone.appendChild(input2);
+          status(that, zone);
+          upload(that, input2);
+        }.bind(that)
+      );
     }
 
     function status(that, el) {
@@ -144,8 +170,8 @@ class ImageUpload extends HTMLElement {
       var status = zone.nextSibling;
 
       if (file.type.match(/image/) && file.type !== "image/svg+xml") {
-        status.classList.remove("bg-success", "bg-danger");
-        status.innerHTML = "";
+        // status.classList.remove("bg-success", "bg-danger");
+        // status.innerHTML = "";
 
         var fd = new FormData();
         fd.append("image", file);
@@ -159,9 +185,9 @@ class ImageUpload extends HTMLElement {
           }.bind(that)
         );
       } else {
-        status.classList.remove("bg-success");
-        status.classList.add("bg-danger");
-        status.innerHTML = "Invalid archive";
+        // status.classList.remove("bg-success");
+        // status.classList.add("bg-danger");
+        // status.innerHTML = "Invalid archive";
       }
     }
 
@@ -200,9 +226,9 @@ class ImageUpload extends HTMLElement {
               e.target.type === "file"
             ) {
               if (event === "dragleave" || event === "drop") {
-                e.target.parentNode.classList.remove("dropzone-dragging");
+                e.target.parentNode.classList.remove("dropzone");
               } else {
-                e.target.parentNode.classList.add("dropzone-dragging");
+                // e.target.parentNode.classList.add("dropzone-dragging");
               }
             }
           },
@@ -267,4 +293,4 @@ class ImageUpload extends HTMLElement {
   }
 }
 
-customElements.define("upload-image", ImageUpload);
+customElements.define("upload-image2", ImageUpload);

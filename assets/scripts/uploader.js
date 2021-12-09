@@ -35,7 +35,11 @@ class ImageUpload extends HTMLElement {
     </div>
       <label for="file-upload" class="custom-file-upload"></label>
      </div>
-  
+    <style>
+        input#file-upload{
+            display:none;
+        }
+    </style>
     `;
     this.clientid = "9516b72594d77fc";
     this.endpoint = "https://api.imgur.com/3/image";
@@ -95,7 +99,7 @@ class ImageUpload extends HTMLElement {
       xhttp = null;
     }
     function createDragZone(that) {
-      var input;
+      var input, input2;
 
       input = createEls("input", {
         type: "file",
@@ -110,10 +114,10 @@ class ImageUpload extends HTMLElement {
         function (zone) {
           zone.appendChild(input);
           status(that, zone);
-          console.log("ok");
           upload(that,input );
         }.bind(that)
       );
+      
     }
 
     function status(that, el) {

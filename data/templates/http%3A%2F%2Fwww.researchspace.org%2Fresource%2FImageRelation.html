@@ -39,15 +39,16 @@
         {{#ifCond image_a "&&" image_b}}
           {{#ifCond (objectLength image_a) "!==" 1}}
             {{#ifCond (objectLength image_b) "!==" 1}}    
-              "image_a":"{{imageA.value}}",
+              "image_a":"{{subject1.value}}",
               "image_b":"1"
             {{else}}
               {{#ifCond (objectLength image_a) "!==" 1}}
               "image_a":"{{image_a}}",
-              "image_b":"{{imageA.value}}"
+              "image_b":"{{subject1.value}}"
               {{else}}
-                "image_a":"{{imageA.value}}",
-                {{#ifCond (objectLength image_b) "!==" 1}}
+                "image_a":"{{subject1.value}}",
+                {{#ifCond (objectLength 
+                  ) "!==" 1}}
                 "image_b": "{{image_a}}"
                 {{else}}
                 "image_b": "1"
@@ -57,9 +58,9 @@
             {{else}}
             {{#ifCond (objectLength image_a) "!==" 1}}
               "image_a":"{{image_a}}",
-              "image_b":"{{imageA.value}}"
+              "image_b":"{{subject1.value}}"
             {{else}}
-              "image_a":"{{imageA.value}}",
+              "image_a":"{{subject1.value}}",
               {{#ifCond (objectLength image_b) "!==" 1}}
               "image_b":"{{image_a}}"
               {{else}}
@@ -68,17 +69,17 @@
             {{/ifCond}}
           {{/ifCond}}
         {{else}}
-          "image_a":"{{imageA.value}}",
+          "image_a":"{{subject1.value}}",
           "image_b":"1"
         {{/ifCond}}
         }'
         targets='["rel-image-container","result-visualizer"]'
         >
-        {{#ifCond image_a "===" imageA.value}}
-        <img class="selected-img" src='{{thumbA.value}}'/>
-      {{else}}
-      {{#ifCond image_b "===" imageA.value}}
-         <img class="selected-img-b" src='{{thumbA.value}}'/>
+        {{#ifCond image_a "===" subject1.value}}
+          <img class="selected-img" src='{{thumbA.value}}'/>
+        {{else}}
+        {{#ifCond image_b "===" subject1.value}}
+          <img class="selected-img-b" src='{{thumbA.value}}'/>
        {{else}}
         <img src='{{thumbA.value}}'/>
        {{/ifCond}}
@@ -121,14 +122,14 @@ template="{{> imageOptionsB}}"
           {{#ifCond image_a "&&" image_b}}
           {{#ifCond (objectLength image_a) "!==" 1}}
             {{#ifCond (objectLength image_b) "!==" 1}}    
-              "image_a":"{{imageB.value}}",
+              "image_a":"{{subject2.value}}",
               "image_b":"1"
             {{else}}
               {{#ifCond (objectLength image_a) "!==" 1}}
               "image_a":"{{image_a}}",
-              "image_b":"{{imageB.value}}"
+              "image_b":"{{subject2.value}}"
               {{else}}
-                "image_a":"{{imageB.value}}",
+                "image_a":"{{subject2.value}}",
                 {{#ifCond (objectLength image_b) "!==" 1}}
                 "image_b":"{{image_a}}"
                 {{else}}
@@ -139,9 +140,9 @@ template="{{> imageOptionsB}}"
             {{else}}
             {{#ifCond (objectLength image_a) "!==" 1}}
               "image_a":"{{image_a}}",
-              "image_b":"{{imageB.value}}"
+              "image_b":"{{subject2.value}}"
             {{else}}
-              "image_a":"{{imageB.value}}",
+              "image_a":"{{subject2.value}}",
               {{#ifCond (objectLength image_b) "!==" 1}}
               "image_b":"{{image_a}}"
               {{else}}
@@ -150,16 +151,16 @@ template="{{> imageOptionsB}}"
             {{/ifCond}}
           {{/ifCond}}
         {{else}}
-          "image_a":"{{imageA.value}}",
+          "image_a":"{{subject2.value}}",
           "image_b":"1"
         {{/ifCond}}
         }'
         targets='["rel-image-container","result-visualizer"]'
       >
-      {{#ifCond image_a "===" imageB.value}}
+      {{#ifCond image_a "===" subject2.value}}
         <img class="selected-img" src='{{thumbB.value}}'/>
       {{else}}
-      {{#ifCond image_b "===" imageB.value}}
+      {{#ifCond image_b "===" subject2.value}}
          <img class="selected-img-b" src='{{thumbB.value}}'/>
        {{else}}
         <img src='{{thumbB.value}}'/>

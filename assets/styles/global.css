@@ -529,6 +529,7 @@ input::placeholder {
 .table-responsive > .table > thead > tr > td,
 .table-responsive > .table > thead > tr > th {
   white-space: unset !important;
+  overflow-wrap: anywhere;
 }
 .table-hover > tbody > tr:hover {
   background-color: #f5f5f566 !important;

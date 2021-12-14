@@ -7,11 +7,7 @@
     </span>
   </td>
   <td>
-    <div style="
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    ">
+    <div class="flex-btn-text">
     {{#each bindings}} 
       {{#if withDataA}}
         <div class="actions title-actions myaction">
@@ -83,11 +79,7 @@
     </div>
   </td>    
   <td>
-    <div style="
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    ">
+    <div class="flex-btn-text">
     {{#each bindings}}
     {{#if withDataB}}
         <div class="actions title-actions myaction">
@@ -159,6 +151,15 @@
 </tr>
 
 <style>
+
+  .flex-btn-text{
+      display: flex;
+      justify-content: flex-start;
+      flex-direction: column;
+      gap: 8px;
+      min-height: 115px;
+  }
+
   .select-title-button{
         min-width: unset !important;
         margin: 10px;

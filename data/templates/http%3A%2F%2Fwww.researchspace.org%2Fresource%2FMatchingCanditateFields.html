@@ -17,7 +17,7 @@
       <!--################################################################################-->
       {{#if '[[urlParam "providera"]]'}}
       <semantic-query
-        query='SELECT ?element ?nextElement ?subject1 ?subject2 WHERE {
+        query='SELECT DISTINCT ?element ?nextElement ?subject1 ?subject2 WHERE {
                   ?imageA_next <http://purl.org/ontology/similarity/element> ?nextElement.
                   ?imageB_next <http://purl.org/ontology/similarity/element> ?nextElement.
                   ?subject1_next <https://pharos.artresearch.net/custom/has_image> ?imageA_next.
@@ -36,7 +36,7 @@
         template='{{> titleWithNextSimilarity}}'>
         <template id="titleWithNextSimilarity">
       <semantic-query
-        query='SELECT ?element ?nextElement ?labelA ?labelB ?withDataA ?withDataB ?fieldName WHERE {
+        query='SELECT  DISTINCT ?element ?nextElement ?labelA ?labelB ?withDataA ?withDataB ?fieldName WHERE {
                   <{{bindings.0.subject1.value}}> rdfs:label ?labelA.
                   <{{bindings.0.subject2.value}}> rdfs:label ?labelB.
                   BIND(BOUND(?labelA) && strlen(?labelA)>0 as ?withDataA)
@@ -53,7 +53,7 @@
       </template>
       <template id="noNextSimilarity">
         <semantic-query
-        query=' SELECT ?element ?nextElement ?labelA ?labelB ?withDataA ?withDataB ?fieldName  WHERE {
+        query=' SELECT DISTINCT ?element ?nextElement ?labelA ?labelB ?withDataA ?withDataB ?fieldName  WHERE {
               <{{bindings.0.subject1.value}}> rdfs:label ?labelA.
               <{{bindings.0.subject2.value}}> rdfs:label ?labelB.
               BIND(BOUND(?labelA) && strlen(?labelA)>0 as ?withDataA)
@@ -72,7 +72,7 @@
       </semantic-query>
       {{else}}
       <semantic-query
-      query='SELECT ?labelA ?labelB ?withData ?fieldName WHERE {
+      query='SELECT DISTINCT ?labelA ?labelB ?withData ?fieldName WHERE {
                 <{{bindings.0.subject1.value}}> rdfs:label ?labelA.
                 <{{bindings.0.subject2.value}}> rdfs:label ?labelB.
                 BIND(BOUND(?labelA) && strlen(?labelA)>0 as ?withData)

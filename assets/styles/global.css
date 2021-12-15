@@ -149,12 +149,6 @@ body.loading .loading-modal {
   justify-content: center;
   align-items: center;
 }
-#photo-search-page .image-uploader-section {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 15px;
-}
 .loading-table {
   margin-left: auto;
   margin-right: auto;

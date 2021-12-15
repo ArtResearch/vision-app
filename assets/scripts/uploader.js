@@ -110,7 +110,7 @@ class ImageUpload extends HTMLElement {
               res = this.responseText;
             }
             if (res.success === true) {
-              uploading.style.display = 'none';
+              uploading.style.display = 'block';
               var get_link = res.data.link.replace(/^http:\/\//i, "https://");
               var content =
                 "<form>Your selected image: " +

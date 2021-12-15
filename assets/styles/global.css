@@ -55,7 +55,7 @@ body {
   min-width: 150 px;
   box-shadow: 0px 0px 10px 1px #bebebe;
 }
-a.rs-header-logo.undefined{
+a.rs-header-logo.undefined {
   width: 15vw;
 }
 .rs-header-logo {
@@ -125,6 +125,17 @@ body.loading .loading-modal {
 
 .dropzone.dropzone-dragging {
   border-color: #000;
+}
+li.matchings-button {
+  cursor: pointer;
+  font-weight: bold;
+  border-radius: 7px;
+  background: #4b93db;
+  margin: 8px;
+  margin-left: 59px;
+  color: white !important;
+  box-shadow: 1px 1px 4px 0px #999999;
+  padding: 13px;
 }
 
 .loading-modal {

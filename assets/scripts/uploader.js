@@ -94,6 +94,7 @@ class ImageUpload extends HTMLElement {
 
     function post(file, shadow) {
       const uploading = shadow.querySelector("#uploading");
+      uploading.innerHTML = 'Uploading...'
       uploading.style.display = 'block';
       var data = new FormData();
       data.append("image", file);

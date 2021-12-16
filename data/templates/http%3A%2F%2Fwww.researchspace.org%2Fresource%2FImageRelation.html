@@ -1,10 +1,13 @@
 <div class="image-rel-container">
+
   <semantic-query query='
-  SELECT DISTINCT ?subject1 ?subject2  WHERE {
+  SELECT DISTINCT ?subject1 ?subject2 ?similarity ?nextSimilarity  WHERE {
     ?imageA <http://purl.org/ontology/similarity/element> <[[simElement]]>.
     ?imageB <http://purl.org/ontology/similarity/element> <[[simElement]]>.
     ?subject1 <https://pharos.artresearch.net/custom/has_image> ?imageA.
     ?subject2 <https://pharos.artresearch.net/custom/has_image> ?imageB.
+    BIND(<[[simElement]]> AS ?similarity)
+    BIND(<[[nextSimElement]]> AS ?nextSimilarity) 
     FILTER (STR(?imageA)!=STR(?imageB))
   }LIMIT 1'
   template="{{> imageOptionsSubjects}}"
@@ -36,49 +39,50 @@
         id="rel-image"
         type="Component.TemplateUpdate"
         data='{
-        {{#ifCond image_a "&&" image_b}}
-          {{#ifCond (objectLength image_a) "!==" 1}}
-            {{#ifCond (objectLength image_b) "!==" 1}}    
-              "image_a":"{{imageA.value}}",
-              "image_b":"1"
+        {{#ifCond artwork_a "&&" artwork_b}}
+          {{#ifCond (objectLength artwork_a) "!==" 1}}
+            {{#ifCond (objectLength artwork_b) "!==" 1}}    
+              "artwork_a":"{{subject1.value}}",
+              "artwork_b":"1"
             {{else}}
-              {{#ifCond (objectLength image_a) "!==" 1}}
-              "image_a":"{{image_a}}",
-              "image_b":"{{imageA.value}}"
+              {{#ifCond (objectLength artwork_a) "!==" 1}}
+              "artwork_a":"{{artwork_a}}",
+              "artwork_b":"{{subject1.value}}"
               {{else}}
-                "image_a":"{{imageA.value}}",
-                {{#ifCond (objectLength image_b) "!==" 1}}
-                "image_b": "{{image_a}}"
+                "artwork_a":"{{subject1.value}}",
+                {{#ifCond (objectLength 
+                  ) "!==" 1}}
+                "artwork_b": "{{artwork_a}}"
                 {{else}}
-                "image_b": "1"
+                "artwork_b": "1"
                 {{/ifCond}}
               {{/ifCond}}
             {{/ifCond}}
             {{else}}
-            {{#ifCond (objectLength image_a) "!==" 1}}
-              "image_a":"{{image_a}}",
-              "image_b":"{{imageA.value}}"
+            {{#ifCond (objectLength artwork_a) "!==" 1}}
+              "artwork_a":"{{artwork_a}}",
+              "artwork_b":"{{subject1.value}}"
             {{else}}
-              "image_a":"{{imageA.value}}",
-              {{#ifCond (objectLength image_b) "!==" 1}}
-              "image_b":"{{image_a}}"
+              "artwork_a":"{{subject1.value}}",
+              {{#ifCond (objectLength artwork_b) "!==" 1}}
+              "artwork_b":"{{artwork_a}}"
               {{else}}
-              "image_b": "1"
+              "artwork_b": "1"
               {{/ifCond}}
             {{/ifCond}}
           {{/ifCond}}
         {{else}}
-          "image_a":"{{imageA.value}}",
-          "image_b":"1"
+          "artwork_a":"{{subject1.value}}",
+          "artwork_b":"1"
         {{/ifCond}}
         }'
         targets='["rel-image-container","result-visualizer"]'
         >
-        {{#ifCond image_a "===" imageA.value}}
-        <img class="selected-img" src='{{thumbA.value}}'/>
-      {{else}}
-      {{#ifCond image_b "===" imageA.value}}
-         <img class="selected-img-b" src='{{thumbA.value}}'/>
+        {{#ifCond artwork_a "===" subject1.value}}
+          <img class="selected-img" src='{{thumbA.value}}'/>
+        {{else}}
+        {{#ifCond artwork_b "===" subject1.value}}
+          <img class="selected-img-b" src='{{thumbA.value}}'/>
        {{else}}
         <img src='{{thumbA.value}}'/>
        {{/ifCond}}
@@ -118,48 +122,48 @@ template="{{> imageOptionsB}}"
         id="rel-image"
         type="Component.TemplateUpdate"
         data='{
-          {{#ifCond image_a "&&" image_b}}
-          {{#ifCond (objectLength image_a) "!==" 1}}
-            {{#ifCond (objectLength image_b) "!==" 1}}    
-              "image_a":"{{imageB.value}}",
-              "image_b":"1"
+          {{#ifCond artwork_a "&&" artwork_b}}
+          {{#ifCond (objectLength artwork_a) "!==" 1}}
+            {{#ifCond (objectLength artwork_b) "!==" 1}}    
+              "artwork_a":"{{subject2.value}}",
+              "artwork_b":"1"
             {{else}}
-              {{#ifCond (objectLength image_a) "!==" 1}}
-              "image_a":"{{image_a}}",
-              "image_b":"{{imageB.value}}"
+              {{#ifCond (objectLength artwork_a) "!==" 1}}
+              "artwork_a":"{{artwork_a}}",
+              "artwork_b":"{{subject2.value}}"
               {{else}}
-                "image_a":"{{imageB.value}}",
-                {{#ifCond (objectLength image_b) "!==" 1}}
-                "image_b":"{{image_a}}"
+                "artwork_a":"{{subject2.value}}",
+                {{#ifCond (objectLength artwork_b) "!==" 1}}
+                "artwork_b":"{{artwork_a}}"
                 {{else}}
-                "image_b":"1"
+                "artwork_b":"1"
                 {{/ifCond}}
               {{/ifCond}}
             {{/ifCond}}
             {{else}}
-            {{#ifCond (objectLength image_a) "!==" 1}}
-              "image_a":"{{image_a}}",
-              "image_b":"{{imageB.value}}"
+            {{#ifCond (objectLength artwork_a) "!==" 1}}
+              "artwork_a":"{{artwork_a}}",
+              "artwork_b":"{{subject2.value}}"
             {{else}}
-              "image_a":"{{imageB.value}}",
-              {{#ifCond (objectLength image_b) "!==" 1}}
-              "image_b":"{{image_a}}"
+              "artwork_a":"{{subject2.value}}",
+              {{#ifCond (objectLength artwork_b) "!==" 1}}
+              "artwork_b":"{{artwork_a}}"
               {{else}}
-              "image_b": "1"
+              "artwork_b": "1"
               {{/ifCond}}
             {{/ifCond}}
           {{/ifCond}}
         {{else}}
-          "image_a":"{{imageA.value}}",
-          "image_b":"1"
+          "artwork_a":"{{subject2.value}}",
+          "artwork_b":"1"
         {{/ifCond}}
         }'
         targets='["rel-image-container","result-visualizer"]'
       >
-      {{#ifCond image_a "===" imageB.value}}
+      {{#ifCond artwork_a "===" subject2.value}}
         <img class="selected-img" src='{{thumbB.value}}'/>
       {{else}}
-      {{#ifCond image_b "===" imageB.value}}
+      {{#ifCond artwork_b "===" subject2.value}}
          <img class="selected-img-b" src='{{thumbB.value}}'/>
        {{else}}
         <img src='{{thumbB.value}}'/>
@@ -178,52 +182,134 @@ template="{{> imageOptionsB}}"
       template="{{> resultVisualization}}"
     >
       <template id="resultVisualization">
-        {{#if image_a}}
-          {{#ifCond (objectLength image_a) "!==" 1}}
-          <mp-popover title="Image IRI">
+        {{#if artwork_a}}
+          {{#ifCond (objectLength artwork_a) "!==" 1}}
+          <mp-popover title="Artwork IRI">
             <mp-popover-trigger placement="top"  trigger='["hover","focus"]'> 
-              <div class="selected-a" ><mp-label iri="{{image_a}}"></mp-label></div>
+              <div class="selected-a" ><mp-label iri="{{artwork_a}}"></mp-label></div>
             </mp-popover-trigger>
             <mp-popover-content style="background:white; width:fit-content !important;">
-              {{image_a}}
+              {{artwork_a}}
             </mp-popover-content>
           </mp-popover>
           {{/ifCond}}
         {{/if}}
         [[relationLabel]]
-        {{#if image_b}}
-          {{#ifCond (objectLength image_b) "!==" 1}}
-            {{#ifCond image_a "!==" image_b}}
-            <mp-popover title="Image IRI">
+        {{#if artwork_b}}
+          {{#ifCond (objectLength artwork_b) "!==" 1}}
+            {{#ifCond artwork_a "!==" artwork_b}}
+            <mp-popover title="Artwork IRI">
               <mp-popover-trigger placement="top"  trigger='["hover","focus"]'> 
-                <div class="selected-b" title="{{image_b}}"><mp-label iri="{{image_b}}"></mp-label></div>
+                <div class="selected-b" title="{{artwork_b}}"><mp-label iri="{{artwork_b}}"></mp-label></div>
               </mp-popover-trigger>
               <mp-popover-content style="background:white; width:fit-content !important;">
-                {{image_b}}
+                {{artwork_b}}
               </mp-popover-content>
             </mp-popover>
             {{/ifCond}}
           {{/ifCond}}
         {{/if}}
         
-        {{#ifCond image_a "&&" image_b}}
-          {{#ifCond (objectLength image_a) "!==" 1}}
-             {{#ifCond (objectLength image_b) "!==" 1}}
-                {{#ifCond image_a "!==" image_b}}
+        {{#ifCond artwork_a "&&" artwork_b}}
+          {{#ifCond (objectLength artwork_a) "!==" 1}}
+             {{#ifCond (objectLength artwork_b) "!==" 1}}
+                {{#ifCond artwork_a "!==" artwork_b}}
+                  [[#if titleSelection]]
+                    <mp-overlay-dialog title="Confirm two artworks are the same" >
+                      <mp-overlay-dialog-trigger>
+                                <button
+                                id="confirm-submit"
+                                name="submit"
+                                class="confirm-relation-btn"
+                                title="Click to select a preferred title"
+                              > Confirm </button>
+                          </mp-overlay-dialog-trigger>
+                          <mp-overlay-dialog-content>
+                              <h1>Please select a preferred title bellow</h1>
+                              <semantic-query
+                              query='SELECT ?label ?element ?nextElement ?selectedArtworkA ?selectedArtworkB WHERE {
+                                ?image <http://purl.org/ontology/similarity/element> <{{bindings.0.similarity.value}}>.
+                                ?work <https://pharos.artresearch.net/custom/has_image> ?image.
+                                ?work owl:sameAs ?pharos.
+                                ?work rdfs:label ?label.
+                                BIND(<{{artwork_a}}> as ?selectedArtworkA)
+                                BIND(<{{artwork_b}}> as ?selectedArtworkB)
+                                BIND(<{{bindings.0.similarity.value}}> as ?element)
+                                BIND(<{{bindings.0.nextSimilarity.value}}> as ?nextElement)
+                              }' 
+                              template='{{> titleTemplate}}'>
+                                <template id="titleTemplate">
+                                  <div class="forms-in-a-row" >
+                                  {{#each bindings}}
+                                  <semantic-form
+                                  new-subject-template="{{element.value}}"
+                                  browser-persistance="true"
+                                  persistence='ldp'
+                                  urlqueryparam-providera='[[urlParam "providera"]]'
+                                  urlqueryparam-providerb='[[urlParam "providerb"]]'
+                                  post-action='{{nextElement.value}}'
+                                  form-id="IMApprove1"
+                                  fields='[[fieldDefinitions
+                                            sameAs="http://www.researchspace.org/fieldDefinition/Same"
+                                            title="http://www.researchspace.org/fieldDefinition/Preferred_title"
+                                            confirmed=[formField]
+                                      ]]'
+                                >
+                                  <semantic-form-hidden-input
+                                    for="sameAs"
+                                    default-value="true"
+                                  ></semantic-form-hidden-input>
+                                  
+                                  <semantic-form-hidden-input
+                                    for="title"
+                                    default-value="{{label.value}}"
+                                  ></semantic-form-hidden-input>
+                  
+                                    <semantic-form-hidden-input
+                                      for="confirmed"
+                                      default-value="{{selectedArtworkA.value}},{{selectedArtworkB.value}}"
+                                    ></semantic-form-hidden-input>
+                                  <td>
+                                    <div class="selectionWrapper">
+                                    <div class="Label-value"> {{label.value}}</div>
+                                    <button
+                                    style="
+                                    font-size: medium;
+                                    border: none ;
+                                    text-transform: none;
+                                    height: 100%;
+                                    min-height: 4vh;
+                                    box-shadow: 0px 0px 10px 1px #bebebe;"
+                                      name="submit"
+                                      class="btn btn-warning action approve"
+                                      title="Two instances are not the same"
+                                    >
+                                    <div class="color-white"> Select: </div>
+                                  </button>
+                                </div>
+                                  </td>
+                                </semantic-form>
+                                {{/each}}
+                              </div>
+                              </template>
+                            </semantic-query>
+                            </mp-overlay-dialog-content>
+                    </mp-overlay-dialog>
                 
+                [[else]]
                   <semantic-form
-                    new-subject-template="{{image_a}}"
+                    new-subject-template="{{artwork_a}}"
                     browser-persistance="true"
                     persistence="ldp"
                     post-action="reload"
                     form-id="confirm-image-relation"
                     fields='[[  fieldDefinitions
-                              confirmed=[formField]
-                            ]]'
-                  >
+                          confirmed=[formField]
+                        ]]'
+                    >
                     <semantic-form-hidden-input
                       for="confirmed"
-                      default-value="{{image_b}}"
+                      default-value="{{artwork_b}}"
                     ></semantic-form-hidden-input>
 
                     <button
@@ -233,6 +319,7 @@ template="{{> imageOptionsB}}"
                       title="Click to assert values"
                     > Confirm </button>
                   </semantic-form>
+                  [[/if]]
                {{/ifCond}}
              {{/ifCond}}
           {{/ifCond}}
@@ -246,6 +333,11 @@ template="{{> imageOptionsB}}"
 </div>
 
 <style>
+
+  #confirm-submit{
+    margin-left: 15px !important;
+  }
+
   .image-rel-container{
     display: flex;
     align-items: flex-start;

@@ -189,18 +189,13 @@
                 fields='[[fieldDefinitions
                           sameAs="http://www.researchspace.org/fieldDefinition/Same"
                           title="http://www.researchspace.org/fieldDefinition/Preferred_title"
-                          reviewed="http://www.researchspace.org/fieldDefinition/Reviewed"
                     ]]'
               >
-                <semantic-form-hidden-input 
-                  for="reviewed" 
-                  default-value="true"
-                ></semantic-form-hidden-input>
                 <semantic-form-hidden-input
                   for="sameAs"
                   default-value="true"
                 ></semantic-form-hidden-input>
-                
+
                 <semantic-form-hidden-input
                   for="title"
                   default-value="{{label.value}}"
@@ -246,21 +241,14 @@
               skipped="http://www.researchspace.org/fieldDefinition/Skipped"
     ]]'
   >
-  <semantic-form-hidden-input
-    for="skipped"
-    default-value="true"
-  ></semantic-form-hidden-input>
-        <button
-        style="text-transform: none;
-        background: #a5a5a5 !important;
-        "
-        name="submit"
-        id="1234"
-        class="btn action skip"
-        title="If not sure skip for later"
-      >
-      <div class="color-white" style="font-weight: bold;"> Skip</div>
-    </button>
+    <semantic-form-hidden-input for="skipped" default-value="true" ></semantic-form-hidden-input>
+        <button style="text-transform: none; background: #a5a5a5 !important;"
+                name="submit"
+                id="1234"
+                class="btn action skip"
+                title="If not sure skip for later">
+          <div class="color-white" style="font-weight: bold;"> Skip</div>
+        </button>
   </td>
 </semantic-form>
 </div>

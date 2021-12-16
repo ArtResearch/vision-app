@@ -115,25 +115,18 @@ no-result-template='<h1 style="margin-top:150px;">There are no reviewed matching
               </button>
             </semantic-link>
             <semantic-query
-              query='
-              SELECT DISTINCT * WHERE {
-                GRAPH <{{g.value}}>{
-                    ?work1 <https://similarity.net/custom/is_deprecated> ?pharos1;
-                        owl:sameAs ?pharos2.
-                }
-                ?work1 owl:sameAs ?pharos1.
-                FILTER NOT EXISTS{?work1 <https://similarity.net/custom/is_deprecated> ?pharos2.}
-                BIND(<{{subject.value}}> as ?subject)
-            }LIMIT 1 '
-              template='{{> deleteOption }}'
-              no-result-template='{{> revertOption}}'>
-           
+              query=' SELECT DISTINCT ?subject WHERE {
+                        GRAPH <{{g.value}}>{
+                          ?similarity <https://vision.artresearch.net/custom/processed> true.
+                        }
+                        BIND(<{{subject.value}}> as ?subject)
+                      }LIMIT 1 '
+              template='{{> revertOption }}'
+              no-result-template='{{> deleteOption}}'>
                <template id='deleteOption'>
-                {{#each bindings}}
                   <mp-ldp-remove-from-container-action iri="{{subject.value}}" container="http://www.researchspace.org/resource/system/formContainer">
                     <button title="This action will remove the item from your reviewed list. It will be then available under artwork matchings for you or another reviewer to review." class="btn action btn-danger" style="margin-right:8px;"><i style="color: white;" class="fa fa-trash" aria-hidden=true></i> Delete</button>
                   </mp-ldp-remove-from-container-action>
-                {{/each}}
               </template>
               <template id='revertOption'>
                 <semantic-form

@@ -1,10 +1,13 @@
 <div class="image-rel-container">
+
   <semantic-query query='
-  SELECT DISTINCT ?subject1 ?subject2  WHERE {
+  SELECT DISTINCT ?subject1 ?subject2 ?similarity ?nextSimilarity  WHERE {
     ?imageA <http://purl.org/ontology/similarity/element> <[[simElement]]>.
     ?imageB <http://purl.org/ontology/similarity/element> <[[simElement]]>.
     ?subject1 <https://pharos.artresearch.net/custom/has_image> ?imageA.
     ?subject2 <https://pharos.artresearch.net/custom/has_image> ?imageB.
+    BIND(<[[simElement]]> AS ?similarity)
+    BIND(<[[nextSimElement]]> AS ?nextSimilarity) 
     FILTER (STR(?imageA)!=STR(?imageB))
   }LIMIT 1'
   template="{{> imageOptionsSubjects}}"
@@ -211,7 +214,95 @@ template="{{> imageOptionsB}}"
           {{#ifCond (objectLength image_a) "!==" 1}}
              {{#ifCond (objectLength image_b) "!==" 1}}
                 {{#ifCond image_a "!==" image_b}}
+                  [[#if titleSelection]]
+                <mp-overlay-dialog title="Confirm two artworks are the same" >
+                  <mp-overlay-dialog-trigger>
+                            <button
+                            id="confirm-submit"
+                            name="submit"
+                            class="confirm-relation-btn"
+                            title="Click to select a preferred title"
+                          > Confirm </button>
+                      </mp-overlay-dialog-trigger>
+                      <mp-overlay-dialog-content>
+                          <h1>Please select a preferred title bellow</h1>
+                          <semantic-query
+                          query='SELECT ?label ?element ?nextElement ?selectedArtwork WHERE {
+                            ?image <http://purl.org/ontology/similarity/element> <{{bindings.0.similarity.value}}>.
+                            ?work <https://pharos.artresearch.net/custom/has_image> ?image.
+                            ?work owl:sameAs ?pharos.
+                            ?work rdfs:label ?label.
+                            BIND(<{{image_b}}> as ?selectedArtwork)
+                            BIND(<{{bindings.0.similarity.value}}> as ?element)
+                            BIND(<{{bindings.0.nextSimilarity.value}}> as ?nextElement)
+                          }' 
+                          template='{{> titleTemplate}}'>
+                            <template id="titleTemplate">
+                              <div class="forms-in-a-row" >
+                              {{#each bindings}}
+                              <semantic-form
+                              new-subject-template="{{element.value}}"
+                              browser-persistance="true"
+                              persistence='ldp'
+                              urlqueryparam-providera='[[urlParam "providera"]]'
+                              urlqueryparam-providerb='[[urlParam "providerb"]]'
+                              post-action='{{nextElement.value}}'
+                              form-id="IMApprove1"
+                              fields='[[fieldDefinitions
+                                        sameAs="http://www.researchspace.org/fieldDefinition/Same"
+                                        title="http://www.researchspace.org/fieldDefinition/Preferred_title"
+                                        reviewed="http://www.researchspace.org/fieldDefinition/Reviewed"
+                                        confirmed=[formField]
+                                  ]]'
+                            >
+                              <semantic-form-hidden-input 
+                                for="reviewed" 
+                                default-value="true"
+                              ></semantic-form-hidden-input>
+                              <semantic-form-hidden-input
+                                for="sameAs"
+                                default-value="true"
+                              ></semantic-form-hidden-input>
+                              
+                              <semantic-form-hidden-input
+                                for="title"
+                                default-value="{{label.value}}"
+                              ></semantic-form-hidden-input>
+              
+                                <semantic-form-hidden-input
+                                for="confirmed"
+                                default-value="{{selectedArtwork.value}}"
+                              ></semantic-form-hidden-input>
+                              <td>
+                                <div class="selectionWrapper">
+                                 <div class="Label-value"> {{label.value}}</div>
+                                <button
+                                style="
+                                font-size: medium;
+                                border: none ;
+                                text-transform: none;
+                                height: 100%;
+                                min-height: 4vh;
+                                box-shadow: 0px 0px 10px 1px #bebebe;"
+                                  name="submit"
+                                  class="btn btn-warning action approve"
+                                  title="Two instances are not the same"
+                                >
+                                <div class="color-white"> Select: </div>
+                              </button>
+                             </div>
+                              </td>
+                            </semantic-form>
+                            {{/each}}
+                          </div>
+                          </template>
+                        </semantic-query>
+                        </mp-overlay-dialog-content>
+                </mp-overlay-dialog>
+              
                 
+                
+                [[else]]
                   <semantic-form
                     new-subject-template="{{image_a}}"
                     browser-persistance="true"
@@ -234,6 +325,7 @@ template="{{> imageOptionsB}}"
                       title="Click to assert values"
                     > Confirm </button>
                   </semantic-form>
+                  [[/if]]
                {{/ifCond}}
              {{/ifCond}}
           {{/ifCond}}

@@ -1,45 +1,62 @@
 <!-- Create two thumbnails and respective modals with iiif viewer -->
 <!-- First candidate -->
 <div id="matching-canditate-images">
-<semantic-query query='SELECT ?element ?iiifServerUrlA ?iiifServerUrlB ?imageUrlA ?imageUrlB ?imageLabel ?thumbnailUrl WHERE{
-  BIND(STR("{{bindings.0.providerLabelA.value}}") as ?imageLabel).
+<semantic-query query='SELECT ?element 
+?manifestA ?manifestB 
+?imageUrlA ?imageUrlB  
+?imageLabelA ?imageLabelB
+?thumbnailA ?thumbnailB 
+WHERE{
+  BIND(STR("{{bindings.0.providerLabelA.value}}") as ?imageLabelA).
+  BIND(STR("{{bindings.0.providerLabelB.value}}") as ?imageLabelB).
   BIND(STR("[[imageA]]") as ?imageUrlA).
-  BIND(REPLACE(STR(REPLACE(STR("[[imageA]]"),"/full/full/0/[a-zA-Z]*.jpg","")), "(^.*)\\/(.*)$", "$1") AS ?iiifServerUrlA).
-  BIND(REPLACE(STR("[[imageA]]"),"full/full","full/!500,500") AS ?thumbnailUrl).
+  BIND(REPLACE(STR("[[imageA]]"),"full/full/0/default.jpg","info.json") AS ?manifestA).
+  BIND(REPLACE(STR("[[imageA]]"),"full/full","full/!500,500") AS ?thumbnailA).
   BIND(STR("[[imageB]]") as ?imageUrlB).
+  BIND(REPLACE(STR("[[imageB]]"),"full/full","full/!500,500") AS ?thumbnailB).
+  BIND(REPLACE(STR("[[imageB]]"),"full/full/0/default.jpg","info.json") AS ?manifestB).
   BIND(<[[element]]> as ?element).
-  BIND(REPLACE(STR(REPLACE(STR("[[imageB]]"),"/full/full/0/[a-zA-Z]*.jpg","")), "(^.*)\\/(.*)$", "$1") AS ?iiifServerUrlB).
 }'
 template="{{> firstCanditateImage}}">
   <template id="firstCanditateImage">
 <mp-overlay-dialog title="‎‎" class="miradorViewerPopup">
   <mp-overlay-dialog-trigger>
     <div class="imageHolder">
-      <img src='{{bindings.0.thumbnailUrl.value}}'/>
-      <div class="imageLabel">[[> rsp:SourceIcon providerLabel="{{bindings.0.imageLabel.value}}"]] {{bindings.0.imageLabel.value}}</div>    
+      <img src='{{bindings.0.thumbnailA.value}}'/>
+      <div class="imageLabel">[[> rsp:SourceIcon providerLabel="{{bindings.0.imageLabelA.value}}"]] {{bindings.0.imageLabelA.value}}</div>    
     </div>    
   </mp-overlay-dialog-trigger>
     <mp-overlay-dialog-content>
     <div id="sidebyside">
           <div style='height: 80vh; width: 50%;'>
-      <rs-iiif-mirador
-                       id="candidateAmirador"
-                       image-or-region="{{bindings.0.imageUrlA.value}}" 
-                       image-id-pattern='BIND("image" AS ?type). BIND(?? AS ?imageIRI).
-                                         BIND(REPLACE(STR(REPLACE(STR(<{{bindings.0.imageUrlA.value}}>),"/full/full/0/[a-zA-Z]*.jpg","")), "(^.*)\\/(.*)$", "$2") AS ?imageID)'
-                       iiif-server-url="{{bindings.0.iiifServerUrlA.value}}" 
-                       >
-      </rs-iiif-mirador>
+             {{#ifCond bindings.0.imageLabelA.value "===" "Hertziana" }}   
+              <div style="display: flex; flex-direction: column; gap:5px; height: 100%;">
+                <img style="object-fit: contain;" src='{{bindings.0.thumbnailA.value}}'/>
+                <i style="font-size: 16px; font-weight: bold; display: flex; gap: 5px;" class="fa fa-info">Currently there are no IIIF images for this Photo Archive</i>
+              </div>
+            {{else}}
+            <rs-iiif-mirador
+              id="candidateAmirador"
+              image-or-region="{{bindings.0.manifestA.value}}"
+              image-api-manifest-pattern="BIND(<{{bindings.0.manifestA.value}}> as ?manifestUrl)"
+                >
+            </rs-iiif-mirador>
+          {{/ifCond}}
     </div>
     <div style='height: 80vh; width: 50%;'>
-      <rs-iiif-mirador
-                       id="candidateBmirador"
-                       image-or-region="{{bindings.0.imageUrlB.value}}" 
-                       image-id-pattern='BIND("image" AS ?type). BIND(?? AS ?imageIRI).
-                                         BIND(REPLACE(STR(REPLACE(STR(<{{bindings.0.imageUrlB.value}}>),"/full/full/0/[a-zA-Z]*.jpg","")), "(^.*)\\/(.*)$", "$2") AS ?imageID)'
-                       iiif-server-url="{{bindings.0.iiifServerUrlB.value}}" 
-                       >
-      </rs-iiif-mirador>
+        {{#ifCond bindings.0.imageLabelB.value "===" "Hertziana"}}
+          <div style="display: flex; flex-direction: column; gap:5px; height: 100%;">
+            <img style="object-fit: contain;" src='{{bindings.0.thumbnailB.value}}'/>
+            <i style="font-size: 16px; font-weight: bold; display: flex; gap: 5px;" class="fa fa-info">Currently there are no IIIF images for this Photo Archive</i>
+          </div>
+        {{else}}
+          <rs-iiif-mirador
+                          id="candidateBmirador"
+                          image-or-region="{{bindings.0.manifestB.value}}"
+                          image-api-manifest-pattern="BIND(<{{bindings.0.manifestB.value}}> as ?manifestUrl)"
+                          >
+          </rs-iiif-mirador>
+        {{/ifCond}}
     </div>
     </div>
   </mp-overlay-dialog-content>
@@ -48,51 +65,50 @@ template="{{> firstCanditateImage}}">
 <div class="similarityFields"> 
   [[> rsp:SimilarityBasicInfoForVisualSimilarity element="{{bindings.0.element.value}}"]]
 </div>
-  </template>
-</semantic-query>
+
 <!-- Second candidate -->
-<semantic-query query='SELECT ?iiifServerUrlA ?iiifServerUrlB ?imageUrlA ?imageUrlB ?imageLabel ?thumbnailUrl WHERE{
-  BIND(STR("{{bindings.0.providerLabelB.value}}") as ?imageLabel).
-  BIND(STR("[[imageA]]") as ?imageUrlA).
-  BIND(REPLACE(STR("[[imageB]]"),"full/full","full/!500,500") AS ?thumbnailUrl).
-  BIND(REPLACE(STR(REPLACE(STR("[[imageA]]"),"/full/full/0/[a-zA-Z]*.jpg","")), "(^.*)\\/(.*)$", "$1") AS ?iiifServerUrlA).
-  BIND(STR("[[imageB]]") as ?imageUrlB).
-  BIND(REPLACE(STR(REPLACE(STR("[[imageB]]"),"/full/full/0/[a-zA-Z]*.jpg","")), "(^.*)\\/(.*)$", "$1") AS ?iiifServerUrlB).
-}'
-template="{{> secondCanditateImage}}">
-  <template id="secondCanditateImage">
 <mp-overlay-dialog title="‎‎" class="miradorViewerPopup">
   <mp-overlay-dialog-trigger>
     <div class="imageHolder">
-      <img src='{{bindings.0.thumbnailUrl.value}}'/>
-      <div class="imageLabel">[[> rsp:SourceIcon providerLabel="{{bindings.0.imageLabel.value}}"]]{{bindings.0.imageLabel.value}}</div>    
+      <img src='{{bindings.0.thumbnailB.value}}'/>
+      <div class="imageLabel">[[> rsp:SourceIcon providerLabel="{{bindings.0.imageLabelB.value}}"]]{{bindings.0.imageLabelB.value}}</div>    
     </div>    
   </mp-overlay-dialog-trigger>
   <mp-overlay-dialog-content>
     <div id="sidebyside">
           <div style='height: 80vh; width: 50%;'>
-      <rs-iiif-mirador
-                       id="candidateAmirador"
-                       image-or-region="{{bindings.0.imageUrlA.value}}" 
-                       image-id-pattern='BIND("image" AS ?type). BIND(?? AS ?imageIRI).
-                                         BIND(REPLACE(STR(REPLACE(STR(<{{bindings.0.imageUrlA.value}}>),"/full/full/0/[a-zA-Z]*.jpg","")), "(^.*)\\/(.*)$", "$2") AS ?imageID)'
-                       iiif-server-url="{{bindings.0.iiifServerUrlA.value}}" 
-                       >
-      </rs-iiif-mirador>
+            {{#ifCond bindings.0.imageLabelA.value "===" "Hertziana"}}
+              <div style="display: flex; flex-direction: column; gap:5px; height: 100%;">
+                <img style="object-fit: contain;" src='{{bindings.0.thumbnailA.value}}'/>
+                <i style="font-size: 16px; font-weight: bold; display: flex; gap: 5px;" class="fa fa-info">Currently there are no IIIF images for this Photo Archive</i>
+              </div>
+            {{else}}
+              <rs-iiif-mirador
+                id="candidateAmirador"
+                image-or-region="{{bindings.0.manifestA.value}}"
+                image-api-manifest-pattern="BIND(<{{bindings.0.manifestA.value}}> as ?manifestUrl)"
+                >
+              </rs-iiif-mirador>
+              {{/ifCond}}
     </div>
     <div style='height: 80vh; width: 50%;'>
-      <rs-iiif-mirador
-                       id="candidateBmirador"
-                       image-or-region="{{bindings.0.imageUrlB.value}}" 
-                       image-id-pattern='BIND("image" AS ?type). BIND(?? AS ?imageIRI). 
-                                         BIND(REPLACE(STR(REPLACE(STR(<{{bindings.0.imageUrlB.value}}>),"/full/full/0/[a-zA-Z]*.jpg","")), "(^.*)\\/(.*)$", "$2") AS ?imageID)'
-                       iiif-server-url="{{bindings.0.iiifServerUrlB.value}}" 
-                       >
-      </rs-iiif-mirador>
+      {{#ifCond bindings.0.imageLabelB.value "===" "Hertziana"}}
+        <div style="display: flex; flex-direction: column; gap:5px; height: 100%;">
+          <img style="object-fit: contain;" src='{{bindings.0.thumbnailB.value}}'/>
+          <i style="font-size: 16px; font-weight: bold; display: flex; gap: 5px;" class="fa fa-info">Currently there are no IIIF images for this Photo Archive</i>
+        </div>
+        {{else}}
+        <rs-iiif-mirador
+                id="candidateBmirador"
+                image-or-region="{{bindings.0.manifestB.value}}"
+                image-api-manifest-pattern="BIND(<{{bindings.0.manifestB.value}}> as ?manifestUrl)"
+                >
+        </rs-iiif-mirador>
+        {{/ifCond}}
     </div>
     </div>
   </mp-overlay-dialog-content>
 </mp-overlay-dialog>
-  </template>
+</template>
 </semantic-query>
 </div>

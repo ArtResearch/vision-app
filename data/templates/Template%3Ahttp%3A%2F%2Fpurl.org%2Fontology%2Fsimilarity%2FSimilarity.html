@@ -100,21 +100,27 @@
           {{#if '[[urlParam "providera"]]'}}
             <div class="sidebar">
               <semantic-query
-                query='SELECT ?element ?nextElement ?subject1 ?subject2 WHERE {
+                query='SELECT ?nextElement  
+                              (<{{bindings.0.element.value}}> AS ?element) 
+                              (<{{bindings.0.subject1.value}}> AS ?subject1)
+                              (<{{bindings.0.subject2.value}}> AS ?subject2) WHERE {
                         ?subject1_next <https://pharos.artresearch.net/custom/has_provider> <[[urlParam "providera"]]>;
                           <https://pharos.artresearch.net/custom/has_image> ?imageA_next.
                         ?subject2_next <https://pharos.artresearch.net/custom/has_provider> <[[urlParam "providerb"]]>;
                           <https://pharos.artresearch.net/custom/has_image> ?imageB_next.
                         ?imageA_next <http://purl.org/ontology/similarity/element> ?nextElement.
                         ?imageB_next <http://purl.org/ontology/similarity/element> ?nextElement.
-                        FILTER(?element != ?nextElement)
                         FILTER NOT EXISTS { ?nextElement <https://vision.artresearch.net/custom/reviewed> "true"^^xsd:boolean }
                         FILTER NOT EXISTS { ?nextElement <https://vision.artresearch.net/custom/skipped> "true"^^xsd:boolean }
-                        FILTER NOT EXISTS {?imageA_next <http://www.cidoc-crm.org/cidoc-crm/P2_has_type> <http://vocab.getty.edu/aat/300010292>.}
-                        FILTER NOT EXISTS {?imageA_next <http://www.cidoc-crm.org/cidoc-crm/P2_has_type> <http://vocab.getty.edu/aat/300010292>.} 
-                        BIND(<{{bindings.0.subject1.value}}> AS ?subject1)
-                        BIND(<{{bindings.0.subject2.value}}> AS ?subject2)
-                        BIND (<{{bindings.0.element.value}}> AS ?element)
+                        {
+                          SELECT (GROUP_CONCAT(distinct ?sim) as ?sims) WHERE {
+                            <{{bindings.0.subject1.value}}> <https://pharos.artresearch.net/custom/has_image> ?imgA2.
+                            <{{bindings.0.subject2.value}}> <https://pharos.artresearch.net/custom/has_image> ?imgB2.
+                            ?imgA2 <http://purl.org/ontology/similarity/element> ?sim.
+                            ?imgB2 <http://purl.org/ontology/similarity/element> ?sim.
+                          }
+                        }
+                        FILTER NOT EXISTS { FILTER (CONTAINS (?sims,STR(?nextElement)))}
                     }LIMIT 1'
                 template="{{>imageInfoTemplate}}"
                 no-result-template="{{>noNextSimilarity}}"

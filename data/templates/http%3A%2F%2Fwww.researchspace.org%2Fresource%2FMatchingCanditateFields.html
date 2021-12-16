@@ -25,8 +25,8 @@
                   ?subject1_next <https://pharos.artresearch.net/custom/has_provider> <{{bindings.0.providerA.value}}>.
                   ?subject2_next <https://pharos.artresearch.net/custom/has_provider> <{{bindings.0.providerB.value}}>.
                   FILTER(?element != ?nextElement)
-                  FILTER NOT EXISTS { ?nextElement <https://vision.artresearch.net/custom/reviewed> "true"^^xsd:boolean }
-                  FILTER NOT EXISTS { ?nextElement <https://vision.artresearch.net/custom/skipped> "true"^^xsd:boolean }
+                  FILTER NOT EXISTS { ?nextElement <https://vision.artresearch.net/custom/reviewed> true }
+                  FILTER NOT EXISTS { ?nextElement <https://vision.artresearch.net/custom/skipped> true }
                   BIND("Title" as ?fieldName)
                   BIND(<{{bindings.0.element.value}}> AS ?element)
                   BIND(<{{bindings.0.subject1.value}}> as ?subject1)

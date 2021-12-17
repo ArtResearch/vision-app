@@ -128,7 +128,7 @@
                                 (SAMPLE(?providerLabelB) as ?providerLabelB)
                                 (SAMPLE(?modifiedAt) AS ?modifiedAt) 
                                 (SAMPLE(?attribution) AS ?attribution)   WHERE {
-                                }GROUP BY ?subject ?g
+                                }GROUP BY ?container ?g
                                 '
                                 tuple-template='{{>reviewedCards}}'
                                 no-result-template='<h1 style="margin-top:150px;">There are no reviewed matchings</h1>'

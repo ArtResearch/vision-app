@@ -121,10 +121,10 @@
                 post-action="{{bindings.0.nextElement.value}}"
                 form-id="IMReject"
                 fields='[[fieldDefinitions
-                          similar="http://www.researchspace.org/fieldDefinition/Similar"
+                          not_similar="http://www.researchspace.org/fieldDefinition/Not_Similar"
                         ]]'
               >
-            <semantic-form-hidden-input for="similar" default-value="false">
+            <semantic-form-hidden-input for="not_similar" default-value="false">
             </semantic-form-hidden-input>
               <button
               name="submit"

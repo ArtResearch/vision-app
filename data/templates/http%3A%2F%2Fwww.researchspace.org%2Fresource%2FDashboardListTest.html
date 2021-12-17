@@ -127,7 +127,7 @@
                                 (SAMPLE(?providerLabelA) as ?providerLabelA)
                                 (SAMPLE(?providerLabelB) as ?providerLabelB)
                                 (SAMPLE(?modifiedAt) AS ?modifiedAt) 
-                                (SAMPLE(?attribution) AS ?attribution)   WHERE {
+                                (SAMPLE(?attribution) AS ?attribution) WHERE {
                                 }GROUP BY ?container ?g
                                 '
                                 tuple-template='{{>reviewedCards}}'
@@ -211,11 +211,11 @@
                                                 </button>
                                               </semantic-link>
                                               <semantic-query
-                                                query=' SELECT DISTINCT ?subject WHERE {
+                                                query=' SELECT DISTINCT ?container WHERE {
                                                           GRAPH <{{g.value}}>{
                                                             ?similarity <https://vision.artresearch.net/custom/processed> true.
                                                           }
-                                                          BIND(<{{container.value}}> as ?subject)
+                                                          BIND(<{{container.value}}> as ?container)
                                                         }LIMIT 1 '
                                                 template='{{> revertOption }}'
                                                 no-result-template='{{> deleteOption}}'>

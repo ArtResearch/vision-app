@@ -20,9 +20,9 @@
                         ?work1 fr:Work_is_negative_of_Work ?work2.
                         $subject <https://vision.artresearch.net/custom/same_artworks> ?boolneg
                       }
-                      BIND(IF(?bool,\"Same\",\"Not Same\") AS ?__value__)
-                      BIND(IF(?boolsim,\"Similar\",\"Not Similar\") AS ?__value__)
-                      BIND(IF(?boolneg,\"Same Negative\",\"Not Same\") AS ?__value__)
+                      BIND(IF(?bool,\"Same\",\"Not Same\") AS ?__literal__)
+                      BIND(IF(?boolsim,\"Similar\",\"Not Similar\") AS ?__literal__)
+                      BIND(IF(?boolneg,\"Same Negative\",\"Not Same\") AS ?__literal__)
                     "
                 }
               ]
@@ -146,7 +146,7 @@
                                           gap: 5px;
                                           font-size: 16px;
                                           justify-content: flex-end;
-                                          padding-right: 15px;">by <mp-label iri="{{attribution.value}}"></mp-label> at {{dateTimeFormat modifiedAt.value "DD/MM/YY HH:mm:ss"}}</h2>
+                                          padding-right: 15px;">by <mp-label iri="{{attribution.literal}}"></mp-label> at {{dateTimeFormat modifiedAt.value "DD/MM/YY HH:mm:ss"}}</h2>
                                             <div class="panel-body row">
                                               <bs-col class="cardInfo" lg="2" xs="10">
                                                 [[> :SimilarityListThumbnails iri="{{work.value}}"]]

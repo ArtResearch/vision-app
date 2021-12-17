@@ -354,6 +354,18 @@ a:focus {
   background: white !important;
 }
 
+.confirm-btn {
+  font-size: medium;
+  border: none !important;
+  min-height: 4vh;
+  width: 8vw;
+  color: white;
+  min-width: 150px;
+  box-shadow: 0px 0px 10px 1px #bebebe;
+  text-transform: none;
+  height: 100%;
+}
+
 .modal-backdrop {
   background-color: #816e4225;
 }

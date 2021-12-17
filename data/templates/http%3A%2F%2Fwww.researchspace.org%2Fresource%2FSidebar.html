@@ -81,8 +81,8 @@
             post-action='{{bindings.0.nextElement.value}}'
             form-id="IMApprove1"
             fields='[[fieldDefinitions
-                                        similar="http://www.researchspace.org/fieldDefinition/Similar"
-                                        ]]'
+                    similar="http://www.researchspace.org/fieldDefinition/Similar"
+                    ]]'
           >
             <semantic-form-hidden-input
               for="similar"
@@ -91,16 +91,8 @@
 
             <button
             id="1234"
-            style="  
-            font-size: medium;
-            border: none ;
-            min-height: 4vh;
-            width: 8vw;
-            color:white;
-            min-width: 150px;
-            box-shadow: 0px 0px 10px 1px #bebebe;"
             name="submit"
-            class="btn btn-default action approve"
+            class="btn btn-default action approve confirm-btn"
             title="Two instances are similar"
             > <div class="color-white"> Confirm</div> </button>
           </semantic-form>
@@ -111,7 +103,6 @@
     <mp-overlay-dialog-trigger
       >
       <button
-      name="submit"
       class="btn btn-warning action reject"
       title="Two instances are not the same"
     >
@@ -122,32 +113,25 @@
             <h1>Are you sure these two artowrk are not similar?</h1>
             <h2>If yes, click on "Confirm" button bellow.</h2>
             <semantic-form
-            new-subject-template="{{bindings.0.element.value}}"
-            browser-persistance="true"
-            persistence='ldp'
-            urlqueryparam-providera='[[urlParam "providera"]]'
-            urlqueryparam-providerb='[[urlParam "providerb"]]'
-            post-action="{{bindings.0.nextElement.value}}"
-            form-id="IMReject"
-            fields='[[fieldDefinitions
-                      similar="http://www.researchspace.org/fieldDefinition/Similar"
-                    ]]'
-          >
-            <semantic-form-hidden-input for="similar" default-value="false">
+                new-subject-template="{{bindings.0.element.value}}"
+                browser-persistance="true"
+                persistence='ldp'
+                urlqueryparam-providera='[[urlParam "providera"]]'
+                urlqueryparam-providerb='[[urlParam "providerb"]]'
+                post-action="{{bindings.0.nextElement.value}}"
+                form-id="IMReject"
+                fields='[[fieldDefinitions
+                          similar="http://www.researchspace.org/fieldDefinition/Similar"
+                        ]]'
+              >
+            <semantic-form-hidden-input for="similar" default-value='"false"^^xsd:boolean'>
             </semantic-form-hidden-input>
-            <button
-            style="
-            font-size: medium;
-            border: none ;
-            min-height: 4vh;
-            width: 8vw;
-            min-width: 150px;
-            box-shadow: 0px 0px 10px 1px #bebebe;"
+              <button
               name="submit"
-              class="btn btn-warning action reject"
+              class="btn btn-warning action reject confirm-btn"
               title="Two instances are not the same"
             >
-            <div class="color-white"> Confirm</div>
+            <div class="color-white">Confirm</div>
           </button>
           </semantic-form>
           </mp-overlay-dialog-content>

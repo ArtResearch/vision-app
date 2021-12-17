@@ -19,6 +19,20 @@ body {
   font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
 }
 
+tr .rs-page-resource__field >td {
+  min-width: 20vw;
+}
+.griddle-footer .pagination, .pagination{
+  display: flex;
+  flex-wrap: wrap;
+}
+
+
+@media (max-width:800px){
+  tr .rs-page-resource__field >td {
+  min-width: 35vw !important;
+}
+}
 @media screen and (min-width: 1350px) {
   .navbar-header {
     width: 15vw !important;

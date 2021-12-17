@@ -19,6 +19,11 @@
           [[> DashboardStatMarked]]
           )</div>
       </bs-nav-item>
+      <bs-nav-item event-key='test'>
+        <div style="display: flex;">Test(
+          [[> DashboardStatTest]]
+          )</div>
+      </bs-nav-item>
 
     </bs-nav>
     <bs-tab-content unmount-on-exit=true>
@@ -28,6 +33,9 @@
       </bs-tab-pane>
       <bs-tab-pane event-key='marked'>
         [[> DashboardListMarked]]
+      </bs-tab-pane>
+      <bs-tab-pane event-key='test'>
+        [[> DashboardListTest]]
       </bs-tab-pane>
     </div>
     </bs-tab-content>

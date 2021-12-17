@@ -61,25 +61,25 @@
                   placeholder="Search for an artwork title"
                   escape-lucene-syntax="false"
                   default-query='SELECT DISTINCT 
-                    ?subject 
+                    ?container 
                     ?g
                     (SAMPLE(?work) as ?work)
                     (SAMPLE(?work2) as ?work2)
-                    (SAMPLE(?similarity) as ?similarity)
+                    (SAMPLE(?subject) as ?subject)
                     (SAMPLE(?providerLabelA) as ?providerLabelA)
                     (SAMPLE(?providerLabelB) as ?providerLabelB)
                     (SAMPLE(?modifiedAt) AS ?modifiedAt) 
                     (SAMPLE(?attribution) AS ?attribution)   WHERE {
                       GRAPH ?g {
-                        <http://www.researchspace.org/resource/system/formContainer> <http://www.w3.org/ns/ldp#contains> ?subject. 
-                        ?subject <http://www.w3.org/ns/prov#generatedAtTime> ?modifiedAt ; 
+                        <http://www.researchspace.org/resource/system/formContainer> <http://www.w3.org/ns/ldp#contains> ?container. 
+                        ?container <http://www.w3.org/ns/prov#generatedAtTime> ?modifiedAt ; 
                         <http://www.w3.org/ns/prov#wasAttributedTo> ?attribution.
-                        ?similarity <https://vision.artresearch.net/custom/reviewed> true 
+                        ?subject <https://vision.artresearch.net/custom/reviewed> true 
                       }
                       ?work <https://pharos.artresearch.net/custom/has_image> ?imageA.
-                      ?imageA <http://purl.org/ontology/similarity/element> ?similarity.
+                      ?imageA <http://purl.org/ontology/similarity/element> ?subject.
                       ?work2 <https://pharos.artresearch.net/custom/has_image> ?imageB.
-                      ?imageB <http://purl.org/ontology/similarity/element> ?similarity.
+                      ?imageB <http://purl.org/ontology/similarity/element> ?subject.
                       ?work <https://pharos.artresearch.net/custom/has_provider> ?provA.
                       ?provA rdfs:label ?providerLabelA.
                       ?work2 <https://pharos.artresearch.net/custom/has_provider> ?provb.
@@ -119,11 +119,11 @@
                                         }'
                                 query='
                                 SELECT DISTINCT 
-                                ?subject 
+                                ?container 
                                 ?g
                                 (SAMPLE(?work) as ?work)
                                 (SAMPLE(?work2) as ?work2)
-                                (SAMPLE(?similarity) as ?similarity)
+                                (SAMPLE(?subject) as ?subject)
                                 (SAMPLE(?providerLabelA) as ?providerLabelA)
                                 (SAMPLE(?providerLabelB) as ?providerLabelB)
                                 (SAMPLE(?modifiedAt) AS ?modifiedAt) 
@@ -205,7 +205,7 @@
                                               </bs-col>
                                             </div>
                                             <div class="actions">
-                                              <semantic-link iri="{{similarity.value}}">
+                                              <semantic-link iri="{{subject.value}}">
                                                 <button class="btn action btn-success">
                                                   View details 
                                                 </button>
@@ -215,18 +215,18 @@
                                                           GRAPH <{{g.value}}>{
                                                             ?similarity <https://vision.artresearch.net/custom/processed> true.
                                                           }
-                                                          BIND(<{{subject.value}}> as ?subject)
+                                                          BIND(<{{container.value}}> as ?subject)
                                                         }LIMIT 1 '
                                                 template='{{> revertOption }}'
                                                 no-result-template='{{> deleteOption}}'>
                                                 <template id='deleteOption'>
-                                                    <mp-ldp-remove-from-container-action iri="{{subject.value}}" container="http://www.researchspace.org/resource/system/formContainer">
+                                                    <mp-ldp-remove-from-container-action iri="{{container.value}}" container="http://www.researchspace.org/resource/system/formContainer">
                                                       <button title="This action will remove the item from your reviewed list. It will be then available under artwork matchings for you or another reviewer to review." class="btn action btn-danger" style="margin-right:8px;"><i style="color: white;" class="fa fa-trash" aria-hidden=true></i> Delete</button>
                                                     </mp-ldp-remove-from-container-action>
                                                 </template>
                                                 <template id='revertOption'>
                                                     <semantic-form
-                                                    new-subject-template="{{subject.value}}"
+                                                    new-subject-template="{{container.value}}"
                                                     browser-persistance="true"
                                                     persistence="sparql"
                                                     post-action="reload"

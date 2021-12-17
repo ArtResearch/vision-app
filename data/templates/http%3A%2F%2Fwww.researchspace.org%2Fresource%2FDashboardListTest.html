@@ -4,27 +4,25 @@
     <semantic-search
             limit="1000"
             relations='{
-              "<http://purl.org/ontology/similarity/Similarity>":[
+              "<https://pharos.artresearch.net/fieldDefinition/TypeOfSimilarity>":[
                 {
                   "kind": "resource",
                   "queryPattern": "
-                       {
+                      {
                         $subject <https://vision.artresearch.net/custom/same_artworks>  ?bool .
-                        }UNION{
+                      }UNION{
                         $subject  <https://vision.artresearch.net/custom/similar_artworks> ?boolsim.
+                      }UNION{
+                        ?work1 <https://pharos.artresearch.net/custom/has_image> ?imageA.
+                        ?imageA <http://purl.org/ontology/similarity/element> $subject .
+                        ?work2 <https://pharos.artresearch.net/custom/has_image> ?imageB.
+                        ?imageB <http://purl.org/ontology/similarity/element> $subject .
+                        ?work1 fr:Work_is_negative_of_Work ?work2.
+                        $subject <https://vision.artresearch.net/custom/same_artworks> ?boolneg
                       }
-                       UNION{
-                          ?work1 <https://pharos.artresearch.net/custom/has_image> ?imageA.
-                          ?imageA <http://purl.org/ontology/similarity/element> $subject .
-                          ?work2 <https://pharos.artresearch.net/custom/has_image> ?imageB.
-                          ?imageB <http://purl.org/ontology/similarity/element> $subject .
-                          ?work1 fr:Work_is_negative_of_Work ?work2.
-                          $subject <https://vision.artresearch.net/custom/same_artworks> ?boolneg
-                        }
-                        BIND(IF(?bool,\"Same\",\"Not Same\") AS ?__value__)
-                        BIND(IF(?boolsim,\"Similar\",\"Not Similar\") AS ?__value__)
-                        BIND(IF(?boolneg,\"Same Negative\",\"Not Same\") AS ?__value__)
-                     
+                      BIND(IF(?bool,\"Same\",\"Not Same\") AS ?__value__)
+                      BIND(IF(?boolsim,\"Similar\",\"Not Similar\") AS ?__value__)
+                      BIND(IF(?boolneg,\"Same Negative\",\"Not Same\") AS ?__value__)
                     "
                 }
               ]
@@ -46,7 +44,7 @@
                   "relations":
                   [
                     {
-                      "iri": "<http://purl.org/ontology/similarity/Similarity>",
+                      "iri": "<https://pharos.artresearch.net/fieldDefinition/TypeOfSimilarity>",
                       "label":"Type of Similarity",
                       "hasDomain":"<http://purl.org/ontology/similarity/Similarity>",
                       "hasRange":"<http://www.w3.org/2001/XMLSchema#string>"
@@ -57,7 +55,7 @@
           >
               <div id="header-search" class="search-bar">
                 <semantic-search-query-keyword
-                  domain="<http://www.cidoc-crm.org/cidoc-crm/E22_Man-Made_Object>"
+                  domain="<http://purl.org/ontology/similarity/Similarity>"
                   placeholder="Search for an artwork title"
                   escape-lucene-syntax="false"
                   default-query='SELECT DISTINCT 

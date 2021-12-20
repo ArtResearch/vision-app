@@ -13,7 +13,7 @@
       BIND (STR(?subject2) as ?subject2Link)
       BIND (?? as ?element)
       FILTER (STR(?imageA)!=STR(?imageB))
-  } Limit 1"
+  } "
     template="{{>matchingTemplate}}"
   >
     <template id="matchingTemplate">
@@ -32,10 +32,11 @@
               {{/ifCond}}
             </template>
           </mp-event-target-template-render>
-
+            
         </div>
+
         <semantic-query
-        query='SELECT DISTINCT ?element ?imageA ?imageB ?thumbA ?thumbB WHERE{
+        query='SELECT DISTINCT ?element ?subject1 ?subject2  ?imageA ?imageB ?thumbA ?thumbB WHERE{
                   <{{bindings.0.subject1.value}}>  <https://pharos.artresearch.net/custom/has_image> ?imageA.
                   BIND(REPLACE(STR(?imageA),"full/full","full/!150,150") AS ?thumbA).
                   <{{bindings.0.subject2.value}}>  <https://pharos.artresearch.net/custom/has_image> ?imageB.
@@ -46,7 +47,7 @@
         template="{{>imageAthumbs}}"
       >
         <template id="imageAthumbs">
-          {{#ifCond (objectLength bindings) "!==" 1}}
+          {{#ifCond (objectLength bindings) ">" 0}}
           <small style="position: relative; width: 70%; left: -10%;">Click on the pairs to view photo similarities</small>
           <div class="imageFlex">
 
@@ -67,6 +68,19 @@
             {{/ifCond}}
         </template>
       </semantic-query>
+       <h3 style="position: relative; width: 70%; left: -10%;">View more photos from artworks</h3>
+      <div class="PanelWrapper">
+     <div class="WrapperCarousel">
+            <bs-col class="cardInfo inWrap" lg="2" xs="10">
+              [[> :SimilarityListThumbnails iri="{{bindings.0.subject1.value}}"]]
+            </bs-col>
+              <bs-col class="cardInfo inWrap" lg="2" xs="10">
+              [[> :SimilarityListThumbnails iri="{{bindings.0.subject2.value}}"]]
+            </bs-col>
+           </div>     
+   
+    </div>
+
         <div class="matchContainer">
           <!-- Matching candidates fields comparison table -->
           <div class="fieldViewer">[[> rsp:MatchingCanditateFields]]</div>
@@ -182,6 +196,25 @@
 .selectionWrapper{
     display: flex;
     flex-direction: row-reverse;
+}
+.panel-heading{
+  background-color: white !important;
+}
+.PanelWrapper{
+  border-top: 1px solid grey;
+   border-bottom: 1px solid grey;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+    position: relative;
+    left: -10%;
+    width: 70%;
+    display: flex;
+    padding: 10px;
+}
+
+.panel.panel-default{
+width: 80% !important;
 }
 </style>
 

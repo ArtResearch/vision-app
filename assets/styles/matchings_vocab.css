@@ -119,6 +119,15 @@ div#match-button-text {
   cursor: pointer;
   text-align: center;
   font-weight: bold;
+  position: absolute;
+  width: 10%;
+  border-bottom: none;
+  background-color: #ffcf79;
+  border-radius: 12px;
+  box-shadow: 0px 0px 5px 1px #bababa9c;
+  padding: 10px;
+  top: 234px;
+  z-index: 1000;
 }
 
 .matching-modal__dialog{

@@ -89,7 +89,7 @@
                     }
                     '
                   query="SELECT DISTINCT ?subject WHERE {
-                  ?subject ?p ?o.
+                  ?subject ?p ?o
                 }LIMIT 1 
               "
                 ></semantic-search-query-keyword>
@@ -102,14 +102,13 @@
                 style="margin-top: 8px"
                 id="artwork-filter-search"
               >
-                <bs-panel id="filter-panel" header="Filters"  collapsible="true" default-expanded="true">
-            <semantic-search-facet open-by-default='true' sortby='count-desc'></semantic-search-facet>
-          </bs-panel>
+                <div class="filter-title">Filters</div>
+                  <semantic-search-facet open-by-default="true">
+                  </semantic-search-facet>
               </bs-col>
               <bs-col lg="9" md="8" sm="7">
                     <semantic-search-result-holder>
                       <div  id="search-results" >
-                        <semantic-search-facet-breadcrumbs></semantic-search-facet-breadcrumbs>
                           <semantic-search-result>
                             <semantic-table id='resources-results'
                                 number-of-displayed-rows=10

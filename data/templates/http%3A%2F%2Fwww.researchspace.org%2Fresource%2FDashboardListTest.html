@@ -25,9 +25,13 @@
                       BIND(IF(?boolneg,\"Same Negative\",\"Not Same\") AS ?__literal__)
                     "
                 }
-              ]
-              
-                }'
+              ],
+              "<https://pharos.artresearch.net/fieldDefinition/TypeOfSimilarity>":[
+                {
+                  "kind": "literal",
+                  "queryPattern": ""
+                }]
+              }'
             search-profile='{
                   "categories":  
                   [
@@ -48,6 +52,13 @@
                       "label":"Type of Similarity",
                       "hasDomain":"<http://purl.org/ontology/similarity/Similarity>",
                       "hasRange":"<http://www.w3.org/2001/XMLSchema#string>"
+                    }, 
+                    {
+                      "iri": "<https://pharos.artresearch.net/fieldDefinition/AddedinRS>",
+                      "label":"Type of Similarity",
+                      "hasDomain":"<http://purl.org/ontology/similarity/Similarity>",
+                      "hasRange":"<http://www.w3.org/2001/XMLSchema#string>"
+
                     }
                    
                   ]

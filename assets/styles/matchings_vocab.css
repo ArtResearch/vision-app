@@ -126,8 +126,10 @@ div#match-button-text {
   border-radius: 12px;
   box-shadow: 0px 0px 5px 1px #bababa9c;
   padding: 10px;
-  top: 234px;
+  top: 292px;
   z-index: 1000;
+  right: 2px;
+  min-width: 130px !important;
 }
 
 .matching-modal__dialog{

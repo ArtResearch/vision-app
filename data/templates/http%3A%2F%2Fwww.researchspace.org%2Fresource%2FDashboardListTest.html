@@ -26,10 +26,26 @@
                     "
                 }
               ],
-              "<https://pharos.artresearch.net/fieldDefinition/TypeOfSimilarity>":[
+              "<https://pharos.artresearch.net/fieldDefinition/AddedinRS>":[
                 {
                   "kind": "literal",
-                  "queryPattern": ""
+                  "queryPattern": "
+                      {
+                        $subject <https://vision.artresearch.net/custom/same_artworks>  ?bool .
+                      }UNION{
+                        $subject  <https://vision.artresearch.net/custom/similar_artworks> ?boolsim.
+                      }UNION{
+                        ?work1 <https://pharos.artresearch.net/custom/has_image> ?imageA.
+                        ?imageA <http://purl.org/ontology/similarity/element> $subject .
+                        ?work2 <https://pharos.artresearch.net/custom/has_image> ?imageB.
+                        ?imageB <http://purl.org/ontology/similarity/element> $subject .
+                        ?work1 fr:Work_is_negative_of_Work ?work2.
+                        $subject <https://vision.artresearch.net/custom/same_artworks> ?boolneg
+                      }
+                      BIND(IF(?bool,\"Same\",\"Not Same\") AS ?__literal__)
+                      BIND(IF(?boolsim,\"Similar\",\"Not Similar\") AS ?__literal__)
+                      BIND(IF(?boolneg,\"Same Negative\",\"Not Same\") AS ?__literal__)
+                    "
                 }]
               }'
             search-profile='{
@@ -55,7 +71,7 @@
                     }, 
                     {
                       "iri": "<https://pharos.artresearch.net/fieldDefinition/AddedinRS>",
-                      "label":"Type of Similarity",
+                      "label":"Added in Rs",
                       "hasDomain":"<http://purl.org/ontology/similarity/Similarity>",
                       "hasRange":"<http://www.w3.org/2001/XMLSchema#string>"
 

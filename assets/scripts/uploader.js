@@ -11,6 +11,7 @@ class ImageUpload extends HTMLElement {
     const clientid = "9516b72594d77fc";
     const endpoint = "https://api.imgur.com/3/image";
     const dropzoneStyle = `
+    
       width: 100%;
       height: 100%;
       display:flex;
@@ -19,8 +20,6 @@ class ImageUpload extends HTMLElement {
       justify-content:center;
       align-items:center;
       transition:1s;
-      min-height: 30vh;
-      min-width: 85vw;
     `
     const dropzoneStyleDragging = `
       width: 100%;
@@ -31,8 +30,6 @@ class ImageUpload extends HTMLElement {
       justify-content:center;
       align-items:center;
       transition:2s;
-      min-height: 30vh;
-      min-width: 85vw;
       background:#4b93db;
       `
 
@@ -124,7 +121,7 @@ class ImageUpload extends HTMLElement {
                 get_link +
                 '"/>' +
                 `<button type="submit" style=" align-items: center;background-color: #007bff;
-                    border-color: #007bff;
+                    border: 2px dashed #fff;
                     text-shadow: 0 0 1px rgb(0 0 0 / 38%);
                     font-weight: 600;
                     height: 31px;
@@ -134,7 +131,6 @@ class ImageUpload extends HTMLElement {
                     color: white !important;
                     transition: 0.4s;
                     font-size: medium;
-                    border: none !important;
                     min-height: 4vh;
                     border-radius: 4px;
                     width: 100%;

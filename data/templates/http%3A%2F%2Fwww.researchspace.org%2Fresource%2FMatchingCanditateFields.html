@@ -28,33 +28,44 @@
       <!--################################################################################-->
       {{#if '[[urlParam "providera"]]'}}
       <semantic-query
-        query='SELECT DISTINCT ?element ?nextElement ?subject1 ?subject2 WHERE {
+        query=' SELECT DISTINCT 
+                  ?nextElement
+                  (<{{bindings.0.element.value}}> AS ?element) 
+                  (<{{bindings.0.subject1.value}}> as ?subject1) 
+                  (<{{bindings.0.subject2.value}}> as ?subject2) 
+                WHERE {
                   ?imageA_next <http://purl.org/ontology/similarity/element> ?nextElement.
                   ?imageB_next <http://purl.org/ontology/similarity/element> ?nextElement.
                   ?subject1_next <https://pharos.artresearch.net/custom/has_image> ?imageA_next.
                   ?subject2_next <https://pharos.artresearch.net/custom/has_image> ?imageB_next.
                   ?subject1_next <https://pharos.artresearch.net/custom/has_provider> <{{bindings.0.providerA.value}}>.
                   ?subject2_next <https://pharos.artresearch.net/custom/has_provider> <{{bindings.0.providerB.value}}>.
-                  FILTER(?element != ?nextElement)
                   FILTER NOT EXISTS { ?nextElement <https://vision.artresearch.net/custom/reviewed> true }
                   FILTER NOT EXISTS { ?nextElement <https://vision.artresearch.net/custom/skipped> true }
-                  BIND("Title" as ?fieldName)
-                  BIND(<{{bindings.0.element.value}}> AS ?element)
-                  BIND(<{{bindings.0.subject1.value}}> as ?subject1)
-                  BIND(<{{bindings.0.subject2.value}}> as ?subject2)
+                  {
+                    SELECT (GROUP_CONCAT(distinct ?sim) as ?sims) WHERE {
+                      <{{bindings.0.subject1.value}}> <https://pharos.artresearch.net/custom/has_image> ?imgA2.
+                      <{{bindings.0.subject2.value}}> <https://pharos.artresearch.net/custom/has_image> ?imgB2.
+                      ?imgA2 <http://purl.org/ontology/similarity/element> ?sim.
+                      ?imgB2 <http://purl.org/ontology/similarity/element> ?sim.
+                    }
+                  }
+                  FILTER (!(CONTAINS(?sims, STR(?nextElement))))
                 }LIMIT 1' 
         no-result-template='{{> noNextSimilarity}}'
         template='{{> titleWithNextSimilarity}}'>
         <template id="titleWithNextSimilarity">
       <semantic-query
-        query='SELECT  DISTINCT ?element ?nextElement ?labelA ?labelB ?withDataA ?withDataB ?fieldName WHERE {
+        query=' SELECT DISTINCT
+                  ?labelA ?labelB ?withDataA ?withDataB 
+                  ("Title" as ?fieldName)
+                  (<{{bindings.0.element.value}}> AS ?element)
+                  (<{{bindings.0.nextElement.value}}> AS ?nextElement)
+                WHERE {
                   <{{bindings.0.subject1.value}}> rdfs:label ?labelA.
                   <{{bindings.0.subject2.value}}> rdfs:label ?labelB.
                   BIND(BOUND(?labelA) && strlen(?labelA)>0 as ?withDataA)
                   BIND(BOUND(?labelB) && strlen(?labelB)>0 as ?withDataB)
-                  BIND("Title" as ?fieldName)
-                  BIND (<{{bindings.0.element.value}}> AS ?element)
-                  BIND (<{{bindings.0.nextElement.value}}> AS ?nextElement)
                 }' 
         template='{{> titleTemplate}}'>
         <template id="titleTemplate">
@@ -64,31 +75,32 @@
       </template>
       <template id="noNextSimilarity">
         <semantic-query
-        query=' SELECT DISTINCT ?element ?nextElement ?labelA ?labelB ?withDataA ?withDataB ?fieldName  WHERE {
-              <{{bindings.0.subject1.value}}> rdfs:label ?labelA.
-              <{{bindings.0.subject2.value}}> rdfs:label ?labelB.
-              BIND(BOUND(?labelA) && strlen(?labelA)>0 as ?withDataA)
-              BIND(BOUND(?labelB) && strlen(?labelB)>0 as ?withDataB)
-              BIND("Title" as ?fieldName)
-              BIND (<{{bindings.0.element.value}}> AS ?element)
-              BIND (Default:SimilarityList AS ?nextElement)
-            }LIMIT 1'
-        template="{{>titleOptionsWithNoNext}}"
-      >
-        <template id="titleOptionsWithNoNext">
-          [[> rsp:MatchingCanditateTitleSame]] 
+          query=' SELECT DISTINCT
+                    ?nextElement ?labelA ?labelB ?withDataA ?withDataB 
+                    ("Title" as ?fieldName)
+                    (<{{bindings.0.element.value}}> AS ?element)
+                  WHERE {
+                    <{{bindings.0.subject1.value}}> rdfs:label ?labelA.
+                    <{{bindings.0.subject2.value}}> rdfs:label ?labelB.
+                    BIND(BOUND(?labelA) && strlen(?labelA)>0 as ?withDataA)
+                    BIND(BOUND(?labelB) && strlen(?labelB)>0 as ?withDataB)
+                    BIND (Default:SimilarityList AS ?nextElement)
+                  }LIMIT 1'
+          template="{{>titleOptionsWithNoNext}}"
+        >
+          <template id="titleOptionsWithNoNext">
+            [[> rsp:MatchingCanditateTitleSame]] 
+          </template>
+          </semantic-query>
         </template>
-        </semantic-query>
-      </template>
       </semantic-query>
       {{else}}
       <semantic-query
-      query='SELECT DISTINCT ?labelA ?labelB ?withData ?fieldName WHERE {
+      query='SELECT DISTINCT ?labelA ?labelB ?withData ("Title" as ?fieldName) WHERE {
                 <{{bindings.0.subject1.value}}> rdfs:label ?labelA.
                 <{{bindings.0.subject2.value}}> rdfs:label ?labelB.
                 BIND(BOUND(?labelA) && strlen(?labelA)>0 as ?withData)
                 BIND(BOUND(?labelB) && strlen(?labelB)>0 as ?withData)
-                BIND("Title" as ?fieldName)
               }' 
       template='{{> titleTemplate}}'>
       <template id="titleTemplate">

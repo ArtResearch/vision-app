@@ -81,7 +81,7 @@
                   >
                     <template id="ShowTab">
                             {{#ifCond bindings.0.count.value "!==" "0"}}
-                              [[> :PartnerCategorySelectSearch targetProviderLabel="{{partnerLabel.value}}"]]
+                              [[> :PartnerCategorySelectSearch targetProviderUri="{{partnerUri.value}}"]]
                             {{else}}
                              <h1>No matchings found for this Photo archive</h1><h2>Try switching to a different Photo archive tab</h2>
                             {{/ifCond}}

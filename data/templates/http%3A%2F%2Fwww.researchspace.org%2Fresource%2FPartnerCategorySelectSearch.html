@@ -1,5 +1,5 @@
 <semantic-search
-  limit="1000"
+  limit="20"
   relations='{
     "<https://pharos.artresearch.net/resource/field/Artist_Attribution>":[
       {
@@ -141,7 +141,6 @@
                     (SAMPLE(?score) as ?score)
                     (SAMPLE(?element) as ?element)
                   WHERE {}GROUP BY ?subject ?subject2 ORDER BY DESC (?score)
-                  LIMIT 20
                 "
                 no-result-template="<h1>No matchings found for this Photo archive</h1><h2>Try switching to a different Photo archive tab</h2>"
                 tuple-template="{{>tupleTemplate}}"

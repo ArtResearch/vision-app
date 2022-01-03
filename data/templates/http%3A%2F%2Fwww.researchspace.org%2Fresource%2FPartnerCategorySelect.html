@@ -70,7 +70,7 @@
             <bs-tab-content unmount-on-exit=true>
               {{#each bindings}}
                 <bs-tab-pane event-key="{{@index}}">
-                <semantic-query query=' SELECT ?count WHERE{
+                <semantic-query query=' SELECT ?count (<[[urlParam "partner"]]> as ?partner) WHERE{
                                           ?statistics <https://pharos.artresearch.net/custom/latest> true.
                                           ?statistics <https://pharos.artresearch.net/custom/consists_of> ?graph.
                                             GRAPH ?graph {
@@ -81,7 +81,7 @@
                   >
                     <template id="ShowTab">
                             {{#ifCond bindings.0.count.value "!==" "0"}}
-                              [[> :PartnerCategorySelectSearch targetProviderUri="{{partnerUri.value}}"]]
+                              [[> :PartnerCategorySelectSearch sourceProviderURI="{{bindings.0.partner.value}}" targetProviderURI="{{partnerUri.value}}"]]
                             {{else}}
                              <h1>No matchings found for this Photo archive</h1><h2>Try switching to a different Photo archive tab</h2>
                             {{/ifCond}}

@@ -90,11 +90,8 @@
         SELECT DISTINCT 
         ?subject 
         ?subject2
-        (SAMPLE(?score) as ?score) 
-        (SAMPLE(?providerB) as ?providerB) 
-        (SAMPLE(?element) as ?element) 
-        (SAMPLE(?providerLabelA) as ?providerLabelA)
-        (SAMPLE(?providerLabelB) as ?providerLabelB)
+        (SAMPLE(?score) as ?score)
+        (SAMPLE(?element) as ?element)
         WHERE {
           ?subject <https://pharos.artresearch.net/custom/has_image> ?imageA.
           ?imageA <http://purl.org/ontology/similarity/element> ?element.
@@ -104,13 +101,9 @@
           ?asso_method <http://purl.org/ontology/similarity/weight> ?score.
           ?asso_method <http://purl.org/ontology/similarity/method> <https://vision.artresearch.net/resource/Similarity/AssociationMethod/Pastec>.
           ?subject <https://pharos.artresearch.net/custom/has_provider> <[[urlParam "partner"]]>.
-          <[[urlParam "partner"]]> rdfs:label ?providerLabelA.
-          ?subject2 <https://pharos.artresearch.net/custom/has_provider> <[[targetProviderUri]]>.
-          <[[targetProviderUri]]> rdfs:label ?providerLabelB.
-          FILTER(?providerLabelA != ?providerLabelB)
+          ?subject2 <https://pharos.artresearch.net/custom/has_provider> <[[targetProviderURI]]>.
           FILTER NOT EXISTS {?element <https://vision.artresearch.net/custom/reviewed> true }
           FILTER NOT EXISTS {?element <https://vision.artresearch.net/custom/skipped> true }
-          BIND(<[[targetProviderUri]]> as ?providerB) 
         }'
       query="SELECT DISTINCT ?subject WHERE {
       ?subject ?p ?o #This will never run
@@ -143,15 +136,12 @@
                 number-of-displayed-rows="5"
                 query=" PREFIX skos: <http://www.w3.org/2004/02/skos/core#> 
                   SELECT DISTINCT  
-                  ?subject 
-                  ?subject2
-                  (SAMPLE(?score) as ?score) 
-                  (SAMPLE(?providerB) as ?providerB) 
-                  (SAMPLE(?element) as ?element) 
-                  (SAMPLE(?providerLabelA) as ?providerLabelA)
-                  (SAMPLE(?providerLabelB) as ?providerLabelB)
-                    WHERE {}GROUP BY ?subject ?subject2 ORDER BY DESC (?score) (?subject)
-                  LIMIT 500
+                    ?subject 
+                    ?subject2
+                    (SAMPLE(?score) as ?score)
+                    (SAMPLE(?element) as ?element)
+                  WHERE {}GROUP BY ?subject ?subject2 ORDER BY DESC (?score)
+                  LIMIT 20
                 "
                 no-result-template="<h1>No matchings found for this Photo archive</h1><h2>Try switching to a different Photo archive tab</h2>"
                 tuple-template="{{>tupleTemplate}}"
@@ -172,10 +162,7 @@
                       <bs-col class="cardInfo" lg="4" xs="10">
                         <div data-flex-layout="row md-column center-stretch">
                           <bs-row class="cardInfoFields">
-                            <h2>
-                              [[> rsp:SourceIcon
-                              providerLabel="{{providerLabelA.value}}"]]{{providerLabelA.value}}
-                            </h2>
+                            <h2>[[> rsp:SourceIconByURI providerURI=sourceProviderURI]]</h2>
                             <mp-field-visualization
                               subject="{{subject.value}}"
                               fields='[[fieldDefinitions  
@@ -199,10 +186,7 @@
                       <bs-col class="cardInfo" lg="4" xs="10">
                         <div data-flex-layout="row md-column center-stretch">
                           <bs-row class="cardInfoFields">
-                            <h2>
-                              [[> rsp:SourceIcon
-                              providerLabel="{{providerLabelB.value}}"]]{{providerLabelB.value}}
-                            </h2>
+                            <h2>[[> rsp:SourceIconByURI providerURI=targetProviderURI]]</h2>
                             <mp-field-visualization
                               subject="{{subject2.value}}"
                               fields='[[fieldDefinitions  
@@ -221,10 +205,9 @@
                       </bs-col>
                     </div>
                     <div class="actions">
-               
                       <semantic-link iri="{{element.value}}" 
                       urlqueryparam-providera='[[urlParam "partner"]]'
-                      urlqueryparam-providerb='{{providerB.value}}'
+                      urlqueryparam-providerb='[[targetProviderURI]]'
                       >
                         <button class="btn action btn-success">
                           View details

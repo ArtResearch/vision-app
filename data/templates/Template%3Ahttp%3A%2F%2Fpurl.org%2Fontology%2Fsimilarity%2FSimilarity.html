@@ -120,7 +120,7 @@
                             ?imgB2 <http://purl.org/ontology/similarity/element> ?sim.
                           }
                         }
-                        FILTER NOT EXISTS { FILTER (CONTAINS (?sims,STR(?nextElement)))}
+                        FILTER (!(CONTAINS(?sims, STR(?nextElement))))
                     }LIMIT 1'
                 template="{{>imageInfoTemplate}}"
                 no-result-template="{{>noNextSimilarity}}"

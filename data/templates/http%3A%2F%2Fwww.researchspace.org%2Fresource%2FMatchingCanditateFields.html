@@ -120,17 +120,21 @@
           SERVICE <https://artresearch.net/sparql> 
             {
               {        
-                <{{bindings.0.subject1.value}}> crm:P138i_is_represented_by ?vi.
-                ?vi crm:P138_represents ?value.
-                ?value crm:P2_has_type ?type.
-                ?type  rdfs:label ?label_a.
+                <{{bindings.0.subject1.value}}> crm:P138i_is_represented_by ?vi_a.
+                ?vi_a crm:P138_represents ?val_a.
+                ?val_a rdfs:label ?val_label_a.
+                ?val_a crm:P2_has_type ?type_a.
+                ?type_a rdfs:label ?type_label_a.
+                BIND(CONCAT(?val_label_a," (",?type_label_a,") ") AS ?label_a )
                 BIND(BOUND(?label_a) && strlen(?label_a)>0 as ?withData)
               }
               UNION{
-                <{{bindings.0.subject2.value}}> crm:P138i_is_represented_by ?vi.
-                ?vi crm:P138_represents ?value_b.
-                ?value_b crm:P2_has_type ?type_b.
-                ?type_b rdfs:label ?label_b  
+                <{{bindings.0.subject2.value}}> crm:P138i_is_represented_by ?vi_b.
+                ?vi_b crm:P138_represents ?val_b.
+                ?val_b rdfs:label ?val_label_b.
+                ?val_b crm:P2_has_type ?type_b.
+                ?type_b rdfs:label ?type_label_b.
+                BIND(CONCAT(?val_label_b," (",?type_label_b,") ") AS ?label_b )
                 BIND(BOUND(?label_b) && strlen(?label_b)>0 as ?withData)
               }
               BIND("Iconclass Information" as ?fieldName)

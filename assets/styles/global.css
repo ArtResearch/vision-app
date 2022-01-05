@@ -48,6 +48,11 @@ tr .rs-page-resource__field >td {
     width: 27vw !important;
   }
 }
+
+
+.rs-page-resource__field-label-holder{
+      width: 72px !important;
+}
 .Uploader-div {
   border-radius: 10px;
   align-items: center;
@@ -154,6 +159,7 @@ li.matchings-button {
 .cardInfoFields.row {
   height: 260px;
 }
+
 .loading-modal {
   background-color: rgba(255, 255, 255, 0.8);
   display: none;

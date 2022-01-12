@@ -62,7 +62,7 @@
                   (<{{bindings.0.element.value}}> AS ?element)
                   (<{{bindings.0.nextElement.value}}> AS ?nextElement)
                 WHERE {
-                  BIND (EXISTS{ ?element <https://vision.artresearch.net/custom/reviewed> "true"^^xsd:boolean }as ?temp). 
+                  BIND(IF(EXISTS{ <{{bindings.0.element.value}}>  <https://vision.artresearch.net/custom/reviewed> true },true,false)as ?temp). 
                   <{{bindings.0.subject1.value}}> rdfs:label ?labelA.
                   <{{bindings.0.subject2.value}}> rdfs:label ?labelB.
                   BIND(BOUND(?labelA) && strlen(?labelA)>0 as ?withDataA)
@@ -82,7 +82,7 @@
                     ("Title" as ?fieldName)
                     (<{{bindings.0.element.value}}> AS ?element)
                   WHERE {
-                   BIND (EXISTS{ ?element <https://vision.artresearch.net/custom/reviewed> "true"^^xsd:boolean }as ?temp). 
+                     BIND(IF(EXISTS{ <{{bindings.0.element.value}}>  <https://vision.artresearch.net/custom/reviewed> true },true,false)as ?temp). 
                     <{{bindings.0.subject1.value}}> rdfs:label ?labelA.
                     <{{bindings.0.subject2.value}}> rdfs:label ?labelB.
                     BIND(BOUND(?labelA) && strlen(?labelA)>0 as ?withDataA)

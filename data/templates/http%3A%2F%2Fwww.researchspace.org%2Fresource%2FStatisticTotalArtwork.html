@@ -1,0 +1,141 @@
+<div >
+<semantic-query
+  query='SELECT ?matched ?partnerLabel (SUM(?unmatched) as ?unmatched) ((?matched+?unmatched) as ?total) WHERE {
+    <[[partnerUri]]> rdfs:label ?partnerLabel
+    GRAPH ?graph {
+
+    <[[partnerUri]]>  <https://pharos.artresearch.net/custom/numOfMatched> ?matched.
+    {
+      <[[partnerUri]]>   <hhttps://pharos.artresearch.net/custom/numOfNonmatchedHertziana> ?unmatched
+    }UNION{
+      <[[partnerUri]]>   <https://pharos.artresearch.net/custom/numOfNonmatchedKHI> ?unmatched
+
+    }UNION{
+      <[[partnerUri]]>   <https://pharos.artresearch.net/custom/numOfNonmatchedFrick> ?unmatched
+
+    }UNION{
+      <[[partnerUri]]>   <https://pharos.artresearch.net/custom/numOfNonmatchedMarburg> ?unmatched
+
+    }UNION{
+      <[[partnerUri]]>   <https://pharos.artresearch.net/custom/numOfNonmatchedItatti> ?unmatched
+
+    }UNION{
+      <[[partnerUri]]>   <https://pharos.artresearch.net/custom/numOfNonmatchedZeri> ?unmatched
+    }
+  }
+  ?statistics <https://pharos.artresearch.net/custom/consists_of> ?graph.
+  ?statistics <https://pharos.artresearch.net/custom/latest> true.
+} GROUP BY ?matched ?partnerLabel'
+  template='{{> statsTotal }}'>
+  <template id="statsTotal">
+
+  {{#each bindings}}
+               Artworks reconciled
+           <br/>
+           {{matched.value}} / {{total.value}} 
+           <semantic-chart
+          type = 'bar'
+          query='
+          SELECT ?matched ?unmatched WHERE{
+            BIND(  {{matched.value}} as ?matched)
+            BIND(  {{unmatched.value}} as ?unmatched)
+          }LIMIT 1'
+        sets='[
+          {"dataSetName": "Matched", "category": "matched", "value": "matched"},
+          {"dataSetName": "Unmatched", "category": "matched", "value": "unmatched"}
+        ]'
+        styles='[{
+          
+          "provider": "chartjs",
+          "style": {
+            "options": {
+              "scales": {
+                "xAxes": [{
+                  "stacked": true
+                }],
+                "yAxes": [{
+                  "stacked": true
+                }]
+              }
+            },
+            "data": {
+              "datasets": [
+                {
+                  "backgroundColor": "rgba(2, 184, 2, 0.7)",
+                  "pointBackgroundColor": "rgb(2, 184, 2)",
+                  "pointHoverBackgroundColor": "rgb(2, 184, 2)",
+                  "borderColor": "rgb(2, 184, 2)",
+                  "pointBorderColor": "#fff",
+                  "pointHoverBorderColor": "rgb(2, 184, 2)"
+                },
+                { "backgroundColor": "rgba(189, 189, 189, 0.7)",
+                  "pointBackgroundColor": "rgb(189, 189, 189)",
+                  "pointHoverBackgroundColor": "rgb(189, 189, 189)",
+                  "borderColor": "rgb(189, 189, 189)",
+                  "pointBorderColor": "#fff",
+                  "pointHoverBorderColor": "rgb(189, 189, 189)"
+                }
+              ]
+            }
+          }
+        }]'>
+            </semantic-chart>  
+            <div
+            style="    background: url(/assets/images/logos/{{ encodeUriComponent partnerLabel.value}}.png);
+            background-position: right bottom;
+            background-repeat: no-repeat;
+            background-size: 18vh;"
+            >
+           <div style="    border-bottom: 1px solid #d9d9d9;
+           padding: 5px;
+         
+           margin-bottom: 8px;" >Remain to be matched:</div>  
+            <semantic-query  
+            query='SELECT ?partnerUri ?relationUri ?partnerLabel WHERE{
+                VALUES(?partnerUri ?relationUri)
+                {
+                 (<https://pharos.artresearch.net/resource/frick/source/Frick> <https://pharos.artresearch.net/custom/numOfNonmatchedFrick>)
+                 (<https://pharos.artresearch.net/resource/hertziana/source/Hertziana> <https://pharos.artresearch.net/custom/numOfNonmatchedHertziana>)
+                 (<https://pharos.artresearch.net/resource/itatti/source/ITatti> <https://pharos.artresearch.net/custom/numOfNonmatchedItatti>)
+                 (<https://pharos.artresearch.net/resource/khi/source/KHI>  <https://pharos.artresearch.net/custom/numOfNonmatchedKHI>)
+                 (<https://pharos.artresearch.net/resource/marburg/source/Marburg> <https://pharos.artresearch.net/custom/numOfNonmatchedMarburg>)
+                 (<https://pharos.artresearch.net/resource/zeri/source/Zeri> <https://pharos.artresearch.net/custom/numOfNonmatchedZeri>)
+                }
+    
+                ?partnerUri rdfs:label ?partnerLabel.
+                FILTER(?partnerUri != <[[partnerUri]]>)
+            }ORDER BY (?partnerLabel)'
+            template="{{> partnerTabs}}">
+    
+              <template id="partnerTabs">
+                  {{#each bindings}}
+                  <div style="display:grid; grid-template-columns: repeat(2,1fr); gap: 5px;">
+                    <div style="    font-weight: bold;
+                    padding: 5px;">{{partnerLabel.value}}</div>
+                      <div style="padding: 5px;">
+                      <semantic-query query='
+                      SELECT ?count WHERE{
+                        ?statistics <https://pharos.artresearch.net/custom/latest> true.
+                        ?statistics <https://pharos.artresearch.net/custom/consists_of> ?graph.
+                        GRAPH ?graph {
+                         <[[partnerUri]]> <{{relationUri.value}}> ?count
+                        }
+                       }
+                     '
+                     template="{{> countTemplate}}"
+                     >
+                    <template id="countTemplate">
+                         {{bindings.0.count.value}}
+                    </template>
+                     </semantic-query>
+                    </div>
+                    </div>
+                   {{/each}}
+                    </template>
+             </semantic-query>
+            </div>
+            {{/each}}
+          </template>
+        </semantic-query>
+
+</div>

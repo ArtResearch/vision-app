@@ -62,8 +62,7 @@
                   (<{{bindings.0.element.value}}> AS ?element)
                   (<{{bindings.0.nextElement.value}}> AS ?nextElement)
                 WHERE {
-                  ?element <https://vision.artresearch.net/custom/reviewed> "true"^^xsd:boolean.
-                   BIND(BOUND(?element) as ?temp).
+                  BIND (EXISTS{ ?element <https://vision.artresearch.net/custom/reviewed> "true"^^xsd:boolean }as ?temp). 
                   <{{bindings.0.subject1.value}}> rdfs:label ?labelA.
                   <{{bindings.0.subject2.value}}> rdfs:label ?labelB.
                   BIND(BOUND(?labelA) && strlen(?labelA)>0 as ?withDataA)
@@ -71,6 +70,7 @@
                 }' 
         template='{{> titleTemplate}}'>
         <template id="titleTemplate">
+       
               [[> rsp:MatchingCanditateTitleSame]] 
         </template>
       </semantic-query>
@@ -82,8 +82,7 @@
                     ("Title" as ?fieldName)
                     (<{{bindings.0.element.value}}> AS ?element)
                   WHERE {
-                    ?element <https://vision.artresearch.net/custom/reviewed> "true"^^xsd:boolean.
-                    BIND(BOUND(?element) as ?temp).
+                   BIND (EXISTS{ ?element <https://vision.artresearch.net/custom/reviewed> "true"^^xsd:boolean }as ?temp). 
                     <{{bindings.0.subject1.value}}> rdfs:label ?labelA.
                     <{{bindings.0.subject2.value}}> rdfs:label ?labelB.
                     BIND(BOUND(?labelA) && strlen(?labelA)>0 as ?withDataA)
@@ -93,6 +92,7 @@
           template="{{>titleOptionsWithNoNext}}"
         >
           <template id="titleOptionsWithNoNext">
+               
             [[> rsp:MatchingCanditateTitleSame]] 
           </template>
           </semantic-query>
@@ -100,7 +100,7 @@
       </semantic-query>
       {{else}}
       <semantic-query
-      query='SELECT DISTINCT ?labelA ?labelB ?withData ("Title" as ?fieldName) WHERE {
+      query='SELECT DISTINCT ?labelA ?labelB ?withData ?temp("Title" as ?fieldName) WHERE {
                 <{{bindings.0.subject1.value}}> rdfs:label ?labelA.
                 <{{bindings.0.subject2.value}}> rdfs:label ?labelB.
                 BIND(BOUND(?labelA) && strlen(?labelA)>0 as ?withData)

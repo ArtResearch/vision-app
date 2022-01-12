@@ -1,0 +1,86 @@
+<div class="reconciled-stat">
+<semantic-query
+  query='SELECT ?matched (SUM(?unmatched) as ?unmatched) ((?matched+?unmatched) as ?total) WHERE {
+    GRAPH ?graph {
+    <[[urlParam "partner"]]>  <https://pharos.artresearch.net/custom/numOfMatched> ?matched.
+    {
+      <[[urlParam "partner"]]>   <hhttps://pharos.artresearch.net/custom/numOfNonmatchedHertziana> ?unmatched
+    }UNION{
+      <[[urlParam "partner"]]>   <https://pharos.artresearch.net/custom/numOfNonmatchedKHI> ?unmatched
+    }UNION{
+      <[[urlParam "partner"]]>   <https://pharos.artresearch.net/custom/numOfNonmatchedFrick> ?unmatched
+    }UNION{
+      <[[urlParam "partner"]]>   <https://pharos.artresearch.net/custom/numOfNonmatchedMarburg> ?unmatched
+    }UNION{
+      <[[urlParam "partner"]]>   <https://pharos.artresearch.net/custom/numOfNonmatchedItatti> ?unmatched
+    }UNION{
+      <[[urlParam "partner"]]>   <https://pharos.artresearch.net/custom/numOfNonmatchedZeri> ?unmatched
+    }
+  }
+  ?statistics <https://pharos.artresearch.net/custom/latest> true.
+  ?statistics <https://pharos.artresearch.net/custom/consists_of> ?graph.
+} GROUP BY ?matched'
+  template='{{> statsTotal }}'>
+  <template id="statsTotal">
+    
+  {{#each bindings}}
+  
+           Artworks reconciled
+           <br/>
+           {{matched.value}} / {{total.value}} 
+           <semantic-chart
+          type = 'bar'
+          query='
+          SELECT ?matched ?unmatched WHERE{
+            BIND(  {{matched.value}} as ?matched)
+            BIND(  {{unmatched.value}} as ?unmatched)
+          }LIMIT 1'
+        sets='[
+          {"dataSetName": "Matched", "category": "matched", "value": "matched"},
+          {"dataSetName": "Unmatched", "category": "matched", "value": "unmatched"}
+        ]'
+        styles='[{
+          
+          "provider": "chartjs",
+          "style": {
+            "options": {
+              "scales": {
+                "xAxes": [{
+                  "stacked": true
+                }],
+                "yAxes": [{
+                  "stacked": true
+                }]
+              }
+            },
+            "data": {
+              "datasets": [
+                {
+                  "backgroundColor": "rgba(2, 184, 2, 0.7)",
+                  "pointBackgroundColor": "rgb(2, 184, 2)",
+                  "pointHoverBackgroundColor": "rgb(2, 184, 2)",
+                  "borderColor": "rgb(2, 184, 2)",
+                  "pointBorderColor": "#fff",
+                  "pointHoverBorderColor": "rgb(2, 184, 2)"
+                },
+                { "backgroundColor": "rgba(189, 189, 189, 0.7)",
+                  "pointBackgroundColor": "rgb(189, 189, 189)",
+                  "pointHoverBackgroundColor": "rgb(189, 189, 189)",
+                  "borderColor": "rgb(189, 189, 189)",
+                  "pointBorderColor": "#fff",
+                  "pointHoverBorderColor": "rgb(189, 189, 189)"
+                }
+              ]
+            }
+          }
+        }]'>
+            </semantic-chart>
+            
+            {{/each}}
+            
+          </template>
+        </semantic-query>
+    <div class="reconciled-stat-loading animated-background">
+      <h2>Crunching up the latest statistics..</h2>
+    </div>
+</div>

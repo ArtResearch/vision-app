@@ -19,7 +19,24 @@
               <semantic-link iri="Default:About">About</semantic-link>
           </li>
               <li class="">
-              <semantic-link iri="Default:Statistics">Statistics</semantic-link>
+               <bs-nav-dropdown
+                    title="Statistics"
+                    id="basic-nav-dropdown"
+                    class="no-bullets"
+                  >
+                      <bs-menu-item>
+                        <semantic-link
+                          class="rs-body-m-M"
+                          iri="Default:StatisticsArtwork"
+                        >Artwork</semantic-link>
+                      </bs-menu-item>
+                      <bs-menu-item>
+                        <semantic-link
+                          class="rs-body-m-M"
+                          iri="Default:StatisticsArtist"
+                        > Artists</semantic-link>
+                      </bs-menu-item>
+                </bs-nav-dropdown>
           </li>
           <li class="">
             <a href="/sparql" title="logout" class="rs-body-m-M">SPARQL</a>

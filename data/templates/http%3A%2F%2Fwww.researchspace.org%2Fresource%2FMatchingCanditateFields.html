@@ -57,11 +57,13 @@
         <template id="titleWithNextSimilarity">
       <semantic-query
         query=' SELECT DISTINCT
-                  ?labelA ?labelB ?withDataA ?withDataB 
+                  ?labelA ?labelB ?withDataA ?withDataB ?temp
                   ("Title" as ?fieldName)
                   (<{{bindings.0.element.value}}> AS ?element)
                   (<{{bindings.0.nextElement.value}}> AS ?nextElement)
                 WHERE {
+                  ?element <https://vision.artresearch.net/custom/reviewed> "true"^^xsd:boolean.
+                   BIND(BOUND(?element) as ?temp).
                   <{{bindings.0.subject1.value}}> rdfs:label ?labelA.
                   <{{bindings.0.subject2.value}}> rdfs:label ?labelB.
                   BIND(BOUND(?labelA) && strlen(?labelA)>0 as ?withDataA)
@@ -76,10 +78,12 @@
       <template id="noNextSimilarity">
         <semantic-query
           query=' SELECT DISTINCT
-                    ?nextElement ?labelA ?labelB ?withDataA ?withDataB 
+                    ?nextElement ?labelA ?labelB ?withDataA ?withDataB ?temp
                     ("Title" as ?fieldName)
                     (<{{bindings.0.element.value}}> AS ?element)
                   WHERE {
+                    ?element <https://vision.artresearch.net/custom/reviewed> "true"^^xsd:boolean.
+                    BIND(BOUND(?element) as ?temp).
                     <{{bindings.0.subject1.value}}> rdfs:label ?labelA.
                     <{{bindings.0.subject2.value}}> rdfs:label ?labelB.
                     BIND(BOUND(?labelA) && strlen(?labelA)>0 as ?withDataA)

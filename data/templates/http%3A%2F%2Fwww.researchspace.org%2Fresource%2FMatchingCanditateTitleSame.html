@@ -11,6 +11,8 @@
     {{#each bindings}} 
       {{#if withDataA}}
         <div class="actions title-actions myaction">
+          {{#if temp}}
+          {{else}}
          <div class="mp-overlay-dialog-Wrapper">
           <mp-overlay-dialog title="Confirm two artworks are the same">
             <mp-overlay-dialog-trigger>
@@ -55,6 +57,7 @@
             </mp-overlay-dialog-content>
           </mp-overlay-dialog>
           </div>
+          {{/if}}
           <div class="selected-title">{{labelA.value}}</div>
         </div>
       {{/if}} 
@@ -66,6 +69,8 @@
     {{#each bindings}}
     {{#if withDataB}}
         <div class="actions title-actions myaction">
+           {{#if temp}}
+          {{else}}
           <div class="mp-overlay-dialog-Wrapper">
           <mp-overlay-dialog title="Confirm two artworks are the same">
             <mp-overlay-dialog-trigger>
@@ -110,6 +115,7 @@
             </mp-overlay-dialog-content>
           </mp-overlay-dialog>
           </div>
+          {{/if}}
           <div class="selected-title">{{labelB.value}}</div>
         </div>
       {{/if}}  

@@ -5,18 +5,18 @@
           class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span
           class="icon-bar"></span></button>
           
-          <semantic-link class="rs-header-logo" iri="Default:start">Pharos Vision</semantic-link></div>
+          <semantic-link class="rs-header-logo" title="Start Page Vision" iri="Default:start">Pharos Vision</semantic-link></div>
     <div class="collapse navbar-collapse" id="rs-navbar">
       <ul class="nav navbar-nav">
       </ul>
       <ul class="nav navbar-nav">
         <li>
-          <semantic-link class="rs-body-m-M" iri="Default:matchings">
+          <semantic-link class="rs-body-m-M" title="Artwork Reconciliation" iri="Default:matchings">
             <li class='matchings-button'>Artwork Reconciliation</li>
           </semantic-link>  
         </li>
             <li class="">
-              <semantic-link iri="Default:About">About</semantic-link>
+              <semantic-link title="About" iri="Default:About">About</semantic-link>
           </li>
               <li class="">
                <bs-nav-dropdown
@@ -27,28 +27,30 @@
                       <bs-menu-item>
                         <semantic-link
                           class="rs-body-m-M"
+                          title="Statistics for Artworks"
                           iri="Default:StatisticsArtwork"
                         >Artwork</semantic-link>
                       </bs-menu-item>
                       <bs-menu-item>
                         <semantic-link
                           class="rs-body-m-M"
+                          title="Statistics for Artists"
                           iri="Default:StatisticsArtist"
                         > Artists</semantic-link>
                       </bs-menu-item>
                 </bs-nav-dropdown>
           </li>
           <li class="">
-            <a href="/sparql" title="logout" class="rs-body-m-M">SPARQL</a>
+            <a href="/sparql" title="sparql" class="rs-body-m-M">SPARQL</a>
           </li>
         <mp-anonymous-hidden>
           <li>
-            <semantic-link class="rs-body-m-M" iri="Default:Dashboard">My dashboard</semantic-link>
+            <semantic-link class="rs-body-m-M" title="my Dashboard" iri="Default:Dashboard">My dashboard</semantic-link>
           </li>
           </mp-anonymous-hidden>
           <mp-anonymous-hidden>
           <li class="">
-            <a href="/resource/:admin" title="logout" class="rs-body-m-M">Admin</a>
+            <a href="/resource/:admin" title="admin" class="rs-body-m-M">Admin</a>
           </li>
           
         </mp-anonymous-hidden>

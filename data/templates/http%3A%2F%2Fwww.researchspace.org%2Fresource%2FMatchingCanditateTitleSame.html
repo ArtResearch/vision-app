@@ -72,7 +72,8 @@
     {{#each bindings}}
     {{#if withDataB}}
         <div class="actions title-actions myaction">
-           {{#ifCond temp}}
+           {{#ifCond temp.value "===" "true"}}
+             
           {{else}}
           <div class="mp-overlay-dialog-Wrapper">
           <mp-overlay-dialog title="Confirm two artworks are the same">
@@ -134,7 +135,7 @@
       justify-content: flex-start;
       flex-direction: column;
       gap: 8px;
-      min-height: 115px;
+      
   }
 
   .select-title-button{

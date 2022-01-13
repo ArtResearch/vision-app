@@ -58,10 +58,11 @@
       <semantic-query
         query=' SELECT DISTINCT
                   ?labelA ?labelB ?withDataA ?withDataB ?temp
-                  ("Title" as ?fieldName)
+                   ?fieldName
                   (<{{bindings.0.element.value}}> AS ?element)
                   (<{{bindings.0.nextElement.value}}> AS ?nextElement)
                 WHERE {
+                  <https://pharos.artresearch.net/fieldDefinition/2> rdfs:label  ?fieldName.
                   BIND(IF(EXISTS{ <{{bindings.0.element.value}}>  <https://vision.artresearch.net/custom/reviewed> true },true,false)as ?temp). 
                   <{{bindings.0.subject1.value}}> rdfs:label ?labelA.
                   <{{bindings.0.subject2.value}}> rdfs:label ?labelB.
@@ -79,9 +80,10 @@
         <semantic-query
           query=' SELECT DISTINCT
                     ?nextElement ?labelA ?labelB ?withDataA ?withDataB ?temp
-                    ("Title" as ?fieldName)
+                    ?fieldName
                     (<{{bindings.0.element.value}}> AS ?element)
                   WHERE {
+                    <https://pharos.artresearch.net/fieldDefinition/2> rdfs:label  ?fieldName.
                      BIND(IF(EXISTS{ <{{bindings.0.element.value}}>  <https://vision.artresearch.net/custom/reviewed> true },true,false)as ?temp). 
                     <{{bindings.0.subject1.value}}> rdfs:label ?labelA.
                     <{{bindings.0.subject2.value}}> rdfs:label ?labelB.
@@ -100,7 +102,8 @@
       </semantic-query>
       {{else}}
       <semantic-query
-      query='SELECT DISTINCT ?labelA ?labelB ?withData ?temp("Title" as ?fieldName) WHERE {
+      query='SELECT DISTINCT ?labelA ?labelB ?withData ?temp ?fieldName WHERE {
+                <https://pharos.artresearch.net/fieldDefinition/2> rdfs:label  ?fieldName.
                 <{{bindings.0.subject1.value}}> rdfs:label ?labelA.
                 <{{bindings.0.subject2.value}}> rdfs:label ?labelB.
                 BIND(BOUND(?labelA) && strlen(?labelA)>0 as ?withData)
@@ -141,7 +144,7 @@
                 BIND(CONCAT(?val_label_b," (",?type_label_b,") ") AS ?label_b )
                 BIND(BOUND(?label_b) && strlen(?label_b)>0 as ?withData)
               }
-              BIND("Iconclass Information" as ?fieldName)
+              <https://pharos.artresearch.net/fieldDefinition/92> rdfs:label ?fieldName.
           }
         }GROUP BY ?withData ?fieldName'
         template="{{> iconclassinformationTemplate}}"
@@ -175,7 +178,7 @@
                     }
                     BIND(BOUND(?label_b) && strlen(?label_b)>0 as ?withData)
                   } 
-                  BIND("Creator" as ?fieldName)
+                 <https://pharos.artresearch.net/fieldDefinition/1> rdfs:label ?fieldName.
                 }GROUP BY ?withData ?fieldName '
         template="{{> creatorTemplate}}"
       >
@@ -209,7 +212,7 @@
                     }
                     BIND(BOUND(?label_b) && strlen(?label_b)>0 as ?withData)
                   }
-                  BIND("Repository" as ?fieldName)
+                  <https://pharos.artresearch.net/fieldDefinition/Repository> rdfs:label ?fieldName.
                 }GROUP BY ?withData ?fieldName'
 
         template="{{> repositoryTemplate}}"
@@ -274,7 +277,7 @@
           ?value_b rdfs:label ?label_b  
           BIND(BOUND(?label_b) && strlen(?label_b)>0 as ?withData)
           }
-          BIND("Digital Images" as ?fieldName)
+         <https://pharos.artresearch.net/fieldDefinition/43> rdfs:label ?fieldName.
         }}GROUP BY ?withData ?fieldName'
         template="{{> digitalimagesTemplate}}"
       >
@@ -295,7 +298,7 @@
                     ?artist_b rdfs:label  ?label_b  
                     BIND(BOUND(?label_b) && strlen(?label_b)>0 as ?withData)
                   }
-                  BIND("Influenced By" as ?fieldName)
+                  <https://pharos.artresearch.net/fieldDefinition/20> rdfs:label ?fieldName.
         }GROUP BY ?withData ?fieldName'
         template="{{> influencedbyTemplate}}"
       >
@@ -324,7 +327,7 @@
               ?value_b rdfs:label ?label_b  
               BIND(BOUND(?label_b) && strlen(?label_b)>0 as ?withData)
             }
-            BIND("Attributions" as ?fieldName)
+             <https://pharos.artresearch.net/fieldDefinition/277> rdfs:label ?fieldName.
           }
         }GROUP BY ?withData ?fieldName'
         template="{{> attributionsTemplate}}"
@@ -345,7 +348,7 @@
                     <{{bindings.0.subject2.value}}> <https://pharos.artresearch.net/resource/fr/Work_creation_date_start> ?label_b  
                     BIND(BOUND(?label_b) && strlen(?label_b)>0 as ?withData)
                   }
-                  BIND("Production Date - Earliest" as ?fieldName)
+                 <https://pharos.artresearch.net/fieldDefinition/7> rdfs:label ?fieldName.
                 }GROUP BY ?withData ?fieldName'
         template="{{> productiondate-earliestTemplate}}"
       >
@@ -364,7 +367,7 @@
                     <{{bindings.0.subject2.value}}> <https://pharos.artresearch.net/resource/fr/Work_creation_date_end> ?label_b  
                     BIND(BOUND(?label_b) && strlen(?label_b)>0 as ?withData)
                   }
-                  BIND("Production Date - Latest" as ?fieldName)
+                 <https://pharos.artresearch.net/fieldDefinition/9> rdfs:label ?fieldName.
                 }GROUP BY ?withData ?fieldName'
         template="{{> productiondate-latestTemplate}}"
       >
@@ -396,7 +399,7 @@
           ?value_b rdfs:label ?label_b  
           BIND(BOUND(?label_b) && strlen(?label_b)>0 as ?withData)
           }
-          BIND("Production Date" as ?fieldName)
+          <https://pharos.artresearch.net/fieldDefinition/8> rdfs:label ?fieldName.
         }}GROUP BY ?withData ?fieldName'
         template="{{> productiondateTemplate}}"
       >
@@ -479,7 +482,7 @@
           ?value_b rdfs:label ?label_b  
           BIND(BOUND(?label_b) && strlen(?label_b)>0 as ?withData)
           }
-          BIND("Types" as ?fieldName)
+          <https://pharos.artresearch.net/fieldDefinition/550> rdfs:label ?fieldName.
         }}GROUP BY ?withData ?fieldName'
         template="{{> typesTemplate}}"
       >
@@ -509,7 +512,7 @@
           ?value_b rdfs:label ?label_b  
           BIND(BOUND(?label_b) && strlen(?label_b)>0 as ?withData)
           }
-          BIND("Subject" as ?fieldName)
+         <https://pharos.artresearch.net/fieldDefinition/46> rdfs:label ?fieldName.
         }}GROUP BY ?withData ?fieldName'
         template="{{> subjectTemplate}}"
       >
@@ -543,7 +546,7 @@
           ?value_b rdfs:label ?label_b  
           BIND(BOUND(?label_b) && strlen(?label_b)>0 as ?withData)
           }
-          BIND("Subject Description" as ?fieldName)
+         <https://pharos.artresearch.net/fieldDefinition/62> rdfs:label ?fieldName.
         }}GROUP BY ?withData ?fieldName'
         template="{{> subjectdescriptionTemplate}}"
       >
@@ -591,7 +594,7 @@
           BIND(BOUND(?label_b) && strlen(?label_b)>0 as ?withData)
   		}
           }
-          BIND("Collection" as ?fieldName)
+        <https://pharos.artresearch.net/fieldDefinition/4> rdfs:label ?fieldName.
         }}GROUP BY ?withData ?fieldName'
         template="{{> collectionTemplate}}"
       >
@@ -619,7 +622,7 @@
  			?value_b rdfs:label ?label_b.  
           BIND(BOUND(?label_b) && strlen(?label_b)>0 as ?withData)      
           }
-          BIND("Current Location" as ?fieldName)
+          <http://www.researchspace.org/fieldDefinition/Current> rdfs:label ?fieldName.
         }}GROUP BY ?withData ?fieldName'
         template="{{> currentlocationTemplate}}"
       >
@@ -655,7 +658,7 @@
               BIND(CONCAT(STR(?dvalue_b)," ",?unit_b," ","(",?qualifier_b,")") as ?label_b).
               BIND(BOUND(?label_b) && strlen(?label_b)>0 as ?withData)
             }
-            BIND("Dimensions" as ?fieldName)
+            <https://pharos.artresearch.net/fieldDefinition/6> rdfs:label ?fieldName.
           }
         }GROUP BY ?withData ?fieldName'
         template="{{> dimensionsTemplate}}"
@@ -684,7 +687,7 @@
           ?value_b rdfs:label ?label_b.  
           BIND(BOUND(?label_b) && strlen(?label_b)>0 as ?withData)
           }
-          BIND("Dimension" as ?fieldName)
+           <https://pharos.artresearch.net/fieldDefinition/66> rdfs:label ?fieldName.
         }}GROUP BY ?withData ?fieldName'
         template="{{> dimensionTemplate}}"
       >
@@ -714,7 +717,7 @@
     ?value_b rdfs:label ?label_b  
           BIND(BOUND(?label_b) && strlen(?label_b)>0 as ?withData)
           }
-          BIND("Technique" as ?fieldName)
+          <https://pharos.artresearch.net/fieldDefinition/42> rdfs:label ?fieldName.
         }}GROUP BY ?withData ?fieldName'
         template="{{> techniqueTemplate}}"
       >
@@ -744,7 +747,7 @@
           ?value_b rdfs:label ?label_b  
           BIND(BOUND(?label_b) && strlen(?label_b)>0 as ?withData)
           }
-          BIND("Material" as ?fieldName)
+          <https://pharos.artresearch.net/fieldDefinition/44> rdfs:label ?fieldName.
         }}GROUP BY ?withData ?fieldName'
         template="{{> materialTemplate}}"
       >

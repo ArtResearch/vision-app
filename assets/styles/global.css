@@ -11,6 +11,20 @@
 @import "./similarityList.css";
 @import "./matchings_vocab.css";
 
+
+img.sourceIcon{
+    border-top-left-radius: 100% !important;
+    border-top-right-radius: 100% !important;
+    margin-top: 0 !important;
+    border: none !important;
+    height: 18px !important;
+    width: 18px !important;
+    padding: 2px !important;
+    margin-right: 15px !important;
+    border-radius: 100% !important;
+    box-shadow: 1px 1px 3px 1px #e7e7e7 !important;
+}
+
 body {
   font-size: 14px;
   line-height: 1.2;

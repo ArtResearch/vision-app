@@ -307,12 +307,19 @@ template="{{> imageOptionsB}}"
                     </mp-overlay-dialog>
                 
                 [[else]]
+                <semantic-query
+                              query='SELECT  ?element ?nextElement WHERE {
+                                BIND(<{{bindings.0.similarity.value}}> as ?element)
+                                BIND(<{{bindings.0.nextSimilarity.value}}> as ?nextElement)
+                              }' 
+                              template='{{> new}}'>
+                              <template id="new">
                   <semantic-form
-                    new-subject-template="{{bindings.0.element.value.value}}"
+                    new-subject-template="{{element.value}}"
                     browser-persistance="true"
                     urlqueryparam-providera='[[urlParam "providera"]]'
                     urlqueryparam-providerb='[[urlParam "providerb"]]'
-                    post-action='{{bindings.0.nextElement.value.value}}'
+                    post-action='{{nextElement.value}}'
                     persistence="ldp"
                     form-id="confirm-image-relation"
                     fields='[[  fieldDefinitions
@@ -331,6 +338,8 @@ template="{{> imageOptionsB}}"
                       title="Click to assert values"
                     > Confirm </button>
                   </semantic-form>
+                  </template>
+                </semantic-query>
                   [[/if]]
                {{/ifCond}}
              {{/ifCond}}

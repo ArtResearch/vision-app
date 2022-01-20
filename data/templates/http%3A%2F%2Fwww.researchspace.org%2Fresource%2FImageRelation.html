@@ -308,7 +308,7 @@ template="{{> imageOptionsB}}"
                 
                 [[else]]
                   <semantic-form
-                    new-subject-template="{{artwork_a}}"
+                    new-subject-template="{{bindings.0.element.value}}"
                     browser-persistance="true"
                     urlqueryparam-providera='[[urlParam "providera"]]'
                     urlqueryparam-providerb='[[urlParam "providerb"]]'

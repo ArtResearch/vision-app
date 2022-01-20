@@ -317,21 +317,28 @@ template="{{> imageOptionsB}}"
                               template='{{> new}}'>
                               <template id="new">
                   <semantic-form
-                    new-subject-template="{{element.value}}"
-                    browser-persistance="true"
-                    urlqueryparam-providera='[[urlParam "providera"]]'
-                    urlqueryparam-providerb='[[urlParam "providerb"]]'
-                    post-action='{{nextElement.value}}'
-                    persistence="ldp"
-                    form-id="confirm-image-relation"
-                    fields='[[  fieldDefinitions
-                          confirmed=[formField]
-                        ]]'
+                   new-subject-template="{{element.value}}"
+                                  browser-persistance="true"
+                                  persistence='ldp'
+                                  urlqueryparam-providera='[[urlParam "providera"]]'
+                                  urlqueryparam-providerb='[[urlParam "providerb"]]'
+                                  post-action='{{nextElement.value}}'
+                                  form-id="IMApprove1"
+                                  fields='[[fieldDefinitions
+                                            Imitation_Copy_of="http://www.researchspace.org/fieldDefinition/Imitation_Copy_of"
+                                            confirmed=[formField]
+                                      ]]'
                     >
                     <semantic-form-hidden-input
                       for="confirmed"
-                      default-value="{{selectedArtworkB.value}}"
+                       default-value="{{selectedArtworkA.value}},{{selectedArtworkB.value}}"
                     ></semantic-form-hidden-input>
+                    <semantic-form-hidden-input
+                          for="Imitation_Copy_of"
+                            default-value="{{selectedArtworkA.value}},{{selectedArtworkB.value}}"
+                    >
+                     
+                    </semantic-form-hidden-input>
 
                     <button
                       id="confirm-submit"

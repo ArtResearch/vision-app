@@ -11,6 +11,7 @@ query=' SELECT DISTINCT
         (SAMPLE(?providerB) as ?providerB)
         (SAMPLE(?attribution) as ?attribution)
         (SAMPLE(?modifiedAt) as ?modifiedAt)
+        (SAMPLE(?subject) as ?subject)
         (SAMPLE(?providerLabelA) as ?providerLabelA)
         (SAMPLE(?providerLabelB) as ?providerLabelB) WHERE {
           GRAPH ?g {

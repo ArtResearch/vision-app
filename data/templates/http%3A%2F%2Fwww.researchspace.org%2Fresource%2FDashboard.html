@@ -13,9 +13,15 @@
     <bs-nav bs-style='tabs'>
       <bs-nav-item event-key='reviewed'><div style="display: flex;">Reviewed(
         [[> DashboardStatReviewed]]
-        )</div></bs-nav-item>
+        )</div>
+      </bs-nav-item>
       <bs-nav-item event-key='marked'>
         <div style="display: flex;">Marked for review(
+          [[> DashboardStatMarked]]
+          )</div>
+      </bs-nav-item>
+      <bs-nav-item event-key='Imitationmarked'>
+        <div style="display: flex;">Marked "Imitation/Copy"(
           [[> DashboardStatMarked]]
           )</div>
       </bs-nav-item>
@@ -29,6 +35,9 @@
       </bs-tab-pane>
       <bs-tab-pane event-key='marked'>
         [[> DashboardListMarked]]
+      </bs-tab-pane>
+        <bs-tab-pane event-key='Imitationmarked'>
+        [[> DashboardListImitation]]
       </bs-tab-pane>
 
     </div>

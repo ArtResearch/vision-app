@@ -312,11 +312,12 @@ template="{{> imageOptionsB}}"
                     new-subject-template="{{element}}"
                     browser-persistance="true"
                     persistence="ldp"
-                    
                     form-id="confirm-image-relation"
-                    fields='[[  fieldDefinitions
-                          confirmed=[formField]
-                        ]]'
+                    fields='[[fieldDefinitions
+                                            Imitation_Copy_of="http://www.researchspace.org/fieldDefinition/Imitation_Copy_of"
+                                            title="http://www.researchspace.org/fieldDefinition/Preferred_title"
+                                            confirmed=[formField]
+                                      ]]'
                     >
                     <semantic-form-hidden-input
                       for="confirmed"

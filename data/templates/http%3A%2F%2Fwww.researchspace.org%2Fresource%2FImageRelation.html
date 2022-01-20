@@ -308,6 +308,7 @@ template="{{> imageOptionsB}}"
                 
                 [[else]]
                   <semantic-form
+                   post-action='{{nextElement.value}}'
                     new-subject-template="{{element.value}}"
                     browser-persistance="true"
                     persistence="ldp"

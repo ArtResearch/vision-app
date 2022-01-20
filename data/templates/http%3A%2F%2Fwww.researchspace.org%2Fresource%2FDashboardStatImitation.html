@@ -10,7 +10,6 @@ query=' SELECT (COUNT(distinct CONCAT(STR(?work),STR(?work2))) AS ?count) WHERE 
           ?work2 <https://pharos.artresearch.net/custom/has_image> ?imageB.
           ?imageB <http://purl.org/ontology/similarity/element> ?similarity.
           BIND(?__useruri__ as ?attribution)
-          FILTER (STR(?work)>STR(?work2))
         }'
 no-result-template="0"
 >

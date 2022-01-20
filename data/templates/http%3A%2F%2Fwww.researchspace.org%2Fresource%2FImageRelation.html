@@ -310,8 +310,10 @@ template="{{> imageOptionsB}}"
                   <semantic-form
                     new-subject-template="{{artwork_a}}"
                     browser-persistance="true"
+                    urlqueryparam-providera='[[urlParam "providera"]]'
+                    urlqueryparam-providerb='[[urlParam "providerb"]]'
+                    post-action='{{bindings.0.nextElement.value}}'
                     persistence="ldp"
-                    post-action="redierect"
                     form-id="confirm-image-relation"
                     fields='[[  fieldDefinitions
                           confirmed=[formField]

@@ -11,7 +11,6 @@ query=' SELECT (COUNT(distinct CONCAT(STR(?work),STR(?work2))) AS ?count) WHERE 
           ?imageB <http://purl.org/ontology/similarity/element> ?similarity.
           FILTER(?work != ?work2)
           BIND(?__useruri__ as ?attribution)
-          FILTER (STR(?work)>STR(?work2))
         }'
 no-result-template="0"
 >

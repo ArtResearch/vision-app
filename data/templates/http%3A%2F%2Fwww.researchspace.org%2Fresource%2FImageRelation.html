@@ -315,8 +315,13 @@ template="{{> imageOptionsB}}"
                     form-id="confirm-image-relation"
                     fields='[[fieldDefinitions
                                             Imitation_Copy_of="http://www.researchspace.org/fieldDefinition/Imitation_Copy_of"
+                                            confirmed=[formField]
                                       ]]'
                     >
+                    <semantic-form-hidden-input
+                                    for="Imitation_Copy_of"
+                                    default-value="true"
+                                  ></semantic-form-hidden-input>
                     <semantic-form-hidden-input
                       for="confirmed"
                       default-value="{{artwork_b}}"

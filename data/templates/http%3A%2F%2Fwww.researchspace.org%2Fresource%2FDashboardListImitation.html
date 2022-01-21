@@ -28,7 +28,7 @@ query=' SELECT DISTINCT
           ?work2 <https://pharos.artresearch.net/custom/has_provider> ?providerB.
           ?providerB rdfs:label ?providerLabelB.
           FILTER NOT EXISTS { ?similarity <https://vision.artresearch.net/custom/reviewed> "true"^^xsd:boolean }
-          FILTER NOT EXISTS { ?similarity <https://vision.artresearch.net/custom/skipped> "true"^^xsd:boolean }
+         
           BIND(?__useruri__ as ?attribution)
         }GROUP BY ?g'
 tuple-template='{{>markedCards}}'

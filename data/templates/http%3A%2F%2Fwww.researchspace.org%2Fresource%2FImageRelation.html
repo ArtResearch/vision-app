@@ -10,7 +10,8 @@
     BIND(<[[nextSimElement]]> AS ?nextSimilarity) 
     FILTER (STR(?imageA)!=STR(?imageB))
   }LIMIT 1'
-  template="{{>imageOptionsSubjects}}">
+  template="{{> imageOptionsSubjects}}"
+  >
     <template id="imageOptionsSubjects">
     <semantic-query query='
     SELECT DISTINCT ?subject1 ?imageA ?thumbA ?providerLabelA WHERE{
@@ -306,6 +307,7 @@ template="{{> imageOptionsB}}"
                     </mp-overlay-dialog>
                 
                 [[else]]
+                lol
                   <semantic-form
                     new-subject-template="{{artwork_a}}"
                     browser-persistance="true"
@@ -319,14 +321,10 @@ template="{{> imageOptionsB}}"
                     >
                     <semantic-form-hidden-input
                       for="confirmed"
+                      for="skipped"
                       default-value="{{artwork_b}}"
                     ></semantic-form-hidden-input>
                   
-                    <semantic-form-hidden-input
-                      for="skipped"
-                      default-value="true"
-                    ></semantic-form-hidden-input>
-
                     <button
                       id="confirm-submit"
                       name="submit"

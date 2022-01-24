@@ -6,14 +6,11 @@
     ?imageB <http://purl.org/ontology/similarity/element> <[[simElement]]>.
     ?subject1 <https://pharos.artresearch.net/custom/has_image> ?imageA.
     ?subject2 <https://pharos.artresearch.net/custom/has_image> ?imageB.
-    FILTER NOT EXISTS { ?nextElement <https://vision.artresearch.net/custom/reviewed> "true"^^xsd:boolean }
-    FILTER NOT EXISTS { ?nextElement <https://vision.artresearch.net/custom/skipped> "true"^^xsd:boolean }
     BIND(<[[simElement]]> AS ?similarity)
     BIND(<[[nextSimElement]]> AS ?nextSimilarity) 
     FILTER (STR(?imageA)!=STR(?imageB))
   }LIMIT 1'
-  template="{{> imageOptionsSubjects}}"
-  >
+  template="{{>imageOptionsSubjects}}">
     <template id="imageOptionsSubjects">
     <semantic-query query='
     SELECT DISTINCT ?subject1 ?imageA ?thumbA ?providerLabelA WHERE{

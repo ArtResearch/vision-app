@@ -320,6 +320,7 @@ template="{{> imageOptionsB}}"
                               }' 
                                 template='{{> titleTemplate}}'>
                                   <template id="titleTemplate">
+                                    {{#each bindings}}
                   <semantic-form
                     new-subject-template="{{artwork_a}}"
                     browser-persistance="true"
@@ -344,6 +345,7 @@ template="{{> imageOptionsB}}"
                       title="Click to assert values"
                     > Confirm </button>
                   </semantic-form>
+                  {{/each}}
                 </template>
                       </semantic-query>
                   [[/if]]

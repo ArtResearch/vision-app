@@ -307,20 +307,6 @@ template="{{> imageOptionsB}}"
                     </mp-overlay-dialog>
                 
                 [[else]]
-                    <semantic-query
-                              query='SELECT ?label ?element ?nextElement ?selectedArtworkA ?selectedArtworkB WHERE {
-                                ?image <http://purl.org/ontology/similarity/element> <{{bindings.0.similarity.value}}>.
-                                ?work <https://pharos.artresearch.net/custom/has_image> ?image.
-                                ?work owl:sameAs ?pharos.
-                                ?work rdfs:label ?label.
-                                BIND(<{{artwork_a}}> as ?selectedArtworkA)
-                                BIND(<{{artwork_b}}> as ?selectedArtworkB)
-                                BIND(<{{bindings.0.similarity.value}}> as ?element)
-                                BIND(<{{bindings.0.nextSimilarity.value}}> as ?nextElement)
-                              }' 
-                                template='{{> titleTemplate}}'>
-                                  <template id="titleTemplate">
-                                    {{#each bindings}}
                   <semantic-form
                     new-subject-template="{{artwork_a}}"
                     browser-persistance="true"
@@ -345,9 +331,8 @@ template="{{> imageOptionsB}}"
                       title="Click to assert values"
                     > Confirm </button>
                   </semantic-form>
-                  {{/each}}
-                </template>
-                      </semantic-query>
+                
+                      
                   [[/if]]
                {{/ifCond}}
              {{/ifCond}}

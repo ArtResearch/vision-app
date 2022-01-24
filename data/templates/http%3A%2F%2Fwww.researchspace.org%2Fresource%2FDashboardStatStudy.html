@@ -1,7 +1,7 @@
 <semantic-query
 query=' SELECT (COUNT(distinct CONCAT(STR(?work),STR(?work2))) AS ?count) WHERE {
           GRAPH ?g {
-            ?work fr:Work_is_imitation_or_copy_of_Work ?work2.
+            ?work fr:Work_is_study_or_sketch_of_Work ?work2.
              ?subject prov:wasAttributedTo ?attribution;
                       prov:generatedAtTime ?modifiedAt.
           }

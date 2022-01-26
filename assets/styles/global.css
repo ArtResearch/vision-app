@@ -10,7 +10,9 @@
 @import "./similarity.css";
 @import "./similarityList.css";
 @import "./matchings_vocab.css";
-
+.error-notification.panel.panel-default .panel-heading{
+  margin-top: 65px !important;
+}
 
 img.sourceIcon{
     border-top-left-radius: 100% !important;

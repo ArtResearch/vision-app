@@ -10,8 +10,17 @@
 @import "./similarity.css";
 @import "./similarityList.css";
 @import "./matchings_vocab.css";
+
+
+
 .error-notification.panel.panel-default .panel-heading{
   margin-top: 65px !important;
+}
+
+
+
+#mp-semantic-chart-tooltip > .popover-content > div > div > div >a{
+  display: none;
 }
 
 img.sourceIcon{

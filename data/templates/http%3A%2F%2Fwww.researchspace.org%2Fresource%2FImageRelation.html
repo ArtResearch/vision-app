@@ -14,10 +14,12 @@
   >
     <template id="imageOptionsSubjects">
     <semantic-query query='
-    SELECT DISTINCT ?subject1 ?imageA ?thumbA  WHERE{
+    SELECT DISTINCT ?subject1 ?imageA ?thumbA ?providerLabelA WHERE{
       <{{bindings.0.subject1.value}}>  <https://pharos.artresearch.net/custom/has_image> ?imageA.
       BIND(REPLACE(STR(?imageA),"full/full","full/!250,250") AS ?thumbA).
       <{{bindings.0.subject2.value}}>  <https://pharos.artresearch.net/custom/has_image> ?imageB.
+      <{{bindings.0.subject1.value}}>  <https://pharos.artresearch.net/custom/has_provider> ?provA.
+      ?provA rdfs:label ?providerLabelA.
       ?imageA <http://purl.org/ontology/similarity/element> ?element.
       ?imageB <http://purl.org/ontology/similarity/element> ?element.
       BIND(<{{bindings.0.subject1.value}}> AS ?subject1)
@@ -28,6 +30,9 @@
     <div class="image-options">
       <div class="artwork-title">
         <mp-label iri="{{bindings.0.subject1.value}}"></mp-label>
+        <div class="imageHolder">
+              <div class="imageLabel"> [[> rsp:SourceIcon providerLabel="{{bindings.0.providerLabelA.value}}"]]{{bindings.0.providerLabelA.value}}</div>    
+        </div>    
       </div>
       {{#each bindings}}
       <mp-event-target-template-render
@@ -95,9 +100,11 @@
   </template>
 </semantic-query>
 <semantic-query query='
-SELECT DISTINCT ?subject2 ?imageB ?thumbB WHERE{
+SELECT DISTINCT ?subject2 ?imageB ?thumbB ?provB ?providerLabelB WHERE{
   <{{bindings.0.subject1.value}}>  <https://pharos.artresearch.net/custom/has_image> ?imageA.
   <{{bindings.0.subject2.value}}>  <https://pharos.artresearch.net/custom/has_image> ?imageB.
+  <{{bindings.0.subject2.value}}>  <https://pharos.artresearch.net/custom/has_provider> ?provB.
+  ?provB rdfs:label ?providerLabelB.
   BIND(REPLACE(STR(?imageB),"full/full","full/!250,250") AS ?thumbB).
   ?imageA <http://purl.org/ontology/similarity/element> ?element.
   ?imageB <http://purl.org/ontology/similarity/element> ?element.
@@ -111,6 +118,9 @@ template="{{> imageOptionsB}}"
     <div class="image-options">
       <div class="artwork-title">
         <mp-label iri="{{bindings.0.subject2.value}}"></mp-label>
+           <div class="imageHolder">
+              <div class="imageLabel"> [[> rsp:SourceIcon providerLabel="{{bindings.0.providerLabelB.value}}"]]{{bindings.0.providerLabelB.value}}</div>    
+           </div>    
       </div>
       {{#each bindings}}
       <mp-event-target-template-render
@@ -301,17 +311,20 @@ template="{{> imageOptionsB}}"
                     new-subject-template="{{artwork_a}}"
                     browser-persistance="true"
                     persistence="ldp"
-                    post-action="reload"
+                    urlqueryparam-providera='[[urlParam "providera"]]'
+                    urlqueryparam-providerb='[[urlParam "providerb"]]'
+                    post-action="{{bindings.0.nextSimilarity.value}}"
                     form-id="confirm-image-relation"
                     fields='[[  fieldDefinitions
                           confirmed=[formField]
+                          skipped="http://www.researchspace.org/fieldDefinition/Skipped"
                         ]]'
                     >
                     <semantic-form-hidden-input
                       for="confirmed"
+                      for="skipped"
                       default-value="{{artwork_b}}"
                     ></semantic-form-hidden-input>
-
                     <button
                       id="confirm-submit"
                       name="submit"
@@ -319,6 +332,8 @@ template="{{> imageOptionsB}}"
                       title="Click to assert values"
                     > Confirm </button>
                   </semantic-form>
+                
+                      
                   [[/if]]
                {{/ifCond}}
              {{/ifCond}}
@@ -367,6 +382,8 @@ template="{{> imageOptionsB}}"
     box-shadow: 0px 0px 8px 1px #aaaaaa;
   }
   .image-options .artwork-title{
+    text-align:center;
+    text-align: -webkit-center;
     font-size: 16px;
     font-weight: bold;
     margin-top: 15px;

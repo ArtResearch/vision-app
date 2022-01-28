@@ -7,18 +7,17 @@ query=' SELECT DISTINCT
         (SAMPLE(?similarity) as ?similarity)
         (SAMPLE(?work) as ?work)
         (SAMPLE(?work2) as ?work2)
-        (SAMPLE(?subject) as ?subject)
         (SAMPLE(?providerA) as ?providerA)
         (SAMPLE(?providerB) as ?providerB)
+        (SAMPLE(?attribution) as ?attribution)
+        (SAMPLE(?modifiedAt) as ?modifiedAt)
+        (SAMPLE(?subject) as ?subject)
         (SAMPLE(?providerLabelA) as ?providerLabelA)
-        (SAMPLE(?providerLabelB) as ?providerLabelB)
-        (SAMPLE(?modifiedAt) AS ?modifiedAt) 
-        (SAMPLE(?attribution) AS ?attribution) WHERE {
+        (SAMPLE(?providerLabelB) as ?providerLabelB) WHERE {
           GRAPH ?g {
-            <http://www.researchspace.org/resource/system/formContainer> <http://www.w3.org/ns/ldp#contains> ?subject. 
+            ?work fr:Work_is_study_or_sketch_of_Work ?work2 .
+            ?subject <http://www.w3.org/ns/prov#wasAttributedTo> ?attribution.
             ?subject <http://www.w3.org/ns/prov#generatedAtTime> ?modifiedAt ; 
-                    <http://www.w3.org/ns/prov#wasAttributedTo> ?attribution.
-            ?similarity <https://vision.artresearch.net/custom/skipped> true
           }
           ?work <https://pharos.artresearch.net/custom/has_image> ?imageA.
           ?imageA <http://purl.org/ontology/similarity/element> ?similarity.
@@ -28,7 +27,7 @@ query=' SELECT DISTINCT
           ?providerA rdfs:label ?providerLabelA.
           ?work2 <https://pharos.artresearch.net/custom/has_provider> ?providerB.
           ?providerB rdfs:label ?providerLabelB.
-          FILTER(STR(?work)>STR(?work2))
+          FILTER NOT EXISTS { ?similarity <https://vision.artresearch.net/custom/skipped> "true"^^xsd:boolean }
           BIND(?__useruri__ as ?attribution)
         }GROUP BY ?g'
 tuple-template='{{>markedCards}}'
@@ -50,6 +49,7 @@ no-result-template='<h1 style="margin-top:150px;">There are no matchings marked 
         font-size: 16px;
         justify-content: flex-end;
         padding-right: 15px;">by <mp-label iri="{{attribution.value}}"></mp-label> at {{dateTimeFormat modifiedAt.value "DD/MM/YY HH:mm:ss"}}</h2>
+       
           <div class="panel-body row">
             <bs-col class="cardInfo" lg="2" xs="10">
               [[> :SimilarityListThumbnails iri="{{work.value}}"]]
@@ -116,7 +116,7 @@ no-result-template='<h1 style="margin-top:150px;">There are no matchings marked 
               </button>
             </semantic-link>
             <mp-ldp-remove-from-container-action iri="{{subject.value}}" container="http://www.researchspace.org/resource/system/formContainer">
-              <button title='This action will remove the item from your Marked "Imitation/Copy" list. It will be then available under artwork matchings for you or another reviewer to review.' class="btn action btn-danger" style="margin-right:8px;"><i style="color: white;" class="fa fa-trash" aria-hidden=true></i> Delete</button>
+              <button title="This action will remove the item from your reviewed list. It will be then available under artwork matchings for you or another reviewer to review." class="btn action btn-danger" style="margin-right:8px;"><i style="color: white;" class="fa fa-trash" aria-hidden=true></i> Delete</button>
             </mp-ldp-remove-from-container-action>
           </div>
         </div>

@@ -13,17 +13,29 @@
     <bs-nav bs-style='tabs'>
       <bs-nav-item event-key='reviewed'><div style="display: flex;">Reviewed(
         [[> DashboardStatReviewed]]
-        )</div></bs-nav-item>
+        )</div>
+      </bs-nav-item>
       <bs-nav-item event-key='marked'>
         <div style="display: flex;">Marked for review(
           [[> DashboardStatMarked]]
           )</div>
       </bs-nav-item>
-      <bs-nav-item event-key='test'>
-        <div style="display: flex;">Test(
-          [[> DashboardStatTest]]
+      <bs-nav-item event-key='Imitationmarked'>
+        <div style="display: flex;">Marked "Imitation/Copy"(
+          [[> DashboardStatImitation]]
           )</div>
       </bs-nav-item>
+       <bs-nav-item event-key='Studymarked'>
+        <div style="display: flex;">Marked "Study"(
+          [[> DashboardStatStudy]]
+          )</div>
+      </bs-nav-item>
+       <bs-nav-item event-key='Negmarked'>
+        <div style="display: flex;">Marked "Same Negative"(
+          [[> DashboardStatSameNeg]]
+          )</div>
+      </bs-nav-item>
+
 
     </bs-nav>
     <bs-tab-content unmount-on-exit=true>
@@ -34,9 +46,16 @@
       <bs-tab-pane event-key='marked'>
         [[> DashboardListMarked]]
       </bs-tab-pane>
-      <bs-tab-pane event-key='test'>
-        [[> DashboardListTest]]
+        <bs-tab-pane event-key='Imitationmarked'>
+        [[> DashboardListImitation]]
       </bs-tab-pane>
+       <bs-tab-pane event-key='Studymarked'>
+        [[> DashboardListStudy]]
+      </bs-tab-pane>
+       <bs-tab-pane event-key='Negmarked'>
+        [[> DashboardListSameNeg]]
+      </bs-tab-pane>
+
     </div>
     </bs-tab-content>
   </div>

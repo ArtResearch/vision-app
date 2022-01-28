@@ -1,39 +1,39 @@
-<div class="reconciled-stat">
+<div class="stats">
 <semantic-query
-  query='SELECT ?matched (SUM(?unmatched) as ?unmatched) ((?matched+?unmatched) as ?total) WHERE {
-    GRAPH ?graph {
-    <[[urlParam "partner"]]>  <https://pharos.artresearch.net/custom/numOfMatched> ?matched.
-    {
-      <[[urlParam "partner"]]>   <hhttps://pharos.artresearch.net/custom/numOfNonmatchedHertziana> ?unmatched
-    }UNION{
-      <[[urlParam "partner"]]>   <https://pharos.artresearch.net/custom/numOfNonmatchedKHI> ?unmatched
-    }UNION{
-      <[[urlParam "partner"]]>   <https://pharos.artresearch.net/custom/numOfNonmatchedFrick> ?unmatched
-    }UNION{
-      <[[urlParam "partner"]]>   <https://pharos.artresearch.net/custom/numOfNonmatchedMarburg> ?unmatched
-    }UNION{
-      <[[urlParam "partner"]]>   <https://pharos.artresearch.net/custom/numOfNonmatchedItatti> ?unmatched
-    }UNION{
-      <[[urlParam "partner"]]>   <https://pharos.artresearch.net/custom/numOfNonmatchedZeri> ?unmatched
-    }
-  }
-  ?statistics <https://pharos.artresearch.net/custom/latest> true.
-  ?statistics <https://pharos.artresearch.net/custom/consists_of> ?graph.
-} GROUP BY ?matched'
+  query='SELECT (COUNT( ?sub ) as ?matched)  ?partnerLabel (COUNT(?subnm) as ?unmatched) ((?matched+?unmatched) as ?total) WHERE {
+    <[[partnerUri]]> rdfs:label ?partnerLabel
+ 
+      {
+    ?sub <https://pharos.artresearch.net/custom/has_provider> <[[partnerUri]]>.
+    ?sub a <https://pharos.artresearch.net/resource/custom/fc/artist>.
+    ?sub  <https://vocab.artresearch.net/custom/confirmed> true .
+
+    FILTER NOT EXISTS { ?sub a <https://pharos.artresearch.net/resource/custom/fc/institution>} 
+    FILTER NOT EXISTS { ?sub a <https://pharos.artresearch.net/resource/custom/fc/photographer>} 
+      }UNION{
+     ?subnm <https://pharos.artresearch.net/custom/has_provider> <[[partnerUri]]>.
+     ?subnm a <https://pharos.artresearch.net/resource/custom/fc/artist>.
+   
+   FILTER NOT EXISTS { ?subnm  <https://vocab.artresearch.net/custom/confirmed> true } 
+   FILTER NOT EXISTS { ?subnm a <https://pharos.artresearch.net/resource/custom/fc/institution>} 
+   FILTER NOT EXISTS { ?subnm a <https://pharos.artresearch.net/resource/custom/fc/photographer>} 
+      }
+   
+
+} GROUP BY ?partnerLabel'
   template='{{> statsTotal }}'>
   <template id="statsTotal">
-    
-  {{#each bindings}}
-  
-           Reviewed Artwork Pairs
+
+
+               Artists reconciled
            <br/>
-           {{matched.value}} / {{total.value}} 
+           {{bindings.0.matched.value}} / {{bindings.0.total.value}} 
            <semantic-chart
           type = 'bar'
           query='
           SELECT ?matched ?unmatched WHERE{
-            BIND(  {{matched.value}} as ?matched)
-            BIND(  {{unmatched.value}} as ?unmatched)
+            BIND(  {{bindings.0.matched.value}} AS ?matched) 
+            BIND(  {{bindings.0.unmatched.value}} AS ?unmatched)
           }LIMIT 1'
         sets='[
           {"dataSetName": "Reviewed Pairs", "category": "matched", "value": "matched"},
@@ -74,13 +74,10 @@
             }
           }
         }]'>
-            </semantic-chart>
-            
-            {{/each}}
-            
+            </semantic-chart>  
+       
+
           </template>
         </semantic-query>
-    <div class="reconciled-stat-loading animated-background">
-      <h2>Crunching up the latest statistics..</h2>
-    </div>
+
 </div>

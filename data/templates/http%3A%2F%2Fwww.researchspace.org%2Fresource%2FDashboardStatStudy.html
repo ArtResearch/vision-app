@@ -1,0 +1,17 @@
+<semantic-query
+query=' SELECT (COUNT(distinct CONCAT(STR(?work),STR(?work2))) AS ?count) WHERE {
+          GRAPH ?g {
+            ?work fr:Work_is_study_or_sketch_of_Work ?work2.
+             ?subject prov:wasAttributedTo ?attribution;
+                      prov:generatedAtTime ?modifiedAt.
+          }
+          ?work <https://pharos.artresearch.net/custom/has_image> ?imageA.
+          ?imageA <http://purl.org/ontology/similarity/element> ?similarity.
+          ?work2 <https://pharos.artresearch.net/custom/has_image> ?imageB.
+          ?imageB <http://purl.org/ontology/similarity/element> ?similarity.
+          FILTER NOT EXISTS { ?similarity <https://vision.artresearch.net/custom/skipped> "true"^^xsd:boolean }
+          BIND(?__useruri__ as ?attribution)
+        }'
+no-result-template="0"
+>
+</semantic-query>

@@ -115,11 +115,8 @@ no-result-template='<h1 style="margin-top:150px;">There are no reviewed matching
               </button>
             </semantic-link>
             <semantic-query
-              query=' SELECT DISTINCT ?subject WHERE {
-                        GRAPH <{{g.value}}>{
-                          ?similarity <https://vision.artresearch.net/custom/processed> true.
-                        }
-                        BIND(<{{subject.value}}> as ?subject)
+              query=' SELECT DISTINCT (<{{subject.value}}> as ?subject) WHERE {
+                        <{{g.value}}> <https://vision.artresearch.net/custom/processed> true.
                       }LIMIT 1 '
               template='{{> revertOption }}'
               no-result-template='{{> deleteOption}}'>

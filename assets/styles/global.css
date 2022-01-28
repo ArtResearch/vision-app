@@ -11,7 +11,9 @@
 @import "./similarityList.css";
 @import "./matchings_vocab.css";
 
-
+.slick-dots {
+  top:unset !important;
+}
 
 .WrapperCarousel {
   gap:50px;
@@ -20,6 +22,29 @@
     width: 100%;
     padding-bottom: 60px;
 }
+.error-notification.panel.panel-default .panel-heading{
+  margin-top: 65px !important;
+}
+
+
+
+#mp-semantic-chart-tooltip > .popover-content > div > div > div >a{
+  display: none;
+}
+
+img.sourceIcon{
+    border-top-left-radius: 100% !important;
+    border-top-right-radius: 100% !important;
+    margin-top: 0 !important;
+    border: none !important;
+    height: 18px !important;
+    width: 18px !important;
+    padding: 2px !important;
+    margin-right: 15px !important;
+    border-radius: 100% !important;
+    box-shadow: 1px 1px 3px 1px #e7e7e7 !important;
+}
+
 body {
   font-size: 14px;
   line-height: 1.2;
@@ -56,6 +81,11 @@ tr .rs-page-resource__field >td {
   .navbar-header {
     width: 27vw !important;
   }
+}
+
+
+.rs-page-resource__field-label-holder{
+      width: 72px !important;
 }
 .Uploader-div {
   border-radius: 10px;
@@ -157,8 +187,11 @@ li.matchings-button {
   margin: 8px;
   margin-left: 59px;
   color: white !important;
-  box-shadow: 1px 1px 4px 0px #999999;
+ 
   padding: 13px;
+}
+.cardInfoFields.row {
+  height: 260px;
 }
 
 .loading-modal {

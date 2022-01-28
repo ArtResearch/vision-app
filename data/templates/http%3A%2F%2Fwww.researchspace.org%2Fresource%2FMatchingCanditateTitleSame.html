@@ -4,6 +4,7 @@
   <td class="rs-page-resource__field-label-holder">
     <span class="rs-page-resource__field-label">
       {{bindings.0.fieldName.value}}
+    
     </span>
   </td>
   <td>
@@ -11,6 +12,10 @@
     {{#each bindings}} 
       {{#if withDataA}}
         <div class="actions title-actions myaction">
+         
+          {{#ifCond temp.value "===" "true"}}
+             
+          {{else}}
          <div class="mp-overlay-dialog-Wrapper">
           <mp-overlay-dialog title="Confirm two artworks are the same">
             <mp-overlay-dialog-trigger>
@@ -55,6 +60,7 @@
             </mp-overlay-dialog-content>
           </mp-overlay-dialog>
           </div>
+          {{/ifCond}}
           <div class="selected-title">{{labelA.value}}</div>
         </div>
       {{/if}} 
@@ -66,6 +72,9 @@
     {{#each bindings}}
     {{#if withDataB}}
         <div class="actions title-actions myaction">
+           {{#ifCond temp.value "===" "true"}}
+             
+          {{else}}
           <div class="mp-overlay-dialog-Wrapper">
           <mp-overlay-dialog title="Confirm two artworks are the same">
             <mp-overlay-dialog-trigger>
@@ -110,6 +119,7 @@
             </mp-overlay-dialog-content>
           </mp-overlay-dialog>
           </div>
+          {{/ifCond}}
           <div class="selected-title">{{labelB.value}}</div>
         </div>
       {{/if}}  
@@ -125,7 +135,7 @@
       justify-content: flex-start;
       flex-direction: column;
       gap: 8px;
-      min-height: 115px;
+      
   }
 
   .select-title-button{

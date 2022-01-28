@@ -13,7 +13,8 @@
       BIND (STR(?subject2) as ?subject2Link)
       BIND (?? as ?element)
       FILTER (STR(?imageA)!=STR(?imageB))
-  } "
+     
+  } Limit 1"
     template="{{>matchingTemplate}}"
   >
     <template id="matchingTemplate">
@@ -134,7 +135,7 @@
                             ?imgB2 <http://purl.org/ontology/similarity/element> ?sim.
                           }
                         }
-                        FILTER NOT EXISTS { FILTER (CONTAINS (?sims,STR(?nextElement)))}
+                        FILTER (!(CONTAINS(?sims, STR(?nextElement))))
                     }LIMIT 1'
                 template="{{>imageInfoTemplate}}"
                 no-result-template="{{>noNextSimilarity}}"

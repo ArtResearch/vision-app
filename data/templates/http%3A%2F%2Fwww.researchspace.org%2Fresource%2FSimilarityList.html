@@ -114,8 +114,6 @@
           <[[urlParam "providerb"]]> rdfs:label ?providerLabelB.
           FILTER NOT EXISTS {?element <https://vision.artresearch.net/custom/reviewed> true }
           FILTER NOT EXISTS {?element <https://vision.artresearch.net/custom/skipped> true }
-          FILTER NOT EXISTS {?imageA <http://www.cidoc-crm.org/cidoc-crm/P2_has_type> <http://vocab.getty.edu/aat/300010292>.}
-          FILTER NOT EXISTS {?imageB <http://www.cidoc-crm.org/cidoc-crm/P2_has_type> <http://vocab.getty.edu/aat/300010292>.}  
         }'
       query="SELECT DISTINCT ?subject WHERE {
       ?subject ?p ?o #This will never run
@@ -244,6 +242,6 @@
         </div>
       </semantic-search-result-holder>
     </bs-col>
-  </div>
+
 </semantic-search>
 </div>

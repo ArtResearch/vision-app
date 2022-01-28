@@ -11,28 +11,38 @@
   <bs-tab-container id="tab-container" class="page__body-navtabs--borderless" default-active-key="reviewed">
   <div>
     <bs-nav bs-style='tabs'>
-      <bs-nav-item event-key='reviewed'><div style="display: flex;">Reviewed(
+      <bs-nav-item event-key='reviewed'><div style="display: flex;">Reconciled(
         [[> DashboardStatReviewed]]
         )</div>
       </bs-nav-item>
       <bs-nav-item event-key='marked'>
-        <div style="display: flex;">Marked for review(
+        <div style="display: flex;">Skipped for Later Review(
           [[> DashboardStatMarked]]
           )</div>
       </bs-nav-item>
       <bs-nav-item event-key='Imitationmarked'>
-        <div style="display: flex;">Marked "Imitation/Copy"(
+        <div style="display: flex;">Marked as "Imitation/Copy of"(
           [[> DashboardStatImitation]]
           )</div>
       </bs-nav-item>
        <bs-nav-item event-key='Studymarked'>
-        <div style="display: flex;">Marked "Study"(
+        <div style="display: flex;">Marked as "Study/Sketch of" (
           [[> DashboardStatStudy]]
           )</div>
       </bs-nav-item>
        <bs-nav-item event-key='Negmarked'>
-        <div style="display: flex;">Marked "Same Negative"(
+        <div style="display: flex;">Marked as "Same Negative"(
           [[> DashboardStatSameNeg]]
+          )</div>
+      </bs-nav-item>
+       <bs-nav-item event-key='Similarmarked'>
+        <div style="display: flex;">Marked as "Similar"(
+          [[> DashboardStatSimilar]]
+          )</div>
+      </bs-nav-item>
+       <bs-nav-item event-key='NotSimilarmarked'>
+        <div style="display: flex;">Marked as "Not Similar"(
+          [[> DashboardStatNotSimilar]]
           )</div>
       </bs-nav-item>
 
@@ -54,6 +64,12 @@
       </bs-tab-pane>
        <bs-tab-pane event-key='Negmarked'>
         [[> DashboardListSameNeg]]
+      </bs-tab-pane>
+       <bs-tab-pane event-key='Similarmarked'>
+        [[> DashboardListSimilar]]
+      </bs-tab-pane>
+       <bs-tab-pane event-key='NotSimilarmarked'>
+        [[> DashboardListNotSimilar]]
       </bs-tab-pane>
 
     </div>

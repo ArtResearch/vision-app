@@ -11,8 +11,21 @@
 @import "./similarityList.css";
 @import "./matchings_vocab.css";
 
+
+.slick-dots li:nth-child(n+4):nth-last-child(3):not(:nth-child(5)):not(:nth-child(6)) {
+ display: none;
+}
+.slick-dots li:nth-child(n+4):nth-last-child(-n+2):not(:nth-child(6)) {
+ display: none;
+}
+.slick-dots li:nth-child(n+4):nth-last-child(-n+1) {
+ display: none;
+}
+.slick-dots li:nth-child(n+7) {
+ display: none;
+}
 .slick-dots {
-  top:unset !important;
+  top:200px !important;
 }
 
 .WrapperCarousel {

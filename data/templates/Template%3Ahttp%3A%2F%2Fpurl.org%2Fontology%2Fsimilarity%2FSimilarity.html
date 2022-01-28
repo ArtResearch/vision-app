@@ -20,55 +20,58 @@
     <template id="matchingTemplate">
       <div class="instanceMatchingPage">
         <!-- Photos & similarity information -->
-        <div class="pharosFieldViewer">
-          <mp-event-target-template-render
-            id="large-image-display"
-            template="{{> largeImageDisplay}}"
-          >
-            <template id="largeImageDisplay">
-              {{#ifCond imageA "&&" imageB}} 
-                  [[> rsp:MatchingCanditateImages element="{{element}}" imageA="{{imageA}}" imageB="{{imageB}}"]] 
-              {{else}} 
-                  [[> rsp:MatchingCanditateImages element="{{bindings.0.element.value}}" imageA="{{bindings.0.imageA.value}}" imageB="{{bindings.0.imageB.value}}"]]
-              {{/ifCond}}
-            </template>
-          </mp-event-target-template-render>
-            
-        </div>
+          <div class="SimilarityWrapper">
+            <div class="pharosFieldViewer">
+                <mp-event-target-template-render
+                  id="large-image-display"
+                  template="{{> largeImageDisplay}}"
+                >
+                  <template id="largeImageDisplay">
+                    {{#ifCond imageA "&&" imageB}} 
+                        [[> rsp:MatchingCanditateImages element="{{element}}" imageA="{{imageA}}" imageB="{{imageB}}"]] 
+                    {{else}} 
+                        [[> rsp:MatchingCanditateImages element="{{bindings.0.element.value}}" imageA="{{bindings.0.imageA.value}}" imageB="{{bindings.0.imageB.value}}"]]
+                    {{/ifCond}}
+                  </template>
+                </mp-event-target-template-render>
+                  
+              </div>
 
-        <semantic-query
-        query='SELECT DISTINCT ?element ?subject1 ?subject2  ?imageA ?imageB ?thumbA ?thumbB WHERE{
-                  <{{bindings.0.subject1.value}}>  <https://pharos.artresearch.net/custom/has_image> ?imageA.
-                  BIND(REPLACE(STR(?imageA),"full/full","full/!150,150") AS ?thumbA).
-                  <{{bindings.0.subject2.value}}>  <https://pharos.artresearch.net/custom/has_image> ?imageB.
-                  BIND(REPLACE(STR(?imageB),"full/full","full/!150,150") AS ?thumbB).
-                  ?imageA <http://purl.org/ontology/similarity/element> ?element.
-                  ?imageB <http://purl.org/ontology/similarity/element> ?element.
-              }'
-        template="{{>imageAthumbs}}"
-      >
-        <template id="imageAthumbs">
-          {{#ifCond (objectLength bindings) ">" 0}}
-          <small style="position: relative; width: 70%; left: -10%;">Click on the pairs to view photo similarities</small>
-          <div class="imageFlex">
+              <semantic-query
+              query='SELECT DISTINCT ?element ?subject1 ?subject2  ?imageA ?imageB ?thumbA ?thumbB WHERE{
+                        <{{bindings.0.subject1.value}}>  <https://pharos.artresearch.net/custom/has_image> ?imageA.
+                        BIND(REPLACE(STR(?imageA),"full/full","full/!150,150") AS ?thumbA).
+                        <{{bindings.0.subject2.value}}>  <https://pharos.artresearch.net/custom/has_image> ?imageB.
+                        BIND(REPLACE(STR(?imageB),"full/full","full/!150,150") AS ?thumbB).
+                        ?imageA <http://purl.org/ontology/similarity/element> ?element.
+                        ?imageB <http://purl.org/ontology/similarity/element> ?element.
+                    }'
+              template="{{>imageAthumbs}}"
+            >
+              <template id="imageAthumbs">
+                {{#ifCond (objectLength bindings) ">" 0}}
+                
+                <div class="imageFlex">
 
-              {{#each bindings}}
-              <mp-event-trigger
-                id="event-trigger-image-a"
-                type="Component.TemplateUpdate"
-                data='{"element":"{{element.value}}","imageA":"{{imageA.value}}","imageB":"{{imageB.value}}"}'
-                targets='["large-image-display"]'
-              >
-                <div class="thumbPairContainer">                  
-                  <img class="smallThumbsSingle" src="{{thumbA.value}}" />
-                  <img class="smallThumbsSingle" src="{{thumbB.value}}" />
-                </div>
-              </mp-event-trigger>
-              {{/each}}
-            </div>
-            {{/ifCond}}
-        </template>
-      </semantic-query>
+                    {{#each bindings}}
+                    <mp-event-trigger
+                      id="event-trigger-image-a"
+                      type="Component.TemplateUpdate"
+                      data='{"element":"{{element.value}}","imageA":"{{imageA.value}}","imageB":"{{imageB.value}}"}'
+                      targets='["large-image-display"]'
+                    >
+                      <div class="thumbPairContainer">                  
+                        <img class="smallThumbsSingle" src="{{thumbA.value}}" />
+                        <img class="smallThumbsSingle" src="{{thumbB.value}}" />
+                      </div>
+                    </mp-event-trigger>
+                    {{/each}}
+                  </div>
+                  <small style="position: relative;  left: -10%;">Click on the pairs to view photo similarities</small>
+                  {{/ifCond}}
+              </template>
+            </semantic-query>
+          </div>
        <h3 style="position: relative; width: 70%; left: -10%;">View more photos from artworks</h3>
       <div class="PanelWrapper">
      <div class="WrapperCarousel">

@@ -11,6 +11,13 @@
 @import "./similarityList.css";
 @import "./matchings_vocab.css";
 
+
+.SimilarityWrapper {
+  padding-left: 100px;
+  align-self: start;
+  display: flex;
+  flex-direction: row-reverse;
+}
 .RecTable{
   max-height: 184px !important;
 }

@@ -11,6 +11,14 @@
 @import "./similarityList.css";
 @import "./matchings_vocab.css";
 
+
+
+.SimilarityWrapper {
+  padding-left: 250px;
+  align-self: start;
+  display: flex;
+  flex-direction: row;
+}
 .RecTable{
   max-height: 184px !important;
 }
@@ -31,11 +39,12 @@
 }
 
 .WrapperCarousel {
-  gap:50px;
-      display: flex;
+    gap:50px;
+    display: flex;
     flex-wrap: wrap;
     width: 100%;
     padding-bottom: 60px;
+
 }
 .error-notification.panel.panel-default .panel-heading{
   margin-top: 65px !important;

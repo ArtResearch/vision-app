@@ -21,23 +21,7 @@
       <div class="instanceMatchingPage">
         <!-- Photos & similarity information -->
           <div class="SimilarityWrapper">
-            <div class="pharosFieldViewer">
-                <mp-event-target-template-render
-                  id="large-image-display"
-                  template="{{> largeImageDisplay}}"
-                >
-                  <template id="largeImageDisplay">
-                    {{#ifCond imageA "&&" imageB}} 
-                        [[> rsp:MatchingCanditateImages element="{{element}}" imageA="{{imageA}}" imageB="{{imageB}}"]] 
-                    {{else}} 
-                        [[> rsp:MatchingCanditateImages element="{{bindings.0.element.value}}" imageA="{{bindings.0.imageA.value}}" imageB="{{bindings.0.imageB.value}}"]]
-                    {{/ifCond}}
-                  </template>
-                </mp-event-target-template-render>
-                  
-              </div>
-
-              <semantic-query
+                          <semantic-query
               query='SELECT DISTINCT ?element ?subject1 ?subject2  ?imageA ?imageB ?thumbA ?thumbB WHERE{
                         <{{bindings.0.subject1.value}}>  <https://pharos.artresearch.net/custom/has_image> ?imageA.
                         BIND(REPLACE(STR(?imageA),"full/full","full/!150,150") AS ?thumbA).
@@ -67,11 +51,28 @@
                     </mp-event-trigger>
                     {{/each}}
                   </div>
-                  <small style="position: relative;  left: -10%;">Click on the pairs to view photo similarities</small>
                   {{/ifCond}}
               </template>
             </semantic-query>
+            <div class="pharosFieldViewer">
+                <mp-event-target-template-render
+                  id="large-image-display"
+                  template="{{> largeImageDisplay}}"
+                >
+                  <template id="largeImageDisplay">
+                    {{#ifCond imageA "&&" imageB}} 
+                        [[> rsp:MatchingCanditateImages element="{{element}}" imageA="{{imageA}}" imageB="{{imageB}}"]] 
+                    {{else}} 
+                        [[> rsp:MatchingCanditateImages element="{{bindings.0.element.value}}" imageA="{{bindings.0.imageA.value}}" imageB="{{bindings.0.imageB.value}}"]]
+                    {{/ifCond}}
+                  </template>
+                </mp-event-target-template-render>
+                  
+              </div>
+
+
           </div>
+          <small style="position: absolute; left: 5vw; top: 2vh;">Click on the pairs to view photo similarities</small>
        <h3 style="position: relative; width: 70%; left: -10%;">View more photos from artworks</h3>
       <div class="PanelWrapper">
      <div class="WrapperCarousel">

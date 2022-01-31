@@ -13,10 +13,10 @@
 
 
 .SimilarityWrapper {
-  padding-left: 100px;
+  padding-left: 250px;
   align-self: start;
   display: flex;
-  flex-direction: row-reverse;
+  flex-direction: row;
 }
 .RecTable{
   max-height: 184px !important;

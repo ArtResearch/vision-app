@@ -76,7 +76,7 @@
   margin-bottom: 3vh;
   position: relative;
   left: -5%;
-  width: 150%;
+  width: 50vw;
 }
 
 #similarity-template .pharosFieldViewer button {
@@ -187,14 +187,13 @@ button.btn.btn-default.action.optional {
 #similarity-template .imageFlex {
   display: flex;
   justify-content: flex-start;
-
+  max-width: 12vw;
   align-items: center;
   flex-wrap: wrap;
   overflow-y: scroll;
-  height: 20vh;
   position: relative;
   left: -10%;
-  
+  max-height: 40vh;
   margin-top: 55px;
   margin-bottom: 15px;
 }

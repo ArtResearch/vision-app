@@ -1,8 +1,25 @@
+<semantic-query
+    query=' SELECT DISTINCT ?provA ?providerLabelA WHERE{
+    <[[iri]]>  <https://pharos.artresearch.net/custom/has_provider> ?provA.
+          ?provA rdfs:label ?providerLabelA.
+    }
+    'template='{{>ProviderLabel}}'
+    >
+    <template id="ProviderLabel">
+        <div class="LabelHolder">
+            <h3 style=" display: flex; justify-content: center; align-items: center;" class="imageLabel"> [[> rsp:SourceIcon providerLabel="{{bindings.0.providerLabelA.value}}"]]{{bindings.0.providerLabelA.value}}</h3>    
+        </div>
+    </template>
+ 
+</semantic-query>
+
 <semantic-carousel
   query='
-        SELECT  ?thumbnail  WHERE {                    
+        SELECT  ?thumbnail  ?prov WHERE {                    
           <[[iri]]> <https://pharos.artresearch.net/custom/has_image> ?image.
-            ?image crm:P2_has_type ?type.
+           <[[iri]]>  <https://pharos.artresearch.net/custom/has_provider> ?prov.
+           ?prov rdfs:label ?providerL.
+           ?image crm:P2_has_type ?type.
             ?type rdfs:label ?typeLabel.
           BIND(REPLACE(str(?image),"full/full","full/!200,200") AS ?thumbnail).
         }'

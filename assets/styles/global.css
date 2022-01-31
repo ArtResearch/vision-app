@@ -12,6 +12,7 @@
 @import "./matchings_vocab.css";
 
 
+
 .SimilarityWrapper {
   padding-left: 250px;
   align-self: start;
@@ -38,11 +39,12 @@
 }
 
 .WrapperCarousel {
-  gap:50px;
-      display: flex;
+    gap:50px;
+    display: flex;
     flex-wrap: wrap;
     width: 100%;
     padding-bottom: 60px;
+
 }
 .error-notification.panel.panel-default .panel-heading{
   margin-top: 65px !important;

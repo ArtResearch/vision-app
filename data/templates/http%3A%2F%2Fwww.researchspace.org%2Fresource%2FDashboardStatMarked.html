@@ -3,12 +3,13 @@ query=' SELECT (COUNT(distinct CONCAT(STR(?work),STR(?work2))) AS ?count) WHERE 
           GRAPH ?g {
             <http://www.researchspace.org/resource/system/formContainer> <http://www.w3.org/ns/ldp#contains> ?subject. 
             ?subject <http://www.w3.org/ns/prov#wasAttributedTo> ?attribution.
-            ?similarity <https://vision.artresearch.net/custom/skipped> true
+            ?similarity <https://vision.artresearch.net/custom/skipped> "true"^^xsd:boolean .
           }
           ?work <https://pharos.artresearch.net/custom/has_image> ?imageA.
           ?imageA <http://purl.org/ontology/similarity/element> ?similarity.
           ?work2 <https://pharos.artresearch.net/custom/has_image> ?imageB.
           ?imageB <http://purl.org/ontology/similarity/element> ?similarity.
+           ?similarity <https://vision.artresearch.net/custom/reviewed> false.
           FILTER(?work != ?work2)
           BIND(?__useruri__ as ?attribution)
           FILTER (STR(?work)>STR(?work2))

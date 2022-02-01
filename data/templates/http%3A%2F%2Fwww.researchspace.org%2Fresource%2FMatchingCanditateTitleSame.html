@@ -3,7 +3,7 @@
   <!-- Field name -->
   <td class="rs-page-resource__field-label-holder">
     <span class="rs-page-resource__field-label">
-      {{bindings.0.fieldName.value}}
+      {{bindings.0.fieldName.value}} 
     
     </span>
   </td>
@@ -32,7 +32,7 @@
                 persistence="ldp"
                 urlqueryparam-providera='[[urlParam "providera"]]'
                 urlqueryparam-providerb='[[urlParam "providerb"]]'
-                post-action="{{nextElement.value}}"
+                post-action="{{element.value}}"
                 form-id="IMApprove1"
                 fields='[[fieldDefinitions
                       sameAs="http://www.researchspace.org/fieldDefinition/Same"
@@ -43,9 +43,10 @@
                   for="sameAs"
                   default-value="true"
                 ></semantic-form-hidden-input>
+
                 <semantic-form-hidden-input
                   for="title"
-                  default-value="{{labelA.value}}"
+                  default-value="/{{labelA.value}}/"
                 ></semantic-form-hidden-input>
 
                 <button
@@ -91,7 +92,7 @@
                 persistence="ldp"
                 urlqueryparam-providera='[[urlParam "providera"]]'
                 urlqueryparam-providerb='[[urlParam "providerb"]]'
-                post-action="{{nextElement.value}}"
+                post-action="{{element.value}}"
                 form-id="IMApprove1"
                 fields='[[fieldDefinitions
                       sameAs="http://www.researchspace.org/fieldDefinition/Same"
@@ -102,9 +103,10 @@
                   for="sameAs"
                   default-value="true"
                 ></semantic-form-hidden-input>
+
                 <semantic-form-hidden-input
                   for="title"
-                  default-value="{{labelB.value}}"
+                  default-value="/{{labelB.value}}/"
                 ></semantic-form-hidden-input>
 
                 <button

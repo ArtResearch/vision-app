@@ -15,7 +15,7 @@ query=' SELECT DISTINCT
         (SAMPLE(?providerLabelA) as ?providerLabelA)
         (SAMPLE(?providerLabelB) as ?providerLabelB) WHERE {
           GRAPH ?g {
-            ?work  fr:Work_is_imitation_or_copy_of_Work ?work2 .
+            ?sim <https://vision.artresearch.net/custom/similar_artworks> false.
             ?subject <http://www.w3.org/ns/prov#wasAttributedTo> ?attribution.
             ?subject <http://www.w3.org/ns/prov#generatedAtTime> ?modifiedAt ; 
           }
@@ -27,7 +27,7 @@ query=' SELECT DISTINCT
           ?providerA rdfs:label ?providerLabelA.
           ?work2 <https://pharos.artresearch.net/custom/has_provider> ?providerB.
           ?providerB rdfs:label ?providerLabelB.
-          FILTER NOT EXISTS { ?similarity <https://vision.artresearch.net/custom/reviewed> "true"^^xsd:boolean }
+          ?similarity <https://vision.artresearch.net/custom/reviewed> true.
           FILTER NOT EXISTS { ?similarity <https://vision.artresearch.net/custom/skipped> "true"^^xsd:boolean }
           BIND(?__useruri__ as ?attribution)
         }GROUP BY ?g'

@@ -13,6 +13,7 @@ query=' SELECT (COUNT(distinct CONCAT(STR(?work),STR(?work2))) AS ?count) WHERE 
           FILTER NOT EXISTS { ?similarity <https://vision.artresearch.net/custom/skipped> "true"^^xsd:boolean }
           BIND(?__useruri__ as ?attribution)
            FILTER(?work != ?work2)
+              FILTER (STR(?work)>STR(?work2))
         }'
 no-result-template="0"
 >

@@ -12,7 +12,9 @@
 @import "./matchings_vocab.css";
 
 
-
+.table>tbody>tr>td{
+      padding: 15px 15px !important;
+}
 .SimilarityWrapper {
   padding-left: 250px;
   align-self: start;

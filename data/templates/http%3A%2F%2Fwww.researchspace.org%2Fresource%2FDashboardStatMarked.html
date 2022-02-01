@@ -4,7 +4,7 @@ query=' SELECT (COUNT(distinct CONCAT(STR(?work),STR(?work2))) AS ?count) WHERE 
             <http://www.researchspace.org/resource/system/formContainer> <http://www.w3.org/ns/ldp#contains> ?subject. 
             ?subject <http://www.w3.org/ns/prov#wasAttributedTo> ?attribution.
             ?similarity <https://vision.artresearch.net/custom/skipped> true .
-             ?similarity <https://vision.artresearch.net/custom/reviewed> false.
+             
           }
           ?work <https://pharos.artresearch.net/custom/has_image> ?imageA.
           ?imageA <http://purl.org/ontology/similarity/element> ?similarity.

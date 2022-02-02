@@ -11,7 +11,12 @@
   {{#each bindings}} 
     {{#ifCond labelA.value.length "!==" 0}}
       <td>
+        {{#ifCond fieldName.value "===" "Photo archive records"}}
+          <span class="rs-page-resource__field-value"><a href="{{labelA.value}}">{{labelA.value}}</a></span> 
+        {{/ifCond}}
+        {{#ifCond fieldName.value "!==" "Photo archive records"}}
         <span class="rs-page-resource__field-value">{{labelA.value}}</span> 
+        {{/ifCond}}
       </td>
       {{#ifCond labelB.value.length "===" 0}}
         <td>
@@ -26,7 +31,12 @@
     </td>
     {{/ifCond}}
     <td>
-      <span class="rs-page-resource__field-value">{{labelB.value}}</span> 
+      {{#ifCond fieldName.value "===" "Photo archive records"}}
+          <span class="rs-page-resource__field-value"><a href="{{labelB.value}}">{{labelB.value}}</a></span> 
+        {{/ifCond}}
+        {{#ifCond fieldName.value "!==" "Photo archive records"}}
+        <span class="rs-page-resource__field-value">{{labelB.value}}</span> 
+        {{/ifCond}}
     </td>
     {{/ifCond}}
     

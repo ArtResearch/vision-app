@@ -33,8 +33,8 @@
               template="{{>imageAthumbs}}"
             >
               <template id="imageAthumbs">
-                {{#ifCond (objectLength bindings) ">" 0}}
-                
+                {{#ifCond (objectLength bindings) ">" 1}}
+                <small style="position: absolute; left: 3vw; top: 2vh;">Click on the pairs to view photo similarities</small>
                 <div class="imageFlex">
 
                     {{#each bindings}}
@@ -72,7 +72,7 @@
 
 
           </div>
-          <small style="position: absolute; left: 3vw; top: 2vh;">Click on the pairs to view photo similarities</small>
+          
 
 
        <h3 style="position: relative; width: 70%; left: -10%;">View more photos from artworks</h3>

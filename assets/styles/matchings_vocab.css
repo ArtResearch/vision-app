@@ -6,7 +6,7 @@
 #matchings-vocab .matchingContainer {
   display: flex;
 }
-#matchings-vocab .matchingContainer .canditate {
+#matchings-vocab .matchingContainer .candidate {
   display: flex;
   flex-direction: column;
   width: 45%;

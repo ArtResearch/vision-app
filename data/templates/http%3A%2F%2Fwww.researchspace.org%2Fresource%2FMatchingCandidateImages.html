@@ -1,6 +1,6 @@
 <!-- Create two thumbnails and respective modals with iiif viewer -->
 <!-- First candidate -->
-<div id="matching-canditate-images">
+<div id="matching-candidate-images">
 <semantic-query query='SELECT ?element 
 ?manifestA ?manifestB 
 ?imageUrlA ?imageUrlB  
@@ -25,8 +25,8 @@ WHERE{
   {{/ifCond}}
   BIND(<[[element]]> as ?element).
 }'
-template="{{> firstCanditateImage}}">
-  <template id="firstCanditateImage">
+template="{{> firstCandidateImage}}">
+  <template id="firstCandidateImage">
   
 <mp-overlay-dialog title="‎‎" class="miradorViewerPopup">
   <mp-overlay-dialog-trigger>

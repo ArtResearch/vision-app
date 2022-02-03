@@ -19,16 +19,12 @@ query=' SELECT DISTINCT
             ?subject <http://www.w3.org/ns/prov#wasAttributedTo> ?attribution.
             ?subject <http://www.w3.org/ns/prov#generatedAtTime> ?modifiedAt ; 
           }
-          ?work <https://pharos.artresearch.net/custom/has_image> ?imageA.
-          ?imageA <http://purl.org/ontology/similarity/element> ?similarity.
-          ?work2 <https://pharos.artresearch.net/custom/has_image> ?imageB.
-          ?imageB <http://purl.org/ontology/similarity/element> ?similarity.
+          ?work <https://pharos.artresearch.net/custom/has_image>/<http://purl.org/ontology/similarity/element> ?similarity.
+          ?work2 <https://pharos.artresearch.net/custom/has_image>/<http://purl.org/ontology/similarity/element> ?similarity.
           ?work <https://pharos.artresearch.net/custom/has_provider> ?providerA.
           ?providerA rdfs:label ?providerLabelA.
           ?work2 <https://pharos.artresearch.net/custom/has_provider> ?providerB.
           ?providerB rdfs:label ?providerLabelB.
-          FILTER NOT EXISTS { ?similarity <https://vision.artresearch.net/custom/reviewed> "true"^^xsd:boolean }
-          FILTER NOT EXISTS { ?similarity <https://vision.artresearch.net/custom/skipped> "true"^^xsd:boolean }
           BIND(?__useruri__ as ?attribution)
         }GROUP BY ?g'
 tuple-template='{{>markedCards}}'

@@ -26,10 +26,20 @@
   tuple-template='{{>tuppleBoy}}'
 >
 <template id="tuppleBoy">
-  <img src="{{thumbnail.value}}" style="width: 100%;
-  object-fit: contain;
-  min-height: 200px;
-  max-height: 200px;"/>
+<mp-overlay-dialog title="Images" type="modal">
+   <mp-overlay-dialog-trigger>
+      <img src="{{thumbnail.value}}" style="width: 100%;
+      object-fit: contain;
+      min-height: 200px;
+      max-height: 200px;"/>
+  </mp-overlay-dialog-trigger>
+    <mp-overlay-dialog-content>
+      <img src="{{thumbnail.value}}" style="width: 100%;
+      object-fit: contain;
+      max-height: 500px;
+      "/>
+    </mp-overlay-dialog-content>
+  </mp-overlay-dialog>
 </template>
 </semantic-carousel>
 <style>

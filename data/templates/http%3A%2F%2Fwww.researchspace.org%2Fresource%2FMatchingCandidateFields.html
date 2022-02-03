@@ -495,14 +495,17 @@
                 ?fieldName WHERE {
           SERVICE <https://artresearch.net/sparql> {
             {
-              <{{bindings.0.subject1.value}}> <http://www.cidoc-crm.org/cidoc-crm/P2_has_type> ?value .
-              {SELECT ?label_a {?value rdfs:label ?label_a. } LIMIT 1}
-              
+              {SELECT DISTINCT (SAMPLE(?label_a) AS ?label_a) {
+                <{{bindings.0.subject1.value}}> <http://www.cidoc-crm.org/cidoc-crm/P2_has_type> ?value .
+                ?value rdfs:label ?label_a. 
+              } GROUP BY ?value}
               BIND(BOUND(?label_a) && strlen(?label_a)>0 as ?withData)
               FILTER(LANG(?label_a) = "")
             } UNION{
-              <{{bindings.0.subject2.value}}> <http://www.cidoc-crm.org/cidoc-crm/P2_has_type> ?value_b .
-              ?value_b rdfs:label ?label_b  
+              {SELECT DISTINCT (SAMPLE(?label_b) AS ?label_b) {
+                <{{bindings.0.subject2.value}}> <http://www.cidoc-crm.org/cidoc-crm/P2_has_type> ?value .
+                ?value rdfs:label ?label_b. 
+              } GROUP BY ?value}
               BIND(BOUND(?label_b) && strlen(?label_b)>0 as ?withData)
               FILTER(LANG(?label_b) = "")
             }

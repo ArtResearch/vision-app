@@ -135,10 +135,8 @@
                         FILTER NOT EXISTS { ?nextElement <https://vision.artresearch.net/custom/skipped> "true"^^xsd:boolean }
                         {
                           SELECT (GROUP_CONCAT(distinct ?sim) as ?sims) WHERE {
-                            <{{bindings.0.subject1.value}}> <https://pharos.artresearch.net/custom/has_image> ?imgA2.
-                            <{{bindings.0.subject2.value}}> <https://pharos.artresearch.net/custom/has_image> ?imgB2.
-                            ?imgA2 <http://purl.org/ontology/similarity/element> ?sim.
-                            ?imgB2 <http://purl.org/ontology/similarity/element> ?sim.
+                            <{{bindings.0.subject1.value}}> <https://pharos.artresearch.net/custom/has_image>/<http://purl.org/ontology/similarity/element> ?sim.
+                            <{{bindings.0.subject2.value}}> <https://pharos.artresearch.net/custom/has_image>/<http://purl.org/ontology/similarity/element> ?sim.
                           }
                         }
                         FILTER (!(CONTAINS(?sims, STR(?nextElement))))

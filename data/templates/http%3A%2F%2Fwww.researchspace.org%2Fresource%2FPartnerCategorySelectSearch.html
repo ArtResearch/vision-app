@@ -93,15 +93,14 @@
         (SAMPLE(?score) as ?score)
         (SAMPLE(?element) as ?element)
         WHERE {
-          ?subject <https://pharos.artresearch.net/custom/has_image> ?imageA.
-          ?imageA <http://purl.org/ontology/similarity/element> ?element.
-          ?subject2 <https://pharos.artresearch.net/custom/has_image> ?imageB.
-          ?imageB <http://purl.org/ontology/similarity/element> ?element.
-          ?element <http://purl.org/ontology/similarity/method> ?asso_method.
-          ?asso_method <http://purl.org/ontology/similarity/weight> ?score.
-          ?asso_method <http://purl.org/ontology/similarity/method> <https://vision.artresearch.net/resource/Similarity/AssociationMethod/Pastec>.
-          ?subject <https://pharos.artresearch.net/custom/has_provider> <[[urlParam "partner"]]>.
-          ?subject2 <https://pharos.artresearch.net/custom/has_provider> <[[targetProviderURI]]>.
+          ?subject <https://pharos.artresearch.net/custom/has_image>/<http://purl.org/ontology/similarity/element> ?element;
+            <https://pharos.artresearch.net/custom/has_provider> <[[urlParam "partner"]]>.
+          ?subject2 <https://pharos.artresearch.net/custom/has_image>/<http://purl.org/ontology/similarity/element> ?element;
+            <https://pharos.artresearch.net/custom/has_provider> <[[targetProviderURI]]>.
+          ?element <http://purl.org/ontology/similarity/method> [
+            <http://purl.org/ontology/similarity/weight> ?score;
+            <http://purl.org/ontology/similarity/method> <https://vision.artresearch.net/resource/Similarity/AssociationMethod/Pastec>
+          ]
           FILTER NOT EXISTS {?element <https://vision.artresearch.net/custom/reviewed> true }
           FILTER NOT EXISTS {?element <https://vision.artresearch.net/custom/skipped> true }
         }'

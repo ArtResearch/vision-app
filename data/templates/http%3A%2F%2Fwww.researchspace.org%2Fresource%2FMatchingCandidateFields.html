@@ -34,20 +34,16 @@
                   (<{{bindings.0.subject1.value}}> as ?subject1) 
                   (<{{bindings.0.subject2.value}}> as ?subject2) 
                 WHERE {
-                  ?imageA_next <http://purl.org/ontology/similarity/element> ?nextElement.
-                  ?imageB_next <http://purl.org/ontology/similarity/element> ?nextElement.
-                  ?subject1_next <https://pharos.artresearch.net/custom/has_image> ?imageA_next.
-                  ?subject2_next <https://pharos.artresearch.net/custom/has_image> ?imageB_next.
-                  ?subject1_next <https://pharos.artresearch.net/custom/has_provider> <{{bindings.0.providerA.value}}>.
-                  ?subject2_next <https://pharos.artresearch.net/custom/has_provider> <{{bindings.0.providerB.value}}>.
+                  ?subject1_next <https://pharos.artresearch.net/custom/has_image>/<http://purl.org/ontology/similarity/element> ?nextElement;
+                    <https://pharos.artresearch.net/custom/has_provider> <{{bindings.0.providerA.value}}>.
+                  ?subject2_next <https://pharos.artresearch.net/custom/has_image>/<http://purl.org/ontology/similarity/element> ?nextElement;
+                    <https://pharos.artresearch.net/custom/has_provider> <{{bindings.0.providerB.value}}>.
                   FILTER NOT EXISTS { ?nextElement <https://vision.artresearch.net/custom/reviewed> true }
                   FILTER NOT EXISTS { ?nextElement <https://vision.artresearch.net/custom/skipped> true }
                   {
                     SELECT (GROUP_CONCAT(distinct ?sim) as ?sims) WHERE {
-                      <{{bindings.0.subject1.value}}> <https://pharos.artresearch.net/custom/has_image> ?imgA2.
-                      <{{bindings.0.subject2.value}}> <https://pharos.artresearch.net/custom/has_image> ?imgB2.
-                      ?imgA2 <http://purl.org/ontology/similarity/element> ?sim.
-                      ?imgB2 <http://purl.org/ontology/similarity/element> ?sim.
+                      <{{bindings.0.subject1.value}}> <https://pharos.artresearch.net/custom/has_image>/<http://purl.org/ontology/similarity/element> ?sim.
+                      <{{bindings.0.subject2.value}}> <https://pharos.artresearch.net/custom/has_image>/<http://purl.org/ontology/similarity/element> ?sim.
                     }
                   }
                   FILTER (!(CONTAINS(?sims, STR(?nextElement))))
@@ -120,7 +116,7 @@
       <!--################################################################################-->
       <semantic-query
         query='
-				SELECT (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR=", ") AS ?labelA) (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR=", ") AS ?labelB) 
+				SELECT (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR="\n ") AS ?labelA) (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR="\n ") AS ?labelB) 
         ?withData ?fieldName
         WHERE 
         {
@@ -157,8 +153,8 @@
       <!--################################################################################-->
       <semantic-query
         query=' SELECT
-        (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR=", ") AS ?labelA) 
-        (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR=", ") AS ?labelB) 
+        (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR="\n ") AS ?labelA) 
+        (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR="\n ") AS ?labelB) 
         (SAMPLE(?value) AS ?value)
         (SAMPLE(?value_b) AS ?value_b)
         (SAMPLE(?ulanArtist_a) AS ?ulanArtist_a)
@@ -190,8 +186,8 @@
       <!--################################################################################-->
       <semantic-query
         query=' SELECT 
-        (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR=", ") AS ?labelA)
-         (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR=", ") AS ?labelB)
+        (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR="\n ") AS ?labelA)
+         (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR="\n ") AS ?labelB)
          (SAMPLE(?actor_a) AS ?actor_a)
          (SAMPLE(?actor_b) AS ?actor_b) 
          (SAMPLE(?wikiRepo_a) AS ?wikiRepo_a)
@@ -225,7 +221,7 @@
       <!--################################################################################-->
       <semantic-query
         query='
-				SELECT (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR=", ") AS ?labelA) (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR=", ") AS ?labelB) 
+				SELECT (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR="\n ") AS ?labelA) (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR="\n ") AS ?labelB) 
         ?withData ?fieldName
           WHERE 
  {
@@ -253,11 +249,38 @@
       </semantic-query>
 
       <!--################################################################################-->
+      <!--#################################### PHOTOGRAPHERS ####################################-->
+      <!--################################################################################-->
+      <semantic-query
+        query=' SELECT (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR = " \n ") AS ?labelA) (GROUP_CONCAT(DISTINCT ?label_b; SEPARATOR = " \n ") AS ?labelB) ?withData ?fieldName WHERE {
+                  SERVICE <https://artresearch.net/sparql> {
+                    {
+                      <{{bindings.0.subject1.value}}> fr:Work_depicted_by_Photo ?pa.
+                        ?pa fr:Photo_created_by_Photographer ?pra.
+                        ?pra rdfs:label ?label_a.
+                      BIND((BOUND(?label_a)) && ((STRLEN(?label_a)) > 0 ) AS ?withData)
+                    }
+                    UNION
+                    {
+                      <{{bindings.0.subject2.value}}> fr:Work_depicted_by_Photo ?pb.
+                        ?pb fr:Photo_created_by_Photographer ?prb.
+                        ?prb rdfs:label ?label_b.
+                      BIND((BOUND(?label_b)) && ((STRLEN(?label_b)) > 0 ) AS ?withData)
+                    }
+                    BIND("Photographers" AS ?fieldName)
+                  }
+                } GROUP BY ?withData ?fieldName'
+        template="{{> photosTemplate}}"
+      >
+        <template id="photosTemplate">[[> rsp:MatchingCanditateFieldsVisualization]]</template>
+      </semantic-query>
+
+      <!--################################################################################-->
       <!--################################ DIGITAL IMAGES ################################-->
       <!--################################################################################-->
       <semantic-query
         query='
-				SELECT (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR=", ") AS ?labelA) (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR=", ") AS ?labelB) 
+				SELECT (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR="\n ") AS ?labelA) (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR="\n ") AS ?labelB) 
         ?withData ?fieldName
           WHERE 
  {
@@ -288,7 +311,7 @@
       <!--################################ INFLUENCED BY ################################-->
       <!--################################################################################-->
       <semantic-query
-        query=' SELECT (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR=", ") AS ?labelA) (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR=", ") AS ?labelB) ?withData ?fieldName WHERE {
+        query=' SELECT (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR="\n ") AS ?labelA) (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR="\n ") AS ?labelB) ?withData ?fieldName WHERE {
                   {
                     <{{bindings.0.subject1.value}}> <https://pharos.artresearch.net/resource/fr/Work_influenced_by_Artist> ?artist_a .
                     ?artist_a rdfs:label ?label_a.
@@ -310,7 +333,7 @@
       <!--################################################################################-->
       <semantic-query
         query='
-				SELECT (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR=", ") AS ?labelA) (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR=", ") AS ?labelB)  ?withData ?fieldName WHERE {
+				SELECT (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR="\n ") AS ?labelA) (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR="\n ") AS ?labelB)  ?withData ?fieldName WHERE {
           SERVICE <https://artresearch.net/sparql> {
             {
               <{{bindings.0.subject1.value}}> crm:P108i_was_produced_by ?production.
@@ -339,7 +362,7 @@
       <!--########################## PRODUCTION DATE - EARLIEST ##########################--> 
       <!--################################################################################-->
       <semantic-query
-        query=' SELECT (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR=", ") AS ?labelA) (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR=", ") AS ?labelB) ?withData ?fieldName WHERE {
+        query=' SELECT (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR="\n ") AS ?labelA) (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR="\n ") AS ?labelB) ?withData ?fieldName WHERE {
                   {
                     <{{bindings.0.subject1.value}}> <https://pharos.artresearch.net/resource/fr/Work_creation_date_start> ?label_a.
                     BIND(BOUND(?label_a) && strlen(?label_a)>0 as ?withData)
@@ -359,7 +382,7 @@
       <!--########################### PRODUCTION DATE - LATEST ###########################-->
       <!--################################################################################-->
       <semantic-query
-        query=' SELECT (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR=", ") AS ?labelA) (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR=", ") AS ?labelB) ?withData ?fieldName WHERE {
+        query=' SELECT (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR="\n ") AS ?labelA) (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR="\n ") AS ?labelB) ?withData ?fieldName WHERE {
                   { 
                     <{{bindings.0.subject1.value}}> <https://pharos.artresearch.net/resource/fr/Work_creation_date_end> ?label_a.
                     BIND(BOUND(?label_a) && strlen(?label_a)>0 as ?withData)
@@ -379,7 +402,7 @@
       <!--################################################################################-->
       <semantic-query
         query='
-				SELECT (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR=", ") AS ?labelA) (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR=", ") AS ?labelB) 
+				SELECT (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR="\n ") AS ?labelA) (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR="\n ") AS ?labelB) 
         ?withData ?fieldName
           WHERE 
  {
@@ -411,7 +434,7 @@
       <!--################################################################################-->
       <semantic-query
         query='
-				SELECT (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR=", ") AS ?labelA) (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR=", ") AS ?labelB) 
+				SELECT (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR="\n ") AS ?labelA) (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR="\n ") AS ?labelB) 
         ?withData ?fieldName
           WHERE 
  {
@@ -444,7 +467,7 @@
       <!--############################### PHOTO ARCHIVE RECORDS ###############################-->
       <!--################################################################################-->
       <semantic-query
-        query=' SELECT (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR=", ") AS ?labelA) (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR=", ") AS ?labelB) ?withData ?fieldName WHERE {
+        query=' SELECT (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR="\n ") AS ?labelA) (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR="\n ") AS ?labelB) ?withData ?fieldName WHERE {
                   SERVICE <https://artresearch.net/sparql> {
                     {
                       <{{bindings.0.subject1.value}}> <https://pharos.artresearch.net/custom/has_original_record> ?label_a.
@@ -466,8 +489,8 @@
       <!--################################################################################-->
       <semantic-query
         query='
-				SELECT  (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR=", ") AS ?labelA) 
-                (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR=", ") AS ?labelB) 
+				SELECT  (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR="\n ") AS ?labelA) 
+                (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR="\n ") AS ?labelB) 
                 ?withData 
                 ?fieldName WHERE {
           SERVICE <https://artresearch.net/sparql> {
@@ -494,7 +517,7 @@
       <!--################################################################################-->
       <semantic-query
         query='
-				SELECT (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR=", ") AS ?labelA) (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR=", ") AS ?labelB) 
+				SELECT (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR="\n ") AS ?labelA) (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR="\n ") AS ?labelB) 
         ?withData ?fieldName
           WHERE 
  {
@@ -524,7 +547,7 @@
       <!--################################################################################-->
       <semantic-query
         query='
-				SELECT (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR=", ") AS ?labelA) (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR=", ") AS ?labelB) 
+				SELECT (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR="\n ") AS ?labelA) (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR="\n ") AS ?labelB) 
         ?withData ?fieldName
           WHERE 
  {
@@ -558,7 +581,7 @@
       <!--################################################################################-->
       <semantic-query
         query='
-				SELECT (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR=", ") AS ?labelA) (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR=", ") AS ?labelB) 
+				SELECT (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR="\n ") AS ?labelA) (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR="\n ") AS ?labelB) 
         ?withData ?fieldName
           WHERE 
  {
@@ -606,7 +629,7 @@
       <!--################################################################################-->
       <semantic-query
         query='
-				SELECT (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR=", ") AS ?labelA) (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR=", ") AS ?labelB) 
+				SELECT (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR="\n ") AS ?labelA) (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR="\n ") AS ?labelB) 
         ?withData ?fieldName
           WHERE 
  {
@@ -634,7 +657,7 @@
       <!--################################################################################-->
       <semantic-query
         query='
-				SELECT (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR=", ") AS ?labelA) (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR=", ") AS ?labelB) 
+				SELECT (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR="\n ") AS ?labelA) (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR="\n ") AS ?labelB) 
         ?withData ?fieldName WHERE {
           SERVICE <https://artresearch.net/sparql> {
             {
@@ -671,7 +694,7 @@
       <!--################################################################################-->
       <semantic-query
         query='
-				SELECT (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR=", ") AS ?labelA) (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR=", ") AS ?labelB) 
+				SELECT (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR="\n ") AS ?labelA) (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR="\n ") AS ?labelB) 
         ?withData ?fieldName
           WHERE 
  {
@@ -699,7 +722,7 @@
       <!--################################################################################-->
       <semantic-query
         query='
-				SELECT (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR=", ") AS ?labelA) (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR=", ") AS ?labelB) 
+				SELECT (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR="\n ") AS ?labelA) (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR="\n ") AS ?labelB) 
         ?withData ?fieldName
           WHERE 
  {
@@ -729,7 +752,7 @@
       <!--################################################################################-->
       <semantic-query
         query='
-				SELECT (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR=", ") AS ?labelA) (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR=", ") AS ?labelB) 
+				SELECT (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR="\n ") AS ?labelA) (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR="\n ") AS ?labelB) 
         ?withData ?fieldName
           WHERE 
  {

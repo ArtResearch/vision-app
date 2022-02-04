@@ -11,7 +11,12 @@
 @import "./similarityList.css";
 @import "./matchings_vocab.css";
 
-
+.thumbnailsHolder{
+  width: 100%;
+  object-fit: contain;
+  min-height: 200px;
+  max-height: 200px;
+}
 .table>tbody>tr>td{
       padding: 15px 15px !important;
 }

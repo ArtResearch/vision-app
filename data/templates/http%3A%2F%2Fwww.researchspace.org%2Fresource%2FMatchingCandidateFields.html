@@ -34,20 +34,16 @@
                   (<{{bindings.0.subject1.value}}> as ?subject1) 
                   (<{{bindings.0.subject2.value}}> as ?subject2) 
                 WHERE {
-                  ?imageA_next <http://purl.org/ontology/similarity/element> ?nextElement.
-                  ?imageB_next <http://purl.org/ontology/similarity/element> ?nextElement.
-                  ?subject1_next <https://pharos.artresearch.net/custom/has_image> ?imageA_next.
-                  ?subject2_next <https://pharos.artresearch.net/custom/has_image> ?imageB_next.
-                  ?subject1_next <https://pharos.artresearch.net/custom/has_provider> <{{bindings.0.providerA.value}}>.
-                  ?subject2_next <https://pharos.artresearch.net/custom/has_provider> <{{bindings.0.providerB.value}}>.
+                  ?subject1_next <https://pharos.artresearch.net/custom/has_image>/<http://purl.org/ontology/similarity/element> ?nextElement;
+                    <https://pharos.artresearch.net/custom/has_provider> <{{bindings.0.providerA.value}}>.
+                  ?subject2_next <https://pharos.artresearch.net/custom/has_image>/<http://purl.org/ontology/similarity/element> ?nextElement;
+                    <https://pharos.artresearch.net/custom/has_provider> <{{bindings.0.providerB.value}}>.
                   FILTER NOT EXISTS { ?nextElement <https://vision.artresearch.net/custom/reviewed> true }
                   FILTER NOT EXISTS { ?nextElement <https://vision.artresearch.net/custom/skipped> true }
                   {
                     SELECT (GROUP_CONCAT(distinct ?sim) as ?sims) WHERE {
-                      <{{bindings.0.subject1.value}}> <https://pharos.artresearch.net/custom/has_image> ?imgA2.
-                      <{{bindings.0.subject2.value}}> <https://pharos.artresearch.net/custom/has_image> ?imgB2.
-                      ?imgA2 <http://purl.org/ontology/similarity/element> ?sim.
-                      ?imgB2 <http://purl.org/ontology/similarity/element> ?sim.
+                      <{{bindings.0.subject1.value}}> <https://pharos.artresearch.net/custom/has_image>/<http://purl.org/ontology/similarity/element> ?sim.
+                      <{{bindings.0.subject2.value}}> <https://pharos.artresearch.net/custom/has_image>/<http://purl.org/ontology/similarity/element> ?sim.
                     }
                   }
                   FILTER (!(CONTAINS(?sims, STR(?nextElement))))
@@ -72,7 +68,7 @@
         template='{{> titleTemplate}}'>
         <template id="titleTemplate">
        
-              [[> rsp:MatchingCanditateTitleSame]] 
+              [[> rsp:MatchingCandidateTitleSame]] 
         </template>
       </semantic-query>
       </template>
@@ -95,7 +91,7 @@
         >
           <template id="titleOptionsWithNoNext">
                
-            [[> rsp:MatchingCanditateTitleSame]] 
+            [[> rsp:MatchingCandidateTitleSame]] 
           </template>
           </semantic-query>
         </template>
@@ -111,7 +107,7 @@
               }' 
       template='{{> titleTemplate}}'>
       <template id="titleTemplate">
-        [[> rsp:MatchingCanditateFieldsVisualization]]
+        [[> rsp:MatchingCandidateFieldsVisualization]]
       </template>
     </semantic-query>
       {{/if}}
@@ -120,7 +116,7 @@
       <!--################################################################################-->
       <semantic-query
         query='
-				SELECT (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR=", ") AS ?labelA) (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR=", ") AS ?labelB) 
+				SELECT (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR="\n ") AS ?labelA) (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR="\n ") AS ?labelB) 
         ?withData ?fieldName
         WHERE 
         {
@@ -149,7 +145,7 @@
         }GROUP BY ?withData ?fieldName'
         template="{{> iconclassinformationTemplate}}"
       >
-        <template id="iconclassinformationTemplate">[[> rsp:MatchingCanditateFieldsVisualization]]</template>
+        <template id="iconclassinformationTemplate">[[> rsp:MatchingCandidateFieldsVisualization]]</template>
       </semantic-query>
 
       <!--################################################################################-->
@@ -157,8 +153,8 @@
       <!--################################################################################-->
       <semantic-query
         query=' SELECT
-        (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR=", ") AS ?labelA) 
-        (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR=", ") AS ?labelB) 
+        (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR="\n ") AS ?labelA) 
+        (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR="\n ") AS ?labelB) 
         (SAMPLE(?value) AS ?value)
         (SAMPLE(?value_b) AS ?value_b)
         (SAMPLE(?ulanArtist_a) AS ?ulanArtist_a)
@@ -182,7 +178,7 @@
                 }GROUP BY ?withData ?fieldName '
         template="{{> creatorTemplate}}"
       >
-        <template id="creatorTemplate">[[> rsp:MatchingCanditateFieldsVisualization]]</template>
+        <template id="creatorTemplate">[[> rsp:MatchingCandidateFieldsVisualization]]</template>
       </semantic-query>
 
       <!--################################################################################-->
@@ -190,8 +186,8 @@
       <!--################################################################################-->
       <semantic-query
         query=' SELECT 
-        (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR=", ") AS ?labelA)
-         (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR=", ") AS ?labelB)
+        (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR="\n ") AS ?labelA)
+         (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR="\n ") AS ?labelB)
          (SAMPLE(?actor_a) AS ?actor_a)
          (SAMPLE(?actor_b) AS ?actor_b) 
          (SAMPLE(?wikiRepo_a) AS ?wikiRepo_a)
@@ -217,7 +213,7 @@
 
         template="{{> repositoryTemplate}}"
       >
-        <template id="repositoryTemplate">[[> rsp:MatchingCanditateFieldsVisualization]]</template>
+        <template id="repositoryTemplate">[[> rsp:MatchingCandidateFieldsVisualization]]</template>
       </semantic-query>
 
       <!--################################################################################-->
@@ -225,7 +221,7 @@
       <!--################################################################################-->
       <semantic-query
         query='
-				SELECT (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR=", ") AS ?labelA) (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR=", ") AS ?labelB) 
+				SELECT (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR="\n ") AS ?labelA) (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR="\n ") AS ?labelB) 
         ?withData ?fieldName
           WHERE 
  {
@@ -249,7 +245,34 @@
         }}GROUP BY ?withData ?fieldName'
         template="{{> photosTemplate}}"
       >
-        <template id="photosTemplate">[[> rsp:MatchingCanditateFieldsVisualization]]</template>
+        <template id="photosTemplate">[[> rsp:MatchingCandidateFieldsVisualization]]</template>
+      </semantic-query>
+
+      <!--################################################################################-->
+      <!--#################################### PHOTOGRAPHERS ####################################-->
+      <!--################################################################################-->
+      <semantic-query
+        query=' SELECT (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR = " \n ") AS ?labelA) (GROUP_CONCAT(DISTINCT ?label_b; SEPARATOR = " \n ") AS ?labelB) ?withData ?fieldName WHERE {
+                  SERVICE <https://artresearch.net/sparql> {
+                    {
+                      <{{bindings.0.subject1.value}}> fr:Work_depicted_by_Photo ?pa.
+                        ?pa fr:Photo_created_by_Photographer ?pra.
+                        ?pra rdfs:label ?label_a.
+                      BIND((BOUND(?label_a)) && ((STRLEN(?label_a)) > 0 ) AS ?withData)
+                    }
+                    UNION
+                    {
+                      <{{bindings.0.subject2.value}}> fr:Work_depicted_by_Photo ?pb.
+                        ?pb fr:Photo_created_by_Photographer ?prb.
+                        ?prb rdfs:label ?label_b.
+                      BIND((BOUND(?label_b)) && ((STRLEN(?label_b)) > 0 ) AS ?withData)
+                    }
+                    BIND("Photographers" AS ?fieldName)
+                  }
+                } GROUP BY ?withData ?fieldName'
+        template="{{> photosTemplate}}"
+      >
+        <template id="photosTemplate">[[> rsp:MatchingCandidateFieldsVisualization]]</template>
       </semantic-query>
 
       <!--################################################################################-->
@@ -257,7 +280,7 @@
       <!--################################################################################-->
       <semantic-query
         query='
-				SELECT (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR=", ") AS ?labelA) (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR=", ") AS ?labelB) 
+				SELECT (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR="\n ") AS ?labelA) (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR="\n ") AS ?labelB) 
         ?withData ?fieldName
           WHERE 
  {
@@ -281,14 +304,14 @@
         }}GROUP BY ?withData ?fieldName'
         template="{{> digitalimagesTemplate}}"
       >
-        <template id="digitalimagesTemplate">[[> rsp:MatchingCanditateFieldsVisualization]]</template>
+        <template id="digitalimagesTemplate">[[> rsp:MatchingCandidateFieldsVisualization]]</template>
       </semantic-query>
 
       <!--################################################################################-->
       <!--################################ INFLUENCED BY ################################-->
       <!--################################################################################-->
       <semantic-query
-        query=' SELECT (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR=", ") AS ?labelA) (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR=", ") AS ?labelB) ?withData ?fieldName WHERE {
+        query=' SELECT (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR="\n ") AS ?labelA) (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR="\n ") AS ?labelB) ?withData ?fieldName WHERE {
                   {
                     <{{bindings.0.subject1.value}}> <https://pharos.artresearch.net/resource/fr/Work_influenced_by_Artist> ?artist_a .
                     ?artist_a rdfs:label ?label_a.
@@ -302,7 +325,7 @@
         }GROUP BY ?withData ?fieldName'
         template="{{> influencedbyTemplate}}"
       >
-        <template id="influencedbyTemplate">[[> rsp:MatchingCanditateFieldsVisualization]]</template>
+        <template id="influencedbyTemplate">[[> rsp:MatchingCandidateFieldsVisualization]]</template>
       </semantic-query>
 
       <!--################################################################################-->
@@ -310,7 +333,7 @@
       <!--################################################################################-->
       <semantic-query
         query='
-				SELECT (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR=", ") AS ?labelA) (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR=", ") AS ?labelB)  ?withData ?fieldName WHERE {
+				SELECT (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR="\n ") AS ?labelA) (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR="\n ") AS ?labelB)  ?withData ?fieldName WHERE {
           SERVICE <https://artresearch.net/sparql> {
             {
               <{{bindings.0.subject1.value}}> crm:P108i_was_produced_by ?production.
@@ -332,14 +355,14 @@
         }GROUP BY ?withData ?fieldName'
         template="{{> attributionsTemplate}}"
       >
-        <template id="attributionsTemplate">[[> rsp:MatchingCanditateFieldsVisualization]]</template>
+        <template id="attributionsTemplate">[[> rsp:MatchingCandidateFieldsVisualization]]</template>
       </semantic-query>
 
       <!--################################################################################-->
       <!--########################## PRODUCTION DATE - EARLIEST ##########################--> 
       <!--################################################################################-->
       <semantic-query
-        query=' SELECT (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR=", ") AS ?labelA) (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR=", ") AS ?labelB) ?withData ?fieldName WHERE {
+        query=' SELECT (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR="\n ") AS ?labelA) (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR="\n ") AS ?labelB) ?withData ?fieldName WHERE {
                   {
                     <{{bindings.0.subject1.value}}> <https://pharos.artresearch.net/resource/fr/Work_creation_date_start> ?label_a.
                     BIND(BOUND(?label_a) && strlen(?label_a)>0 as ?withData)
@@ -352,14 +375,14 @@
                 }GROUP BY ?withData ?fieldName'
         template="{{> productiondate-earliestTemplate}}"
       >
-        <template id="productiondate-earliestTemplate">[[> rsp:MatchingCanditateFieldsVisualization]]</template>
+        <template id="productiondate-earliestTemplate">[[> rsp:MatchingCandidateFieldsVisualization]]</template>
       </semantic-query>
 
       <!--################################################################################-->
       <!--########################### PRODUCTION DATE - LATEST ###########################-->
       <!--################################################################################-->
       <semantic-query
-        query=' SELECT (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR=", ") AS ?labelA) (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR=", ") AS ?labelB) ?withData ?fieldName WHERE {
+        query=' SELECT (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR="\n ") AS ?labelA) (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR="\n ") AS ?labelB) ?withData ?fieldName WHERE {
                   { 
                     <{{bindings.0.subject1.value}}> <https://pharos.artresearch.net/resource/fr/Work_creation_date_end> ?label_a.
                     BIND(BOUND(?label_a) && strlen(?label_a)>0 as ?withData)
@@ -371,7 +394,7 @@
                 }GROUP BY ?withData ?fieldName'
         template="{{> productiondate-latestTemplate}}"
       >
-        <template id="productiondate-latestTemplate">[[> rsp:MatchingCanditateFieldsVisualization]]</template>
+        <template id="productiondate-latestTemplate">[[> rsp:MatchingCandidateFieldsVisualization]]</template>
       </semantic-query>
 
       <!--################################################################################-->
@@ -379,7 +402,7 @@
       <!--################################################################################-->
       <semantic-query
         query='
-				SELECT (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR=", ") AS ?labelA) (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR=", ") AS ?labelB) 
+				SELECT (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR="\n ") AS ?labelA) (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR="\n ") AS ?labelB) 
         ?withData ?fieldName
           WHERE 
  {
@@ -403,7 +426,7 @@
         }}GROUP BY ?withData ?fieldName'
         template="{{> productiondateTemplate}}"
       >
-        <template id="productiondateTemplate">[[> rsp:MatchingCanditateFieldsVisualization]]</template>
+        <template id="productiondateTemplate">[[> rsp:MatchingCandidateFieldsVisualization]]</template>
       </semantic-query>
 
       <!--################################################################################-->
@@ -411,7 +434,7 @@
       <!--################################################################################-->
       <semantic-query
         query='
-				SELECT (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR=", ") AS ?labelA) (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR=", ") AS ?labelB) 
+				SELECT (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR="\n ") AS ?labelA) (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR="\n ") AS ?labelB) 
         ?withData ?fieldName
           WHERE 
  {
@@ -437,14 +460,14 @@
         }}GROUP BY ?withData ?fieldName'
         template="{{> preciselocationdescriptionTemplate}}"
       >
-        <template id="preciselocationdescriptionTemplate">[[> rsp:MatchingCanditateFieldsVisualization]]</template>
+        <template id="preciselocationdescriptionTemplate">[[> rsp:MatchingCandidateFieldsVisualization]]</template>
       </semantic-query>
 
       <!--################################################################################-->
       <!--############################### PHOTO ARCHIVE RECORDS ###############################-->
       <!--################################################################################-->
       <semantic-query
-        query=' SELECT (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR=", ") AS ?labelA) (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR=", ") AS ?labelB) ?withData ?fieldName WHERE {
+        query=' SELECT (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR="\n ") AS ?labelA) (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR="\n ") AS ?labelB) ?withData ?fieldName WHERE {
                   SERVICE <https://artresearch.net/sparql> {
                     {
                       <{{bindings.0.subject1.value}}> <https://pharos.artresearch.net/custom/has_original_record> ?label_a.
@@ -458,7 +481,7 @@
                 }GROUP BY ?withData ?fieldName'
         template="{{> originalrecordsTemplate}}"
       >
-        <template id="originalrecordsTemplate">[[> rsp:MatchingCanditateFieldsVisualization]]</template>
+        <template id="originalrecordsTemplate">[[> rsp:MatchingCandidateFieldsVisualization]]</template>
       </semantic-query>
 
       <!--################################################################################-->
@@ -466,19 +489,23 @@
       <!--################################################################################-->
       <semantic-query
         query='
-				SELECT  (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR=", ") AS ?labelA) 
-                (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR=", ") AS ?labelB) 
+				SELECT  (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR="\n ") AS ?labelA) 
+                (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR="\n ") AS ?labelB) 
                 ?withData 
                 ?fieldName WHERE {
           SERVICE <https://artresearch.net/sparql> {
             {
-              <{{bindings.0.subject1.value}}> <http://www.cidoc-crm.org/cidoc-crm/P2_has_type> ?value .
-              ?value rdfs:label ?label_a.
+              {SELECT DISTINCT (SAMPLE(?label_a) AS ?label_a) {
+                <{{bindings.0.subject1.value}}> <http://www.cidoc-crm.org/cidoc-crm/P2_has_type> ?value .
+                ?value rdfs:label ?label_a. 
+              } GROUP BY ?value}
               BIND(BOUND(?label_a) && strlen(?label_a)>0 as ?withData)
               FILTER(LANG(?label_a) = "")
             } UNION{
-              <{{bindings.0.subject2.value}}> <http://www.cidoc-crm.org/cidoc-crm/P2_has_type> ?value_b .
-              ?value_b rdfs:label ?label_b  
+              {SELECT DISTINCT (SAMPLE(?label_b) AS ?label_b) {
+                <{{bindings.0.subject2.value}}> <http://www.cidoc-crm.org/cidoc-crm/P2_has_type> ?value .
+                ?value rdfs:label ?label_b. 
+              } GROUP BY ?value}
               BIND(BOUND(?label_b) && strlen(?label_b)>0 as ?withData)
               FILTER(LANG(?label_b) = "")
             }
@@ -486,7 +513,7 @@
         }}GROUP BY ?withData ?fieldName'
         template="{{> typesTemplate}}"
       >
-        <template id="typesTemplate">[[> rsp:MatchingCanditateFieldsVisualization]]</template>
+        <template id="typesTemplate">[[> rsp:MatchingCandidateFieldsVisualization]]</template>
       </semantic-query>
 
       <!--################################################################################-->
@@ -494,7 +521,7 @@
       <!--################################################################################-->
       <semantic-query
         query='
-				SELECT (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR=", ") AS ?labelA) (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR=", ") AS ?labelB) 
+				SELECT (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR="\n ") AS ?labelA) (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR="\n ") AS ?labelB) 
         ?withData ?fieldName
           WHERE 
  {
@@ -516,7 +543,7 @@
         }}GROUP BY ?withData ?fieldName'
         template="{{> subjectTemplate}}"
       >
-        <template id="subjectTemplate">[[> rsp:MatchingCanditateFieldsVisualization]]</template>
+        <template id="subjectTemplate">[[> rsp:MatchingCandidateFieldsVisualization]]</template>
       </semantic-query>
 
       <!--################################################################################-->
@@ -524,7 +551,7 @@
       <!--################################################################################-->
       <semantic-query
         query='
-				SELECT (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR=", ") AS ?labelA) (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR=", ") AS ?labelB) 
+				SELECT (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR="\n ") AS ?labelA) (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR="\n ") AS ?labelB) 
         ?withData ?fieldName
           WHERE 
  {
@@ -550,7 +577,7 @@
         }}GROUP BY ?withData ?fieldName'
         template="{{> subjectdescriptionTemplate}}"
       >
-        <template id="subjectdescriptionTemplate">[[> rsp:MatchingCanditateFieldsVisualization]]</template>
+        <template id="subjectdescriptionTemplate">[[> rsp:MatchingCandidateFieldsVisualization]]</template>
       </semantic-query>
 
       <!--################################################################################-->
@@ -558,7 +585,7 @@
       <!--################################################################################-->
       <semantic-query
         query='
-				SELECT (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR=", ") AS ?labelA) (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR=", ") AS ?labelB) 
+				SELECT (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR="\n ") AS ?labelA) (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR="\n ") AS ?labelB) 
         ?withData ?fieldName
           WHERE 
  {
@@ -598,7 +625,7 @@
         }}GROUP BY ?withData ?fieldName'
         template="{{> collectionTemplate}}"
       >
-        <template id="collectionTemplate">[[> rsp:MatchingCanditateFieldsVisualization]]</template>
+        <template id="collectionTemplate">[[> rsp:MatchingCandidateFieldsVisualization]]</template>
       </semantic-query>
 
       <!--################################################################################-->
@@ -606,7 +633,7 @@
       <!--################################################################################-->
       <semantic-query
         query='
-				SELECT (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR=", ") AS ?labelA) (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR=", ") AS ?labelB) 
+				SELECT (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR="\n ") AS ?labelA) (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR="\n ") AS ?labelB) 
         ?withData ?fieldName
           WHERE 
  {
@@ -626,7 +653,7 @@
         }}GROUP BY ?withData ?fieldName'
         template="{{> currentlocationTemplate}}"
       >
-        <template id="currentlocationTemplate">[[> rsp:MatchingCanditateFieldsVisualization]]</template>
+        <template id="currentlocationTemplate">[[> rsp:MatchingCandidateFieldsVisualization]]</template>
       </semantic-query>
 
       <!--################################################################################-->
@@ -634,7 +661,7 @@
       <!--################################################################################-->
       <semantic-query
         query='
-				SELECT (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR=", ") AS ?labelA) (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR=", ") AS ?labelB) 
+				SELECT (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR="\n ") AS ?labelA) (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR="\n ") AS ?labelB) 
         ?withData ?fieldName WHERE {
           SERVICE <https://artresearch.net/sparql> {
             {
@@ -663,7 +690,7 @@
         }GROUP BY ?withData ?fieldName'
         template="{{> dimensionsTemplate}}"
       >
-        <template id="dimensionsTemplate">[[> rsp:MatchingCanditateFieldsVisualization]]</template>
+        <template id="dimensionsTemplate">[[> rsp:MatchingCandidateFieldsVisualization]]</template>
       </semantic-query>
 
       <!--################################################################################-->
@@ -671,7 +698,7 @@
       <!--################################################################################-->
       <semantic-query
         query='
-				SELECT (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR=", ") AS ?labelA) (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR=", ") AS ?labelB) 
+				SELECT (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR="\n ") AS ?labelA) (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR="\n ") AS ?labelB) 
         ?withData ?fieldName
           WHERE 
  {
@@ -691,7 +718,7 @@
         }}GROUP BY ?withData ?fieldName'
         template="{{> dimensionTemplate}}"
       >
-        <template id="dimensionTemplate">[[> rsp:MatchingCanditateFieldsVisualization]]</template>
+        <template id="dimensionTemplate">[[> rsp:MatchingCandidateFieldsVisualization]]</template>
       </semantic-query>
 
       <!--################################################################################-->
@@ -699,7 +726,7 @@
       <!--################################################################################-->
       <semantic-query
         query='
-				SELECT (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR=", ") AS ?labelA) (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR=", ") AS ?labelB) 
+				SELECT (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR="\n ") AS ?labelA) (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR="\n ") AS ?labelB) 
         ?withData ?fieldName
           WHERE 
  {
@@ -721,7 +748,7 @@
         }}GROUP BY ?withData ?fieldName'
         template="{{> techniqueTemplate}}"
       >
-        <template id="techniqueTemplate">[[> rsp:MatchingCanditateFieldsVisualization]]</template>
+        <template id="techniqueTemplate">[[> rsp:MatchingCandidateFieldsVisualization]]</template>
       </semantic-query>
 
       <!--################################################################################-->
@@ -729,7 +756,7 @@
       <!--################################################################################-->
       <semantic-query
         query='
-				SELECT (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR=", ") AS ?labelA) (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR=", ") AS ?labelB) 
+				SELECT (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR="\n ") AS ?labelA) (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR="\n ") AS ?labelB) 
         ?withData ?fieldName
           WHERE 
  {
@@ -751,7 +778,7 @@
         }}GROUP BY ?withData ?fieldName'
         template="{{> materialTemplate}}"
       >
-        <template id="materialTemplate">[[> rsp:MatchingCanditateFieldsVisualization]]</template>
+        <template id="materialTemplate">[[> rsp:MatchingCandidateFieldsVisualization]]</template>
       </semantic-query>
       
     </tbody>

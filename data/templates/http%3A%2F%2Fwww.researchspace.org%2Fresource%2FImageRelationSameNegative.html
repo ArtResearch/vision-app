@@ -1,0 +1,415 @@
+<div class="image-rel-container">
+
+  <semantic-query query='
+  SELECT DISTINCT ?subject1 ?subject2 ?similarity ?nextSimilarity  WHERE {
+    ?imageA <http://purl.org/ontology/similarity/element> <[[simElement]]>.
+    ?imageB <http://purl.org/ontology/similarity/element> <[[simElement]]>.
+    ?subject1 <https://pharos.artresearch.net/custom/has_image> ?imageA.
+    ?subject2 <https://pharos.artresearch.net/custom/has_image> ?imageB.
+    BIND(<[[simElement]]> AS ?similarity)
+    BIND(<[[nextSimElement]]> AS ?nextSimilarity) 
+    FILTER (STR(?imageA)!=STR(?imageB))
+  }LIMIT 1'
+  template="{{> imageOptionsSubjects}}"
+  >
+    <template id="imageOptionsSubjects">
+    <semantic-query query='
+    SELECT DISTINCT ?subject1 ?imageA ?thumbA ?providerLabelA WHERE{
+      <{{bindings.0.subject1.value}}>  <https://pharos.artresearch.net/custom/has_image> ?imageA.
+      BIND(REPLACE(STR(?imageA),"full/full","full/!250,250") AS ?thumbA).
+      <{{bindings.0.subject2.value}}>  <https://pharos.artresearch.net/custom/has_image> ?imageB.
+      <{{bindings.0.subject1.value}}>  <https://pharos.artresearch.net/custom/has_provider> ?provA.
+      ?provA rdfs:label ?providerLabelA.
+      ?imageA <http://purl.org/ontology/similarity/element> ?element.
+      ?imageB <http://purl.org/ontology/similarity/element> ?element.
+      BIND(<{{bindings.0.subject1.value}}> AS ?subject1)
+  }'
+    template="{{> imageOptionsA}}"
+    >
+    <template id="imageOptionsA">
+    <div class="image-options">
+      <div class="artwork-title">
+        <mp-label iri="{{bindings.0.subject1.value}}"></mp-label>
+        <div class="imageHolder">
+              <div class="imageLabel"> [[> rsp:SourceIcon providerLabel="{{bindings.0.providerLabelA.value}}"]]{{bindings.0.providerLabelA.value}}</div>    
+        </div>    
+      </div>
+      {{#each bindings}}
+      <mp-event-target-template-render
+      id="rel-image-container"
+      template="{{> relImageContainer}}"
+    >
+      <template id="relImageContainer">
+      <mp-event-trigger
+        id="rel-image"
+        type="Component.TemplateUpdate"
+        data='{
+        {{#ifCond artwork_a "&&" artwork_b}}
+          {{#ifCond (objectLength artwork_a) "!==" 1}}
+            {{#ifCond (objectLength artwork_b) "!==" 1}}    
+              "artwork_a":"{{imageA.value}}",
+              "artwork_b":"1"
+            {{else}}
+              {{#ifCond (objectLength artwork_a) "!==" 1}}
+              "artwork_a":"{{artwork_a}}",
+              "artwork_b":"{{imageA.value}}"
+              {{else}}
+                "artwork_a":"{{imageA.value}}",
+                {{#ifCond (objectLength) "!==" 1}}
+                "artwork_b": "{{artwork_a}}"
+                {{else}}
+                "artwork_b": "1"
+                {{/ifCond}}
+              {{/ifCond}}
+            {{/ifCond}}
+            {{else}}
+            {{#ifCond (objectLength artwork_a) "!==" 1}}
+              "artwork_a":"{{artwork_a}}",
+              "artwork_b":"{{imageA.value}}"
+            {{else}}
+              "artwork_a":"{{imageA.value}}",
+              {{#ifCond (objectLength artwork_b) "!==" 1}}
+              "artwork_b":"{{artwork_a}}"
+              {{else}}
+              "artwork_b": "1"
+              {{/ifCond}}
+            {{/ifCond}}
+          {{/ifCond}}
+        {{else}}
+          "artwork_a":"{{imageA.value}}",
+          "artwork_b":"1"
+        {{/ifCond}}
+        }'
+        targets='["rel-image-container","result-visualizer"]'
+        >
+        {{#ifCond artwork_a "===" imageA.value}}
+          <img class="selected-img" src='{{thumbA.value}}'/>
+        {{else}}
+        {{#ifCond artwork_b "===" imageA.value}}
+          <img class="selected-img-b" src='{{thumbA.value}}'/>
+       {{else}}
+        <img src='{{thumbA.value}}'/>
+       {{/ifCond}}
+      {{/ifCond}}
+      </mp-event-trigger>
+      </template>
+      </mp-event-target-template-render>
+      {{/each}}
+    </div>
+  </template>
+</semantic-query>
+<semantic-query query='
+SELECT DISTINCT ?subject2 ?imageB ?thumbB ?provB ?providerLabelB WHERE{
+  <{{bindings.0.subject1.value}}>  <https://pharos.artresearch.net/custom/has_image> ?imageA.
+  <{{bindings.0.subject2.value}}>  <https://pharos.artresearch.net/custom/has_image> ?imageB.
+  <{{bindings.0.subject2.value}}>  <https://pharos.artresearch.net/custom/has_provider> ?provB.
+  ?provB rdfs:label ?providerLabelB.
+  BIND(REPLACE(STR(?imageB),"full/full","full/!250,250") AS ?thumbB).
+  ?imageA <http://purl.org/ontology/similarity/element> ?element.
+  ?imageB <http://purl.org/ontology/similarity/element> ?element.
+  BIND(<{{bindings.0.subject2.value}}> AS ?subject2)
+
+
+}'
+template="{{> imageOptionsB}}"
+>
+<template id="imageOptionsB">
+    <div class="image-options">
+      <div class="artwork-title">
+        <mp-label iri="{{bindings.0.subject2.value}}"></mp-label>
+           <div class="imageHolder">
+              <div class="imageLabel"> [[> rsp:SourceIcon providerLabel="{{bindings.0.providerLabelB.value}}"]]{{bindings.0.providerLabelB.value}}</div>    
+           </div>    
+      </div>
+      {{#each bindings}}
+      <mp-event-target-template-render
+      id="rel-image-container"
+      template="{{> relImageContainer}}"
+    >
+      <template id="relImageContainer">
+      <mp-event-trigger
+        id="rel-image"
+        type="Component.TemplateUpdate"
+        data='{
+          {{#ifCond artwork_a "&&" artwork_b}}
+          {{#ifCond (objectLength artwork_a) "!==" 1}}
+            {{#ifCond (objectLength artwork_b) "!==" 1}}    
+              "artwork_a":"{{imageB.value}}",
+              "artwork_b":"1"
+            {{else}}
+              {{#ifCond (objectLength artwork_a) "!==" 1}}
+              "artwork_a":"{{artwork_a}}",
+              "artwork_b":"{{imageB.value}}"
+              {{else}}
+                "artwork_a":"{{imageB.value}}",
+                {{#ifCond (objectLength artwork_b) "!==" 1}}
+                "artwork_b":"{{artwork_a}}"
+                {{else}}
+                "artwork_b":"1"
+                {{/ifCond}}
+              {{/ifCond}}
+            {{/ifCond}}
+            {{else}}
+            {{#ifCond (objectLength artwork_a) "!==" 1}}
+              "artwork_a":"{{artwork_a}}",
+              "artwork_b":"{{imageB.value}}"
+            {{else}}
+              "artwork_a":"{{imageB.value}}",
+              {{#ifCond (objectLength artwork_b) "!==" 1}}
+              "artwork_b":"{{artwork_a}}"
+              {{else}}
+              "artwork_b": "1"
+              {{/ifCond}}
+            {{/ifCond}}
+          {{/ifCond}}
+        {{else}}
+          "artwork_a":"{{imageB.value}}",
+          "artwork_b":"1"
+        {{/ifCond}}
+        }'
+        targets='["rel-image-container","result-visualizer"]'
+      >
+      {{#ifCond artwork_a "===" imageB.value}}
+        <img class="selected-img" src='{{thumbB.value}}'/>
+      {{else}}
+        {{#ifCond artwork_b "===" imageB.value}}
+          <img class="selected-img-b" src='{{thumbB.value}}'/>
+        {{else}}
+          <img src='{{thumbB.value}}'/>
+        {{/ifCond}}
+      {{/ifCond}}
+      </mp-event-trigger>
+      </template>
+      </mp-event-target-template-render>
+      {{/each}}
+    </div>
+    </template>
+    </semantic-query>
+    <div class="resulting-title">
+      <mp-event-target-template-render
+      id="result-visualizer"
+      template="{{> resultVisualization}}"
+    >
+      <template id="resultVisualization">
+        {{#if artwork_a}}
+          {{#ifCond (objectLength artwork_a) "!==" 1}}
+          <mp-popover title="Artwork IRI">
+            <mp-popover-trigger placement="top"  trigger='["hover","focus"]'> 
+              <div class="selected-a" ><mp-label iri="{{artwork_a}}"></mp-label></div>
+            </mp-popover-trigger>
+            <mp-popover-content style="background:white; width:fit-content !important;">
+              {{artwork_a}}
+            </mp-popover-content>
+          </mp-popover>
+          {{/ifCond}}
+        {{/if}}
+        [[relationLabel]]
+        {{#if artwork_b}}
+          {{#ifCond (objectLength artwork_b) "!==" 1}}
+            {{#ifCond artwork_a "!==" artwork_b}}
+            <mp-popover title="Artwork IRI">
+              <mp-popover-trigger placement="top"  trigger='["hover","focus"]'> 
+                <div class="selected-b" title="{{artwork_b}}"><mp-label iri="{{artwork_b}}"></mp-label></div>
+              </mp-popover-trigger>
+              <mp-popover-content style="background:white; width:fit-content !important;">
+                {{artwork_b}}
+              </mp-popover-content>
+            </mp-popover>
+            {{/ifCond}}
+          {{/ifCond}}
+        {{/if}}
+        
+        {{#ifCond artwork_a "&&" artwork_b}}
+          {{#ifCond (objectLength artwork_a) "!==" 1}}
+             {{#ifCond (objectLength artwork_b) "!==" 1}}
+                {{#ifCond artwork_a "!==" artwork_b}}
+                    <mp-overlay-dialog title="Confirm two artworks are the same" >
+                      <mp-overlay-dialog-trigger>
+                                <button
+                                id="confirm-submit"
+                                name="submit"
+                                class="confirm-relation-btn"
+                                title="Click to select a preferred title"
+                              > Confirm </button>
+                          </mp-overlay-dialog-trigger>
+                          <mp-overlay-dialog-content>
+                              <h1>Please select a preferred title bellow</h1>
+                              <semantic-query
+                              query='SELECT ?label ?element ?nextElement ?selectedArtworkA ?selectedArtworkB WHERE {
+                                ?image <http://purl.org/ontology/similarity/element> <{{bindings.0.similarity.value}}>.
+                                ?work <https://pharos.artresearch.net/custom/has_image> ?image.
+                                ?work owl:sameAs ?pharos.
+                                ?work rdfs:label ?label.
+                                BIND(<{{artwork_a}}> as ?selectedArtworkA)
+                                BIND(<{{artwork_b}}> as ?selectedArtworkB)
+                                BIND(<{{bindings.0.similarity.value}}> as ?element)
+                                BIND(<{{bindings.0.nextSimilarity.value}}> as ?nextElement)
+                              }' 
+                              template='{{> titleTemplate}}'>
+                                <template id="titleTemplate">
+                                  <div class="forms-in-a-row" >
+                                  {{#each bindings}}
+                                  <semantic-form
+                                  new-subject-template="{{element.value}}"
+                                  browser-persistance="true"
+                                  persistence='ldp'
+                                  urlqueryparam-providera='[[urlParam "providera"]]'
+                                  urlqueryparam-providerb='[[urlParam "providerb"]]'
+                                  post-action='{{nextElement.value}}'
+                                  form-id="IMApprove1"
+                                  fields='[[fieldDefinitions
+                                            sameAs="http://www.researchspace.org/fieldDefinition/Same"
+                                            title="http://www.researchspace.org/fieldDefinition/Preferred_title"
+                                            confirmed=[formField]
+                                      ]]'
+                                >
+                                  <semantic-form-hidden-input
+                                    for="sameAs"
+                                    default-value="true"
+                                  ></semantic-form-hidden-input>
+                                  
+                                  <semantic-form-hidden-input
+                                    for="title"
+                                    default-value="/{{label.value}}/"
+                                  ></semantic-form-hidden-input>
+                  
+                                    <semantic-form-hidden-input
+                                      for="confirmed"
+                                      default-value="{{selectedArtworkA.value}},{{selectedArtworkB.value}}"
+                                    ></semantic-form-hidden-input>
+                                  <td>
+                                    <div class="selectionWrapper">
+                                    <div class="Label-value"> {{label.value}}</div>
+                                    <button
+                                    style="
+                                    font-size: medium;
+                                    border: none ;
+                                    text-transform: none;
+                                    height: 100%;
+                                    min-height: 4vh;
+                                    box-shadow: 0px 0px 10px 1px #bebebe;"
+                                      name="submit"
+                                      class="btn btn-warning action approve"
+                                      title="Select Title for the reconciled artwork"
+                                    >
+                                    <div class="color-white"> Select: </div>
+                                  </button>
+                                </div>
+                                  </td>
+                                </semantic-form>
+                                {{/each}}
+                              </div>
+                              </template>
+                            </semantic-query>
+                            </mp-overlay-dialog-content>
+                    </mp-overlay-dialog>
+               {{/ifCond}}
+             {{/ifCond}}
+          {{/ifCond}}
+        {{/ifCond}}
+        
+      </template>
+      </mp-event-target-template-render>
+    </div>
+  </template>
+  </semantic-query>
+</div>
+
+<style>
+
+  #confirm-submit{
+    margin-left: 15px !important;
+  }
+
+  .image-rel-container{
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    margin-top: 25px;
+    padding-bottom: 15vh;
+  }
+  .image-options{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 30vw;
+    min-width:300px;
+    flex-wrap: wrap;
+    margin-left: 25px;
+    border:1px solid #dedede;
+    padding: 1vh;
+  }
+  .image-options img{
+    height: 30vh;
+    transition: 0.4s;
+    cursor: pointer;
+    margin-top: 40px;
+  }
+  .image-options img:hover{
+    box-shadow: 0px 0px 8px 1px #aaaaaa;
+  }
+  .image-options .artwork-title{
+    text-align:center;
+    text-align: -webkit-center;
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 15px;
+  }
+  .resulting-title{
+    font-size: 16px;
+    background: white;
+    position: fixed;
+    display: flex;
+    bottom: 0;
+    width: 100%;
+    height: 7vh;
+    box-shadow: 0px -3px 12px 1px #cccccc;
+    justify-content: center;
+    align-items: center;
+  }
+  .selected-img{
+    border-radius: 5px;
+    border:7px solid rgb(21, 138, 21);
+  }
+  .selected-img-b{
+    border-radius: 5px;
+    border:7px solid rgb(45, 45, 195);
+  }
+  .selected-a {
+    font-weight: bold;
+    margin-right: 15px;
+    border-bottom:3px solid rgb(21, 138, 21);
+  }
+  .selected-b {
+    font-weight: bold;
+    margin-left: 15px;
+    border-bottom:3px solid rgb(45, 45, 195);
+  }
+
+  .confirm-relation-btn{
+    color: white !important;
+    cursor: pointer;
+    background: rgb(61, 105, 170) !important;
+    border-radius: 5px;
+    font-size: 18px;
+    align-items: center;
+    width: 150px;
+    display: flex;
+    border: 0px;
+    justify-content: center;
+    max-width: 200px;
+    transition: 0.4s;
+    margin-left: 20px !important;
+  }
+  
+  .confirm-relation-btn:hover{
+    box-shadow: 0px 0px 4px 1px #272727;
+  }
+  .popover-content{
+    overflow-wrap: anywhere !important;
+  }
+  .popover.top>.arrow, .popover.top>.arrow:after {
+    border-top-color: black !important;
+  }
+</style>

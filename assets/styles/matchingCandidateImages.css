@@ -1,15 +1,15 @@
-#matching-canditate-images{
+#matching-candidate-images{
     display: flex;
     align-items: center;
 }
-#matching-canditate-images .similarityFields {
+#matching-candidate-images .similarityFields {
   display: flex;
   flex-direction: column;
 }
-#matching-canditate-images .imageHolder {
+#matching-candidate-images .imageHolder {
   position: relative;
 }
-#matching-canditate-images .imageHolder .imageLabel {
+#matching-candidate-images .imageHolder .imageLabel {
   position: absolute;
   padding: 3px;
   display: flex;

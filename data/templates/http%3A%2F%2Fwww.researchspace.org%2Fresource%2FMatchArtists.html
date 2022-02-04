@@ -1,7 +1,7 @@
 <div id="matchings-vocab">
   <!-- PHAROS SECTION -->
     <div class="matchingContainer" >
-      <div class="canditate">
+      <div class="candidate">
         <div style="display: flex;">
           <!-- <img style="border-radius: 100%; object-fit: fill; height: 100px; width: 100px;"  src="http://commons.wikimedia.org/wiki/Special:FilePath/Michelangelo%20Daniele%20da%20Volterra%20%28dettaglio%29.jpg?width=500" /> -->
           <div style="display: flex; flex-direction: column; margin-left: 15px;">
@@ -19,12 +19,12 @@
         </div>
       </div>
       <div class="separatingLine"></div>
-      <div class="canditate">
+      <div class="candidate">
         <h2 style="font-size: 22px; margin-bottom: 4vh;">Click on "Same" button to verify suggested matches</h2 style="font-size: 22px;">
       <semantic-query
-      query='SELECT ?match ?matchId ?currentCanditate WHERE {
+      query='SELECT ?match ?matchId ?currentCandidate WHERE {
         BIND(<[[match]]> as ?match)
-        BIND(<[[artistA]]> as ?currentCanditate)
+        BIND(<[[artistA]]> as ?currentCandidate)
         BIND(REPLACE(str(?match),"http://vocab.getty.edu/ulan/","") as ?matchId).
       }ORDER BY DESC(?recommended)'
       template="{{>possibleMatchesTemplate}}"
@@ -56,7 +56,7 @@
                <div class="actions">
                 <semantic-context repository="vocab">
                   <semantic-form
-                    new-subject-template="{{currentCanditate.value}}"
+                    new-subject-template="{{currentCandidate.value}}"
                     browser-persistance="true"
                     persistence="ldp"
                     post-action="reload"

@@ -317,12 +317,10 @@ template="{{> imageOptionsB}}"
                     form-id="confirm-image-relation"
                     fields='[[  fieldDefinitions
                           confirmed=[formField]
-                          skipped="http://www.researchspace.org/fieldDefinition/Skipped"
                         ]]'
                     >
                     <semantic-form-hidden-input
                       for="confirmed"
-                      for="skipped"
                       default-value="{{artwork_b}}"
                     ></semantic-form-hidden-input>
                     <button

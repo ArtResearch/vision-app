@@ -79,10 +79,10 @@
       <div class="PanelWrapper">
      <div class="WrapperCarousel">
             <bs-col class="cardInfo inWrap" lg="2" xs="10">
-              [[> SimilarityListThumbnails iri="{{bindings.0.subject1.value}}"]]
+              [[> :SimilarityListThumbnails iri="{{bindings.0.subject1.value}}"]]
             </bs-col>
               <bs-col class="cardInfo inWrap" lg="2" xs="10">
-              [[> SimilarityListThumbnails iri="{{bindings.0.subject2.value}}"]]
+              [[> :SimilarityListThumbnails iri="{{bindings.0.subject2.value}}"]]
             </bs-col>
            </div>     
    
@@ -145,7 +145,7 @@
                 no-result-template="{{>noNextSimilarity}}"
               >
                 <template id="imageInfoTemplate">
-                  [[> Sidebar]]
+                  [[> :Sidebar]]
                 </template>
 
                 <template id="noNextSimilarity">
@@ -159,7 +159,7 @@
                     template="{{>sidebarWithNoNext}}"
                   >
                     <template id="sidebarWithNoNext">
-                      [[> Sidebar]]
+                      [[> :Sidebar]]
                     </template>
                   </semantic-query>
                 </template>

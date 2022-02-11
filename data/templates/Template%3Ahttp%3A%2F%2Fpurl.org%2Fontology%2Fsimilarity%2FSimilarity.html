@@ -47,6 +47,20 @@
                       <div class="thumbPairContainer">                  
                         <img class="smallThumbsSingle" src="{{thumbA.value}}" />
                         <img class="smallThumbsSingle" src="{{thumbB.value}}" />
+                          <semantic-query
+                                query='SELECT DISTINCT ?value WHERE {
+                                          <{{element.value}}> <http://purl.org/ontology/similarity/method> ?asso_method.
+                                          ?asso_method <http://purl.org/ontology/similarity/weight> ?value.
+                                          ?asso_method <http://purl.org/ontology/similarity/method> <https://vision.artresearch.net/resource/Similarity/AssociationMethod/Pastec>.
+                                      }'
+                                template='{{> photoSimInfo}}'>
+                                <template id="photoSimInfo">
+                                  <div style="display: flex; flex-direction: column;">
+                                    <div>Photo Similarity</div>
+                                    <div style="display: flex; flex-direction: column;">Pastec:<b class="simInfo">{{bindings.0.value.value}}</b></div>
+                                  </div>
+                                </template>                     
+                            </semantic-query>
                       </div>
                     </mp-event-trigger>
                     {{/each}}

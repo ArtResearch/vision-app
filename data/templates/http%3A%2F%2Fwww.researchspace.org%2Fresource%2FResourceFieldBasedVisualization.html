@@ -32,14 +32,13 @@
           <ul style="padding: 0" class="rs-page__field-value">
             {{#each field.values as |value|}}
             <li class="rs-page-resource__field-value">
-              {{> ResourceFieldValueVisualization field=field value=value }}
+              {{> :ResourceFieldValueVisualization field=field value=value }}
             </li>
             {{/each}}
           </ul>
           {{/ifCond}} {{#ifCond (objectLength field.values) '===' 1}} {{#each
           field.values as |value|}}
-          <span class="rs-page-resource__field-value"
-            >{{> ResourceFieldValueVisualization field=field value=value }}
+          <span class="rs-page-resource__field-value">{{> :ResourceFieldValueVisualization field=field value=value }}
           </span>
           {{/each}} {{/ifCond}}
         </td>

@@ -193,19 +193,21 @@ button.btn.btn-default.action.optional {
   overflow-y: scroll;
   position: relative;
   left: -10%;
-  max-height: 40vh;
+  max-height: 45vh;
   margin-top: 55px;
   margin-bottom: 15px;
 }
 #similarity-template .thumbPairContainer {
   cursor: pointer;
   margin-right: 1vw;
+  padding-right: 1vw;
   box-shadow: 1px 1px 9px 0px lightgrey;
   transition: 0.3s;
   border-radius: 4px;
   height: 100px;
   display: flex;
   align-items: center;
+  gap:10px;
 }
 #similarity-template .thumbPairContainer:hover {
   box-shadow: 1px 1px 9px 0px darkgray;

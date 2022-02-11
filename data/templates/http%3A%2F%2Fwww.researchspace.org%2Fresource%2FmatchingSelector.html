@@ -19,7 +19,7 @@
               <div class="submitContainer">
                 {{#ifCond providerA "&&" providerB}}
                 <semantic-link
-                  iri="SimilarityList"
+                  iri="rsp:SimilarityList"
                   urlqueryparam-providera="{{providerA}}"
                   urlqueryparam-providerb="{{providerB}}"
                 >
@@ -47,12 +47,12 @@
         <template id="providerSelectTemplate">
           {{#ifCond providerA "===" undefined}}
           <h1 class="providerSelectHelper">Select left-side provider</h1>
-          [[> matchingSelectorList selected="{{selected}}"
+          [[> rsp:matchingSelectorList selected="{{selected}}"
           providerSelector="providerA" providerImageSelector="providerImageA"
           additionals='"additional":"none"']] {{else}} {{#ifCond providerB "==="
           undefined}}
           <h1 class="providerSelectHelper">Select right-side provider</h1>
-          [[> matchingSelectorList selected="{{selected}}"
+          [[> rsp:matchingSelectorList selected="{{selected}}"
           providerSelector="providerB" providerImageSelector="providerImageB"
           additionals='"providerA":"{{providerA}}","providerImageA":"{{providerImageA}}"']]
           {{else}}
@@ -60,7 +60,7 @@
             Click on "View matchings list" to proceed or select a different set
             of providers
           </h1>
-          [[> matchingSelectorList selected="{{selected}}"
+          [[> rsp:matchingSelectorList selected="{{selected}}"
           providerSelector="providerA" providerImageSelector="providerImageA"
           additionals='"additional":"none"']] {{/ifCond}} {{/ifCond}}
         </template>

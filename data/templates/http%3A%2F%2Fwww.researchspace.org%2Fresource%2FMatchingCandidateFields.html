@@ -55,7 +55,7 @@
         template='{{> titleTemplate}}'>
         <template id="titleTemplate">
        
-              [[> MatchingCandidateTitleSame]] 
+              [[> rsp:MatchingCandidateTitleSame]] 
         </template>
       </semantic-query>
       </template>
@@ -78,7 +78,7 @@
         >
           <template id="titleOptionsWithNoNext">
                
-            [[> MatchingCandidateTitleSame]] 
+            [[> rsp:MatchingCandidateTitleSame]] 
           </template>
           </semantic-query>
         </template>
@@ -94,7 +94,7 @@
               }' 
       template='{{> titleTemplate}}'>
       <template id="titleTemplate">
-        [[> MatchingCandidateFieldsVisualization]]
+        [[> rsp:MatchingCandidateFieldsVisualization]]
       </template>
     </semantic-query>
       {{/if}}
@@ -132,7 +132,7 @@
         }GROUP BY ?withData ?fieldName'
         template="{{> iconclassinformationTemplate}}"
       >
-        <template id="iconclassinformationTemplate">[[> MatchingCandidateFieldsVisualization]]</template>
+        <template id="iconclassinformationTemplate">[[> rsp:MatchingCandidateFieldsVisualization]]</template>
       </semantic-query>
 
       <!--################################################################################-->
@@ -165,7 +165,7 @@
                 }GROUP BY ?withData ?fieldName '
         template="{{> creatorTemplate}}"
       >
-        <template id="creatorTemplate">[[> MatchingCandidateFieldsVisualization]]</template>
+        <template id="creatorTemplate">[[> rsp:MatchingCandidateFieldsVisualization]]</template>
       </semantic-query>
 
       <!--################################################################################-->
@@ -200,7 +200,7 @@
 
         template="{{> repositoryTemplate}}"
       >
-        <template id="repositoryTemplate">[[> MatchingCandidateFieldsVisualization]]</template>
+        <template id="repositoryTemplate">[[> rsp:MatchingCandidateFieldsVisualization]]</template>
       </semantic-query>
 
       <!--################################################################################-->
@@ -232,7 +232,7 @@
         }}GROUP BY ?withData ?fieldName'
         template="{{> photosTemplate}}"
       >
-        <template id="photosTemplate">[[> MatchingCandidateFieldsVisualization]]</template>
+        <template id="photosTemplate">[[> rsp:MatchingCandidateFieldsVisualization]]</template>
       </semantic-query>
 
       <!--################################################################################-->
@@ -259,7 +259,7 @@
                 } GROUP BY ?withData ?fieldName'
         template="{{> photosTemplate}}"
       >
-        <template id="photosTemplate">[[> MatchingCandidateFieldsVisualization]]</template>
+        <template id="photosTemplate">[[> rsp:MatchingCandidateFieldsVisualization]]</template>
       </semantic-query>
 
       <!--################################################################################-->
@@ -291,7 +291,7 @@
         }}GROUP BY ?withData ?fieldName'
         template="{{> digitalimagesTemplate}}"
       >
-        <template id="digitalimagesTemplate">[[> MatchingCandidateFieldsVisualization]]</template>
+        <template id="digitalimagesTemplate">[[> rsp:MatchingCandidateFieldsVisualization]]</template>
       </semantic-query>
 
       <!--################################################################################-->
@@ -312,7 +312,7 @@
         }GROUP BY ?withData ?fieldName'
         template="{{> influencedbyTemplate}}"
       >
-        <template id="influencedbyTemplate">[[> MatchingCandidateFieldsVisualization]]</template>
+        <template id="influencedbyTemplate">[[> rsp:MatchingCandidateFieldsVisualization]]</template>
       </semantic-query>
 
       <!--################################################################################-->
@@ -342,7 +342,7 @@
         }GROUP BY ?withData ?fieldName'
         template="{{> attributionsTemplate}}"
       >
-        <template id="attributionsTemplate">[[> MatchingCandidateFieldsVisualization]]</template>
+        <template id="attributionsTemplate">[[> rsp:MatchingCandidateFieldsVisualization]]</template>
       </semantic-query>
 
       <!--################################################################################-->
@@ -362,7 +362,7 @@
                 }GROUP BY ?withData ?fieldName'
         template="{{> productiondate-earliestTemplate}}"
       >
-        <template id="productiondate-earliestTemplate">[[> MatchingCandidateFieldsVisualization]]</template>
+        <template id="productiondate-earliestTemplate">[[> rsp:MatchingCandidateFieldsVisualization]]</template>
       </semantic-query>
 
       <!--################################################################################-->
@@ -381,7 +381,7 @@
                 }GROUP BY ?withData ?fieldName'
         template="{{> productiondate-latestTemplate}}"
       >
-        <template id="productiondate-latestTemplate">[[> MatchingCandidateFieldsVisualization]]</template>
+        <template id="productiondate-latestTemplate">[[> rsp:MatchingCandidateFieldsVisualization]]</template>
       </semantic-query>
 
       <!--################################################################################-->
@@ -413,7 +413,7 @@
         }}GROUP BY ?withData ?fieldName'
         template="{{> productiondateTemplate}}"
       >
-        <template id="productiondateTemplate">[[> MatchingCandidateFieldsVisualization]]</template>
+        <template id="productiondateTemplate">[[> rsp:MatchingCandidateFieldsVisualization]]</template>
       </semantic-query>
 
       <!--################################################################################-->
@@ -447,7 +447,7 @@
         }}GROUP BY ?withData ?fieldName'
         template="{{> preciselocationdescriptionTemplate}}"
       >
-        <template id="preciselocationdescriptionTemplate">[[> MatchingCandidateFieldsVisualization]]</template>
+        <template id="preciselocationdescriptionTemplate">[[> rsp:MatchingCandidateFieldsVisualization]]</template>
       </semantic-query>
 
       <!--################################################################################-->
@@ -468,7 +468,7 @@
                 }GROUP BY ?withData ?fieldName'
         template="{{> originalrecordsTemplate}}"
       >
-        <template id="originalrecordsTemplate">[[> MatchingCandidateFieldsVisualization]]</template>
+        <template id="originalrecordsTemplate">[[> rsp:MatchingCandidateFieldsVisualization]]</template>
       </semantic-query>
 
       <!--################################################################################-->
@@ -500,7 +500,7 @@
         }}GROUP BY ?withData ?fieldName'
         template="{{> typesTemplate}}"
       >
-        <template id="typesTemplate">[[> MatchingCandidateFieldsVisualization]]</template>
+        <template id="typesTemplate">[[> rsp:MatchingCandidateFieldsVisualization]]</template>
       </semantic-query>
 
       <!--################################################################################-->
@@ -530,7 +530,7 @@
         }}GROUP BY ?withData ?fieldName'
         template="{{> subjectTemplate}}"
       >
-        <template id="subjectTemplate">[[> MatchingCandidateFieldsVisualization]]</template>
+        <template id="subjectTemplate">[[> rsp:MatchingCandidateFieldsVisualization]]</template>
       </semantic-query>
 
       <!--################################################################################-->
@@ -564,7 +564,7 @@
         }}GROUP BY ?withData ?fieldName'
         template="{{> subjectdescriptionTemplate}}"
       >
-        <template id="subjectdescriptionTemplate">[[> MatchingCandidateFieldsVisualization]]</template>
+        <template id="subjectdescriptionTemplate">[[> rsp:MatchingCandidateFieldsVisualization]]</template>
       </semantic-query>
 
       <!--################################################################################-->
@@ -612,7 +612,7 @@
         }}GROUP BY ?withData ?fieldName'
         template="{{> collectionTemplate}}"
       >
-        <template id="collectionTemplate">[[> MatchingCandidateFieldsVisualization]]</template>
+        <template id="collectionTemplate">[[> rsp:MatchingCandidateFieldsVisualization]]</template>
       </semantic-query>
 
       <!--################################################################################-->
@@ -640,7 +640,7 @@
         }}GROUP BY ?withData ?fieldName'
         template="{{> currentlocationTemplate}}"
       >
-        <template id="currentlocationTemplate">[[> MatchingCandidateFieldsVisualization]]</template>
+        <template id="currentlocationTemplate">[[> rsp:MatchingCandidateFieldsVisualization]]</template>
       </semantic-query>
 
       <!--################################################################################-->
@@ -677,7 +677,7 @@
         }GROUP BY ?withData ?fieldName'
         template="{{> dimensionsTemplate}}"
       >
-        <template id="dimensionsTemplate">[[> MatchingCandidateFieldsVisualization]]</template>
+        <template id="dimensionsTemplate">[[> rsp:MatchingCandidateFieldsVisualization]]</template>
       </semantic-query>
 
       <!--################################################################################-->
@@ -705,7 +705,7 @@
         }}GROUP BY ?withData ?fieldName'
         template="{{> dimensionTemplate}}"
       >
-        <template id="dimensionTemplate">[[> MatchingCandidateFieldsVisualization]]</template>
+        <template id="dimensionTemplate">[[> rsp:MatchingCandidateFieldsVisualization]]</template>
       </semantic-query>
 
       <!--################################################################################-->
@@ -735,7 +735,7 @@
         }}GROUP BY ?withData ?fieldName'
         template="{{> techniqueTemplate}}"
       >
-        <template id="techniqueTemplate">[[> MatchingCandidateFieldsVisualization]]</template>
+        <template id="techniqueTemplate">[[> rsp:MatchingCandidateFieldsVisualization]]</template>
       </semantic-query>
 
       <!--################################################################################-->
@@ -765,7 +765,7 @@
         }}GROUP BY ?withData ?fieldName'
         template="{{> materialTemplate}}"
       >
-        <template id="materialTemplate">[[> MatchingCandidateFieldsVisualization]]</template>
+        <template id="materialTemplate">[[> rsp:MatchingCandidateFieldsVisualization]]</template>
       </semantic-query>
       
     </tbody>

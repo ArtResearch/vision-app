@@ -160,7 +160,7 @@
                       <bs-col class="cardInfo" lg="4" xs="10">
                         <div data-flex-layout="row md-column center-stretch">
                           <bs-row class="cardInfoFields">
-                            <h2>[[> SourceIconByURI providerURI=sourceProviderURI]]</h2>
+                            <h2>[[> rsp:SourceIconByURI providerURI=sourceProviderURI]]</h2>
                             <mp-field-visualization
                               subject="{{subject.value}}"
                               fields='[[fieldDefinitions  
@@ -170,7 +170,7 @@
                               template="{{>generalInfo}}"
                             >
                               <template id="generalInfo">
-                                [[> ResourceFieldBasedVisualization
+                                [[> rsp:ResourceFieldBasedVisualization
                                 subject="{{subject.value}}" ]]
                               </template>
                             </mp-field-visualization>
@@ -184,7 +184,7 @@
                       <bs-col class="cardInfo" lg="4" xs="10">
                         <div data-flex-layout="row md-column center-stretch">
                           <bs-row class="cardInfoFields">
-                            <h2>[[> SourceIconByURI providerURI=targetProviderURI]]</h2>
+                            <h2>[[> rsp:SourceIconByURI providerURI=targetProviderURI]]</h2>
                             <mp-field-visualization
                               subject="{{subject2.value}}"
                               fields='[[fieldDefinitions  
@@ -194,7 +194,7 @@
                               template="{{>generalInfo}}"
                             >
                               <template id="generalInfo">
-                                [[> ResourceFieldBasedVisualization
+                                [[> rsp:ResourceFieldBasedVisualization
                                 subject="{{subject2.value}}" ]]
                               </template>
                             </mp-field-visualization>

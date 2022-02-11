@@ -14,7 +14,7 @@ template="{{> firstCandidateImage}}">
   <mp-overlay-dialog-trigger>
     <div class="imageHolder">
       <img src='{{bindings.0.thumbnailUrl.value}}'/>
-      <div class="imageLabel">[[> SourceIcon providerLabel="{{bindings.0.imageLabel.value}}"]] {{bindings.0.imageLabel.value}}</div>    
+      <div class="imageLabel">[[> rsp:SourceIcon providerLabel="{{bindings.0.imageLabel.value}}"]] {{bindings.0.imageLabel.value}}</div>    
     </div>    
   </mp-overlay-dialog-trigger>
     <mp-overlay-dialog-content>
@@ -47,7 +47,7 @@ template="{{> firstCandidateImage}}">
 </semantic-query>
 <!-- Similarity fields between two images -->
 <div class="similarityFields"> 
-      [[> SimilarityBasicInfoForVisualSimilarity]]
+      [[> rsp:SimilarityBasicInfoForVisualSimilarity]]
 </div>
 <!-- Second candidate -->
 <semantic-query query='SELECT ?iiifServerUrlA ?iiifServerUrlB ?imageUrlA ?imageUrlB ?imageLabel ?thumbnailUrl WHERE{
@@ -64,7 +64,7 @@ template="{{> secondCandidateImage}}">
   <mp-overlay-dialog-trigger>
     <div class="imageHolder">
       <img src='{{bindings.0.thumbnailUrl.value}}'/>
-      <div class="imageLabel">[[> SourceIcon providerLabel="{{bindings.0.imageLabel.value}}"]]{{bindings.0.imageLabel.value}}</div>    
+      <div class="imageLabel">[[> rsp:SourceIcon providerLabel="{{bindings.0.imageLabel.value}}"]]{{bindings.0.imageLabel.value}}</div>    
     </div>    
   </mp-overlay-dialog-trigger>
   <mp-overlay-dialog-content>

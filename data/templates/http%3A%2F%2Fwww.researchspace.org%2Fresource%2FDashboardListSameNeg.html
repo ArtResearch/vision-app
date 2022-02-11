@@ -62,7 +62,7 @@ no-result-template='<h1 style="margin-top:150px;">There are no matchings marked 
               <div data-flex-layout="row md-column center-stretch">
                 <bs-row class="cardInfoFields">
                   <h2>
-                    [[> SourceIcon
+                    [[> rsp:SourceIcon
                     providerLabel="{{providerLabelA.value}}"]]{{providerLabelA.value}}
                   </h2>
                   <mp-field-visualization
@@ -74,7 +74,7 @@ no-result-template='<h1 style="margin-top:150px;">There are no matchings marked 
                     template="{{>generalInfo}}"
                   >
                     <template id="generalInfo">
-                      [[> ResourceFieldBasedVisualization
+                      [[> rsp:ResourceFieldBasedVisualization
                       subject="{{work.value}}" ]]
                     </template>
                   </mp-field-visualization>
@@ -89,7 +89,7 @@ no-result-template='<h1 style="margin-top:150px;">There are no matchings marked 
               <div data-flex-layout="row md-column center-stretch">
                 <bs-row class="cardInfoFields">
                   <h2>
-                    [[> SourceIcon
+                    [[> rsp:SourceIcon
                     providerLabel="{{providerLabelB.value}}"]]{{providerLabelB.value}}
                   </h2>
                   <mp-field-visualization
@@ -101,7 +101,7 @@ no-result-template='<h1 style="margin-top:150px;">There are no matchings marked 
                     template="{{>generalInfo}}"
                   >
                     <template id="generalInfo">
-                      [[> ResourceFieldBasedVisualization
+                      [[> rsp:ResourceFieldBasedVisualization
                       subject="{{work2.value}}" ]]
                     </template>
                   </mp-field-visualization>

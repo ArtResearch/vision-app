@@ -18,7 +18,7 @@
         
       </p>
 
-        [[> :StatisticTotal]]
+        [[> StatisticTotal]]
 
       </div>
         <semantic-query  
@@ -81,7 +81,7 @@
                   >
                     <template id="ShowTab">
                             {{#ifCond bindings.0.count.value "!==" "0"}}
-                              [[> :PartnerCategorySelectSearch sourceProviderURI="{{bindings.0.partner.value}}" targetProviderURI="{{partnerUri.value}}"]]
+                              [[> PartnerCategorySelectSearch sourceProviderURI="{{bindings.0.partner.value}}" targetProviderURI="{{partnerUri.value}}"]]
                             {{else}}
                              <h1>No matchings found for this Photo archive</h1><h2>Try switching to a different Photo archive tab</h2>
                             {{/ifCond}}

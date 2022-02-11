@@ -193,7 +193,7 @@ button.btn.btn-default.action.optional {
   overflow-y: scroll;
   position: relative;
   left: -10%;
-  max-height: 40vh;
+  max-height: 45vh;
   margin-top: 55px;
   margin-bottom: 15px;
 }

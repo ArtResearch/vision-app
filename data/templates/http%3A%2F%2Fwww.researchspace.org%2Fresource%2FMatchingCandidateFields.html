@@ -2,22 +2,9 @@
   <table class="table table-hover">
     <thead>
       <tr>
-        <semantic-query query=' SELECT distinct ?sub1 ?sub2 ("{{bindings.0.providerLabelA.value}}" AS ?provLabelA) ("{{bindings.0.providerLabelB.value}}" AS ?provLabelB)
-        {
-          BIND(ENCODE_FOR_URI("{{bindings.0.subject1Link.value}}") AS ?sub1)
-          BIND(ENCODE_FOR_URI("{{bindings.0.subject2Link.value}}") AS ?sub2)
-        }'
-          template='{{> header}}'>
-          <template id='header'>
-            <th scope="col" style="width: 30%">Field</th>
-            <th scope="col"><a href="https://artresearch.net/resource/?uri={{bindings.0.sub1.value}}" target="_null">{{bindings.0.provLabelA.value}}</a>
-            </th>
-            <th scope="col"><a href="https://artresearch.net/resource/?uri={{bindings.0.sub2.value}}" target="_null">{{bindings.0.provLabelB.value}}</a> 
-            </th>
-
-          </template>
-          
-        </semantic-query>
+        <th scope="col" style="width: 30%">Field</th>
+        <th scope="col"><a href="{{bindings.0.subject1.value}}" target="_null">{{bindings.0.providerLabelA.value}}</a></th>
+        <th scope="col"><a href="{{bindings.0.subject2.value}}" target="_null">{{bindings.0.providerLabelB.value}}</a></th>
       </tr>
     </thead>
     <tbody>

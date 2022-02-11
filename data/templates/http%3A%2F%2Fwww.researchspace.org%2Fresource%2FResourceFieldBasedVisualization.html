@@ -32,22 +32,13 @@
           <ul style="padding: 0" class="rs-page__field-value">
             {{#each field.values as |value|}}
             <li class="rs-page-resource__field-value">
-<<<<<<< HEAD
-              {{> :ResourceFieldValueVisualization field=field value=value }}
-=======
               {{> rsp:ResourceFieldValueVisualization field=field value=value }}
->>>>>>> parent of cf48dd1... removed rsp:
             </li>
             {{/each}}
           </ul>
           {{/ifCond}} {{#ifCond (objectLength field.values) '===' 1}} {{#each
           field.values as |value|}}
-<<<<<<< HEAD
-          <span class="rs-page-resource__field-value">{{> :ResourceFieldValueVisualization field=field value=value }}
-=======
-          <span class="rs-page-resource__field-value"
-            >{{> rsp:ResourceFieldValueVisualization field=field value=value }}
->>>>>>> parent of cf48dd1... removed rsp:
+          <span class="rs-page-resource__field-value">{{> rsp:ResourceFieldValueVisualization field=field value=value }}
           </span>
           {{/each}} {{/ifCond}}
         </td>

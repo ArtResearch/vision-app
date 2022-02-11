@@ -61,9 +61,9 @@
                 >
                   <template id="largeImageDisplay">
                     {{#ifCond imageA "&&" imageB}} 
-                        [[> rsp:MatchingCandidateImages element="{{element}}" imageA="{{imageA}}" imageB="{{imageB}}"]] 
+                        [[> MatchingCandidateImages element="{{element}}" imageA="{{imageA}}" imageB="{{imageB}}"]] 
                     {{else}} 
-                        [[> rsp:MatchingCandidateImages element="{{bindings.0.element.value}}" imageA="{{bindings.0.imageA.value}}" imageB="{{bindings.0.imageB.value}}"]]
+                        [[> MatchingCandidateImages element="{{bindings.0.element.value}}" imageA="{{bindings.0.imageA.value}}" imageB="{{bindings.0.imageB.value}}"]]
                     {{/ifCond}}
                   </template>
                 </mp-event-target-template-render>
@@ -90,7 +90,7 @@
 
         <div class="matchContainer">
           <!-- Matching candidates fields comparison table -->
-          <div class="fieldViewer">[[> rsp:MatchingCandidateFields]]</div>
+          <div class="fieldViewer">[[> MatchingCandidateFields]]</div>
         </div>
         <p></p>
         <p></p>

@@ -32,7 +32,7 @@ template="{{> firstCandidateImage}}">
   <mp-overlay-dialog-trigger>
     <div class="imageHolder">
       <img src='{{bindings.0.thumbnailA.value}}'/>
-      <div class="imageLabel">[[> rsp:SourceIcon providerLabel="{{bindings.0.imageLabelA.value}}"]] {{bindings.0.imageLabelA.value}}</div>    
+      <div class="imageLabel">[[> SourceIcon providerLabel="{{bindings.0.imageLabelA.value}}"]] {{bindings.0.imageLabelA.value}}</div>    
     </div>    
   </mp-overlay-dialog-trigger>
     <mp-overlay-dialog-content>
@@ -72,7 +72,7 @@ template="{{> firstCandidateImage}}">
 </mp-overlay-dialog>
 <!-- Similarity fields between two images -->
 <div class="similarityFields"> 
-  [[> rsp:SimilarityBasicInfoForVisualSimilarity element="{{bindings.0.element.value}}"]]
+  [[> SimilarityBasicInfoForVisualSimilarity element="{{bindings.0.element.value}}"]]
 </div>
 
 <!-- Second candidate -->
@@ -80,7 +80,7 @@ template="{{> firstCandidateImage}}">
   <mp-overlay-dialog-trigger>
     <div class="imageHolder">
       <img src='{{bindings.0.thumbnailB.value}}'/>
-      <div class="imageLabel">[[> rsp:SourceIcon providerLabel="{{bindings.0.imageLabelB.value}}"]]{{bindings.0.imageLabelB.value}}</div>    
+      <div class="imageLabel">[[> SourceIcon providerLabel="{{bindings.0.imageLabelB.value}}"]]{{bindings.0.imageLabelB.value}}</div>    
     </div>    
   </mp-overlay-dialog-trigger>
   <mp-overlay-dialog-content>

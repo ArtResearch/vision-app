@@ -34,16 +34,16 @@
                   (<{{bindings.0.subject1.value}}> as ?subject1) 
                   (<{{bindings.0.subject2.value}}> as ?subject2) 
                 WHERE {
-                  ?subject1_next <https://pharos.artresearch.net/custom/has_image>/<http://purl.org/ontology/similarity/element> ?nextElement;
-                    <https://pharos.artresearch.net/custom/has_provider> <{{bindings.0.providerA.value}}>.
-                  ?subject2_next <https://pharos.artresearch.net/custom/has_image>/<http://purl.org/ontology/similarity/element> ?nextElement;
-                    <https://pharos.artresearch.net/custom/has_provider> <{{bindings.0.providerB.value}}>.
+                  ?subject1_next <https://artresearch.net/custom/has_image>/<http://purl.org/ontology/similarity/element> ?nextElement;
+                    <https://artresearch.net/custom/has_provider> <{{bindings.0.providerA.value}}>.
+                  ?subject2_next <https://artresearch.net/custom/has_image>/<http://purl.org/ontology/similarity/element> ?nextElement;
+                    <https://artresearch.net/custom/has_provider> <{{bindings.0.providerB.value}}>.
                   FILTER NOT EXISTS { ?nextElement <https://vision.artresearch.net/custom/reviewed> true }
                   FILTER NOT EXISTS { ?nextElement <https://vision.artresearch.net/custom/skipped> true }
                   {
                     SELECT (GROUP_CONCAT(distinct ?sim) as ?sims) WHERE {
-                      <{{bindings.0.subject1.value}}> <https://pharos.artresearch.net/custom/has_image>/<http://purl.org/ontology/similarity/element> ?sim.
-                      <{{bindings.0.subject2.value}}> <https://pharos.artresearch.net/custom/has_image>/<http://purl.org/ontology/similarity/element> ?sim.
+                      <{{bindings.0.subject1.value}}> <https://artresearch.net/custom/has_image>/<http://purl.org/ontology/similarity/element> ?sim.
+                      <{{bindings.0.subject2.value}}> <https://artresearch.net/custom/has_image>/<http://purl.org/ontology/similarity/element> ?sim.
                     }
                   }
                   FILTER (!(CONTAINS(?sims, STR(?nextElement))))
@@ -58,7 +58,7 @@
                   (<{{bindings.0.element.value}}> AS ?element)
                   (<{{bindings.0.nextElement.value}}> AS ?nextElement)
                 WHERE {
-                  <https://pharos.artresearch.net/fieldDefinition/2> rdfs:label  ?fieldName.
+                  <https://artresearch.net/fieldDefinition/2> rdfs:label  ?fieldName.
                   BIND(IF(EXISTS{ <{{bindings.0.element.value}}>  <https://vision.artresearch.net/custom/reviewed> true },true,false)as ?temp). 
                   <{{bindings.0.subject1.value}}> rdfs:label ?labelA.
                   <{{bindings.0.subject2.value}}> rdfs:label ?labelB.
@@ -79,7 +79,7 @@
                     ?fieldName
                     (<{{bindings.0.element.value}}> AS ?element)
                   WHERE {
-                    <https://pharos.artresearch.net/fieldDefinition/2> rdfs:label  ?fieldName.
+                    <https://artresearch.net/fieldDefinition/2> rdfs:label  ?fieldName.
                      BIND(IF(EXISTS{ <{{bindings.0.element.value}}>  <https://vision.artresearch.net/custom/reviewed> true },true,false)as ?temp). 
                     <{{bindings.0.subject1.value}}> rdfs:label ?labelA.
                     <{{bindings.0.subject2.value}}> rdfs:label ?labelB.
@@ -99,7 +99,7 @@
       {{else}}
       <semantic-query
       query='SELECT DISTINCT ?labelA ?labelB ?withData ?temp ?fieldName WHERE {
-                <https://pharos.artresearch.net/fieldDefinition/2> rdfs:label  ?fieldName.
+                <https://artresearch.net/fieldDefinition/2> rdfs:label  ?fieldName.
                 <{{bindings.0.subject1.value}}> rdfs:label ?labelA.
                 <{{bindings.0.subject2.value}}> rdfs:label ?labelB.
                 BIND(BOUND(?labelA) && strlen(?labelA)>0 as ?withData)
@@ -140,7 +140,7 @@
                 BIND(CONCAT(?val_label_b," (",?type_label_b,") ") AS ?label_b )
                 BIND(BOUND(?label_b) && strlen(?label_b)>0 as ?withData)
               }
-              <https://pharos.artresearch.net/fieldDefinition/92> rdfs:label ?fieldName.
+              <https://artresearch.net/fieldDefinition/92> rdfs:label ?fieldName.
           }
         }GROUP BY ?withData ?fieldName'
         template="{{> iconclassinformationTemplate}}"
@@ -160,21 +160,21 @@
         (SAMPLE(?ulanArtist_a) AS ?ulanArtist_a)
         (SAMPLE(?ulanArtist_b) AS ?ulanArtist_b)  ?withData ?fieldName WHERE {
                   {
-                    <{{bindings.0.subject1.value}}> <https://pharos.artresearch.net/resource/fr/Work_created_from_Artist> ?value.
+                    <{{bindings.0.subject1.value}}> <https://artresearch.net/resource/fr/Work_created_from_Artist> ?value.
                     ?value rdfs:label ?label_a.
                     OPTIONAL{
                       ?value owl:sameAs ?ulanArtist_a.
                     }
                     BIND(BOUND(?label_a) && strlen(?label_a)>0 as ?withData)
                   } UNION{ 
-                    <{{bindings.0.subject2.value}}> <https://pharos.artresearch.net/resource/fr/Work_created_from_Artist> ?value_b.
+                    <{{bindings.0.subject2.value}}> <https://artresearch.net/resource/fr/Work_created_from_Artist> ?value_b.
                     ?value_b rdfs:label ?label_b.  
                     OPTIONAL{
                       ?value_b owl:sameAs ?ulanArtist_b.
                     }
                     BIND(BOUND(?label_b) && strlen(?label_b)>0 as ?withData)
                   } 
-                 <https://pharos.artresearch.net/fieldDefinition/1> rdfs:label ?fieldName.
+                 <https://artresearch.net/fieldDefinition/1> rdfs:label ?fieldName.
                 }GROUP BY ?withData ?fieldName '
         template="{{> creatorTemplate}}"
       >
@@ -194,21 +194,21 @@
          (SAMPLE(?wikiRepo_b) AS ?wikiRepo_b)
          ?withData ?fieldName WHERE {
                   {
-                    <{{bindings.0.subject1.value}}> <https://pharos.artresearch.net/resource/fr/Work_kept_by_Institution> ?actor_a.
+                    <{{bindings.0.subject1.value}}> <https://artresearch.net/resource/fr/Work_kept_by_Institution> ?actor_a.
                     ?actor_a rdfs:label ?label_a.
                     OPTIONAL{
                       ?actor_a owl:sameAs ?wikiRepo_a.
                     }
                     BIND(BOUND(?label_a) && strlen(?label_a)>0 as ?withData)
                   } UNION{
-                    <{{bindings.0.subject2.value}}> <https://pharos.artresearch.net/resource/fr/Work_kept_by_Institution> ?actor_b.
+                    <{{bindings.0.subject2.value}}> <https://artresearch.net/resource/fr/Work_kept_by_Institution> ?actor_b.
                     ?actor_b rdfs:label ?label_b.
                     OPTIONAL{
                       ?actor_b owl:sameAs ?wikiRepo_b.
                     }
                     BIND(BOUND(?label_b) && strlen(?label_b)>0 as ?withData)
                   }
-                  <https://pharos.artresearch.net/fieldDefinition/Repository> rdfs:label ?fieldName.
+                  <https://artresearch.net/fieldDefinition/Repository> rdfs:label ?fieldName.
                 }GROUP BY ?withData ?fieldName'
 
         template="{{> repositoryTemplate}}"
@@ -300,7 +300,7 @@
           ?value_b rdfs:label ?label_b  
           BIND(BOUND(?label_b) && strlen(?label_b)>0 as ?withData)
           }
-         <https://pharos.artresearch.net/fieldDefinition/43> rdfs:label ?fieldName.
+         <https://artresearch.net/fieldDefinition/43> rdfs:label ?fieldName.
         }}GROUP BY ?withData ?fieldName'
         template="{{> digitalimagesTemplate}}"
       >
@@ -313,15 +313,15 @@
       <semantic-query
         query=' SELECT (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR="\n ") AS ?labelA) (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR="\n ") AS ?labelB) ?withData ?fieldName WHERE {
                   {
-                    <{{bindings.0.subject1.value}}> <https://pharos.artresearch.net/resource/fr/Work_influenced_by_Artist> ?artist_a .
+                    <{{bindings.0.subject1.value}}> <https://artresearch.net/resource/fr/Work_influenced_by_Artist> ?artist_a .
                     ?artist_a rdfs:label ?label_a.
                     BIND(BOUND(?label_a) && strlen(?label_a)>0 as ?withData)
                   } UNION{
-                    <{{bindings.0.subject2.value}}> <https://pharos.artresearch.net/resource/fr/Work_influenced_by_Artist> ?artist_b .
+                    <{{bindings.0.subject2.value}}> <https://artresearch.net/resource/fr/Work_influenced_by_Artist> ?artist_b .
                     ?artist_b rdfs:label  ?label_b  
                     BIND(BOUND(?label_b) && strlen(?label_b)>0 as ?withData)
                   }
-                  <https://pharos.artresearch.net/fieldDefinition/20> rdfs:label ?fieldName.
+                  <https://artresearch.net/fieldDefinition/20> rdfs:label ?fieldName.
         }GROUP BY ?withData ?fieldName'
         template="{{> influencedbyTemplate}}"
       >
@@ -350,7 +350,7 @@
               ?value_b rdfs:label ?label_b  
               BIND(BOUND(?label_b) && strlen(?label_b)>0 as ?withData)
             }
-             <https://pharos.artresearch.net/fieldDefinition/277> rdfs:label ?fieldName.
+             <https://artresearch.net/fieldDefinition/277> rdfs:label ?fieldName.
           }
         }GROUP BY ?withData ?fieldName'
         template="{{> attributionsTemplate}}"
@@ -364,14 +364,14 @@
       <semantic-query
         query=' SELECT (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR="\n ") AS ?labelA) (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR="\n ") AS ?labelB) ?withData ?fieldName WHERE {
                   {
-                    <{{bindings.0.subject1.value}}> <https://pharos.artresearch.net/resource/fr/Work_creation_date_start> ?label_a.
+                    <{{bindings.0.subject1.value}}> <https://artresearch.net/resource/fr/Work_creation_date_start> ?label_a.
                     BIND(BOUND(?label_a) && strlen(?label_a)>0 as ?withData)
                   }
                   UNION{
-                    <{{bindings.0.subject2.value}}> <https://pharos.artresearch.net/resource/fr/Work_creation_date_start> ?label_b  
+                    <{{bindings.0.subject2.value}}> <https://artresearch.net/resource/fr/Work_creation_date_start> ?label_b  
                     BIND(BOUND(?label_b) && strlen(?label_b)>0 as ?withData)
                   }
-                 <https://pharos.artresearch.net/fieldDefinition/7> rdfs:label ?fieldName.
+                 <https://artresearch.net/fieldDefinition/7> rdfs:label ?fieldName.
                 }GROUP BY ?withData ?fieldName'
         template="{{> productiondate-earliestTemplate}}"
       >
@@ -384,13 +384,13 @@
       <semantic-query
         query=' SELECT (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR="\n ") AS ?labelA) (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR="\n ") AS ?labelB) ?withData ?fieldName WHERE {
                   { 
-                    <{{bindings.0.subject1.value}}> <https://pharos.artresearch.net/resource/fr/Work_creation_date_end> ?label_a.
+                    <{{bindings.0.subject1.value}}> <https://artresearch.net/resource/fr/Work_creation_date_end> ?label_a.
                     BIND(BOUND(?label_a) && strlen(?label_a)>0 as ?withData)
                   } UNION{
-                    <{{bindings.0.subject2.value}}> <https://pharos.artresearch.net/resource/fr/Work_creation_date_end> ?label_b  
+                    <{{bindings.0.subject2.value}}> <https://artresearch.net/resource/fr/Work_creation_date_end> ?label_b  
                     BIND(BOUND(?label_b) && strlen(?label_b)>0 as ?withData)
                   }
-                 <https://pharos.artresearch.net/fieldDefinition/9> rdfs:label ?fieldName.
+                 <https://artresearch.net/fieldDefinition/9> rdfs:label ?fieldName.
                 }GROUP BY ?withData ?fieldName'
         template="{{> productiondate-latestTemplate}}"
       >
@@ -422,7 +422,7 @@
           ?value_b rdfs:label ?label_b  
           BIND(BOUND(?label_b) && strlen(?label_b)>0 as ?withData)
           }
-          <https://pharos.artresearch.net/fieldDefinition/8> rdfs:label ?fieldName.
+          <https://artresearch.net/fieldDefinition/8> rdfs:label ?fieldName.
         }}GROUP BY ?withData ?fieldName'
         template="{{> productiondateTemplate}}"
       >
@@ -470,10 +470,10 @@
         query=' SELECT (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR="\n ") AS ?labelA) (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR="\n ") AS ?labelB) ?withData ?fieldName WHERE {
                   SERVICE <https://artresearch.net/sparql> {
                     {
-                      <{{bindings.0.subject1.value}}> <https://pharos.artresearch.net/custom/has_original_record> ?label_a.
+                      <{{bindings.0.subject1.value}}> <https://artresearch.net/custom/has_original_record> ?label_a.
                       BIND(BOUND(?label_a) && strlen(str(?label_a))>0 as ?withData)
                     } UNION{
-                      <{{bindings.0.subject2.value}}> <https://pharos.artresearch.net/custom/has_original_record> ?label_b.  
+                      <{{bindings.0.subject2.value}}> <https://artresearch.net/custom/has_original_record> ?label_b.  
                       BIND(BOUND(?label_b) && strlen(str(?label_b))>0 as ?withData)
                     }
                     BIND("Photo archive records" as ?fieldName)
@@ -509,7 +509,7 @@
               BIND(BOUND(?label_b) && strlen(?label_b)>0 as ?withData)
               FILTER(LANG(?label_b) = "")
             }
-            <https://pharos.artresearch.net/fieldDefinition/550> rdfs:label ?fieldName.
+            <https://artresearch.net/fieldDefinition/550> rdfs:label ?fieldName.
         }}GROUP BY ?withData ?fieldName'
         template="{{> typesTemplate}}"
       >
@@ -539,7 +539,7 @@
           ?value_b rdfs:label ?label_b  
           BIND(BOUND(?label_b) && strlen(?label_b)>0 as ?withData)
           }
-         <https://pharos.artresearch.net/fieldDefinition/46> rdfs:label ?fieldName.
+         <https://artresearch.net/fieldDefinition/46> rdfs:label ?fieldName.
         }}GROUP BY ?withData ?fieldName'
         template="{{> subjectTemplate}}"
       >
@@ -573,7 +573,7 @@
           ?value_b rdfs:label ?label_b  
           BIND(BOUND(?label_b) && strlen(?label_b)>0 as ?withData)
           }
-         <https://pharos.artresearch.net/fieldDefinition/62> rdfs:label ?fieldName.
+         <https://artresearch.net/fieldDefinition/62> rdfs:label ?fieldName.
         }}GROUP BY ?withData ?fieldName'
         template="{{> subjectdescriptionTemplate}}"
       >
@@ -621,7 +621,7 @@
           BIND(BOUND(?label_b) && strlen(?label_b)>0 as ?withData)
   		}
           }
-        <https://pharos.artresearch.net/fieldDefinition/4> rdfs:label ?fieldName.
+        <https://artresearch.net/fieldDefinition/4> rdfs:label ?fieldName.
         }}GROUP BY ?withData ?fieldName'
         template="{{> collectionTemplate}}"
       >
@@ -685,7 +685,7 @@
               BIND(CONCAT(STR(?dvalue_b)," ",?unit_b," ","(",?qualifier_b,")") as ?label_b).
               BIND(BOUND(?label_b) && strlen(?label_b)>0 as ?withData)
             }
-            <https://pharos.artresearch.net/fieldDefinition/6> rdfs:label ?fieldName.
+            <https://artresearch.net/fieldDefinition/6> rdfs:label ?fieldName.
           }
         }GROUP BY ?withData ?fieldName'
         template="{{> dimensionsTemplate}}"
@@ -714,7 +714,7 @@
           ?value_b rdfs:label ?label_b.  
           BIND(BOUND(?label_b) && strlen(?label_b)>0 as ?withData)
           }
-           <https://pharos.artresearch.net/fieldDefinition/66> rdfs:label ?fieldName.
+           <https://artresearch.net/fieldDefinition/66> rdfs:label ?fieldName.
         }}GROUP BY ?withData ?fieldName'
         template="{{> dimensionTemplate}}"
       >
@@ -744,7 +744,7 @@
     ?value_b rdfs:label ?label_b  
           BIND(BOUND(?label_b) && strlen(?label_b)>0 as ?withData)
           }
-          <https://pharos.artresearch.net/fieldDefinition/42> rdfs:label ?fieldName.
+          <https://artresearch.net/fieldDefinition/42> rdfs:label ?fieldName.
         }}GROUP BY ?withData ?fieldName'
         template="{{> techniqueTemplate}}"
       >
@@ -774,7 +774,7 @@
           ?value_b rdfs:label ?label_b  
           BIND(BOUND(?label_b) && strlen(?label_b)>0 as ?withData)
           }
-          <https://pharos.artresearch.net/fieldDefinition/44> rdfs:label ?fieldName.
+          <https://artresearch.net/fieldDefinition/44> rdfs:label ?fieldName.
         }}GROUP BY ?withData ?fieldName'
         template="{{> materialTemplate}}"
       >

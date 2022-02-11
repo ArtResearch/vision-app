@@ -2,23 +2,23 @@
 <semantic-query
   query='SELECT ?matched (SUM(?unmatched) as ?unmatched) ((?matched+?unmatched) as ?total) WHERE {
     GRAPH ?graph {
-    <[[urlParam "partner"]]>  <https://pharos.artresearch.net/custom/numOfMatched> ?matched.
+    <[[urlParam "partner"]]>  <https://artresearch.net/custom/numOfMatched> ?matched.
     {
-      <[[urlParam "partner"]]>   <hhttps://pharos.artresearch.net/custom/numOfNonmatchedHertziana> ?unmatched
+      <[[urlParam "partner"]]>   <hhttps://artresearch.net/custom/numOfNonmatchedHertziana> ?unmatched
     }UNION{
-      <[[urlParam "partner"]]>   <https://pharos.artresearch.net/custom/numOfNonmatchedKHI> ?unmatched
+      <[[urlParam "partner"]]>   <https://artresearch.net/custom/numOfNonmatchedKHI> ?unmatched
     }UNION{
-      <[[urlParam "partner"]]>   <https://pharos.artresearch.net/custom/numOfNonmatchedFrick> ?unmatched
+      <[[urlParam "partner"]]>   <https://artresearch.net/custom/numOfNonmatchedFrick> ?unmatched
     }UNION{
-      <[[urlParam "partner"]]>   <https://pharos.artresearch.net/custom/numOfNonmatchedMarburg> ?unmatched
+      <[[urlParam "partner"]]>   <https://artresearch.net/custom/numOfNonmatchedMarburg> ?unmatched
     }UNION{
-      <[[urlParam "partner"]]>   <https://pharos.artresearch.net/custom/numOfNonmatchedItatti> ?unmatched
+      <[[urlParam "partner"]]>   <https://artresearch.net/custom/numOfNonmatchedItatti> ?unmatched
     }UNION{
-      <[[urlParam "partner"]]>   <https://pharos.artresearch.net/custom/numOfNonmatchedZeri> ?unmatched
+      <[[urlParam "partner"]]>   <https://artresearch.net/custom/numOfNonmatchedZeri> ?unmatched
     }
   }
-  ?statistics <https://pharos.artresearch.net/custom/latest> true.
-  ?statistics <https://pharos.artresearch.net/custom/consists_of> ?graph.
+  ?statistics <https://artresearch.net/custom/latest> true.
+  ?statistics <https://artresearch.net/custom/consists_of> ?graph.
 } GROUP BY ?matched'
   template='{{> statsTotal }}'>
   <template id="statsTotal">

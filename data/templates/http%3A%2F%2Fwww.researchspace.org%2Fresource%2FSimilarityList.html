@@ -16,21 +16,21 @@
  <semantic-search
   limit="1000"
   relations='{
-    "<https://pharos.artresearch.net/resource/field/Artist_Attribution>":[
+    "<https://artresearch.net/resource/field/Artist_Attribution>":[
       {
         "kind": "resource",
         "queryPattern": "
          
-            $subject <https://pharos.artresearch.net/resource/fr/Work_created_from_Artist> ?__value__.
+            $subject <https://artresearch.net/resource/fr/Work_created_from_Artist> ?__value__.
           "
       }
     ],
-    "<https://pharos.artresearch.net/fieldDefinition/Repository>":[
+    "<https://artresearch.net/fieldDefinition/Repository>":[
     {
       "kind": "resource",
       "queryPattern": "
        
-          $subject <https://pharos.artresearch.net/resource/fr/Work_kept_by_Institution> ?__value__.
+          $subject <https://artresearch.net/resource/fr/Work_kept_by_Institution> ?__value__.
        "
     }]
       }'
@@ -50,7 +50,7 @@
             "label":"Artwork"
           },
           {
-            "iri":"<https://pharos.artresearch.net/resource/fr/Work_creation_date>",
+            "iri":"<https://artresearch.net/resource/fr/Work_creation_date>",
             "label":"Creation date range"
           },
           {
@@ -58,11 +58,11 @@
             "label":"Date"
           },
           {
-            "iri":"<https://pharos.artresearch.net/fieldDefinition/Photo_similarity>",
+            "iri":"<https://artresearch.net/fieldDefinition/Photo_similarity>",
             "label":"Photo similarity"
           },
           {
-            "iri":"<https://pharos.artresearch.net/fieldDefinition/Text_similarity>",
+            "iri":"<https://artresearch.net/fieldDefinition/Text_similarity>",
             "label":"Text similarity"
           },
           {
@@ -73,13 +73,13 @@
         "relations":
         [
           {
-            "iri": "<https://pharos.artresearch.net/resource/field/Artist_Attribution>",
+            "iri": "<https://artresearch.net/resource/field/Artist_Attribution>",
             "label":"Creator",
             "hasDomain":"<http://www.cidoc-crm.org/cidoc-crm/E22_Man-Made_Object>",
             "hasRange":"<http://www.cidoc-crm.org/cidoc-crm/E21_Person>"
           },
           {
-            "iri": "<https://pharos.artresearch.net/fieldDefinition/Repository>",
+            "iri": "<https://artresearch.net/fieldDefinition/Repository>",
             "label":"Repository",
             "hasDomain":"<http://www.cidoc-crm.org/cidoc-crm/E22_Man-Made_Object>",
             "hasRange":"<http://www.cidoc-crm.org/cidoc-crm/E39_Actor>"
@@ -101,16 +101,16 @@
         (SAMPLE(?providerLabelA) as ?providerLabelA)
         (SAMPLE(?providerLabelB) as ?providerLabelB)
         WHERE {
-          ?subject <https://pharos.artresearch.net/custom/has_image> ?imageA.
+          ?subject <https://artresearch.net/custom/has_image> ?imageA.
           ?imageA <http://purl.org/ontology/similarity/element> ?element.
-          ?subject2 <https://pharos.artresearch.net/custom/has_image> ?imageB.
+          ?subject2 <https://artresearch.net/custom/has_image> ?imageB.
           ?imageB <http://purl.org/ontology/similarity/element> ?element.
           ?element <http://purl.org/ontology/similarity/method> ?asso_method.
           ?asso_method <http://purl.org/ontology/similarity/weight> ?score.
           ?asso_method <http://purl.org/ontology/similarity/method> <https://vision.artresearch.net/resource/Similarity/AssociationMethod/Pastec>.
-          ?subject <https://pharos.artresearch.net/custom/has_provider> <[[urlParam "providera"]]>.
+          ?subject <https://artresearch.net/custom/has_provider> <[[urlParam "providera"]]>.
           <[[urlParam "providera"]]> rdfs:label ?providerLabelA.
-          ?subject2 <https://pharos.artresearch.net/custom/has_provider> <[[urlParam "providerb"]]>.
+          ?subject2 <https://artresearch.net/custom/has_provider> <[[urlParam "providerb"]]>.
           <[[urlParam "providerb"]]> rdfs:label ?providerLabelB.
           FILTER NOT EXISTS {?element <https://vision.artresearch.net/custom/reviewed> true }
           FILTER NOT EXISTS {?element <https://vision.artresearch.net/custom/skipped> true }
@@ -182,8 +182,8 @@
                             <mp-field-visualization
                               subject="{{subject.value}}"
                               fields='[[fieldDefinitions  
-                                      Title="https://pharos.artresearch.net/fieldDefinition/2"
-                                      Creator="https://pharos.artresearch.net/fieldDefinition/1"
+                                      Title="https://artresearch.net/fieldDefinition/2"
+                                      Creator="https://artresearch.net/fieldDefinition/1"
                                       ]]'
                               template="{{>generalInfo}}"
                             >
@@ -209,8 +209,8 @@
                             <mp-field-visualization
                               subject="{{subject2.value}}"
                               fields='[[fieldDefinitions  
-                                        Title="https://pharos.artresearch.net/fieldDefinition/2"
-                                        Creator="https://pharos.artresearch.net/fieldDefinition/1"
+                                        Title="https://artresearch.net/fieldDefinition/2"
+                                        Creator="https://artresearch.net/fieldDefinition/1"
                                         ]]'
                               template="{{>generalInfo}}"
                             >

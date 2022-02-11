@@ -155,8 +155,8 @@
             <semantic-query
             query='SELECT ?label ?element ?nextElement WHERE {
               ?image <http://purl.org/ontology/similarity/element> <{{bindings.0.element.value}}>.
-              ?work <https://pharos.artresearch.net/custom/has_image> ?image.
-              ?work owl:sameAs ?pharos.
+              ?work <https://artresearch.net/custom/has_image> ?image.
+              ?work owl:sameAs ?
               ?work rdfs:label ?label.
               BIND(<{{bindings.0.element.value}}> as ?element)
               BIND(<{{bindings.0.nextElement.value}}> as ?nextElement)

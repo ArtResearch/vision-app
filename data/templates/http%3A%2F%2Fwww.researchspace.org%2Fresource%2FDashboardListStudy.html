@@ -19,13 +19,13 @@ query=' SELECT DISTINCT
             ?subject <http://www.w3.org/ns/prov#wasAttributedTo> ?attribution.
             ?subject <http://www.w3.org/ns/prov#generatedAtTime> ?modifiedAt ; 
           }
-          ?work <https://pharos.artresearch.net/custom/has_image> ?imageA.
+          ?work <https://artresearch.net/custom/has_image> ?imageA.
           ?imageA <http://purl.org/ontology/similarity/element> ?similarity.
-          ?work2 <https://pharos.artresearch.net/custom/has_image> ?imageB.
+          ?work2 <https://artresearch.net/custom/has_image> ?imageB.
           ?imageB <http://purl.org/ontology/similarity/element> ?similarity.
-          ?work <https://pharos.artresearch.net/custom/has_provider> ?providerA.
+          ?work <https://artresearch.net/custom/has_provider> ?providerA.
           ?providerA rdfs:label ?providerLabelA.
-          ?work2 <https://pharos.artresearch.net/custom/has_provider> ?providerB.
+          ?work2 <https://artresearch.net/custom/has_provider> ?providerB.
           ?providerB rdfs:label ?providerLabelB.
           FILTER NOT EXISTS { ?similarity <https://vision.artresearch.net/custom/skipped> "true"^^xsd:boolean }
           BIND(?__useruri__ as ?attribution)
@@ -64,8 +64,8 @@ no-result-template='<h1 style="margin-top:150px;">There are no matchings marked 
                   <mp-field-visualization
                     subject="{{work.value}}"
                     fields='[[fieldDefinitions  
-                            Title="https://pharos.artresearch.net/fieldDefinition/2"
-                            Creator="https://pharos.artresearch.net/fieldDefinition/1"
+                            Title="https://artresearch.net/fieldDefinition/2"
+                            Creator="https://artresearch.net/fieldDefinition/1"
                             ]]'
                     template="{{>generalInfo}}"
                   >
@@ -91,8 +91,8 @@ no-result-template='<h1 style="margin-top:150px;">There are no matchings marked 
                   <mp-field-visualization
                     subject="{{work2.value}}"
                     fields='[[fieldDefinitions  
-                              Title="https://pharos.artresearch.net/fieldDefinition/2"
-                              Creator="https://pharos.artresearch.net/fieldDefinition/1"
+                              Title="https://artresearch.net/fieldDefinition/2"
+                              Creator="https://artresearch.net/fieldDefinition/1"
                               ]]'
                     template="{{>generalInfo}}"
                   >

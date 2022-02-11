@@ -79,7 +79,7 @@ SELECT ?subject ?score ?id WHERE {
       <mp-code-block mode='application/sparql-query'>
         <![CDATA[
 PREFIX example: <http://www.example.org/ontology#>
-PREFIX fc: <https://pharos.artresearch.net/resource/fc/>
+PREFIX fc: <https://artresearch.net/resource/fc/>
 PREFIX crm: <http://www.cidoc-crm.org/cidoc-crm/>
 
 SELECT DISTINCT ?pharos WHERE {
@@ -92,9 +92,9 @@ SELECT DISTINCT ?pharos WHERE {
   BIND(iri(CONCAT("https://vision.artresearch.net:4212/index/images/",str(?id))) as ?idProperty)
 
   SERVICE <https://artresearch.net/sparql> {
-      ?imgUri <https://pharos.artresearch.net/resource/vocab/vision/pastec/has_index> ?idProperty.
+      ?imgUri <https://artresearch.net/resource/vocab/vision/pastec/has_index> ?idProperty.
       ?photo crm:P129i_is_subject_of ?imgUri.
-      ?pharos <https://pharos.artresearch.net/resource/fr/Work_depicted_by_Photo> ?photo.
+      ?pharos <https://artresearch.net/resource/fr/Work_depicted_by_Photo> ?photo.
       ?pharos a fc:work.
   }
   
@@ -111,10 +111,10 @@ SELECT DISTINCT ?pharos WHERE {
       <mp-code-block mode='application/sparql-query'>
         <![CDATA[
 PREFIX example: <http://www.example.org/ontology#>
-PREFIX fc: <https://pharos.artresearch.net/resource/fc/>
+PREFIX fc: <https://artresearch.net/resource/fc/>
 PREFIX crm: <http://www.cidoc-crm.org/cidoc-crm/>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX fr: <https://pharos.artresearch.net/resource/fr/>
+PREFIX fr: <https://artresearch.net/resource/fr/>
 SELECT DISTINCT ?pharos ?title ?artist ?repository WHERE {
 SERVICE <https://vision.artresearch.net/sparql?repository=pastec> {
   ?subject example:hasImageUrl "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg/240px-Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg";
@@ -125,9 +125,9 @@ SERVICE <https://vision.artresearch.net/sparql?repository=pastec> {
 
 
 SERVICE <https://artresearch.net/sparql> {
-    ?imgUri <https://pharos.artresearch.net/resource/vocab/vision/pastec/has_index> ?idProperty.
+    ?imgUri <https://artresearch.net/resource/vocab/vision/pastec/has_index> ?idProperty.
     ?photo crm:P129i_is_subject_of ?imgUri.
-    ?pharos <https://pharos.artresearch.net/resource/fr/Work_depicted_by_Photo> ?photo.
+    ?pharos <https://artresearch.net/resource/fr/Work_depicted_by_Photo> ?photo.
     ?pharos a fc:work.
 
   OPTIONAL {

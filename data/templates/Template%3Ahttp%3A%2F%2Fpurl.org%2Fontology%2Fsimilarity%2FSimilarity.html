@@ -3,11 +3,11 @@
     query=" SELECT DISTINCT ?element ?subject1 ?subject1Link ?subject2 ?subject2Link ?providerA ?providerB ?providerLabelA ?providerLabelB ?imageA ?imageB WHERE {
       ?imageA <http://purl.org/ontology/similarity/element> ??.
       ?imageB <http://purl.org/ontology/similarity/element> ??.
-      ?subject1 <https://pharos.artresearch.net/custom/has_image> ?imageA.
-      ?subject2 <https://pharos.artresearch.net/custom/has_image> ?imageB.
-      ?subject1 <https://pharos.artresearch.net/custom/has_provider> ?providerA.
+      ?subject1 <https://artresearch.net/custom/has_image> ?imageA.
+      ?subject2 <https://artresearch.net/custom/has_image> ?imageB.
+      ?subject1 <https://artresearch.net/custom/has_provider> ?providerA.
       ?providerA rdfs:label ?providerLabelA.
-      ?subject2 <https://pharos.artresearch.net/custom/has_provider> ?providerB.
+      ?subject2 <https://artresearch.net/custom/has_provider> ?providerB.
       ?providerB rdfs:label ?providerLabelB.
       BIND (STR(?subject1) as ?subject1Link)
       BIND (STR(?subject2) as ?subject2Link)
@@ -23,9 +23,9 @@
           <div class="SimilarityWrapper">
                           <semantic-query
               query='SELECT DISTINCT ?element ?subject1 ?subject2  ?imageA ?imageB ?thumbA ?thumbB WHERE{
-                        <{{bindings.0.subject1.value}}>  <https://pharos.artresearch.net/custom/has_image> ?imageA.
+                        <{{bindings.0.subject1.value}}>  <https://artresearch.net/custom/has_image> ?imageA.
                         BIND(REPLACE(STR(?imageA),"full/full","full/!150,150") AS ?thumbA).
-                        <{{bindings.0.subject2.value}}>  <https://pharos.artresearch.net/custom/has_image> ?imageB.
+                        <{{bindings.0.subject2.value}}>  <https://artresearch.net/custom/has_image> ?imageB.
                         BIND(REPLACE(STR(?imageB),"full/full","full/!150,150") AS ?thumbB).
                         ?imageA <http://purl.org/ontology/similarity/element> ?element.
                         ?imageB <http://purl.org/ontology/similarity/element> ?element.
@@ -125,18 +125,18 @@
                               (<{{bindings.0.element.value}}> AS ?element) 
                               (<{{bindings.0.subject1.value}}> AS ?subject1)
                               (<{{bindings.0.subject2.value}}> AS ?subject2) WHERE {
-                        ?subject1_next <https://pharos.artresearch.net/custom/has_provider> <[[urlParam "providera"]]>;
-                          <https://pharos.artresearch.net/custom/has_image> ?imageA_next.
-                        ?subject2_next <https://pharos.artresearch.net/custom/has_provider> <[[urlParam "providerb"]]>;
-                          <https://pharos.artresearch.net/custom/has_image> ?imageB_next.
+                        ?subject1_next <https://artresearch.net/custom/has_provider> <[[urlParam "providera"]]>;
+                          <https://artresearch.net/custom/has_image> ?imageA_next.
+                        ?subject2_next <https://artresearch.net/custom/has_provider> <[[urlParam "providerb"]]>;
+                          <https://artresearch.net/custom/has_image> ?imageB_next.
                         ?imageA_next <http://purl.org/ontology/similarity/element> ?nextElement.
                         ?imageB_next <http://purl.org/ontology/similarity/element> ?nextElement.
                         FILTER NOT EXISTS { ?nextElement <https://vision.artresearch.net/custom/reviewed> "true"^^xsd:boolean }
                         FILTER NOT EXISTS { ?nextElement <https://vision.artresearch.net/custom/skipped> "true"^^xsd:boolean }
                         {
                           SELECT (GROUP_CONCAT(distinct ?sim) as ?sims) WHERE {
-                            <{{bindings.0.subject1.value}}> <https://pharos.artresearch.net/custom/has_image>/<http://purl.org/ontology/similarity/element> ?sim.
-                            <{{bindings.0.subject2.value}}> <https://pharos.artresearch.net/custom/has_image>/<http://purl.org/ontology/similarity/element> ?sim.
+                            <{{bindings.0.subject1.value}}> <https://artresearch.net/custom/has_image>/<http://purl.org/ontology/similarity/element> ?sim.
+                            <{{bindings.0.subject2.value}}> <https://artresearch.net/custom/has_image>/<http://purl.org/ontology/similarity/element> ?sim.
                           }
                         }
                         FILTER (!(CONTAINS(?sims, STR(?nextElement))))

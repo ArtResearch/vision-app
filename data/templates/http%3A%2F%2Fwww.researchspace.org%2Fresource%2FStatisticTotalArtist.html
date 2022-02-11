@@ -4,19 +4,19 @@
     <[[partnerUri]]> rdfs:label ?partnerLabel
  
       {
-    ?sub <https://pharos.artresearch.net/custom/has_provider> <[[partnerUri]]>.
-    ?sub a <https://pharos.artresearch.net/resource/custom/fc/artist>.
+    ?sub <https://artresearch.net/custom/has_provider> <[[partnerUri]]>.
+    ?sub a <https://artresearch.net/resource/custom/fc/artist>.
     ?sub  <https://vocab.artresearch.net/custom/confirmed> true .
 
-    FILTER NOT EXISTS { ?sub a <https://pharos.artresearch.net/resource/custom/fc/institution>} 
-    FILTER NOT EXISTS { ?sub a <https://pharos.artresearch.net/resource/custom/fc/photographer>} 
+    FILTER NOT EXISTS { ?sub a <https://artresearch.net/resource/custom/fc/institution>} 
+    FILTER NOT EXISTS { ?sub a <https://artresearch.net/resource/custom/fc/photographer>} 
       }UNION{
-     ?subnm <https://pharos.artresearch.net/custom/has_provider> <[[partnerUri]]>.
-     ?subnm a <https://pharos.artresearch.net/resource/custom/fc/artist>.
+     ?subnm <https://artresearch.net/custom/has_provider> <[[partnerUri]]>.
+     ?subnm a <https://artresearch.net/resource/custom/fc/artist>.
    
    FILTER NOT EXISTS { ?subnm  <https://vocab.artresearch.net/custom/confirmed> true } 
-   FILTER NOT EXISTS { ?subnm a <https://pharos.artresearch.net/resource/custom/fc/institution>} 
-   FILTER NOT EXISTS { ?subnm a <https://pharos.artresearch.net/resource/custom/fc/photographer>} 
+   FILTER NOT EXISTS { ?subnm a <https://artresearch.net/resource/custom/fc/institution>} 
+   FILTER NOT EXISTS { ?subnm a <https://artresearch.net/resource/custom/fc/photographer>} 
       }
    
 

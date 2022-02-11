@@ -4,27 +4,27 @@
     <[[partnerUri]]> rdfs:label ?partnerLabel
     GRAPH ?graph {
 
-    <[[partnerUri]]>  <https://pharos.artresearch.net/custom/numOfMatched> ?matched.
+    <[[partnerUri]]>  <https://artresearch.net/custom/numOfMatched> ?matched.
     {
-      <[[partnerUri]]>   <hhttps://pharos.artresearch.net/custom/numOfNonmatchedHertziana> ?unmatched
+      <[[partnerUri]]>   <hhttps://artresearch.net/custom/numOfNonmatchedHertziana> ?unmatched
     }UNION{
-      <[[partnerUri]]>   <https://pharos.artresearch.net/custom/numOfNonmatchedKHI> ?unmatched
+      <[[partnerUri]]>   <https://artresearch.net/custom/numOfNonmatchedKHI> ?unmatched
 
     }UNION{
-      <[[partnerUri]]>   <https://pharos.artresearch.net/custom/numOfNonmatchedFrick> ?unmatched
+      <[[partnerUri]]>   <https://artresearch.net/custom/numOfNonmatchedFrick> ?unmatched
 
     }UNION{
-      <[[partnerUri]]>   <https://pharos.artresearch.net/custom/numOfNonmatchedMarburg> ?unmatched
+      <[[partnerUri]]>   <https://artresearch.net/custom/numOfNonmatchedMarburg> ?unmatched
 
     }UNION{
-      <[[partnerUri]]>   <https://pharos.artresearch.net/custom/numOfNonmatchedItatti> ?unmatched
+      <[[partnerUri]]>   <https://artresearch.net/custom/numOfNonmatchedItatti> ?unmatched
 
     }UNION{
-      <[[partnerUri]]>   <https://pharos.artresearch.net/custom/numOfNonmatchedZeri> ?unmatched
+      <[[partnerUri]]>   <https://artresearch.net/custom/numOfNonmatchedZeri> ?unmatched
     }
   }
-  ?statistics <https://pharos.artresearch.net/custom/consists_of> ?graph.
-  ?statistics <https://pharos.artresearch.net/custom/latest> true.
+  ?statistics <https://artresearch.net/custom/consists_of> ?graph.
+  ?statistics <https://artresearch.net/custom/latest> true.
 } GROUP BY ?matched ?partnerLabel'
   template='{{> statsTotal }}'>
   <template id="statsTotal">
@@ -94,12 +94,12 @@
             query='SELECT ?partnerUri ?relationUri ?partnerLabel WHERE{
                 VALUES(?partnerUri ?relationUri)
                 {
-                 (<https://pharos.artresearch.net/resource/frick/source/Frick> <https://pharos.artresearch.net/custom/numOfNonmatchedFrick>)
-                 (<https://pharos.artresearch.net/resource/hertziana/source/Hertziana> <https://pharos.artresearch.net/custom/numOfNonmatchedHertziana>)
-                 (<https://pharos.artresearch.net/resource/itatti/source/ITatti> <https://pharos.artresearch.net/custom/numOfNonmatchedItatti>)
-                 (<https://pharos.artresearch.net/resource/khi/source/KHI>  <https://pharos.artresearch.net/custom/numOfNonmatchedKHI>)
-                 (<https://pharos.artresearch.net/resource/marburg/source/Marburg> <https://pharos.artresearch.net/custom/numOfNonmatchedMarburg>)
-                 (<https://pharos.artresearch.net/resource/zeri/source/Zeri> <https://pharos.artresearch.net/custom/numOfNonmatchedZeri>)
+                 (<https://artresearch.net/resource/frick/source/Frick> <https://artresearch.net/custom/numOfNonmatchedFrick>)
+                 (<https://artresearch.net/resource/hertziana/source/Hertziana> <https://artresearch.net/custom/numOfNonmatchedHertziana>)
+                 (<https://artresearch.net/resource/itatti/source/ITatti> <https://artresearch.net/custom/numOfNonmatchedItatti>)
+                 (<https://artresearch.net/resource/khi/source/KHI>  <https://artresearch.net/custom/numOfNonmatchedKHI>)
+                 (<https://artresearch.net/resource/marburg/source/Marburg> <https://artresearch.net/custom/numOfNonmatchedMarburg>)
+                 (<https://artresearch.net/resource/zeri/source/Zeri> <https://artresearch.net/custom/numOfNonmatchedZeri>)
                 }
     
                 ?partnerUri rdfs:label ?partnerLabel.
@@ -115,8 +115,8 @@
                       <div style="padding: 5px;">
                       <semantic-query query='
                       SELECT ?count WHERE{
-                        ?statistics <https://pharos.artresearch.net/custom/latest> true.
-                        ?statistics <https://pharos.artresearch.net/custom/consists_of> ?graph.
+                        ?statistics <https://artresearch.net/custom/latest> true.
+                        ?statistics <https://artresearch.net/custom/consists_of> ?graph.
                         GRAPH ?graph {
                          <[[partnerUri]]> <{{relationUri.value}}> ?count
                         }

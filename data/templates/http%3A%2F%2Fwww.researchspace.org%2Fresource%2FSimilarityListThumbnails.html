@@ -1,6 +1,6 @@
 <semantic-query
     query=' SELECT DISTINCT ?provA ?providerLabelA WHERE{
-    <[[iri]]>  <https://pharos.artresearch.net/custom/has_provider> ?provA.
+    <[[iri]]>  <https://artresearch.net/custom/has_provider> ?provA.
           ?provA rdfs:label ?providerLabelA.
     }
     'template='{{>ProviderLabel}}'
@@ -16,8 +16,8 @@
 <semantic-carousel
   query='
         SELECT  ?thumbnail ?prov ?manifest ?providerL WHERE {                    
-          <[[iri]]> <https://pharos.artresearch.net/custom/has_image> ?image.
-           <[[iri]]>  <https://pharos.artresearch.net/custom/has_provider> ?prov.
+          <[[iri]]> <https://artresearch.net/custom/has_image> ?image.
+           <[[iri]]>  <https://artresearch.net/custom/has_provider> ?prov.
            ?prov rdfs:label ?providerL.
               {{#ifCond providerL.value "===" "Frick"}}
                 BIND(REPLACE(STR(?image),"full/full/0/default.jpg","iiif/info.json") AS ?manifest).

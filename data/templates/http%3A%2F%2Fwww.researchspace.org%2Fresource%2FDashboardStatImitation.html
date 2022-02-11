@@ -5,9 +5,9 @@ query=' SELECT (COUNT(distinct ?g) AS ?count)  WHERE {
              ?subject prov:wasAttributedTo ?__useruri__;
                       prov:generatedAtTime ?modifiedAt.
           }
-          ?work <https://pharos.artresearch.net/custom/has_image> ?imageA.
+          ?work <https://artresearch.net/custom/has_image> ?imageA.
           ?imageA <http://purl.org/ontology/similarity/element> ?similarity.
-          ?work2 <https://pharos.artresearch.net/custom/has_image> ?imageB.
+          ?work2 <https://artresearch.net/custom/has_image> ?imageB.
           ?imageB <http://purl.org/ontology/similarity/element> ?similarity.
           FILTER NOT EXISTS { ?similarity <https://vision.artresearch.net/custom/reviewed> "true"^^xsd:boolean }
           FILTER NOT EXISTS { ?similarity <https://vision.artresearch.net/custom/skipped> "true"^^xsd:boolean }

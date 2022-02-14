@@ -1,4 +1,32 @@
 <div class="actions">
+  <semantic-query 
+    query="
+    PREFIX fr: <https://pharos.artresearch.net/resource/fr/>
+      SELECT ?infotext WHERE {
+        BIND(<{{bindings.0.element.value}}> as ?infosub)
+        ?infosub fr:Work_for_review ?infotext .
+      } "
+      template="{{>info}}">
+      <template id="info">
+          <mp-popover>
+            <mp-popover-trigger placement='bottom' trigger='["click"]'>
+              <a style="padding-left: 12px; padding-right: 8px;"> 
+               <i class="fa-solid fa-circle-info">A collection curator added information about this Similarity. 
+                 Please consider their info before making a new matching.
+               </i>
+               See Info
+              </a>
+            </mp-popover-trigger>
+            <mp-popover-content>
+              <div style='background: #fff; color: #333; margin: -9px -14px; padding: 9px 14px; overflow: auto; width: 400px;'>
+                <style>.popover { max-width: 400px }</style>
+                {{bindings.0.infotext.value}}
+              </div>
+            </mp-popover-content>
+          </mp-popover>
+      </template>
+  </semantic-query>
+  
  [[#if (hasPermission "api:ldp:*")]]
     <mp-overlay-dialog type="lightbox" title="Imitation/Copy of - Please select a pair of images">
     <mp-overlay-dialog-trigger
@@ -15,6 +43,7 @@
       </button>
     </mp-overlay-dialog-trigger>
     <mp-overlay-dialog-content >
+      <div style="place-self:center">
             <h1>Are you sure you want to review later this artwork?</h1>
             <h2>If yes, please provide a reason why and any other info needed for the next person who might want to review this</h2>
             <semantic-form
@@ -32,7 +61,7 @@
             <semantic-form-text-input 
                 for="review_later" 
                 multiline="true"
-                default-value=" ">
+                default-value="no info provided">
             </semantic-form-text-input>
               <button
               name="submit"
@@ -42,6 +71,7 @@
             <div class="color-white">Review Later</div>
           </button>
           </semantic-form>
+      </div>
           </mp-overlay-dialog-content>
     </mp-overlay-dialog-content>
   </mp-overlay-dialog>

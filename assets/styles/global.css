@@ -11,7 +11,40 @@
 @import "./similarityList.css";
 @import "./matchings_vocab.css";
 
+.textdash{
+    font-weight: 700;
+    color: white !important;
+}
 
+
+.backDashboardButton:hover{
+    box-shadow: 0px 4px 10px 1px #c0bdbd
+}
+
+.backDashboardButton{
+    position: absolute;
+    right: 0;
+    margin-top: 100px !important;
+    margin-right: 30px;
+    padding: 13px;
+    border: 1px solid #cdcdcd;
+    border-radius: 30px;
+    background-color: #23ba98;
+}
+.platformDashboardButton:hover{
+    box-shadow: 0px 4px 10px 1px #c0bdbd
+}
+
+.platformDashboardButton{
+    position: absolute;
+    right: 0;
+    margin-top: 100px !important;
+    margin-right: 30px;
+    padding: 13px;
+    border: 1px solid #cdcdcd;
+    border-radius: 30px;
+    background-color: #4b93db;
+}
 
 details {
   user-select: none;

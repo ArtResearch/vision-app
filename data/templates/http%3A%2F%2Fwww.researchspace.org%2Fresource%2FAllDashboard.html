@@ -1,52 +1,52 @@
 <div id="similarity-list-template">
-    <div class="platformDashboardButton">
-        <mp-link  title="All matches" url="Default:AllDashboard" >
-                <div class="textdash">Platform Dashboard</div>
+    <div class="backDashboardButton">
+        <mp-link  title="My matches" url="Default:Dashboard" >
+                <div class="textdash">Back to My Dashboard</div>
         </mp-link>
      </div>
   <div id="search-results">  
     <div class="jumbotron">
       <h1 style="margin-left: 2vw" class="display-4">
-       Your dashboard</h1>
+       Platform dashboard</h1>
       <p style="margin-left: 2vw" class="lead">
-        Here you can view, delete & revert matchings that have been reviewed or are marked for review 
+        Here you can view, delete & revert matchings that have been reviewed or are marked for review from everyone in the platform
       </p>
     </div>
   <bs-tab-container id="tab-container" class="page__body-navtabs--borderless" default-active-key="reviewed">
   <div>
     <bs-nav bs-style='tabs'>
       <bs-nav-item event-key='reviewed'><div style="display: flex;">Reconciled(
-        [[> DashboardStatReviewed]]
+        [[> DashboardStatReviewedAll]]
         )</div>
       </bs-nav-item>
       <bs-nav-item event-key='marked'>
         <div style="display: flex;">Skipped for Later Review(
-          [[> DashboardStatMarked]]
+          [[> DashboardStatMarkedAll]]
           )</div>
       </bs-nav-item>
       <bs-nav-item event-key='Imitationmarked'>
         <div style="display: flex;">Marked as "Imitation/Copy of"(
-          [[> DashboardStatImitation]]
+          [[> DashboardStatImitationAll]]
           )</div>
       </bs-nav-item>
        <bs-nav-item event-key='Studymarked'>
         <div style="display: flex;">Marked as "Study/Sketch of" (
-          [[> DashboardStatStudy]]
+          [[> DashboardStatStudyAll]]
           )</div>
       </bs-nav-item>
       <bs-nav-item event-key='Negmarked'>
         <div style="display: flex;">Marked as "Same Negative"(
-          [[> DashboardStatSameNeg]]
+          [[> DashboardStatSameNegAll]]
           )</div>
       </bs-nav-item>
        <bs-nav-item event-key='Similarmarked'>
         <div style="display: flex;">Marked as "Similar"(
-          [[> DashboardStatSimilar]]
+          [[> DashboardStatSimilarAll]]
           )</div>
       </bs-nav-item>
        <bs-nav-item event-key='NotSimilarmarked'>
         <div style="display: flex;">Marked as "Not Similar"(
-          [[> DashboardStatNotSimilar]]
+          [[> DashboardStatNotSimilarAll]]
           )</div>
       </bs-nav-item>
 
@@ -55,25 +55,25 @@
     <bs-tab-content unmount-on-exit=true>
       <div>
       <bs-tab-pane event-key='reviewed'>
-        [[> DashboardListReviewed]]
+        [[> DashboardListReviewedAll]]
       </bs-tab-pane>
       <bs-tab-pane event-key='marked'>
-        [[> DashboardListMarked]]
+        [[> DashboardListMarkedAll]]
       </bs-tab-pane>
         <bs-tab-pane event-key='Imitationmarked'>
-        [[> DashboardListImitation]]
+        [[> DashboardListImitationAll]]
       </bs-tab-pane>
        <bs-tab-pane event-key='Studymarked'>
-        [[> DashboardListStudy]]
+        [[> DashboardListStudyAll]]
       </bs-tab-pane>
       <bs-tab-pane event-key='Negmarked'>
-        [[> DashboardListSameNeg]]
+        [[> DashboardListSameNegAll]]
       </bs-tab-pane>
        <bs-tab-pane event-key='Similarmarked'>
-        [[> DashboardListSimilar]]
+        [[> DashboardListSimilarAll]]
       </bs-tab-pane>
        <bs-tab-pane event-key='NotSimilarmarked'>
-        [[> DashboardListNotSimilar]]
+        [[> DashboardListNotSimilarAll]]
       </bs-tab-pane>
 
     </div>

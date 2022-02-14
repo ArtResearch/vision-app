@@ -1,0 +1,143 @@
+<div class="row" style="margin-top: 40px;">
+  <bs-col sm="1"></bs-col>
+<bs-col sm="10">
+<semantic-table id='resources-results'
+number-of-displayed-rows=10
+query=' SELECT DISTINCT 
+        (SAMPLE(?similarity) as ?similarity)
+        (SAMPLE(?work) as ?work)
+        (SAMPLE(?work2) as ?work2)
+        (SAMPLE(?providerA) as ?providerA)
+        (SAMPLE(?providerB) as ?providerB)
+        (SAMPLE(?attribution) as ?attribution)
+        (SAMPLE(?modifiedAt) as ?modifiedAt)
+        (SAMPLE(?subject) as ?subject)
+        (SAMPLE(?providerLabelA) as ?providerLabelA)
+        (SAMPLE(?providerLabelB) as ?providerLabelB) WHERE {
+          GRAPH ?g {
+            {
+              ?work  fr:Work_is_negative_of_Work ?work2 .
+            } UNION {
+              ?imageA  fr:Image_is_negative_of_Image ?imageB .
+            }
+            ?subject <http://www.w3.org/ns/prov#wasAttributedTo> ?attribution.
+            ?subject <http://www.w3.org/ns/prov#generatedAtTime> ?modifiedAt ; 
+          }
+          ?work <https://artresearch.net/custom/has_image> ?imageA.
+          ?imageA <http://purl.org/ontology/similarity/element> ?similarity.
+          ?work2 <https://artresearch.net/custom/has_image> ?imageB.
+          ?imageB <http://purl.org/ontology/similarity/element> ?similarity.
+          ?work <https://artresearch.net/custom/has_provider> ?providerA.
+          ?providerA rdfs:label ?providerLabelA.
+          ?work2 <https://artresearch.net/custom/has_provider> ?providerB.
+          ?providerB rdfs:label ?providerLabelB.
+          FILTER NOT EXISTS { ?similarity <https://vision.artresearch.net/custom/skipped> "true"^^xsd:boolean }
+        }GROUP BY ?g'
+tuple-template='{{>markedCards}}'
+no-result-template='<h1 style="margin-top:150px;">There are no matchings marked for review</h1>'
+>
+
+<template id="markedCards">
+        <div
+          class="
+            rs-grid-element
+            panel panel-default
+            artwork-card
+            fade-in
+          "
+        >
+        <h2 style="display: flex;
+        width: 100%;
+        gap: 5px;
+        font-size: 16px;
+        justify-content: flex-end;
+        padding-right: 15px;">by <mp-label iri="{{attribution.value}}"></mp-label> at {{dateTimeFormat modifiedAt.value "DD/MM/YY HH:mm:ss"}}</h2>
+       
+          <div class="panel-body row">
+            <bs-col class="cardInfo" lg="2" xs="10">
+              [[> :SimilarityListThumbnails iri="{{work.value}}"]]
+            </bs-col>
+            <bs-col class="cardInfo" lg="4" xs="10">
+              <div data-flex-layout="row md-column center-stretch">
+                <bs-row class="cardInfoFields">
+                  <h2>
+                    [[> rsp:SourceIcon
+                    providerLabel="{{providerLabelA.value}}"]]{{providerLabelA.value}}
+                  </h2>
+                  <mp-field-visualization
+                    subject="{{work.value}}"
+                    fields='[[fieldDefinitions  
+                            Title="https://artresearch.net/fieldDefinition/2"
+                            Creator="https://artresearch.net/fieldDefinition/1"
+                            ]]'
+                    template="{{>generalInfo}}"
+                  >
+                    <template id="generalInfo">
+                      [[> rsp:ResourceFieldBasedVisualization
+                      subject="{{work.value}}" ]]
+                    </template>
+                  </mp-field-visualization>
+                </bs-row>
+              </div>
+            </bs-col>
+            <bs-col class="cardInfo" lg="2" xs="10">
+              [[> :SimilarityListThumbnails iri="{{work2.value}}"]]
+            </bs-col>
+
+            <bs-col class="cardInfo" lg="4" xs="10">
+              <div data-flex-layout="row md-column center-stretch">
+                <bs-row class="cardInfoFields">
+                  <h2>
+                    [[> rsp:SourceIcon
+                    providerLabel="{{providerLabelB.value}}"]]{{providerLabelB.value}}
+                  </h2>
+                  <mp-field-visualization
+                    subject="{{work2.value}}"
+                    fields='[[fieldDefinitions  
+                              Title="https://artresearch.net/fieldDefinition/2"
+                              Creator="https://artresearch.net/fieldDefinition/1"
+                              ]]'
+                    template="{{>generalInfo}}"
+                  >
+                    <template id="generalInfo">
+                      [[> rsp:ResourceFieldBasedVisualization
+                      subject="{{work2.value}}" ]]
+                    </template>
+                  </mp-field-visualization>
+                </bs-row>
+              </div>
+            </bs-col>
+          </div>
+          <div class="actions">
+            <semantic-link 
+            iri="{{similarity.value}}"
+            urlqueryparam-providera='{{providerA.value}}'
+            urlqueryparam-providerb='{{providerB.value}}'
+            >
+              <button class="btn action btn-success">
+                View details
+              </button>
+            </semantic-link>
+            <mp-ldp-remove-from-container-action iri="{{subject.value}}" container="http://www.researchspace.org/resource/system/formContainer">
+              <button title="This action will remove the item from your reviewed list. It will be then available under artwork matchings for you or another reviewer to review." class="btn action btn-danger" style="margin-right:8px;"><i style="color: white;" class="fa fa-trash" aria-hidden=true></i> Delete</button>
+            </mp-ldp-remove-from-container-action>
+          </div>
+        </div>
+</template>
+
+
+
+</semantic-table>
+</bs-col>
+<bs-col sm="1"></bs-col>
+</div>
+
+<style>
+  .actions{
+  gap: 150px;
+  }
+  .matchingImage {
+    height: 18vh !important;
+    margin: 0vw !important;
+  }
+</style>

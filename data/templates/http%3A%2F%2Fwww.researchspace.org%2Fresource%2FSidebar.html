@@ -20,7 +20,9 @@
             <mp-popover-content>
               <div style='background: #fff; color: #333; margin: -9px -14px; padding: 9px 14px; overflow: auto; width: 400px;'>
                 <style>.popover { max-width: 400px }</style>
-                {{bindings.0.infotext.value}}
+                 {{#each bindings}}
+                  {{infotext.value}}
+                 {{/each}}
               </div>
             </mp-popover-content>
           </mp-popover>
@@ -315,3 +317,10 @@
   </td>
 </semantic-form>
 </div>
+
+<style>
+  #mp-popover{
+    left: 1532.09px;
+    position: fixed;
+  }
+</style>

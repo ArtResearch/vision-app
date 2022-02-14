@@ -1,9 +1,11 @@
 <div id="similarity-list-template">
+  [[#if (hasPermission "api:ldp:*")]]
     <div class="platformDashboardButton">
         <mp-link  title="All matches" url="Default:AllDashboard" >
                 <div class="textdash">Platform Dashboard</div>
         </mp-link>
      </div>
+  [[/if]]
   <div id="search-results">  
     <div class="jumbotron">
       <h1 style="margin-left: 2vw" class="display-4">

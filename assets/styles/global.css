@@ -11,6 +11,9 @@
 @import "./similarityList.css";
 @import "./matchings_vocab.css";
 
+#forReview{
+background: #e3c844 !important;
+}
 .textdash{
     font-weight: 700;
     color: white !important;

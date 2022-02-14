@@ -11,6 +11,31 @@
 @import "./similarityList.css";
 @import "./matchings_vocab.css";
 
+
+
+details {
+  user-select: none;
+}
+
+details>summary span.icon {
+  width: 24px;
+  height: 24px;
+  transition: all 0.3s;
+  margin-left: auto;
+}
+
+details[open] summary span.icon {
+  transform: rotate(180deg);
+}
+
+summary {
+  display: flex;
+  cursor: pointer;
+}
+
+summary::-webkit-details-marker {
+  display: none;
+}
 .thumbnailsHolder{
   width: 100%;
   object-fit: contain;
@@ -21,7 +46,7 @@
       padding: 15px 15px !important;
 }
 .SimilarityWrapper {
-  padding-left: 250px;
+  padding-left: 40px;
   align-self: start;
   display: flex;
   flex-direction: row;

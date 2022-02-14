@@ -74,7 +74,6 @@
   overflow-y: scroll;
   align-self: center;
   margin-bottom: 3vh;
-  position: relative;
   left: -5%;
   width: 50vw;
 }
@@ -187,12 +186,10 @@ button.btn.btn-default.action.optional {
 #similarity-template .imageFlex {
   display: flex;
   justify-content: flex-start;
-  max-width: 12vw;
+  max-width: 18vw;
   align-items: center;
   flex-wrap: wrap;
   overflow-y: scroll;
-  position: relative;
-  left: -10%;
   max-height: 45vh;
   margin-top: 55px;
   margin-bottom: 15px;

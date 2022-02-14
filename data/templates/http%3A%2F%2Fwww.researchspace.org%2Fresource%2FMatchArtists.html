@@ -59,14 +59,13 @@
                     browser-persistance="true"
                     persistence="ldp"
                     post-action="reload"
-                    form-id="IMApprove1"
-                    fields='[[  fieldDefinitions
+                    fields='[[ fieldDefinitions
                                 confirmed="http://www.researchspace.org/fieldDefinition/Confirmed_Matched_Artists"
                             ]]'
                   >
                     <semantic-form-hidden-input
                       for="confirmed"
-                      default-value="{{match.value}}"
+                      default-value="{{matchId.value}}"
                     ></semantic-form-hidden-input>
 
                     <button

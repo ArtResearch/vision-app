@@ -187,6 +187,7 @@ button.btn.btn-default.action.optional {
   display: flex;
   justify-content: flex-start;
   max-width: 18vw;
+  min-width: 17vw;
   align-items: center;
   flex-wrap: wrap;
   overflow-y: scroll;

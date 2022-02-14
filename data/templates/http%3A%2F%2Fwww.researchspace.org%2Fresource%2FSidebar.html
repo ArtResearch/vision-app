@@ -18,8 +18,8 @@
               </a>
             </mp-popover-trigger>
             <mp-popover-content>
-              <div style='background: #fff; color: #333; margin: -9px -14px; padding: 9px 14px; overflow: auto; width: 400px;'>
-                <style>.popover { max-width: 400px }</style>
+              <div style='background: #fff; color: #333; margin: -9px -14px; padding: 9px 14px; overflow: auto; width: 380px;'>
+                <style>.popover { max-width: 390px }</style>
                  {{#each bindings}}
                   {{infotext.value}}
                  {{/each}}
@@ -30,7 +30,7 @@
   </semantic-query>
   
  [[#if (hasPermission "api:ldp:*")]]
-    <mp-overlay-dialog type="lightbox" title="Imitation/Copy of - Please select a pair of images">
+    <mp-overlay-dialog type="lightbox" title="For Review - Please add information about the reviewer">
     <mp-overlay-dialog-trigger
       placement="bottom"
       trigger='["hover","focus"]'

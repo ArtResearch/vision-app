@@ -13,6 +13,7 @@ query=' SELECT DISTINCT
         (SAMPLE(?providerLabelA) as ?providerLabelA)
         (SAMPLE(?providerLabelB) as ?providerLabelB)
         (SAMPLE(?modifiedAt) AS ?modifiedAt) 
+        (SAMPLE(?info) AS ?info) 
         (SAMPLE(?attribution) AS ?attribution) WHERE {
           GRAPH ?g {
             <http://www.researchspace.org/resource/system/formContainer> <http://www.w3.org/ns/ldp#contains> ?subject. 
@@ -50,6 +51,13 @@ no-result-template='<h1 style="margin-top:150px;">There are no matchings marked 
         font-size: 16px;
         justify-content: flex-end;
         padding-right: 15px;">by <mp-label iri="{{attribution.value}}"></mp-label> at {{dateTimeFormat modifiedAt.value "DD/MM/YY HH:mm:ss"}}</h2>
+         <h2 style="display: flex;
+        width: 100%;
+        gap: 5px;
+        font-size: 16px;
+        justify-content: flex-end;
+        padding-right: 15px;">with info {{info.value}} </h2>
+        
        
           <div class="panel-body row">
             <bs-col class="cardInfo" lg="2" xs="10">

@@ -51,12 +51,6 @@ no-result-template='<h1 style="margin-top:150px;">There are no matchings marked 
         font-size: 16px;
         justify-content: flex-end;
         padding-right: 15px;">by <mp-label iri="{{attribution.value}}"></mp-label> at {{dateTimeFormat modifiedAt.value "DD/MM/YY HH:mm:ss"}}</h2>
-         <h2 style="display: flex;
-        width: 100%;
-        gap: 5px;
-        font-size: 16px;
-        justify-content: flex-end;
-        padding-right: 15px;">with info: <br> {{info.value}} </h2>
         
        
           <div class="panel-body row">
@@ -113,6 +107,9 @@ no-result-template='<h1 style="margin-top:150px;">There are no matchings marked 
                 </bs-row>
               </div>
             </bs-col>
+            <div class="additionalInfo">
+              Info user gave: {{info.value}}
+            </div>
           </div>
           <div class="actions">
             <semantic-link 

@@ -206,6 +206,7 @@ button.btn.btn-default.action.optional {
   display: flex;
   align-items: center;
   gap:10px;
+  min-width: 300px !important;
 }
 #similarity-template .thumbPairContainer:hover {
   box-shadow: 1px 1px 9px 0px darkgray;

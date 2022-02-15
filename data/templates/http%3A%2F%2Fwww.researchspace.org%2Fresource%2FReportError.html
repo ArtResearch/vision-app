@@ -1,0 +1,37 @@
+  <div class="row">
+    <div class="col-sm-7">
+      <header>
+        <h1 style="padding-left:10vw">Report Error in a Similarity for artwork : 
+          <semantic-link class="errorTitle" iri='[[urlParam "artwork"]]' ></semantic-link>
+      </header>
+    </div>
+  </div>
+<semantic-table
+  id='resources-results'
+  number-of-displayed-rows=10  
+  query ='SELECT ?image1 ?image2 ?sim ?reviewed  WHERE {
+            ?image1 <http://purl.org/ontology/similarity/element> ?sim.
+            ?image2 <http://purl.org/ontology/similarity/element> ?sim.
+            <[[urlParam "artwork"]]> <https://artresearch.net/custom/has_image> ?image1.
+            OPTIONAL{?sim <https://vision.artresearch.net/custom/reviewed> ?reviewed}
+            FILTER(STR(?image1)>STR(?image2))
+          }'
+  no-result-template='<h1 style="color:#d13239 ">There are no similarities with this artwork.</h1>'
+  column-configuration='[
+                      {"variableName":"artwork","displayName":"Artwork", "cellTemplate": "<semantic-link iri=\"[[urlParam "artwork"]]\" ></semantic-link>"},
+                      {"variableName":"image1","displayName":"Artworks Image", "cellTemplate": "<semantic-link iri=\"{{image1.value}}\">{{image1.value}}</semantic-link>"},
+                      {"variableName":"image2","displayName":"Similar Image", "cellTemplate": "<semantic-link iri=\"{{image2.value}}\">{{image2.value}}</semantic-link>"},
+                      {"variableName":"sim","displayName":"Similarity", "cellTemplate": "<semantic-link iri=\"{{sim.value}}\">{{sim.value}}</semantic-link>"},
+                      {"variableName":"reviewed","displayName":"Reviewed", "cellTemplate": "{{reviewed.value}}"}
+                  ]'
+>
+
+</semantic-table>
+
+
+<style>
+  .errorTitle{
+    color: #4b93db !important;
+    text-decoration: underline;
+  }
+</style>

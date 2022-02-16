@@ -28,7 +28,10 @@ background: #e3c844 !important;
 
 .smallList{
   width: 60%;
-  gap:35px;
+  gap:10px;
+}
+.smallList>h2{
+  font-size: 12px !important;
 }
 
 .backDashboardButton:hover{

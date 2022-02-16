@@ -13,13 +13,10 @@
       template="{{>info}}">
       <template id="info">
         {{#each bindings}}
-    <h2 style="display: flex;
-        width: 100%;
-        gap: 5px;
-        font-size: 12px;
-        padding-right: 15px;">User: <mp-label iri="{{attribution.value}}"></mp-label> added a note at: {{dateTimeFormat modifiedAt.value "DD/MM/YY HH:mm:ss"}}
-          Note: {{infotext.value}}
-        </h2>
+          <h3 style="">User: <mp-label iri="{{attribution.value}}"></mp-label> 
+            added a note at: {{dateTimeFormat modifiedAt.value "DD/MM/YY HH:mm:ss"}}
+          <p> Note: {{infotext.value}} </p>
+          </h3>
         {{/each}}
       </template>
   </semantic-query>

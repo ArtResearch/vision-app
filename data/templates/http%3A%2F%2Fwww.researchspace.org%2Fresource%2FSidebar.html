@@ -13,9 +13,9 @@
       template="{{>info}}">
       <template id="info">
         {{#each bindings}}
-          <h3 style="">User: <mp-label iri="{{attribution.value}}"></mp-label> 
-            added a note at: {{dateTimeFormat modifiedAt.value "DD/MM/YY HH:mm:ss"}}
-          <p> Note: {{infotext.value}} </p>
+          <h3 style="padding-left: 30px; padding-right: 30px;">User: <mp-label class="blue" iri="{{attribution.value}}"></mp-label> 
+            added a note at: <div class="blue">{{dateTimeFormat modifiedAt.value "DD/MM/YY HH:mm:ss"}}</div>
+          <p> Note: <div class="blue">{{infotext.value}}</div> </p>
           </h3>
         {{/each}}
       </template>
@@ -351,6 +351,9 @@
   #mp-popover{
     left: 1532.09px;
 
+  }
+  .blue{
+    color: blue !important;
   }
 
 </style>

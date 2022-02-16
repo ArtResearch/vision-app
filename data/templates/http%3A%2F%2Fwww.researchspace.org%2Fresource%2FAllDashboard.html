@@ -39,6 +39,16 @@
             [[> DashboardStatStudyAll]]
             )</div>
         </bs-nav-item>
+        <bs-nav-item event-key='PartOf'>
+          <div style="display: flex;">Marked as "Is Part of" (
+            [[> DashboardStatIsPartOfAll]]
+            )</div>
+        </bs-nav-item>
+        <bs-nav-item event-key='VersionOf'>
+          <div style="display: flex;">Marked as "Is Version" (
+            [[> DashboardStatIsVersionAll]]
+            )</div>
+        </bs-nav-item>
         <bs-nav-item event-key='Negmarked'>
           <div style="display: flex;">Marked as "Same Negative"(
             [[> DashboardStatSameNegAll]]
@@ -74,6 +84,12 @@
         <bs-tab-pane event-key='Studymarked'>
           [[> DashboardListStudyAll]]
         </bs-tab-pane>
+        <bs-tab-pane event-key='PartOf'>
+          [[> DashboardListIsPartOfAll]]
+        </bs-tab-pane>
+        <bs-tab-pane event-key='VersionOf'>
+          [[> DashboardListIsVersionAll]]
+        </bs-tab-pane>
         <bs-tab-pane event-key='Negmarked'>
           [[> DashboardListSameNegAll]]
         </bs-tab-pane>
@@ -93,3 +109,9 @@
      <h2>You do not have permmision to view all matchings</h2>
   [[/if]]
 </div>
+
+<style>
+.nav.nav-tabs{
+  font-size:smaller !important;
+}
+</style>

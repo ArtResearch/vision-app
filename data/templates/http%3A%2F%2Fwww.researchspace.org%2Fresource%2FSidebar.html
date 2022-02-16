@@ -4,28 +4,24 @@
     PREFIX fr: <https://pharos.artresearch.net/resource/fr/>
       SELECT ?infotext WHERE {
         BIND(<{{bindings.0.element.value}}> as ?infosub)
-        ?infosub fr:Work_for_review ?infotext .
+         GRAPH ?g {
+            ?infosub  fr:Work_for_review ?infotext .
+            ?subject <http://www.w3.org/ns/prov#wasAttributedTo> ?attribution.
+            ?subject <http://www.w3.org/ns/prov#generatedAtTime> ?modifiedAt ; 
+          }
       } "
       template="{{>info}}">
       <template id="info">
-          <mp-popover>
-            <mp-popover-trigger placement='bottom' trigger='["click"]' >
-              <a style="padding-left: 12px; padding-right: 8px;"> 
-               <i class="fa-solid fa-circle-info">A collection curator added information about this Similarity. 
-                 Please consider their info before making a new matching.
-               </i>
-               See Info
-              </a>
-            </mp-popover-trigger>
-            <mp-popover-content>
-              <div style='background: #fff; color: #333; margin: -9px -14px; padding: 9px 14px; overflow: auto; width: 380px;'>
-                <style>.popover { max-width: 390px }</style>
-                 {{#each bindings}}
-                  {{infotext.value}}
-                 {{/each}}
-              </div>
-            </mp-popover-content>
-          </mp-popover>
+        {{#each bindings}}
+    <h2 style="display: flex;
+        width: 100%;
+        gap: 5px;
+        font-size: 12px;
+        padding-right: 15px;">User: <mp-label iri="{{attribution.value}}"></mp-label> added a note at: {{dateTimeFormat modifiedAt.value "DD/MM/YY HH:mm:ss"}}</h2>
+        <h2>
+          Note: {{infotext.value}}
+        </h2>
+        {{/each}}
       </template>
   </semantic-query>
   

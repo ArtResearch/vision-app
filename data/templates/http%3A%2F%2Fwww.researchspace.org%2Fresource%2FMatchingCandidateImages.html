@@ -5,7 +5,7 @@
 ?manifestA ?manifestB 
 ?imageUrlA ?imageUrlB  
 ?imageLabelA ?imageLabelB
-?thumbnailA ?thumbnailB 
+?thumbnailA ?thumbnailB
 WHERE{
   BIND(STR("{{bindings.0.providerLabelA.value}}") as ?imageLabelA).
   BIND(STR("{{bindings.0.providerLabelB.value}}") as ?imageLabelB).
@@ -32,7 +32,7 @@ template="{{> firstCandidateImage}}">
   <mp-overlay-dialog-trigger>
     <div class="imageHolder">
       <img src='{{bindings.0.thumbnailA.value}}'/>
-      <div class="imageLabel">[[> rsp:SourceIcon providerLabel="{{bindings.0.imageLabelA.value}}"]] {{bindings.0.imageLabelA.value}}</div>    
+      <div class="imageLabel">[[> rsp:SourceIcon providerLabel="{{bindings.0.imageLabelA.value}}"]] {{bindings.0.imageLabelA.value}}</div>  
     </div>    
   </mp-overlay-dialog-trigger>
     <mp-overlay-dialog-content>
@@ -80,7 +80,7 @@ template="{{> firstCandidateImage}}">
   <mp-overlay-dialog-trigger>
     <div class="imageHolder">
       <img src='{{bindings.0.thumbnailB.value}}'/>
-      <div class="imageLabel">[[> rsp:SourceIcon providerLabel="{{bindings.0.imageLabelB.value}}"]]{{bindings.0.imageLabelB.value}}</div>    
+      <div class="imageLabel">[[> rsp:SourceIcon providerLabel="{{bindings.0.imageLabelB.value}}"]]{{bindings.0.imageLabelB.value}}</div>   
     </div>    
   </mp-overlay-dialog-trigger>
   <mp-overlay-dialog-content>

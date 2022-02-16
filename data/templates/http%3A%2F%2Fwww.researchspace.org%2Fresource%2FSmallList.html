@@ -1,0 +1,52 @@
+<semantic-query
+  query='
+        SELECT  ?thumbnail ?prov ?manifest ?providerL WHERE {                    
+          <[[iri]]> <https://artresearch.net/custom/has_image> ?image.
+           <[[iri]]>  <https://artresearch.net/custom/has_provider> ?prov.
+           ?prov rdfs:label ?providerL.
+              {{#ifCond providerL.value "===" "Frick"}}
+                BIND(REPLACE(STR(?image),"full/full/0/default.jpg","iiif/info.json") AS ?manifest).
+              {{else}}
+                BIND(REPLACE(STR(?image),"full/full/0/[a-zA-Z]+.jpg","info.json") AS ?manifest).
+              {{/ifCond}}
+          BIND(REPLACE(str(?image),"full/full","full/!200,200") AS ?thumbnail).
+        }'
+  template='{{>tuppleBoy}}'
+>
+<template id="tuppleBoy">
+  {{#each bindings}}
+<mp-overlay-dialog title="‎‎">
+   <mp-overlay-dialog-trigger>
+      <img src="{{thumbnail.value}}" style="height:70px;
+      object-fit: contain;
+      padding:1px;
+      min-height: 70px;
+      max-width: 80px;"/>
+  </mp-overlay-dialog-trigger>
+    <mp-overlay-dialog-content>
+      <div style='height: 80vh;' >
+             {{#ifCond providerL.value "===" "Hertziana" }}   
+              <div style="display: flex; flex-direction: column; gap:5px; height: 100%;">
+                <img style="object-fit: contain;height: 100%;" src='{{thumbnail.value}}'/>
+                <i style="font-size: 16px; font-weight: bold; justify-content: center; display: flex; gap: 5px;" class="fa fa-info">Currently there are no IIIF images for this Photo Archive</i>
+              </div>
+            {{else}}
+            <rs-iiif-mirador
+              id='thumbnailMirador'
+              image-or-region="{{manifest.value}}"
+              image-api-manifest-pattern="BIND(<{{manifest.value}}> as ?manifestUrl)"
+                >
+            </rs-iiif-mirador>
+          {{/ifCond}}
+    </div>
+    </mp-overlay-dialog-content>
+  </mp-overlay-dialog>
+  {{/each}}
+</template>
+</semantic-query>
+<style>
+  .LabelHolder{
+    display: none;
+  }
+</style>
+

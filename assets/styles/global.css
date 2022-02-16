@@ -19,6 +19,17 @@ background: #e3c844 !important;
     color: white !important;
 }
 
+.smallWrapper{
+  width: 51%;
+  display: flex;
+  gap:35px;
+  margin-right: 9vw;
+}
+
+.smallList{
+  width: 60%;
+  gap:35px;
+}
 
 .backDashboardButton:hover{
     box-shadow: 0px 4px 10px 1px #c0bdbd

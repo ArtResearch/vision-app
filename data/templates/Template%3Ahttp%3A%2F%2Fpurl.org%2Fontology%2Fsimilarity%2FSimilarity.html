@@ -88,21 +88,10 @@
 
 
           </div>
-          
-
-
-       <h3 style="position: relative; width: 70%; left: -10%;">View more photos from artworks</h3>
-      <div class="PanelWrapper">
-     <div class="WrapperCarousel">
-            <bs-col class="cardInfo inWrap" lg="2" xs="10">
-              [[> :SimilarityListThumbnails iri="{{bindings.0.subject1.value}}"]]
-            </bs-col>
-              <bs-col class="cardInfo inWrap" lg="2" xs="10">
-              [[> :SimilarityListThumbnails iri="{{bindings.0.subject2.value}}"]]
-            </bs-col>
-           </div>     
-   
-    </div>
+          <div class="smallWrapper">
+              <div class="smallList" style="border-right: 1px solid black;"><h2>Additional photos</h2>[[> rsp:SmallList iri="{{bindings.0.subject1.value}}"]]</div> 
+              <div class="smallList"><h2>Additional photos</h2>[[> rsp:SmallList iri="{{bindings.0.subject2.value}}"]]</div> 
+          </div>
 
         <div class="matchContainer">
           <!-- Matching candidates fields comparison table -->

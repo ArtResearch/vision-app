@@ -15,7 +15,8 @@
         {{#each bindings}}
           <h3 style="padding-left: 30px; padding-right: 30px;">User: <mp-label class="blue" iri="{{attribution.value}}"></mp-label> 
             added a note at: <div class="blue">{{dateTimeFormat modifiedAt.value "DD/MM/YY HH:mm:ss"}}</div>
-          <p> Note: <div class="blue">{{infotext.value}}</div> </p>
+            <br>
+            Note: <div class="blue">{{infotext.value}}</div> 
           </h3>
         {{/each}}
       </template>

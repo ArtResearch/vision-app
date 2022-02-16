@@ -2,7 +2,7 @@
   <semantic-query 
     query="
     PREFIX fr: <https://pharos.artresearch.net/resource/fr/>
-      SELECT ?infotext WHERE {
+      SELECT * WHERE {
         BIND(<{{bindings.0.element.value}}> as ?infosub)
          GRAPH ?g {
             ?infosub  fr:Work_for_review ?infotext .

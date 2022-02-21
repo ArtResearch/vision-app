@@ -50,7 +50,11 @@
                               ?artist rdfs:label ?label.
                             }
                             ?photo crm:P129i_is_subject_of ?imgUri.
+                            {
                             ?imgUri <https://pharos.artresearch.net/resource/vocab/vision/pastec/has_index> ?idProperty.
+                            }UNION {
+                              ?idProperty <https://pharos.artresearch.net/resource/vocab/vision/pastec/has_index> ?imgUri.
+                            }
                             BIND(REPLACE(STR(?imgUri),"full/full","full/!200,200") AS ?imgUrl).
                             BIND(REPLACE(?label,"@en","") AS ?artist_label)                                  
                           }

@@ -9,7 +9,6 @@ query=' SELECT (COUNT(distinct ?g) AS ?count) WHERE {
           ?imageA <http://purl.org/ontology/similarity/element> ?similarity.
           ?work2 <https://artresearch.net/custom/has_image> ?imageB.
           ?imageB <http://purl.org/ontology/similarity/element> ?similarity.
-          FILTER NOT EXISTS { ?similarity <https://vision.artresearch.net/custom/skipped> "true"^^xsd:boolean }
        
         }'
 no-result-template="0"

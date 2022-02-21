@@ -516,6 +516,14 @@ a:focus {
   background: white !important;
 }
 
+  .modal-dialog.overlay-lightbox__dialog.modal-dialog{
+    width: 50%;
+    left: 24vw;
+    backdrop-filter: blur(5px);
+    background-color: rgba(0, 0, 0, 0.61);
+    backdrop-filter: blur(5px);
+  }
+  
 .confirm-btn {
   font-size: medium;
   border: none !important;

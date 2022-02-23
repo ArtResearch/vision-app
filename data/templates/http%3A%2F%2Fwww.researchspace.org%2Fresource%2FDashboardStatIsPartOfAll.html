@@ -1,7 +1,7 @@
 <semantic-query
 query=' SELECT (COUNT(distinct ?g) AS ?count) WHERE {
           GRAPH ?g {
-            ?work fr:Work_is_part_of_work ?work2.
+            ?work crm:P46i_forms_part_of ?work2.
             ?subject prov:generatedAtTime ?modifiedAt.
           }
           ?work <https://artresearch.net/custom/has_image> ?imageA.

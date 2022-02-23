@@ -15,7 +15,7 @@ query=' SELECT DISTINCT
         (SAMPLE(?providerLabelA) as ?providerLabelA)
         (SAMPLE(?providerLabelB) as ?providerLabelB) WHERE {
           GRAPH ?g {
-            ?work fr:Work_is_version_of_work ?work2 .
+            ?work fr:Work_is_version_of_Work ?work2 .
             ?subject <http://www.w3.org/ns/prov#wasAttributedTo> ?attribution.
             ?subject <http://www.w3.org/ns/prov#generatedAtTime> ?modifiedAt ; 
           }

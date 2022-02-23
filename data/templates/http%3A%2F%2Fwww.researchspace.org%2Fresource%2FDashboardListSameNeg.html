@@ -15,11 +15,7 @@ query=' SELECT DISTINCT
         (SAMPLE(?providerLabelA) as ?providerLabelA)
         (SAMPLE(?providerLabelB) as ?providerLabelB) WHERE {
           GRAPH ?g {
-            {
-              ?work  fr:Work_is_negative_of_Work ?work2 .
-            } UNION {
-              ?imageA  fr:Image_is_negative_of_Image ?imageB .
-            }
+             ?work  fr:Work_is_negative_of_Work|fr:Image_is_negative_of_Image ?work2.
             ?subject <http://www.w3.org/ns/prov#wasAttributedTo> ?attribution.
             ?subject <http://www.w3.org/ns/prov#generatedAtTime> ?modifiedAt ; 
           }

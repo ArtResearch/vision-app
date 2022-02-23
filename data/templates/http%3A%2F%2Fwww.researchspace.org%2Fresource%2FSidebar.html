@@ -1,10 +1,9 @@
 <div class="actions">
   <semantic-query 
     query="
-    PREFIX fr: <https://artresearch.net/resource/fr/>
       SELECT * WHERE {
         BIND(<{{bindings.0.element.value}}> as ?infosub)
-         GRAPH ?g {
+          GRAPH ?g {
             ?infosub  fr:Work_for_review ?infotext .
             ?subject <http://www.w3.org/ns/prov#wasAttributedTo> ?attribution.
             ?subject <http://www.w3.org/ns/prov#generatedAtTime> ?modifiedAt ; 

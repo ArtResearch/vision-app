@@ -47,50 +47,50 @@
       {{#ifCond ulanArtist_a.value "&&" ulanArtist_b.value}}  
         <!-- Both are ULAN ?? -->
       {{else}}
-       {{#if ulanArtist_a.value}}
-        <!-- First is ULAN -->
-        {{#if value_b}}
-        <!-- Second artist is not null -->
-          <mp-overlay-dialog class="matching-modal"
-          title="Match artists">
-            <mp-overlay-dialog-trigger
-              placement="bottom"
-              trigger='["hover","focus"]'
-            >
-              <div id="match-button-text">
-               <span class="fa fa-external-link" style="margin-right: 5px;"></span>  Match artists
-              </div>
-            </mp-overlay-dialog-trigger>
-            <mp-overlay-dialog-content style="background: white">
-              <div>
-                [[> :MatchArtists providerA="true" artistA="{{value_b.value}}" match="{{ulanArtist_a.value}}" ]]
-              </div>
-            </mp-overlay-dialog-content>
-          </mp-overlay-dialog>
-          {{/if}}
-        {{else}}
-         {{#if ulanArtist_b.value}}
-        <!-- Second is ULAN -->
-        {{#if value}}
-        <!-- First artist is not null -->
-         <mp-overlay-dialog class="matching-modal" title="Match artists">
-          <mp-overlay-dialog-trigger
-            placement="bottom"
-            trigger='["hover","focus"]'
-          >
-            <div id="match-button-text">
-             <span class="fa fa-external-link" style="margin-right: 5px;"></span>  Match artists
-            </div>
-          </mp-overlay-dialog-trigger>
-          <mp-overlay-dialog-content style="background: white">
-            <div>
-              [[> :MatchArtists providerB="true" artistA="{{value.value}}" match="{{ulanArtist_b.value}}" ]]
-            </div>
-          </mp-overlay-dialog-content>
-        </mp-overlay-dialog>
-        {{/if}}
-         {{/if}}
-       {{/if}}
+            {{#if ulanArtist_a.value}}
+              <!-- First is ULAN -->
+              {{#if value_b}}
+                <!-- Second artist is not null -->
+                <mp-overlay-dialog class="matching-modal"
+                  title="Match artists">
+                    <mp-overlay-dialog-trigger
+                      placement="bottom"
+                      trigger='["hover","focus"]'
+                    >
+                      <div id="match-button-text">
+                      <span class="fa fa-external-link" style="margin-right: 5px;"></span>  Match artists
+                      </div>
+                    </mp-overlay-dialog-trigger>
+                    <mp-overlay-dialog-content style="background: white">
+                      <div>
+                        [[> :MatchArtists providerA="true" prov="b" artistA="{{value_b.value}}" match="{{ulanArtist_a.value}}" ]]
+                      </div>
+                    </mp-overlay-dialog-content>
+                  </mp-overlay-dialog>
+                {{/if}}
+            {{else}}
+                {{#if ulanArtist_b.value}}
+                <!-- Second is ULAN -->
+                        {{#if value}}
+                        <!-- First artist is not null -->
+                        <mp-overlay-dialog class="matching-modal" title="Match artists">
+                          <mp-overlay-dialog-trigger
+                            placement="bottom"
+                            trigger='["hover","focus"]'
+                          >
+                            <div id="match-button-text">
+                            <span class="fa fa-external-link" style="margin-right: 5px;"></span>  Match artists
+                            </div>
+                          </mp-overlay-dialog-trigger>
+                          <mp-overlay-dialog-content style="background: white">
+                            <div>
+                              [[> :MatchArtists providerB="true" prov="a" artistA="{{value.value}}" match="{{ulanArtist_b.value}}" ]]
+                            </div>
+                          </mp-overlay-dialog-content>
+                        </mp-overlay-dialog>
+                        {{/if}}
+                {{/if}}
+            {{/if}}
       {{/ifCond}}  
 
 

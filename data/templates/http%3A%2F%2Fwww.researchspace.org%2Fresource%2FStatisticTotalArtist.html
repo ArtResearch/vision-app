@@ -1,34 +1,20 @@
 <div class="stats">
-<semantic-query
-  query='SELECT (COUNT( ?sub ) as ?matched)  ?partnerLabel (COUNT(?subnm) as ?unmatched) ((?matched+?unmatched) as ?total) WHERE {
-    <[[partnerUri]]> rdfs:label ?partnerLabel
- 
-      {
-    ?sub <https://artresearch.net/custom/has_provider> <[[partnerUri]]>.
-    ?sub a <https://artresearch.net/resource/custom/fc/artist>.
-    ?sub  <https://vocab.artresearch.net/custom/confirmed> true .
-
-    FILTER NOT EXISTS { ?sub a <https://artresearch.net/resource/custom/fc/institution>} 
-    FILTER NOT EXISTS { ?sub a <https://artresearch.net/resource/custom/fc/photographer>} 
-      }UNION{
-     ?subnm <https://artresearch.net/custom/has_provider> <[[partnerUri]]>.
-     ?subnm a <https://artresearch.net/resource/custom/fc/artist>.
-   
-   FILTER NOT EXISTS { ?subnm  <https://vocab.artresearch.net/custom/confirmed> true } 
-   FILTER NOT EXISTS { ?subnm a <https://artresearch.net/resource/custom/fc/institution>} 
-   FILTER NOT EXISTS { ?subnm a <https://artresearch.net/resource/custom/fc/photographer>} 
-      }
-   
-
-} GROUP BY ?partnerLabel'
-  template='{{> statsTotal }}'>
-  <template id="statsTotal">
-
-
-               Artists reconciled
-           <br/>
-           {{bindings.0.matched.value}} / {{bindings.0.total.value}} 
-           <semantic-chart
+  <semantic-query
+    query=' SELECT ?matched ?unmatched ((?matched+?unmatched) as ?total) ?partnerLabel WHERE {
+              <[[partnerUri]]> rdfs:label ?partnerLabel.
+              GRAPH ?graph {
+                <[[partnerUri]]> <https://artresearch.net/custom/numOfArtistsMatched> ?matched;
+                  <https://artresearch.net/custom/numOfArtistsNonMatched> ?unmatched.
+              }
+              ?statistics <https://artresearch.net/custom/consists_of> ?graph;
+                <https://artresearch.net/custom/latest> true.
+            }'
+    template='{{> statsTotal }}'>
+    <template id="statsTotal">
+      Artists reconciled
+      <br/>
+      {{bindings.0.matched.value}} / {{bindings.0.total.value}} 
+      <semantic-chart
           type = 'bar'
           query='
           SELECT ?matched ?unmatched WHERE{
@@ -74,10 +60,7 @@
             }
           }
         }]'>
-            </semantic-chart>  
-       
-
-          </template>
-        </semantic-query>
-
+      </semantic-chart>
+    </template>
+  </semantic-query>
 </div>

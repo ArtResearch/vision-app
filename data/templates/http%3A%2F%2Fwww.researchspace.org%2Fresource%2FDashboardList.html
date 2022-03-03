@@ -1,0 +1,108 @@
+<div class="row" style="margin-top: 40px;">
+  <bs-col sm="1"></bs-col>
+<bs-col sm="10">
+<semantic-table id='resources-results'
+number-of-displayed-rows=10
+query=' SELECT DISTINCT 
+        (SAMPLE(?similarity) as ?similarity)
+        (SAMPLE(?work) as ?work)
+        (SAMPLE(?work2) as ?work2)
+        (SAMPLE(?subject) as ?subject)
+        (SAMPLE(?providerA) as ?providerA)
+        (SAMPLE(?providerB) as ?providerB)
+        (SAMPLE(?providerLabelA) as ?providerLabelA)
+        (SAMPLE(?providerLabelB) as ?providerLabelB)
+        (SAMPLE(?modifiedAt) AS ?modifiedAt) 
+        (SAMPLE(?info) AS ?info) 
+        (SAMPLE(?attribution) AS ?attribution) WHERE {
+          GRAPH ?g {
+            <http://www.researchspace.org/resource/system/formContainer> <http://www.w3.org/ns/ldp#contains> ?subject. 
+            ?subject <http://www.w3.org/ns/prov#generatedAtTime> ?modifiedAt ; 
+                    <http://www.w3.org/ns/prov#wasAttributedTo> ?attribution.
+            [[#if forreview]]
+              ?similarity fr:Work_for_review ?info.
+            [[else if notsimilar]]
+              ?similarity <https://vision.artresearch.net/custom/similar_artworks> false.
+            [[else if similar]]
+              ?similarity  <https://vision.artresearch.net/custom/similar_artworks> true .
+            [[else if samenegative]]
+              ?imageA fr:Image_is_negative_of_Image ?imageB.
+            [[else if isversion]]
+              ?work fr:Work_is_version_of_Work ?work2 .
+            [[else if partof]]
+              ?work crm:P46i_forms_part_of ?work2 .
+            [[else if study]]
+              ?work fr:Work_is_study_or_sketch_of_Work ?work2 .
+            [[else if imitation]]                      
+              ?work  fr:Work_is_imitation_or_copy_of_Work ?work2 .
+            [[else if skipped]]
+              ?similarity <https://vision.artresearch.net/custom/skipped> true
+            [[else if reviewed]]
+              ?similarity <https://vision.artresearch.net/custom/reviewed> true.
+              ?similarity <https://vision.artresearch.net/custom/same_artworks> true.
+            [[/if]]
+          }
+          ?work <https://artresearch.net/custom/has_image> ?imageA.
+          ?imageA <http://purl.org/ontology/similarity/element> ?similarity.
+          ?work2 <https://artresearch.net/custom/has_image> ?imageB.
+          ?imageB <http://purl.org/ontology/similarity/element> ?similarity.
+          ?work <https://artresearch.net/custom/has_provider> ?providerA.
+          ?providerA rdfs:label ?providerLabelA.
+          ?work2 <https://artresearch.net/custom/has_provider> ?providerB.
+          ?providerB rdfs:label ?providerLabelB.
+          FILTER(STR(?work)>STR(?work2))
+          [[#if user]]
+            BIND(?__useruri__ as ?attribution)
+          [[/if]]
+          [[#if notsimilar]]
+            FILTER NOT EXISTS { ?similarity <https://vision.artresearch.net/custom/skipped> "true"^^xsd:boolean }
+          [[else if similar]]
+            FILTER NOT EXISTS { ?similarity <https://vision.artresearch.net/custom/skipped> "true"^^xsd:boolean }
+          [[else if study]]
+            FILTER NOT EXISTS { ?similarity <https://vision.artresearch.net/custom/skipped> "true"^^xsd:boolean }
+          [[/if]]
+        }GROUP BY ?g'
+tuple-template='{{>markedCards}}'
+no-result-template='<h1 style="margin-top:150px;">There are no matchings marked for review</h1>'
+>
+
+<template id="markedCards">
+  [[#if forreview]]
+    [[> DashboardCard type='For Review']]
+  [[else if notsimilar]]
+    [[> DashboardCard type='Marked as "Not Similar"']]
+  [[else if similar]]
+    [[> DashboardCard type='Marked as "Similar"']]
+  [[else if samenegative]]
+    [[> DashboardCard type='Marked as "Same Negative"']]
+  [[else if isversion]]
+    [[> DashboardCard type='Marked as "Is Version"']]
+  [[else if partof]]
+    [[> DashboardCard type='Marked as "Is Part Of"']]
+  [[else if study]]
+    [[> DashboardCard type='Marked as "Study/Sketch of"']]
+  [[else if imitation]]                      
+    [[> DashboardCard type='Marked "Imitation/Copy"']]
+  [[else if skipped]]
+    [[> DashboardCard type='Skipped for Later Review']]
+  [[else if reviewed]]
+    [[> DashboardCardForSame type='Reviewed']]
+  [[/if]]
+</template>
+
+
+
+</semantic-table>
+</bs-col>
+<bs-col sm="1"></bs-col>
+</div>
+
+<style>
+  .actions{
+  gap: 150px;
+  }
+  .matchingImage {
+    height: 18vh !important;
+    margin: 0vw !important;
+  }
+</style>

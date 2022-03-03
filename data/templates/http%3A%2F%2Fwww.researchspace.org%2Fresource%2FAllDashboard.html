@@ -10,7 +10,7 @@
         <h1 style="margin-left: 2vw" class="display-4">
         Platform dashboard</h1>
         <p style="margin-left: 2vw" class="lead">
-          Here you can view, delete & revert matchings that have been reviewed or are marked for review from everyone in the platform
+          Here you can view, delete & revert matchings from everyone in the platform
         </p>
       </div>
     <bs-tab-container id="tab-container" class="page__body-navtabs--borderless" default-active-key="forreview">
@@ -69,34 +69,34 @@
       <bs-tab-content unmount-on-exit=true>
         <div>
         <bs-tab-pane event-key='reviewed'>
-          [[> DashboardListReviewedAll]]
+          [[> DashboardListReviewed]]
         </bs-tab-pane>
         <bs-tab-pane event-key='marked'>
-          [[> DashboardListMarkedAll]]
+          [[> DashboardListMarked]]
         </bs-tab-pane>
           <bs-tab-pane event-key='Imitationmarked'>
-          [[> DashboardListImitationAll]]
+          [[> DashboardListImitation]]
         </bs-tab-pane>
         <bs-tab-pane event-key='Studymarked'>
-          [[> DashboardListStudyAll]]
+          [[> DashboardListStudy]]
         </bs-tab-pane>
         <bs-tab-pane event-key='PartOf'>
-          [[> DashboardListIsPartOfAll]]
+          [[> DashboardListIsPartOf]]
         </bs-tab-pane>
         <bs-tab-pane event-key='VersionOf'>
-          [[> DashboardListIsVersionAll]]
+          [[> DashboardListIsVersion]]
         </bs-tab-pane>
         <bs-tab-pane event-key='Negmarked'>
-          [[> DashboardListSameNegAll]]
+          [[> DashboardListSameNeg]]
         </bs-tab-pane>
         <bs-tab-pane event-key='Similarmarked'>
-          [[> DashboardListSimilarAll]]
+          [[> DashboardListSimilar]]
         </bs-tab-pane>
         <bs-tab-pane event-key='NotSimilarmarked'>
-          [[> DashboardListNotSimilarAll]]
+          [[> DashboardListNotSimilar]]
         </bs-tab-pane>
         <bs-tab-pane event-key='forreview'>
-          [[> DashboardListForReviewAll]]
+          [[> DashboardListForReview]]
         </bs-tab-pane>
 
       </div>

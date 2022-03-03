@@ -30,7 +30,9 @@ query=' SELECT DISTINCT
           ?similarity <https://vision.artresearch.net/custom/reviewed> true.
           FILTER(STR(?work)!=STR(?work2))
           FILTER NOT EXISTS { ?similarity <https://vision.artresearch.net/custom/skipped> "true"^^xsd:boolean }
-          BIND(?__useruri__ as ?attribution)
+          [[#if user]]
+            BIND(?__useruri__ as ?attribution)
+          [[/if]]
         }GROUP BY ?g'
 tuple-template='{{>markedCards}}'
 no-result-template='<h1 style="margin-top:150px;">There are no matchings marked for review</h1>'

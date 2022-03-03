@@ -32,7 +32,9 @@ SELECT DISTINCT
   FILTER(?work != ?work2)
   FILTER NOT EXISTS {?imageA <http://www.cidoc-crm.org/cidoc-crm/P2_has_type> <http://vocab.getty.edu/aat/300010292>.}
   FILTER NOT EXISTS {?imageB <http://www.cidoc-crm.org/cidoc-crm/P2_has_type> <http://vocab.getty.edu/aat/300010292>.}
-  BIND(?__useruri__ as ?attribution)
+  [[#if user]]
+    BIND(?__useruri__ as ?attribution)
+  [[/if]]
 }GROUP BY ?subject ?g
 '
 tuple-template='{{>reviewedCards}}'

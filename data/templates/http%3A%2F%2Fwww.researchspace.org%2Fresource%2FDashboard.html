@@ -11,7 +11,7 @@
       <h1 style="margin-left: 2vw" class="display-4">
        Your dashboard</h1>
       <p style="margin-left: 2vw" class="lead">
-        Here you can view, delete & revert matchings that have been reviewed or are marked for review 
+        Here you can view, delete & revert matchings
       </p>
     </div>
   <bs-tab-container id="tab-container" class="page__body-navtabs--borderless" default-active-key="reviewed">
@@ -71,34 +71,34 @@
     <bs-tab-content unmount-on-exit=true>
       <div>
       <bs-tab-pane event-key='reviewed'>
-        [[> DashboardListReviewed]]
+        [[> DashboardListReviewed user='true']]
       </bs-tab-pane>
       <bs-tab-pane event-key='marked'>
-        [[> DashboardListMarked]]
+        [[> DashboardListMarked user='true']]
       </bs-tab-pane>
         <bs-tab-pane event-key='Imitationmarked'>
-        [[> DashboardListImitation]]
+        [[> DashboardListImitation user='true']]
       </bs-tab-pane>
        <bs-tab-pane event-key='Studymarked'>
-        [[> DashboardListStudy]]
+        [[> DashboardListStudy user='true']]
       </bs-tab-pane>
        <bs-tab-pane event-key='IsPartOf'>
-        [[> DashboardListIsPartOf]]
+        [[> DashboardListIsPartOf user='true']]
       </bs-tab-pane>
        <bs-tab-pane event-key='IsVersion'>
-        [[> DashboardListIsVersion]]
+        [[> DashboardListIsVersion user='true']]
       </bs-tab-pane>
       <bs-tab-pane event-key='Negmarked'>
-        [[> DashboardListSameNeg]]
+        [[> DashboardListSameNeg user='true']]
       </bs-tab-pane>
        <bs-tab-pane event-key='Similarmarked'>
-        [[> DashboardListSimilar]]
+        [[> DashboardListSimilar user='true']]
       </bs-tab-pane>
        <bs-tab-pane event-key='NotSimilarmarked'>
-        [[> DashboardListNotSimilar]]
+        [[> DashboardListNotSimilar user='true']]
       </bs-tab-pane>
       <bs-tab-pane event-key='forreview'>
-        [[> DashboardListForReview]]
+        [[> DashboardListForReview user='true']]
       </bs-tab-pane>
 
     </div>

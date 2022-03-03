@@ -29,7 +29,9 @@ query=' SELECT DISTINCT
           ?work2 <https://artresearch.net/custom/has_provider> ?providerB.
           ?providerB rdfs:label ?providerLabelB.
           FILTER(STR(?work)>STR(?work2))
-          BIND(?__useruri__ as ?attribution)
+          [[#if user]]
+            BIND(?__useruri__ as ?attribution)
+          [[/if]]
         }GROUP BY ?g'
 tuple-template='{{>markedCards}}'
 no-result-template='<h1 style="margin-top:150px;">There are no matchings marked for review</h1>'

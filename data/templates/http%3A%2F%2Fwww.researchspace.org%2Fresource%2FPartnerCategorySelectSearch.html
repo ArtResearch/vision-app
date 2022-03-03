@@ -94,7 +94,7 @@
         (SAMPLE(?element) as ?element)
         WHERE {
           ?subject <https://artresearch.net/custom/has_image>/<http://purl.org/ontology/similarity/element> ?element;
-            <https://artresearch.net/custom/has_provider> <[[urlParam "partner"]]>.
+            <https://artresearch.net/custom/has_provider> <[[urlParam "providera"]]>.
           ?subject2 <https://artresearch.net/custom/has_image>/<http://purl.org/ontology/similarity/element> ?element;
             <https://artresearch.net/custom/has_provider> <[[targetProviderURI]]>.
           ?element <http://purl.org/ontology/similarity/method> [
@@ -102,7 +102,7 @@
             <http://purl.org/ontology/similarity/method> <https://vision.artresearch.net/resource/Similarity/AssociationMethod/Pastec>
           ]
           FILTER NOT EXISTS {?element <https://vision.artresearch.net/custom/reviewed> true }
-          FILTER NOT EXISTS {?element <https://vision.artresearch.net/custom/skipped> true }
+          #FILTER NOT EXISTS {?element <https://vision.artresearch.net/custom/skipped> true }
         }'
       query="SELECT DISTINCT ?subject WHERE {
       ?subject ?p ?o #This will never run
@@ -145,75 +145,7 @@
                 tuple-template="{{>tupleTemplate}}"
               >
                 <template id="tupleTemplate">
-                  <div
-                    class="
-                      rs-grid-element
-                      panel panel-default
-                      artwork-card
-                      fade-in
-                    "
-                  >
-                    <div class="panel-body row">
-                      <bs-col class="cardInfo" lg="2" xs="10">
-                        [[> :SimilarityListThumbnails iri="{{subject.value}}"]]
-                      </bs-col>
-                      <bs-col class="cardInfo" lg="4" xs="10">
-                        <div data-flex-layout="row md-column center-stretch">
-                          <bs-row class="cardInfoFields">
-                            <h2>[[> rsp:SourceIconByURI providerURI=sourceProviderURI]]</h2>
-                            <mp-field-visualization
-                              subject="{{subject.value}}"
-                              fields='[[fieldDefinitions  
-                                      Title="https://artresearch.net/fieldDefinition/2"
-                                      Creator="https://artresearch.net/fieldDefinition/1"
-                                      ]]'
-                              template="{{>generalInfo}}"
-                            >
-                              <template id="generalInfo">
-                                [[> rsp:ResourceFieldBasedVisualization
-                                subject="{{subject.value}}" ]]
-                              </template>
-                            </mp-field-visualization>
-                          </bs-row>
-                        </div>
-                      </bs-col>
-                      <bs-col class="cardInfo" lg="2" xs="10">
-                        [[> :SimilarityListThumbnails iri="{{subject2.value}}"]]
-                      </bs-col>
-
-                      <bs-col class="cardInfo" lg="4" xs="10">
-                        <div data-flex-layout="row md-column center-stretch">
-                          <bs-row class="cardInfoFields">
-                            <h2>[[> rsp:SourceIconByURI providerURI=targetProviderURI]]</h2>
-                            <mp-field-visualization
-                              subject="{{subject2.value}}"
-                              fields='[[fieldDefinitions  
-                                        Title="https://artresearch.net/fieldDefinition/2"
-                                        Creator="https://artresearch.net/fieldDefinition/1"
-                                        ]]'
-                              template="{{>generalInfo}}"
-                            >
-                              <template id="generalInfo">
-                                [[> rsp:ResourceFieldBasedVisualization
-                                subject="{{subject2.value}}" ]]
-                              </template>
-                            </mp-field-visualization>
-                          </bs-row>
-                        </div>
-                      </bs-col>
-                    </div>
-                    <div class="actions">
-                      <semantic-link iri="{{element.value}}" 
-                      urlqueryparam-providera='[[urlParam "partner"]]'
-                      urlqueryparam-providerb='[[targetProviderURI]]'
-                      >
-                        <button class="btn action btn-success">
-                          View details
-                        </button>
-                      </semantic-link>
-                      <scroll-to-top querySelector=".pagination li"></scroll-to-top>
-                    </div>
-                  </div>
+                  [[> ResultListCard]]
                 </template>
               </semantic-table>
             </semantic-search-result>

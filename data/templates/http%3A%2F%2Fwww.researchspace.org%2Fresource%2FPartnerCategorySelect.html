@@ -33,7 +33,7 @@
              (<https://artresearch.net/resource/zeri/source/Zeri> <https://artresearch.net/custom/numOfNonmatchedZeri>)
             }
             ?partnerUri rdfs:label ?partnerLabel.
-            FILTER(?partnerUri != <[[urlParam "partner"]]>)
+            FILTER(?partnerUri != <[[urlParam "providera"]]>)
         }ORDER BY (?partnerLabel)'
         template="{{> partnerTabs}}">
 
@@ -51,7 +51,7 @@
                     ?statistics <https://artresearch.net/custom/latest> true.
                     ?statistics <https://artresearch.net/custom/consists_of> ?graph.
                     GRAPH ?graph {
-                      <[[urlParam "partner"]]> <{{relationUri.value}}> ?count.
+                      <[[urlParam "providera"]]> <{{relationUri.value}}> ?count.
                     }  
                   }'
                  template="{{> countTemplate}}"
@@ -69,11 +69,11 @@
             <bs-tab-content unmount-on-exit=true>
               {{#each bindings}}
                 <bs-tab-pane event-key="{{@index}}">
-                <semantic-query query=' SELECT ?count (<[[urlParam "partner"]]> as ?partner) WHERE{
+                <semantic-query query=' SELECT ?count (<[[urlParam "providera"]]> as ?partner) WHERE{
                                           ?statistics <https://artresearch.net/custom/latest> true.
                                           ?statistics <https://artresearch.net/custom/consists_of> ?graph.
                                             GRAPH ?graph {
-                                              <[[urlParam "partner"]]> <{{relationUri.value}}> ?count.
+                                              <[[urlParam "providera"]]> <{{relationUri.value}}> ?count.
                                             }  
                                           }'
                   template="{{>ShowTab}}"

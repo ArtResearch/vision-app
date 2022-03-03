@@ -2,19 +2,19 @@
 <semantic-query
   query='SELECT ?matched (SUM(?unmatched) as ?unmatched) ((?matched+?unmatched) as ?total) WHERE {
     GRAPH ?graph {
-    <[[urlParam "partner"]]>  <https://artresearch.net/custom/numOfMatched> ?matched.
+    <[[urlParam "providera"]]>  <https://artresearch.net/custom/numOfMatched> ?matched.
     {
-      <[[urlParam "partner"]]>   <hhttps://artresearch.net/custom/numOfNonmatchedHertziana> ?unmatched
+      <[[urlParam "providera"]]>   <hhttps://artresearch.net/custom/numOfNonmatchedHertziana> ?unmatched
     }UNION{
-      <[[urlParam "partner"]]>   <https://artresearch.net/custom/numOfNonmatchedKHI> ?unmatched
+      <[[urlParam "providera"]]>   <https://artresearch.net/custom/numOfNonmatchedKHI> ?unmatched
     }UNION{
-      <[[urlParam "partner"]]>   <https://artresearch.net/custom/numOfNonmatchedFrick> ?unmatched
+      <[[urlParam "providera"]]>   <https://artresearch.net/custom/numOfNonmatchedFrick> ?unmatched
     }UNION{
-      <[[urlParam "partner"]]>   <https://artresearch.net/custom/numOfNonmatchedMarburg> ?unmatched
+      <[[urlParam "providera"]]>   <https://artresearch.net/custom/numOfNonmatchedMarburg> ?unmatched
     }UNION{
-      <[[urlParam "partner"]]>   <https://artresearch.net/custom/numOfNonmatchedItatti> ?unmatched
+      <[[urlParam "providera"]]>   <https://artresearch.net/custom/numOfNonmatchedItatti> ?unmatched
     }UNION{
-      <[[urlParam "partner"]]>   <https://artresearch.net/custom/numOfNonmatchedZeri> ?unmatched
+      <[[urlParam "providera"]]>   <https://artresearch.net/custom/numOfNonmatchedZeri> ?unmatched
     }
   }
   ?statistics <https://artresearch.net/custom/latest> true.

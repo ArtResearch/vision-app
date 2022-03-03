@@ -21,55 +21,6 @@
       </template>
   </semantic-query>
   
- [[#if (hasPermission "api:ldp:container:*:create")]]
-    <mp-overlay-dialog type="lightbox" title="For Review - Please add information about the reviewer">
-    <mp-overlay-dialog-trigger
-      placement="bottom"
-      trigger='["hover","focus"]'
-    >
-        <button
-          id="forReview"
-          class="btn btn-default action optional"
-          style="background:#dab327 !important"
-          title="For Review"
-        >
-        For Review
-      </button>
-    </mp-overlay-dialog-trigger>
-    <mp-overlay-dialog-content >
-      <div style="place-self:center">
-            <h1>Are you sure you want to review later this artwork?</h1>
-            <h2>If yes, please provide a reason why and any other info needed for the next person who might want to review this</h2>
-            <semantic-form
-                new-subject-template="{{bindings.0.element.value}}"
-                browser-persistance="true"
-                persistence='ldp'
-                urlqueryparam-providera='[[urlParam "providera"]]'
-                urlqueryparam-providerb='[[urlParam "providerb"]]'
-                post-action="{{bindings.0.nextElement.value}}"
-                form-id="Reviewform"
-                fields='[[fieldDefinitions
-                          review_later="https://vision.artresearch.net/fieldDefinitionContainer/ForReview"
-                        ]]'
-              >
-            <semantic-form-text-input 
-                for="review_later" 
-                multiline="true"
-                default-value="">
-            </semantic-form-text-input>
-              <button
-              name="submit"
-              class="btn btn-warning action reject confirm-btn"
-              title="Two instances will be reviewed later"
-            >
-            <div class="color-white">Review Later</div>
-          </button>
-          </semantic-form>
-      </div>
-          </mp-overlay-dialog-content>
-    </mp-overlay-dialog-content>
-  </mp-overlay-dialog>
-[[/if]]
   <mp-overlay-dialog type="lightbox" title="Imitation/Copy of - Please select a pair of images">
     <mp-overlay-dialog-trigger
       placement="bottom"
@@ -344,7 +295,41 @@
           <div class="color-white" style="font-weight: bold;"> Skip</div>
         </button>
   </td>
-</semantic-form>
+  </semantic-form>
+
+  [[#if (hasPermission "api:ldp:container:*:create")]]
+    <mp-overlay-dialog type="lightbox" title="For Review - Please add information about the reviewer">
+      <mp-overlay-dialog-trigger placement="bottom" trigger='["hover","focus"]'>
+          <button id="forReview" class="btn btn-default action optional" style="background:#dab327 !important" title="For Review">
+            Skip with note
+          </button>
+      </mp-overlay-dialog-trigger>
+      <mp-overlay-dialog-content>
+        <div style="place-self:center">
+              <h1>Are you sure you want to review later this artwork?</h1>
+              <h2>If yes, please provide a reason why and any other info needed for the next person who might want to review this</h2>
+              <semantic-form
+                  new-subject-template="{{bindings.0.element.value}}"
+                  browser-persistance="true"
+                  persistence='ldp'
+                  urlqueryparam-providera='[[urlParam "providera"]]'
+                  urlqueryparam-providerb='[[urlParam "providerb"]]'
+                  post-action="{{bindings.0.nextElement.value}}"
+                  form-id="Reviewform"
+                  fields='[[fieldDefinitions
+                            addnote="https://vision.artresearch.net/fieldDefinitionContainer/ForReview"
+                          ]]'
+                >
+              <semantic-form-text-input for="addnote" multiline="true" default-value=""></semantic-form-text-input>
+              <button name="submit" class="btn btn-warning action reject confirm-btn" title="Two instances will be reviewed later">
+              <div class="color-white">Skip with note</div>
+            </button>
+            </semantic-form>
+        </div>
+      </mp-overlay-dialog-content>
+    </mp-overlay-dialog-content>
+    </mp-overlay-dialog>
+  [[/if]]
 </div>
 
 <style>

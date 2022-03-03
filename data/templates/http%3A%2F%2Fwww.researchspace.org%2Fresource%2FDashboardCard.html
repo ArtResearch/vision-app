@@ -1,6 +1,25 @@
 
   <div class=" rs-grid-element panel panel-default artwork-card fade-in ">
-  <h2 style="display: flex; width: 100%; gap: 5px; font-size: 16px; justify-content: flex-end; padding-right: 15px;">by <mp-label iri="{{attribution.value}}"></mp-label> at {{dateTimeFormat modifiedAt.value "DD/MM/YY HH:mm:ss"}}</h2>
+    <div style="display: flex; width: 100%; gap: 5px; font-size: 16px; justify-content: flex-end; padding-right: 15px;">
+  <h2 >by <mp-label iri="{{attribution.value}}"></mp-label> at {{dateTimeFormat modifiedAt.value "DD/MM/YY HH:mm:ss"}}</h2>
+    <p></p>
+  <semantic-query 
+    query=" SELECT ?infotext (<{{attribution.value}}> AS ?attribution) WHERE {
+              GRAPH ?g {
+                <{{similarity.value}}>  fr:Work_for_review ?infotext .
+                ?subject <http://www.w3.org/ns/prov#wasAttributedTo> <{{attribution.value}}>.
+              }
+            }"
+      template="{{>info}}">
+      <template id="info">
+        <p></p>
+        {{#each bindings}}
+          <h2 >Note:  {{infotext.value}} </h2>
+        {{/each}}
+      </template>
+  </semantic-query>
+  </div>
+
   <div class="panel-body row">
     <bs-col class="cardInfo" lg="2" xs="10">
       [[> :SimilarityListThumbnails iri="{{work.value}}"]]

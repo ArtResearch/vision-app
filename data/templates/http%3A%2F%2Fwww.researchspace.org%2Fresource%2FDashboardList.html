@@ -19,9 +19,7 @@ query=' SELECT DISTINCT
             <http://www.researchspace.org/resource/system/formContainer> <http://www.w3.org/ns/ldp#contains> ?subject. 
             ?subject <http://www.w3.org/ns/prov#generatedAtTime> ?modifiedAt ; 
                     <http://www.w3.org/ns/prov#wasAttributedTo> ?attribution.
-            [[#if forreview]]
-              ?similarity fr:Work_for_review ?info.
-            [[else if notsimilar]]
+            [[#if notsimilar]]
               ?similarity <https://vision.artresearch.net/custom/similar_artworks> false.
             [[else if similar]]
               ?similarity  <https://vision.artresearch.net/custom/similar_artworks> true .

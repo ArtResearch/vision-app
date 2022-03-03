@@ -16,10 +16,6 @@
     <bs-tab-container id="tab-container" class="page__body-navtabs--borderless" default-active-key="forreview">
     <div>
       <bs-nav bs-style='tabs'>
-        <bs-nav-item event-key='forreview'><div style="display: flex;">For Review(
-          [[> DashboardStatForReview]]
-          )</div>
-        </bs-nav-item>
         <bs-nav-item event-key='reviewed'><div style="display: flex;">Reconciled(
           [[> DashboardStatReviewedAll]]
           )</div>
@@ -64,14 +60,14 @@
             [[> DashboardStatNotSimilarAll]]
             )</div>
         </bs-nav-item>
-
+        <bs-nav-item event-key='forreview'><div style="display: flex;">For Review(
+          [[> DashboardStatForReviewAll]]
+          )</div>
+        </bs-nav-item>
 
       </bs-nav>
       <bs-tab-content unmount-on-exit=true>
         <div>
-        <bs-tab-pane event-key='forreview'>
-          [[> DashboardListForReview]]
-        </bs-tab-pane>
         <bs-tab-pane event-key='reviewed'>
           [[> DashboardListReviewedAll]]
         </bs-tab-pane>
@@ -98,6 +94,9 @@
         </bs-tab-pane>
         <bs-tab-pane event-key='NotSimilarmarked'>
           [[> DashboardListNotSimilarAll]]
+        </bs-tab-pane>
+        <bs-tab-pane event-key='forreview'>
+          [[> DashboardListForReviewAll]]
         </bs-tab-pane>
 
       </div>

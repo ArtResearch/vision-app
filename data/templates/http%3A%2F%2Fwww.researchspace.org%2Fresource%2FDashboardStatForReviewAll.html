@@ -2,7 +2,6 @@
 query=' SELECT (COUNT(distinct ?g) AS ?count) WHERE {
             GRAPH ?g {
                 <http://www.researchspace.org/resource/system/formContainer> <http://www.w3.org/ns/ldp#contains> ?subject. 
-                ?subject <http://www.w3.org/ns/prov#wasAttributedTo> ?__useruri__.
                 ?similarity fr:Work_for_review ?info.
             }
         }'

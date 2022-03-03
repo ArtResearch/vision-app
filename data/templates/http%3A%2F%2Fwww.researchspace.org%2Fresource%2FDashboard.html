@@ -56,10 +56,14 @@
           [[> DashboardStatSimilar]]
           )</div>
       </bs-nav-item>
-       <bs-nav-item event-key='NotSimilarmarked'>
+      <bs-nav-item event-key='NotSimilarmarked'>
         <div style="display: flex;">Marked as "Not Similar"(
           [[> DashboardStatNotSimilar]]
           )</div>
+      </bs-nav-item>
+      <bs-nav-item event-key='forreview'><div style="display: flex;">For Review(
+        [[> DashboardStatForReview]]
+        )</div>
       </bs-nav-item>
 
 
@@ -92,6 +96,9 @@
       </bs-tab-pane>
        <bs-tab-pane event-key='NotSimilarmarked'>
         [[> DashboardListNotSimilar]]
+      </bs-tab-pane>
+      <bs-tab-pane event-key='forreview'>
+        [[> DashboardListForReview]]
       </bs-tab-pane>
 
     </div>

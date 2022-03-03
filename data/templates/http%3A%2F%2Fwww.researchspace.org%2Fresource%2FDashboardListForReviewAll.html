@@ -7,17 +7,19 @@ query=' SELECT DISTINCT
         (SAMPLE(?similarity) as ?similarity)
         (SAMPLE(?work) as ?work)
         (SAMPLE(?work2) as ?work2)
+        (SAMPLE(?subject) as ?subject)
         (SAMPLE(?providerA) as ?providerA)
         (SAMPLE(?providerB) as ?providerB)
-        (SAMPLE(?attribution) as ?attribution)
-        (SAMPLE(?modifiedAt) as ?modifiedAt)
-        (SAMPLE(?subject) as ?subject)
         (SAMPLE(?providerLabelA) as ?providerLabelA)
-        (SAMPLE(?providerLabelB) as ?providerLabelB) WHERE {
+        (SAMPLE(?providerLabelB) as ?providerLabelB)
+        (SAMPLE(?modifiedAt) AS ?modifiedAt) 
+        (SAMPLE(?info) AS ?info) 
+        (SAMPLE(?attribution) AS ?attribution) WHERE {
           GRAPH ?g {
-            ?work crm:P46i_forms_part_of ?work2 .
-            ?subject <http://www.w3.org/ns/prov#wasAttributedTo> ?attribution.
+            <http://www.researchspace.org/resource/system/formContainer> <http://www.w3.org/ns/ldp#contains> ?subject. 
             ?subject <http://www.w3.org/ns/prov#generatedAtTime> ?modifiedAt ; 
+                    <http://www.w3.org/ns/prov#wasAttributedTo> ?attribution.
+            ?similarity fr:Work_for_review ?info.
           }
           ?work <https://artresearch.net/custom/has_image> ?imageA.
           ?imageA <http://purl.org/ontology/similarity/element> ?similarity.
@@ -27,15 +29,17 @@ query=' SELECT DISTINCT
           ?providerA rdfs:label ?providerLabelA.
           ?work2 <https://artresearch.net/custom/has_provider> ?providerB.
           ?providerB rdfs:label ?providerLabelB.
-          BIND(?__useruri__ as ?attribution)
+          FILTER(STR(?work)>STR(?work2))
         }GROUP BY ?g'
 tuple-template='{{>markedCards}}'
 no-result-template='<h1 style="margin-top:150px;">There are no matchings marked for review</h1>'
 >
 
-  <template id="markedCards">
-    [[>DashboardCard type='Marked as "Is Part Of"']]
-  </template>
+<template id="markedCards">
+  [[> DashboardCard type='For Review']]
+</template>
+
+
 
 </semantic-table>
 </bs-col>

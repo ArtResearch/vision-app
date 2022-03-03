@@ -1,0 +1,118 @@
+<div
+class="
+  rs-grid-element
+  panel panel-default
+  artwork-card
+  fade-in
+"
+>
+<h2 style="display: flex;
+width: 100%;
+gap: 5px;
+font-size: 16px;
+justify-content: flex-end;
+padding-right: 15px;">by <mp-label iri="{{attribution.value}}"></mp-label> at {{dateTimeFormat modifiedAt.value "DD/MM/YY HH:mm:ss"}}</h2>
+<div class="panel-body row">
+  <bs-col class="cardInfo" lg="2" xs="10">
+    [[> :SimilarityListThumbnails iri="{{work.value}}"]]
+  </bs-col>
+  <bs-col class="cardInfo" lg="4" xs="10">
+    <div data-flex-layout="row md-column center-stretch">
+      <bs-row class="cardInfoFields">
+        <h2>
+          [[> rsp:SourceIcon
+          providerLabel="{{providerLabelA.value}}"]]{{providerLabelA.value}}
+        </h2>
+        <mp-field-visualization
+          subject="{{work.value}}"
+          fields='[[fieldDefinitions  
+                  Title="https://artresearch.net/fieldDefinition/2"
+                  Creator="https://artresearch.net/fieldDefinition/1"
+                  ]]'
+          template="{{>generalInfo}}"
+        >
+          <template id="generalInfo">
+            [[> rsp:ResourceFieldBasedVisualization
+            subject="{{work.value}}" ]]
+          </template>
+        </mp-field-visualization>
+      </bs-row>
+    </div>
+  </bs-col>
+  <bs-col class="cardInfo" lg="2" xs="10">
+    [[> :SimilarityListThumbnails iri="{{work2.value}}"]]
+  </bs-col>
+
+  <bs-col class="cardInfo" lg="4" xs="10">
+    <div data-flex-layout="row md-column center-stretch">
+      <bs-row class="cardInfoFields">
+        <h2>
+          [[> rsp:SourceIcon
+          providerLabel="{{providerLabelB.value}}"]]{{providerLabelB.value}}
+        </h2>
+        <mp-field-visualization
+          subject="{{work2.value}}"
+          fields='[[fieldDefinitions  
+                    Title="https://artresearch.net/fieldDefinition/2"
+                    Creator="https://artresearch.net/fieldDefinition/1"
+                    ]]'
+          template="{{>generalInfo}}"
+        >
+          <template id="generalInfo">
+            [[> rsp:ResourceFieldBasedVisualization
+            subject="{{work2.value}}" ]]
+          </template>
+        </mp-field-visualization>
+      </bs-row>
+    </div>
+  </bs-col>
+</div>
+<div class="actions">
+  <semantic-link iri="{{similarity.value}}">
+    <button class="btn action btn-success">
+      View details
+    </button>
+  </semantic-link>
+  <semantic-query
+    query=' SELECT DISTINCT (<{{subject.value}}> as ?subject) WHERE {
+              <{{g.value}}> <https://vision.artresearch.net/custom/processed> true.
+            }LIMIT 1 '
+    template='{{> revertOption }}'
+    no-result-template='{{> deleteOption}}'>
+      <template id='deleteOption'>
+        <mp-ldp-remove-from-container-action iri="{{subject.value}}" container="http://www.researchspace.org/resource/system/formContainer">
+          <button title="This action will remove the item from your [[type]] list. It will be then available under artwork matchings for you or another reviewer to review." class="btn action btn-danger" style="margin-right:8px;"><i style="color: white;" class="fa fa-trash" aria-hidden=true></i> Delete</button>
+        </mp-ldp-remove-from-container-action>
+    </template>
+    <template id='revertOption'>
+      <semantic-form
+      new-subject-template="{{subject.value}}"
+      browser-persistance="true"
+      persistence="sparql"
+      post-action="reload"
+      form-id="revert"
+      fields='[[  fieldDefinitions
+          revert="http://www.researchspace.org/fieldDefinition/Revert"
+      ]]'
+      >
+      <semantic-form-hidden-input for="revert" default-value="true"></semantic-form-hidden-input>
+        <button title="This action will remove the item from artresearch.net. It will be then available under artwork matchings for you or another reviewer to review."  name="submit" class="btn action btn-warn" style="margin-right:8px;background:grey;"><i class="fa fa-refresh" aria-hidden=true></i> Revert </button>
+      </semantic-form>
+    </template>
+  </semantic-query>
+
+</div>
+</div>
+
+<style>
+  .actions{
+  gap: 150px;
+  }
+  .matchingImage {
+    height: 18vh !important;
+    margin: 0vw !important;
+  }
+  .fa.fa-refresh{
+    color:white !important; 
+  }
+</style>

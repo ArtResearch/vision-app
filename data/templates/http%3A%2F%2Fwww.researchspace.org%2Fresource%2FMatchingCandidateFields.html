@@ -204,6 +204,33 @@
       </semantic-query>
 
       <!--################################################################################-->
+      <!--############################## REPOSITORY LOCATION #############################-->
+      <!--################################################################################-->
+      <semantic-query
+        query=' SELECT 
+        (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR="\n ") AS ?labelA)
+         (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR="\n ") AS ?labelB)
+         (SAMPLE(?actor_a) AS ?actor_a)
+         (SAMPLE(?actor_b) AS ?actor_b) 
+         (SAMPLE(?wikiRepo_a) AS ?wikiRepo_a)
+         (SAMPLE(?wikiRepo_b) AS ?wikiRepo_b)
+         ?withData ("Repository Location" as ?fieldName) WHERE {
+                  {
+                    <{{bindings.0.subject1.value}}> <https://artresearch.net/resource/fr/Work_kept_by_Institution>/<https://artresearch.net/resource/fr/Institution_from_Place>/rdfs:label ?label_a.
+                    BIND(BOUND(?label_a) && strlen(?label_a)>0 as ?withData)
+                  } UNION{
+                    <{{bindings.0.subject2.value}}> <https://artresearch.net/resource/fr/Work_kept_by_Institution>/<https://artresearch.net/resource/fr/Institution_from_Place>/rdfs:label ?label_b.
+                    BIND(BOUND(?label_b) && strlen(?label_b)>0 as ?withData)
+                  }
+                  <https://artresearch.net/fieldDefinition/Repository> rdfs:label ?fieldName.
+                }GROUP BY ?withData ?fieldName'
+
+        template="{{> repositoryTemplate}}"
+      >
+        <template id="repositoryTemplate">[[> rsp:MatchingCandidateFieldsVisualization]]</template>
+      </semantic-query>
+
+      <!--################################################################################-->
       <!--#################################### PHOTOS ####################################-->
       <!--################################################################################-->
       <semantic-query

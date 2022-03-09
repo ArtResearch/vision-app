@@ -26,23 +26,19 @@
         BIND(<[[match]]> as ?match)
         BIND(<[[artistA]]> as ?currentCandidate)
         BIND(REPLACE(str(?match),"http://vocab.getty.edu/ulan/","") as ?matchId).
-      }ORDER BY DESC(?recommended)'
+      }'
       template="{{>possibleMatchesTemplate}}"
       > 
       <template id="possibleMatchesTemplate">
    
        {{#each bindings}}
+          
            <div class="matchingCard">
              <div class="matchingCardHeader">
                <div class="matchingCardHeaderInfo">
                  <h2  style="font-size: 24px; font-weight: bold;">
                    <mp-label iri="{{match.value}}" ></mp-label>
                    </h2>
-                   {{#ifCond recommended.value "===" match.value }}
-                   <h2 class="recommendedText">
-                     Recommended
-                   </h2>
-                   {{/ifCond}}
                    <mp-overlay-dialog title="‎‎{{match.value}}" type="lightbox">
                      <mp-overlay-dialog-trigger>
                    <small class="clickable">View at Getty</small>
@@ -59,12 +55,12 @@
                     persistence="ldp"
                     post-action="reload"
                     fields='[[ fieldDefinitions
-                                confirmed="https://vision.artresearch.net/container/fieldDefinitionContainer/Confirmed_Matched_Artists_Hash"
+                                confirmed="https://vision.artresearch.net/fieldDefinitionContainer/Confirmed_Matched_Artists"
                             ]]'
                   >
                     <semantic-form-hidden-input
                       for="confirmed"
-                      default-value="false"
+                      default-value="{{match.value}}"
                     ></semantic-form-hidden-input>
 
                     <button

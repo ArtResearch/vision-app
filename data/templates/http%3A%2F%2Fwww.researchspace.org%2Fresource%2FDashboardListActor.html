@@ -20,6 +20,11 @@ SELECT * WHERE {
 '
 number-of-displayed-rows=10
 no-result-template='<h1 style="margin-top:150px;">There are no pairs in this list</h1>'
+column-configuration='[
+                              {"variableName":"subject","displayName":"Artresearch", "cellTemplate": "<a href=\"{{subject.value}}\">{{subject.value}}</a>"},
+                              {"variableName":"value","displayName":"ULAN", "cellTemplate": "<a href=\"{{value.value}}\">{{value.value}}</a>"}
+
+                          ]'
 >
 
 </semantic-table>

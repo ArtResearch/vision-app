@@ -1,0 +1,38 @@
+<div class="row" style="margin-top: 40px;">
+  <bs-col sm="1"></bs-col>
+<bs-col sm="10">
+<semantic-table id='resources-results'
+number-of-displayed-rows=10
+query=' 
+SELECT * WHERE {
+  ?subject <http://www.w3.org/2002/07/owl#sameAs> ?value.
+  [[#if matched]]
+  ?subject <https://vocab.artresearch.net/custom/confirmed> "true"^^xsd:boolean.
+  [[else if notmatched]]
+  FILTER NOT EXISTS{?subject <https://vocab.artresearch.net/custom/confirmed> "true"^^xsd:boolean}
+  [[/if]]
+  [[#if artist]]
+  ?value a <https://artresearch.net/resource/fc/artist>.
+  [[else if photo]]
+  ?value a <https://artresearch.net/resource/fc/photographer>.
+  [[/if]]
+}
+'
+number-of-displayed-rows=10
+no-result-template='<h1 style="margin-top:150px;">There are no artwork pairs in this list</h1>'
+>
+
+</semantic-table>
+</bs-col>
+<bs-col sm="1"></bs-col>
+</div>
+
+<style>
+  .actions{
+  gap: 150px;
+  }
+  .matchingImage {
+    height: 18vh !important;
+    margin: 0vw !important;
+  }
+</style>

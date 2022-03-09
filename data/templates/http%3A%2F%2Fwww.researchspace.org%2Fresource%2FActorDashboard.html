@@ -1,0 +1,59 @@
+<div id="similarity-list-template">
+    <div class="backDashboardButton">
+      <a href='' >View on Vocab</a>
+     </div>
+
+    <div id="search-results">  
+      <div class="jumbotron">
+        <h1 style="margin-left: 2vw" class="display-4">
+        Platform dashboard</h1>
+        <p style="margin-left: 2vw" class="lead">
+          Here you can view, delete & revert matchings from everyone in the platform
+        </p>
+      </div>
+    <bs-tab-container id="tab-container" class="page__body-navtabs--borderless" default-active-key="artist">
+    <div>
+      <bs-nav bs-style='tabs'>
+        <bs-nav-item event-key='artist'><div style="display: flex;">Matched Artists(
+          [[> DashboardStatsActor artist='true' matched='true']]
+          )</div>
+        </bs-nav-item>
+        <bs-nav-item event-key='noartist'><div style="display: flex;">Not Matched Artists(
+          [[> DashboardStatsActor artist='true' notmatched='true']]
+          )</div>
+        </bs-nav-item>
+        <bs-nav-item event-key='photo'><div style="display: flex;">Matched Photographers(
+          [[> DashboardStatsActor photo='true' matched='true']]
+          )</div>
+        </bs-nav-item>
+        <bs-nav-item event-key='nophoto'><div style="display: flex;">Not Matched Photographers(
+          [[> DashboardStatsActor photo='true' notmatched='true']]
+          )</div>
+        </bs-nav-item>
+      </bs-nav>
+      <bs-tab-content unmount-on-exit=true>
+        <div>
+        <bs-tab-pane event-key='artist'>
+          [[> DashboardListActor artist='true' matched='true']]
+        </bs-tab-pane>
+        <bs-tab-pane event-key='photo'>
+          [[> DashboardListActor photo='true' matched='true']]
+        </bs-tab-pane>
+        <bs-tab-pane event-key='noartist'>
+          [[> DashboardListActor artist='true' notmatched='true']]
+        </bs-tab-pane>
+        <bs-tab-pane event-key='nophoto'>
+          [[> DashboardListActor photo='true' notmatched='true']]
+        </bs-tab-pane>
+      </div>
+      </bs-tab-content>
+    </div>
+    </bs-tab-container>
+    </div>
+</div>
+
+<style>
+.nav.nav-tabs{
+  font-size:smaller !important;
+}
+</style>

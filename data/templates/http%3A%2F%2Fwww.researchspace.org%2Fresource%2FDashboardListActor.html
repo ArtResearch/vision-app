@@ -23,7 +23,7 @@ SELECT * WHERE {
   ?provider rdfs:label ?providerLabel.
   [[/if]]
   FILTER NOT EXISTS{BIND(<https://artresearch.net/resource/itatti/source/FotoIndex> as ?provider)}
-}
+}LIMIT 1000
 '
 number-of-displayed-rows=10
 no-result-template='<h1 style="margin-top:150px;">There are no pairs in this list</h1>'

@@ -3,14 +3,14 @@ query='
 SELECT (COUNT(distinct ?subject) AS ?count) WHERE {
   ?subject <http://www.w3.org/2002/07/owl#sameAs> ?value.
   [[#if matched]]
-  ?subject <https://vocab.artresearch.net/custom/confirmed> "true"^^xsd:boolean.
+    ?subject <https://vocab.artresearch.net/custom/confirmed> "true"^^xsd:boolean.
   [[else if notmatched]]
-  FILTER NOT EXISTS{?subject <https://vocab.artresearch.net/custom/confirmed> "true"^^xsd:boolean}
+    FILTER NOT EXISTS{?subject <https://vocab.artresearch.net/custom/confirmed> "true"^^xsd:boolean}
   [[/if]]
   [[#if artist]]
-  ?value a <https://artresearch.net/resource/fc/artist>.
+    ?value a <https://artresearch.net/resource/fc/artist>.
   [[else if photo]]
-  ?value a <https://artresearch.net/resource/fc/photographer>.
+    ?value a <https://artresearch.net/resource/fc/photographer>.
   [[/if]]
 }
 '

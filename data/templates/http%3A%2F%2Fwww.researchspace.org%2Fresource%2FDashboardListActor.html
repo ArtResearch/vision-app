@@ -6,6 +6,8 @@ number-of-displayed-rows=10
 query=' 
 SELECT * WHERE {
   ?subject <http://www.w3.org/2002/07/owl#sameAs> ?value.
+  ?value rdfs:label ?labelvalue.
+  ?subject rdfs:label ?subjlabel.
   [[#if matched]]
   ?subject <https://vocab.artresearch.net/custom/confirmed> "true"^^xsd:boolean.
   [[else if notmatched]]
@@ -13,20 +15,34 @@ SELECT * WHERE {
   [[/if]]
   [[#if artist]]
   ?value a <https://artresearch.net/resource/fc/artist>.
+  ?subject <https://artresearch.net/custom/has_provider> ?provider.
+  ?provider rdfs:label ?providerLabel.
   [[else if photo]]
   ?value a <https://artresearch.net/resource/fc/photographer>.
+  ?subject <https://artresearch.net/custom/has_provider> ?provider.
+  ?provider rdfs:label ?providerLabel.
   [[/if]]
+  FILTER NOT EXISTS{BIND(<https://artresearch.net/resource/itatti/source/FotoIndex> as ?provider)}
 }
 '
 number-of-displayed-rows=10
 no-result-template='<h1 style="margin-top:150px;">There are no pairs in this list</h1>'
 column-configuration='[
-                              {"variableName":"subject","displayName":"Artresearch", "cellTemplate": "<a href=\"{{subject.value}}\">{{subject.value}}</a>"},
-                              {"variableName":"value","displayName":"ULAN", "cellTemplate": "<a href=\"{{value.value}}\">{{value.value}}</a>"}
-
+                              {"variableName":"subject","displayName":"Artresearch", "cellTemplate": "<a href=\"{{subject.value}}\">{{subjlabel.value}}</a>"},
+                              {"variableName":"value","displayName":"ULAN", "cellTemplate": "<a href=\"{{value.value}}\">{{labelvalue.value}}</a>"},
+                              {"variableName":"providerLabel","displayName":"Provider", "cellTemplate": "{{providerLabel.value}}"},
+                              {"variableName":"actions","displayName":"Actions", "cellTemplate": "{{>Actions}}"}
                           ]'
 >
+<template id="Actions">
+  [[#if matched]]
+  <mp-ldp-remove-from-container-action action="DELETE" post-action='reload' iri="{{subject.value}}" container="http://www.researchspace.org/resource/system/formContainer">
+    <button title='This action will remove the item from your matched artists list. It will be then available under artists matchings for you or another reviewer to match.' class="btn action btn-danger" style="margin-right:8px;"><i style="color: white;" class="fa fa-trash" aria-hidden=true></i> Delete</button>
+  </mp-ldp-remove-from-container-action>
 
+  
+  [[/if]]
+</template>
 </semantic-table>
 </bs-col>
 <bs-col sm="1"></bs-col>

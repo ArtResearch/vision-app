@@ -39,8 +39,9 @@ column-configuration='[
   <mp-ldp-remove-from-container-action action="DELETE" post-action='reload' iri="{{subject.value}}" container="http://www.researchspace.org/resource/system/formContainer">
     <button title='This action will remove the item from your matched artists list. It will be then available under artists matchings for you or another reviewer to match.' class="btn action btn-danger" style="margin-right:8px;"><i style="color: white;" class="fa fa-trash" aria-hidden=true></i> Delete</button>
   </mp-ldp-remove-from-container-action>
-
-  
+  [[/if]]
+  [[#if notmatched]]
+    <!-- <button>Match Artists?</button> -->
   [[/if]]
 </template>
 </semantic-table>

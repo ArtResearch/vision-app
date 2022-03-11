@@ -147,14 +147,14 @@
         (SAMPLE(?ulanArtist_a) AS ?ulanArtist_a)
         (SAMPLE(?ulanArtist_b) AS ?ulanArtist_b)  ?withData ?fieldName WHERE {
                   {
-                    <{{bindings.0.subject1.value}}> <https://artresearch.net/resource/fr/Work_created_from_Artist> ?value.
+                    <{{bindings.0.subject1.value}}> <https://artresearch.net/resource/custom/fr/Work_created_from_Artist> ?value.
                     ?value rdfs:label ?label_a.
                     OPTIONAL{
                       ?value owl:sameAs ?ulanArtist_a.
                     }
                     BIND(BOUND(?label_a) && strlen(?label_a)>0 as ?withData)
                   } UNION{ 
-                    <{{bindings.0.subject2.value}}> <https://artresearch.net/resource/fr/Work_created_from_Artist> ?value_b.
+                    <{{bindings.0.subject2.value}}> <https://artresearch.net/resource/custom/fr/Work_created_from_Artist> ?value_b.
                     ?value_b rdfs:label ?label_b.  
                     OPTIONAL{
                       ?value_b owl:sameAs ?ulanArtist_b.
@@ -181,14 +181,14 @@
          (SAMPLE(?wikiRepo_b) AS ?wikiRepo_b)
          ?withData ?fieldName WHERE {
                   {
-                    <{{bindings.0.subject1.value}}> <https://artresearch.net/resource/fr/Work_kept_by_Institution> ?actor_a.
+                    <{{bindings.0.subject1.value}}> <https://artresearch.net/resource/custom/fr/Work_kept_by_Institution> ?actor_a.
                     ?actor_a rdfs:label ?label_a.
                     OPTIONAL{
                       ?actor_a owl:sameAs ?wikiRepo_a.
                     }
                     BIND(BOUND(?label_a) && strlen(?label_a)>0 as ?withData)
                   } UNION{
-                    <{{bindings.0.subject2.value}}> <https://artresearch.net/resource/fr/Work_kept_by_Institution> ?actor_b.
+                    <{{bindings.0.subject2.value}}> <https://artresearch.net/resource/custom/fr/Work_kept_by_Institution> ?actor_b.
                     ?actor_b rdfs:label ?label_b.
                     OPTIONAL{
                       ?actor_b owl:sameAs ?wikiRepo_b.
@@ -216,10 +216,10 @@
          (SAMPLE(?wikiRepo_b) AS ?wikiRepo_b)
          ?withData ("Repository Location" as ?fieldName) WHERE {
                   {
-                    <{{bindings.0.subject1.value}}> <https://artresearch.net/resource/fr/Work_kept_by_Institution>/<https://artresearch.net/resource/fr/Institution_from_Place>/rdfs:label ?label_a.
+                    <{{bindings.0.subject1.value}}> <https://artresearch.net/resource/custom/fr/Work_kept_by_Institution>/<https://artresearch.net/resource/custom/fr/Institution_from_Place>/rdfs:label ?label_a.
                     BIND(BOUND(?label_a) && strlen(?label_a)>0 as ?withData)
                   } UNION{
-                    <{{bindings.0.subject2.value}}> <https://artresearch.net/resource/fr/Work_kept_by_Institution>/<https://artresearch.net/resource/fr/Institution_from_Place>/rdfs:label ?label_b.
+                    <{{bindings.0.subject2.value}}> <https://artresearch.net/resource/custom/fr/Work_kept_by_Institution>/<https://artresearch.net/resource/custom/fr/Institution_from_Place>/rdfs:label ?label_b.
                     BIND(BOUND(?label_b) && strlen(?label_b)>0 as ?withData)
                   }
                   <https://artresearch.net/fieldDefinition/Repository> rdfs:label ?fieldName.
@@ -327,11 +327,11 @@
       <semantic-query
         query=' SELECT (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR="\n ") AS ?labelA) (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR="\n ") AS ?labelB) ?withData ?fieldName WHERE {
                   {
-                    <{{bindings.0.subject1.value}}> <https://artresearch.net/resource/fr/Work_influenced_by_Artist> ?artist_a .
+                    <{{bindings.0.subject1.value}}> <https://artresearch.net/resource/custom/fr/Work_influenced_by_Artist> ?artist_a .
                     ?artist_a rdfs:label ?label_a.
                     BIND(BOUND(?label_a) && strlen(?label_a)>0 as ?withData)
                   } UNION{
-                    <{{bindings.0.subject2.value}}> <https://artresearch.net/resource/fr/Work_influenced_by_Artist> ?artist_b .
+                    <{{bindings.0.subject2.value}}> <https://artresearch.net/resource/custom/fr/Work_influenced_by_Artist> ?artist_b .
                     ?artist_b rdfs:label  ?label_b  
                     BIND(BOUND(?label_b) && strlen(?label_b)>0 as ?withData)
                   }

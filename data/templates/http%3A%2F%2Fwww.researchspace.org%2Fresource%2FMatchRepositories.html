@@ -30,7 +30,7 @@
          template="{{>possibleMatchesTemplate}}"
          >  
          <template id="possibleMatchesTemplate">
-           {{#each bindings}}
+            {{#each bindings}}
               <div class="matchingCard">
                 <div class="matchingCardHeader">
                   {{#if image.value}}
@@ -53,15 +53,16 @@
                 <div class="actions">
                 <semantic-form
                   new-subject-template="{{currentCandidate.value}}"
-                  persistence='{"type": "sparql", "repository": "vocab", "targetGraphIri": "http://test-graph"}'
-                  post-action="event"
+                  browser-persistance="true"
+                  persistence="ldp"
+                  post-action="reload"
                   fields='[[  fieldDefinitions
-                              confirmed="http://www.researchspace.org/fieldDefinition/Confirmed_Matched_Institutions"
+                              confirmed="https://vision.artresearch.net/container/fieldDefinitionContainer/Confirmed_Matched_Institutions"
                           ]]'
                 >
                   <semantic-form-hidden-input
                     for="confirmed"
-                    default-value="{{matchUrl.value}}"
+                    default-value="{{match.value}}"
                   ></semantic-form-hidden-input>
 
                   <button

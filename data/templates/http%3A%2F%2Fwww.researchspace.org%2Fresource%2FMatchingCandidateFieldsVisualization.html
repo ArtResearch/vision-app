@@ -99,14 +99,14 @@
       {{#if wikiRepo_a.value}}
         <!-- First is WIKI-->`
         {{#if actor_b}}
-        <!-- Second repo is not null -->
+          <!-- Second repo is not null -->
           <mp-overlay-dialog class="matching-modal" title="Match Repositories">
             <mp-overlay-dialog-trigger
               placement="bottom"
               trigger='["hover","focus"]'
             >
               <div id="match-button-text">
-               <span class="fa fa-external-link" style="margin-right: 5px;"></span>  Match Repositories
+              <span class="fa fa-external-link" style="margin-right: 5px;"></span>  Match Repositories
               </div>
             </mp-overlay-dialog-trigger>
             <mp-overlay-dialog-content style="background: white">
@@ -115,31 +115,31 @@
               </div>
             </mp-overlay-dialog-content>
           </mp-overlay-dialog>
-          {{/if}}
-        {{else}}
-        {{#if wikiRepo_b.value}}
-        <!-- Second is WIKI-->
-        {{#if actor_a}}
-        <!-- First repo is not null -->
-        <mp-overlay-dialog class="matching-modal" title="Match Repositories">
-          <mp-overlay-dialog-trigger
-            placement="bottom"
-            trigger='["hover","focus"]'
-          >
-            <div id="match-button-text">
-              <span class="fa fa-external-link" style="margin-right: 5px;"></span>  Match Repositories
-            </div>
-          </mp-overlay-dialog-trigger>
-          <mp-overlay-dialog-content style="background: white">
-            <div>
-              [[> :MatchRepositories providerB="true" repositoryA="{{actor_a.value}}" match="{{wikiRepo_b.value}}" ]]
-            </div>
-          </mp-overlay-dialog-content>
-        </mp-overlay-dialog>
         {{/if}}
+      {{else}}
+        {{#if wikiRepo_b.value}}
+          <!-- Second is WIKI-->
+          {{#if actor_a}}
+          <!-- First repo is not null -->
+          <mp-overlay-dialog class="matching-modal" title="Match Repositories">
+            <mp-overlay-dialog-trigger
+              placement="bottom"
+              trigger='["hover","focus"]'
+            >
+              <div id="match-button-text">
+                <span class="fa fa-external-link" style="margin-right: 5px;"></span>  Match Repositories
+              </div>
+            </mp-overlay-dialog-trigger>
+            <mp-overlay-dialog-content style="background: white">
+              <div>
+                [[> :MatchRepositories providerB="true" repositoryA="{{actor_a.value}}" match="{{wikiRepo_b.value}}" ]]
+              </div>
+            </mp-overlay-dialog-content>
+          </mp-overlay-dialog>
         {{/if}}
       {{/if}}
-    {{/ifCond}}  
+    {{/if}}
+  {{/ifCond}}  
     
     </td>
     [[/if]]

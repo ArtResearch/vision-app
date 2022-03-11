@@ -9,18 +9,18 @@ SELECT * WHERE {
   ?value rdfs:label ?labelvalue.
   ?subject rdfs:label ?subjlabel.
   [[#if matched]]
-  ?subject <https://vocab.artresearch.net/custom/confirmed> "true"^^xsd:boolean.
+    ?subject <https://vocab.artresearch.net/custom/confirmed> "true"^^xsd:boolean.
   [[else if notmatched]]
-  FILTER NOT EXISTS{?subject <https://vocab.artresearch.net/custom/confirmed> "true"^^xsd:boolean}
+    FILTER NOT EXISTS{?subject <https://vocab.artresearch.net/custom/confirmed> "true"^^xsd:boolean}
   [[/if]]
   [[#if artist]]
-  ?value a <https://artresearch.net/resource/fc/artist>.
-  ?subject <https://artresearch.net/custom/has_provider> ?provider.
-  ?provider rdfs:label ?providerLabel.
+    ?value a <https://artresearch.net/resource/fc/artist>.
+    ?subject <https://artresearch.net/custom/has_provider> ?provider.
+    ?provider rdfs:label ?providerLabel.
   [[else if photo]]
-  ?value a <https://artresearch.net/resource/fc/photographer>.
-  ?subject <https://artresearch.net/custom/has_provider> ?provider.
-  ?provider rdfs:label ?providerLabel.
+    ?value a <https://artresearch.net/resource/fc/photographer>.
+    ?subject <https://artresearch.net/custom/has_provider> ?provider.
+    ?provider rdfs:label ?providerLabel.
   [[/if]]
   FILTER NOT EXISTS{BIND(<https://artresearch.net/resource/itatti/source/FotoIndex> as ?provider)}
 }LIMIT 1000

@@ -98,132 +98,164 @@
             </mp-ldp-remove-from-container-action>
           [[else]]
             {{#if value.value}}
-              <mp-overlay-dialog class="matching-modal" title="Match">
-                <mp-overlay-dialog-trigger
-                  placement="bottom"
-                  trigger='["hover","focus"]'
-                >
-                  <div id="match-button-text">
-                    [[#if artists]]
-                      <span class="fa fa-external-link" style="margin-right: 5px;"></span>  Match artists
-                    [[else if photographers]]
-                      <span class="fa fa-external-link" style="margin-right: 5px;"></span>  Match photographers
-                    [[else if repositories]]
-                      <span class="fa fa-external-link" style="margin-right: 5px;"></span>  Match repositories
-                    [[/if]]
-                  </div>
-                </mp-overlay-dialog-trigger>
-                <mp-overlay-dialog-content style="background: white">
-                  <div>
-                    <div id="matchings-vocab">
-                      <!-- PHAROS SECTION -->
-                      <div class="matchingContainer" >
-                        <div class="candidate">
-                          <div style="display: flex;">
-                            <div style="display: flex; flex-direction: column; margin-left: 15px;">
-                              <h1 style="font-size: 32px !important">     
-                                <mp-link url="{{subject.value}}" ><mp-label iri="{{subject.value}}"></mp-label></mp-link> 
-                                (<mp-link url='{{provider.value}}' ><mp-label iri="{{provider.value}}"></mp-label></mp-link>)
-                              </h1>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="separatingLine"></div>
-                        <div class="candidate">
-                          <h2 style="font-size: 22px; margin-bottom: 4vh;">Click on "Same" button to verify suggested matches</h2 style="font-size: 22px;">
-                            <div class="matchingCard">
-                              <div class="matchingCardHeader">
-                                <div class="matchingCardHeaderInfo">
-                                  <h2  style="font-size: 24px; font-weight: bold;">
-                                    <mp-label iri="{{value.value}}" ></mp-label>
-                                  </h2>
-                                  <mp-overlay-dialog title="{{value.value}}" type="lightbox">
-                                    <mp-overlay-dialog-trigger>
-                                      [[#if artists]]
-                                        <small class="clickable">View at Getty</small>
-                                      [[else if photographers]]
-                                        <small class="clickable">View at Wikidata</small>
-                                      [[else if repositories]]
-                                        <small class="clickable">View at Wikidata</small>
-                                      [[/if]]
-                                      
-                                    </mp-overlay-dialog-trigger>
-                                    <mp-overlay-dialog-content>
-                                      [[#if artists]]
-                                        <iframe src="https://www.getty.edu/vow/ULANFullDisplay?find=&role=&nation=&subjectid={{matchId.value}}"></iframe>
-                                      [[else if photographers]]
-                                        <iframe src="{{value.value}}"></iframe>
-                                      [[else if repositories]]
-                                        <iframe src="{{value.value}}"></iframe>
-                                      [[/if]]
-                                    </mp-overlay-dialog-content>
-                                  </mp-overlay-dialog>
-                                </div>
-                                <div class="actions">
-                                    <semantic-form
-                                      new-subject-template="{{subject.value}}"
-                                      browser-persistance="true"
-                                      persistence="ldp"
-                                      post-action="reload"
-                                      [[#if artists]]
-                                        fields='[[ fieldDefinitions
-                                                    confirmed="https://vision.artresearch.net/fieldDefinitionContainer/Confirmed_Matched_Artists"
-                                                ]]'
-                                      [[else if photographers]]
-                                        fields='[[ fieldDefinitions
-                                                    confirmed="https://vision.artresearch.net/container/fieldDefinitionContainer/Confirmed_Matched_Photographers"
-                                                ]]'
-                                      [[else if repositories]]
-                                        fields='[[ fieldDefinitions
-                                                    confirmed="https://vision.artresearch.net/container/fieldDefinitionContainer/Confirmed_Matched_Institutions"
-                                                ]]'
-                                      [[/if]]
-                                    >
-                                      <semantic-form-hidden-input
-                                        for="confirmed"
-                                        default-value="{{value.value}}"
-                                      ></semantic-form-hidden-input>
-
-                                      <button
-                                        id="1234"
-                                        name="submit"
-                                        class="btn btn-default action approve"
-                                        title="Click to confirm two instances as the same"
-                                      > Same </button>
-                                    </semantic-form>
+              <tr>
+                <td>
+                  <mp-overlay-dialog class="matching-modal" title="Match">
+                    <mp-overlay-dialog-trigger
+                      placement="bottom"
+                      trigger='["hover","focus"]'
+                    >
+                      <div id="match-button-text">
+                        [[#if artists]]
+                          <span class="fa fa-external-link" style="margin-right: 5px;"></span>  Match artists
+                        [[else if photographers]]
+                          <span class="fa fa-external-link" style="margin-right: 5px;"></span>  Match photographers
+                        [[else if repositories]]
+                          <span class="fa fa-external-link" style="margin-right: 5px;"></span>  Match repositories
+                        [[/if]]
+                      </div>
+                    </mp-overlay-dialog-trigger>
+                    <mp-overlay-dialog-content style="background: white">
+                      <div>
+                        <div id="matchings-vocab">
+                          <!-- PHAROS SECTION -->
+                          <div class="matchingContainer" >
+                            <div class="candidate">
+                              <div style="display: flex;">
+                                <div style="display: flex; flex-direction: column; margin-left: 15px;">
+                                  <h1 style="font-size: 32px !important">     
+                                    <mp-link url="{{subject.value}}" ><mp-label iri="{{subject.value}}"></mp-label></mp-link> 
+                                    (<mp-link url='{{provider.value}}' ><mp-label iri="{{provider.value}}"></mp-label></mp-link>)
+                                  </h1>
                                 </div>
                               </div>
                             </div>
+                            <div class="separatingLine"></div>
+                            <div class="candidate">
+                              <h2 style="font-size: 22px; margin-bottom: 4vh;">Click on "Same" button to verify suggested matches</h2 style="font-size: 22px;">
+                                <div class="matchingCard">
+                                  <div class="matchingCardHeader">
+                                    <div class="matchingCardHeaderInfo">
+                                      <h2  style="font-size: 24px; font-weight: bold;">
+                                        <mp-label iri="{{value.value}}" ></mp-label>
+                                      </h2>
+                                      <mp-overlay-dialog title="{{value.value}}" type="lightbox">
+                                        <mp-overlay-dialog-trigger>
+                                          [[#if artists]]
+                                            <small class="clickable">View at Getty</small>
+                                          [[else if photographers]]
+                                            <small class="clickable">View at Wikidata</small>
+                                          [[else if repositories]]
+                                            <small class="clickable">View at Wikidata</small>
+                                          [[/if]]
+                                          
+                                        </mp-overlay-dialog-trigger>
+                                        <mp-overlay-dialog-content>
+                                          [[#if artists]]
+                                            <iframe src="https://www.getty.edu/vow/ULANFullDisplay?find=&role=&nation=&subjectid={{matchId.value}}"></iframe>
+                                          [[else if photographers]]
+                                            <iframe src="{{value.value}}"></iframe>
+                                          [[else if repositories]]
+                                            <iframe src="{{value.value}}"></iframe>
+                                          [[/if]]
+                                        </mp-overlay-dialog-content>
+                                      </mp-overlay-dialog>
+                                    </div>
+                                    <div class="actions">
+                                        <semantic-form
+                                          new-subject-template="{{subject.value}}"
+                                          browser-persistance="true"
+                                          persistence="ldp"
+                                          post-action="reload"
+                                          [[#if artists]]
+                                            fields='[[ fieldDefinitions
+                                                        confirmed="https://vision.artresearch.net/fieldDefinitionContainer/Confirmed_Matched_Artists"
+                                                    ]]'
+                                          [[else if photographers]]
+                                            fields='[[ fieldDefinitions
+                                                        confirmed="https://vision.artresearch.net/container/fieldDefinitionContainer/Confirmed_Matched_Photographers"
+                                                    ]]'
+                                          [[else if repositories]]
+                                            fields='[[ fieldDefinitions
+                                                        confirmed="https://vision.artresearch.net/container/fieldDefinitionContainer/Confirmed_Matched_Institutions"
+                                                    ]]'
+                                          [[/if]]
+                                        >
+                                          <semantic-form-hidden-input
+                                            for="confirmed"
+                                            default-value="{{value.value}}"
+                                          ></semantic-form-hidden-input>
+    
+                                          <button
+                                            id="1234"
+                                            name="submit"
+                                            class="btn btn-default action approve"
+                                            title="Click to confirm two instances as the same"
+                                          > Same </button>
+                                        </semantic-form>
+                                    </div>
+                                  </div>
+                                </div>
+                            </div>
+                          </div>
                         </div>
                       </div>
+                    </mp-overlay-dialog-content>
+                  </mp-overlay-dialog>
+                </td>
+                <td> or </td>
+                <td>
+                  [[#if artists]]
+                    <div id="match-button-text">
+                      <span class="fa fa-external-link" style="margin-right: 5px;"></span>
+                      <a href="https://vocab.artresearch.net/resource/?partner={{provider.value}}&partnerimage={{providerLabel.value}}.png&subject={{subject.value}}&uri=Default%3AConfirmArtist" target="_blank">
+                        Redirect to Vocab
+                      </a>
                     </div>
-                  </div>
-                </mp-overlay-dialog-content>
-              </mp-overlay-dialog>
+                  [[else if photographers]]
+                    <div id="match-button-text">
+                      <span class="fa fa-external-link" style="margin-right: 5px;"></span>
+                      <a href="https://vocab.artresearch.net/resource/?partner={{provider.value}}&partnerimage={{providerLabel.value}}.png&subject={{subject.value}}&uri=Default%3AConfirmPhotographer" target="_blank">
+                        Redirect to Vocab
+                      </a>
+                    </div>
+                  [[else if repositories]]
+                    <div id="match-button-text">
+                      <span class="fa fa-external-link" style="margin-right: 5px;"></span>
+                      <a href="https://vocab.artresearch.net/resource/?partner={{provider.value}}&partnerimage={{providerLabel.value}}.png&subject={{subject.value}}&uri=Default%3AConfirmRepository" target="_blank">
+                        Redirect to Vocab
+                      </a>
+                    </div>
+                  [[/if]]
+                </td>
+              </tr>
             {{else}}
-              [[#if artists]]
-                <div id="match-button-text">
-                  <span class="fa fa-external-link" style="margin-right: 5px;"></span>
-                  <a href="https://vocab.artresearch.net/resource/?partner={{provider.value}}&partnerimage={{providerLabel.value}}.png&subject={{subject.value}}&uri=Default%3AConfirmArtist" target="_blank">
-                    Redirect to Vocab
-                  </a>
-                </div>
-              [[else if photographers]]
-                <div id="match-button-text">
-                  <span class="fa fa-external-link" style="margin-right: 5px;"></span>
-                  <a href="https://vocab.artresearch.net/resource/?partner={{provider.value}}&partnerimage={{providerLabel.value}}.png&subject={{subject.value}}&uri=Default%3AConfirmPhotographer" target="_blank">
-                    Redirect to Vocab
-                  </a>
-                </div>
-              [[else if repositories]]
-                <div id="match-button-text">
-                  <span class="fa fa-external-link" style="margin-right: 5px;"></span>
-                  <a href="https://vocab.artresearch.net/resource/?partner={{provider.value}}&partnerimage={{providerLabel.value}}.png&subject={{subject.value}}&uri=Default%3AConfirmRepository" target="_blank">
-                    Redirect to Vocab
-                  </a>
-                </div>
-              [[/if]]
-
+              <div>
+                <tr>
+                  [[#if artists]]
+                    <div id="match-button-text">
+                      <span class="fa fa-external-link" style="margin-right: 5px;"></span>
+                      <a href="https://vocab.artresearch.net/resource/?partner={{provider.value}}&partnerimage={{providerLabel.value}}.png&subject={{subject.value}}&uri=Default%3AConfirmArtist" target="_blank">
+                        Redirect to Vocab
+                      </a>
+                    </div>
+                  [[else if photographers]]
+                    <div id="match-button-text">
+                      <span class="fa fa-external-link" style="margin-right: 5px;"></span>
+                      <a href="https://vocab.artresearch.net/resource/?partner={{provider.value}}&partnerimage={{providerLabel.value}}.png&subject={{subject.value}}&uri=Default%3AConfirmPhotographer" target="_blank">
+                        Redirect to Vocab
+                      </a>
+                    </div>
+                  [[else if repositories]]
+                    <div id="match-button-text">
+                      <span class="fa fa-external-link" style="margin-right: 5px;"></span>
+                      <a href="https://vocab.artresearch.net/resource/?partner={{provider.value}}&partnerimage={{providerLabel.value}}.png&subject={{subject.value}}&uri=Default%3AConfirmRepository" target="_blank">
+                        Redirect to Vocab
+                      </a>
+                    </div>
+                  [[/if]]
+                </tr>
+              </div>
             {{/if}}              
           [[/if]]
         </template>

@@ -173,7 +173,7 @@
       <!--################################################################################-->
       <semantic-query
         query=' SELECT 
-        (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR="\n ") AS ?labelA)
+         (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR="\n ") AS ?labelA)
          (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR="\n ") AS ?labelB)
          (SAMPLE(?actor_a) AS ?actor_a)
          (SAMPLE(?actor_b) AS ?actor_b) 

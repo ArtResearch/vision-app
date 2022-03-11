@@ -49,18 +49,18 @@
                    </mp-overlay-dialog>
                </div>
                <div class="actions">
+                 {{log this}}
                   <semantic-form
                     new-subject-template="{{currentCandidate.value}}"
                     browser-persistance="true"
                     persistence="ldp"
                     post-action="reload"
                     fields='[[ fieldDefinitions
-                                confirmed="https://vision.artresearch.net/container/fieldDefinitionContainer/Confirmed_Matched_Artists"
-                            ]]'
-                  >
+                                confirmed="https://vision.artresearch.net/fieldDefinitionContainer/Confirmed_Matched_Artists"
+                            ]]'>
                     <semantic-form-hidden-input
                       for="confirmed"
-                      default-value="{{matchId.value}}"
+                      default-value="{{match.value}}"
                     ></semantic-form-hidden-input>
 
                     <button

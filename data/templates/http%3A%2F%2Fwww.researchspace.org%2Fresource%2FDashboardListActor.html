@@ -5,13 +5,15 @@
       number-of-displayed-rows=10
       query=' 
       SELECT  ?subject 
-              (SAMPLE(?provider) as ?provider) 
+              (SAMPLE(?provider) as ?provider)
+              (SAMPLE(?providerLabel) as ?providerLabel) 
               (SAMPLE(?value) as ?value) 
               (SAMPLE(?matchId) as ?matchId) 
               (SAMPLE(?attribution) as ?attribution) 
               (SAMPLE(?datetime) as ?datetime) 
               (SAMPLE(?formContainer) as ?formContainer)
               (SAMPLE(?container) as ?container) WHERE {
+        ?subject <https://artresearch.net/custom/has_provider> ?provider.                
         [[#if matched]]
           GRAPH ?g {
             ?formContainer ldp:contains ?container .
@@ -37,8 +39,9 @@
             BIND(REPLACE(STR(?value),"http://vocab.getty.edu/ulan/","") AS ?matchId)
           }
           FILTER NOT EXISTS {?subject <http://www.w3.org/2002/07/owl#sameAs> ?ulan.}
+          ?provider rdfs:label ?pLabel.
+          BIND(REPLACE(REPLACE(REPLACE(LCASE(?pLabel)," ",""),"sharedshelf","itatti"),"fotoindex","itatti") AS ?providerLabel)
         [[/if]]
-        ?subject <https://artresearch.net/custom/has_provider> ?provider.
       }GROUP BY ?subject LIMIT 1000'
       number-of-displayed-rows=10
       no-result-template='<h1 style="margin-top:150px;">There are no pairs in this list</h1>'
@@ -81,7 +84,7 @@
           {{#if value.value}}
             <a href="{{value.value}}"><mp-label iri="{{value.value}}"></mp-label></a>
           {{else}}
-            no match to suggest
+            no suggestion
           {{/if}}
         </template>
         <template id="Actions">
@@ -90,80 +93,91 @@
               <button title='This action will remove the item from your matched artists list. It will be then available under artists matchings for you or another reviewer to match.' class="btn action btn-danger" style="margin-right:8px;"><i style="color: white;" class="fa fa-trash" aria-hidden=true></i> Delete</button>
             </mp-ldp-remove-from-container-action>
           [[else]]
-            <mp-overlay-dialog class="matching-modal" title="Match artists">
-              <mp-overlay-dialog-trigger
-                placement="bottom"
-                trigger='["hover","focus"]'
-              >
-                <div id="match-button-text">
-                  <span class="fa fa-external-link" style="margin-right: 5px;"></span>  Match artists
-                </div>
-              </mp-overlay-dialog-trigger>
-              <mp-overlay-dialog-content style="background: white">
-                <div>
-                  <div id="matchings-vocab">
-                    <!-- PHAROS SECTION -->
-                    <div class="matchingContainer" >
-                      <div class="candidate">
-                        <div style="display: flex;">
-                          <!-- <img style="border-radius: 100%; object-fit: fill; height: 100px; width: 100px;"  src="http://commons.wikimedia.org/wiki/Special:FilePath/Michelangelo%20Daniele%20da%20Volterra%20%28dettaglio%29.jpg?width=500" /> -->
-                          <div style="display: flex; flex-direction: column; margin-left: 15px;">
-                            <h1 style="font-size: 32px !important">     
-                              <mp-link url="{{subject.value}}" ><mp-label iri="{{subject.value}}"></mp-label></mp-link> 
-                              (<mp-link url='{{provider.value}}' ><mp-label iri="{{provider.value}}"></mp-label></mp-link>)
-                            </h1>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="separatingLine"></div>
-                      <div class="candidate">
-                        <h2 style="font-size: 22px; margin-bottom: 4vh;">Click on "Same" button to verify suggested matches</h2 style="font-size: 22px;">
-                          <div class="matchingCard">
-                            <div class="matchingCardHeader">
-                              <div class="matchingCardHeaderInfo">
-                                <h2  style="font-size: 24px; font-weight: bold;">
-                                  <mp-label iri="{{value.value}}" ></mp-label>
-                                </h2>
-                                <mp-overlay-dialog title="{{value.value}}" type="lightbox">
-                                  <mp-overlay-dialog-trigger>
-                                    <small class="clickable">View at Getty</small>
-                                  </mp-overlay-dialog-trigger>
-                                  <mp-overlay-dialog-content>
-                                    <iframe src="https://www.getty.edu/vow/ULANFullDisplay?find=&role=&nation=&subjectid={{matchId.value}}"></iframe>
-                                  </mp-overlay-dialog-content>
-                                </mp-overlay-dialog>
-                              </div>
-                              <div class="actions">
-                                  <semantic-form
-                                    new-subject-template="{{subject.value}}"
-                                    browser-persistance="true"
-                                    persistence="ldp"
-                                    post-action="reload"
-                                    fields='[[ fieldDefinitions
-                                                confirmed="https://vision.artresearch.net/fieldDefinitionContainer/Confirmed_Matched_Artists"
-                                            ]]'
-                                  >
-                                    <semantic-form-hidden-input
-                                      for="confirmed"
-                                      default-value="{{value.value}}"
-                                    ></semantic-form-hidden-input>
-
-                                    <button
-                                      id="1234"
-                                      name="submit"
-                                      class="btn btn-default action approve"
-                                      title="Click to confirm two Artist instances as the same"
-                                    > Same </button>
-                                  </semantic-form>
-                              </div>
+            {{#if value.value}}
+              <mp-overlay-dialog class="matching-modal" title="Match artists">
+                <mp-overlay-dialog-trigger
+                  placement="bottom"
+                  trigger='["hover","focus"]'
+                >
+                  <div id="match-button-text">
+                    <span class="fa fa-external-link" style="margin-right: 5px;"></span>  Match artists
+                  </div>
+                </mp-overlay-dialog-trigger>
+                <mp-overlay-dialog-content style="background: white">
+                  <div>
+                    <div id="matchings-vocab">
+                      <!-- PHAROS SECTION -->
+                      <div class="matchingContainer" >
+                        <div class="candidate">
+                          <div style="display: flex;">
+                            <!-- <img style="border-radius: 100%; object-fit: fill; height: 100px; width: 100px;"  src="http://commons.wikimedia.org/wiki/Special:FilePath/Michelangelo%20Daniele%20da%20Volterra%20%28dettaglio%29.jpg?width=500" /> -->
+                            <div style="display: flex; flex-direction: column; margin-left: 15px;">
+                              <h1 style="font-size: 32px !important">     
+                                <mp-link url="{{subject.value}}" ><mp-label iri="{{subject.value}}"></mp-label></mp-link> 
+                                (<mp-link url='{{provider.value}}' ><mp-label iri="{{provider.value}}"></mp-label></mp-link>)
+                              </h1>
                             </div>
                           </div>
+                        </div>
+                        <div class="separatingLine"></div>
+                        <div class="candidate">
+                          <h2 style="font-size: 22px; margin-bottom: 4vh;">Click on "Same" button to verify suggested matches</h2 style="font-size: 22px;">
+                            <div class="matchingCard">
+                              <div class="matchingCardHeader">
+                                <div class="matchingCardHeaderInfo">
+                                  <h2  style="font-size: 24px; font-weight: bold;">
+                                    <mp-label iri="{{value.value}}" ></mp-label>
+                                  </h2>
+                                  <mp-overlay-dialog title="{{value.value}}" type="lightbox">
+                                    <mp-overlay-dialog-trigger>
+                                      <small class="clickable">View at Getty</small>
+                                    </mp-overlay-dialog-trigger>
+                                    <mp-overlay-dialog-content>
+                                      <iframe src="https://www.getty.edu/vow/ULANFullDisplay?find=&role=&nation=&subjectid={{matchId.value}}"></iframe>
+                                    </mp-overlay-dialog-content>
+                                  </mp-overlay-dialog>
+                                </div>
+                                <div class="actions">
+                                    <semantic-form
+                                      new-subject-template="{{subject.value}}"
+                                      browser-persistance="true"
+                                      persistence="ldp"
+                                      post-action="reload"
+                                      fields='[[ fieldDefinitions
+                                                  confirmed="https://vision.artresearch.net/fieldDefinitionContainer/Confirmed_Matched_Artists"
+                                              ]]'
+                                    >
+                                      <semantic-form-hidden-input
+                                        for="confirmed"
+                                        default-value="{{value.value}}"
+                                      ></semantic-form-hidden-input>
+
+                                      <button
+                                        id="1234"
+                                        name="submit"
+                                        class="btn btn-default action approve"
+                                        title="Click to confirm two Artist instances as the same"
+                                      > Same </button>
+                                    </semantic-form>
+                                </div>
+                              </div>
+                            </div>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              </mp-overlay-dialog-content>
-            </mp-overlay-dialog>
+                </mp-overlay-dialog-content>
+              </mp-overlay-dialog>
+            {{else}}
+              <div id="match-button-text">
+                <span class="fa fa-external-link" style="margin-right: 5px;"></span>
+                <a href="https://vocab.artresearch.net/resource/?partner={{provider.value}}&partnerimage={{providerLabel.value}}.png&subject={{subject.value}}&uri=Default%3AConfirmArtist" target="_blank">
+                  Redirect to Vocab
+                </a>
+                
+              </div>
+
+            {{/if}}              
           [[/if]]
         </template>
     </semantic-table>

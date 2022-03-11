@@ -18,7 +18,7 @@
           [[> DashboardStatsActor artists='true' matched='true']]
           )</div>
         </bs-nav-item>
-        <bs-nav-item event-key='noartists'><div style="display: flex;">Not Matched Artists(
+        <bs-nav-item event-key='noartists'><div style="display: flex;">Remaining Artists(
           [[> DashboardStatsActor artists='true']]
           )</div>
         </bs-nav-item>
@@ -26,8 +26,16 @@
           [[> DashboardStatsActor photographers='true' matched='true']]
           )</div>
         </bs-nav-item>
-        <bs-nav-item event-key='nophotographers'><div style="display: flex;">Not Matched Photographers(
+        <bs-nav-item event-key='nophotographers'><div style="display: flex;">Remaining Photographers(
           [[> DashboardStatsActor photographers='true' notmatched='true']]
+          )</div>
+        </bs-nav-item>
+        <bs-nav-item event-key='repositories'><div style="display: flex;">Matched Repositories(
+          [[> DashboardStatsActor repositories='true' matched='true']]
+          )</div>
+        </bs-nav-item>
+        <bs-nav-item event-key='norepositories'><div style="display: flex;">Remaining Repositories(
+          [[> DashboardStatsActor repositories='true' notmatched='true']]
           )</div>
         </bs-nav-item>
       </bs-nav>
@@ -36,14 +44,20 @@
         <bs-tab-pane event-key='artists'>
           [[> DashboardListActor artists='true' matched='true']]
         </bs-tab-pane>
-        <bs-tab-pane event-key='photographers'>
-          [[> DashboardListActor photographers='true' matched='true']]
-        </bs-tab-pane>
         <bs-tab-pane event-key='noartists'>
           [[> DashboardListActor artists='true']]
         </bs-tab-pane>
+        <bs-tab-pane event-key='photographers'>
+          [[> DashboardListActor photographers='true' matched='true']]
+        </bs-tab-pane>
         <bs-tab-pane event-key='nophotographers'>
-          [[> DashboardListActor photographers='true' notmatched='true']]
+          [[> DashboardListActor photographers='true']]
+        </bs-tab-pane>
+        <bs-tab-pane event-key='repositories'>
+          [[> DashboardListActor repositories='true' matched='true']]
+        </bs-tab-pane>
+        <bs-tab-pane event-key='norepositories'>
+          [[> DashboardListActor repositories='true']]
         </bs-tab-pane>
       </div>
       </bs-tab-content>

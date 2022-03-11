@@ -10,16 +10,18 @@
         }
         [[#if artists]]
           ?value a fc:artist.
-        [[/if]]
-        [[#if photographers]]
+        [[else if photographers]]
           ?value a fc:photographer.
+        [[else if repositories]]
+          ?value a fc:institution.
         [[/if]]
       [[else]]        
         [[#if artists]]
           ?subject a cfc:artist.
-        [[/if]]
-        [[#if photographers]]
+        [[else if photographers]]
           ?subject a cfc:photographer.
+        [[else if repositories]]
+          ?subject a cfc:institution.
         [[/if]]
         FILTER NOT EXISTS {?subject <http://www.w3.org/2002/07/owl#sameAs> ?ulan.}
       [[/if]]

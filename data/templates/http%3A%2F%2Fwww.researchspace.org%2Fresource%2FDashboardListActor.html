@@ -22,17 +22,19 @@
             ?subject <http://www.w3.org/2002/07/owl#sameAs> ?value.
           }
           [[#if artists]]
-          ?value a fc:artist.
-          [[/if]]
-          [[#if photographers]]
+            ?value a fc:artist.
+          [[else if photographers]]
             ?value a fc:photographer.
+          [[else if repositories]]
+            ?value a fc:institution.
           [[/if]]
         [[else]]          
           [[#if artists]]
             ?subject a cfc:artist.
-          [[/if]]
-          [[#if photographers]]
+          [[else if photographers]]
             ?subject a cfc:photographer.
+          [[else if repositories]]
+            ?subject a cfc:institution.
           [[/if]]
           OPTIONAL { 
             ?subject skos:closeMatch ?value.
@@ -51,8 +53,9 @@
             {"variableName":"subject","displayName":"Artresearch", "cellTemplate": "{{>pharos_artist}}"},
             [[#if artists]]
               {"variableName":"value","displayName":"ULAN", "cellTemplate": "<a href=\"{{value.value}}\"><mp-label iri=\"{{value.value}}\"></mp-label></a>"},
-            [[/if]]
-            [[#if photographers]]
+            [[else if photographers]]
+              {"variableName":"value","displayName":"Wikidata", "cellTemplate": "<a href=\"{{value.value}}\"><mp-label iri=\"{{value.value}}\"></mp-label></a>"},
+            [[else if repositories]]
               {"variableName":"value","displayName":"Wikidata", "cellTemplate": "<a href=\"{{value.value}}\"><mp-label iri=\"{{value.value}}\"></mp-label></a>"},
             [[/if]]
             {"variableName":"attribution","displayName":"Attribution", "cellTemplate": "<mp-label iri=\"{{attribution.value}}\"></mp-label>"},
@@ -65,8 +68,9 @@
             {"variableName":"subject","displayName":"Artresearch", "cellTemplate": "{{>pharos_artist}}"},
             [[#if artists]]
               {"variableName":"value","displayName":"ULAN", "cellTemplate": "{{>suggest_match}}"},
-            [[/if]]
-            [[#if photographers]]
+            [[else if photographers]]
+              {"variableName":"value","displayName":"Wikidata", "cellTemplate": "{{>suggest_match}}"},
+            [[else if repositories]]
               {"variableName":"value","displayName":"Wikidata", "cellTemplate": "{{>suggest_match}}"},
             [[/if]]
             {"variableName":"actions","displayName":"Actions", "cellTemplate": "{{>Actions}}"}
@@ -90,17 +94,23 @@
         <template id="Actions">
           [[#if matched]]
             <mp-ldp-remove-from-container-action action="DELETE" post-action='reload' iri="{{container.value}}" container="http://www.researchspace.org/resource/system/formContainer">
-              <button title='This action will remove the item from your matched artists list. It will be then available under artists matchings for you or another reviewer to match.' class="btn action btn-danger" style="margin-right:8px;"><i style="color: white;" class="fa fa-trash" aria-hidden=true></i> Delete</button>
+              <button title='This action will remove the item from your matched actors list. It will be then available under actors matchings for you or another reviewer to match.' class="btn action btn-danger" style="margin-right:8px;"><i style="color: white;" class="fa fa-trash" aria-hidden=true></i> Delete</button>
             </mp-ldp-remove-from-container-action>
           [[else]]
             {{#if value.value}}
-              <mp-overlay-dialog class="matching-modal" title="Match artists">
+              <mp-overlay-dialog class="matching-modal" title="Match">
                 <mp-overlay-dialog-trigger
                   placement="bottom"
                   trigger='["hover","focus"]'
                 >
                   <div id="match-button-text">
-                    <span class="fa fa-external-link" style="margin-right: 5px;"></span>  Match artists
+                    [[#if artists]]
+                      <span class="fa fa-external-link" style="margin-right: 5px;"></span>  Match artists
+                    [[else if photographers]]
+                      <span class="fa fa-external-link" style="margin-right: 5px;"></span>  Match photographers
+                    [[else if repositories]]
+                      <span class="fa fa-external-link" style="margin-right: 5px;"></span>  Match repositories
+                    [[/if]]
                   </div>
                 </mp-overlay-dialog-trigger>
                 <mp-overlay-dialog-content style="background: white">
@@ -110,7 +120,6 @@
                       <div class="matchingContainer" >
                         <div class="candidate">
                           <div style="display: flex;">
-                            <!-- <img style="border-radius: 100%; object-fit: fill; height: 100px; width: 100px;"  src="http://commons.wikimedia.org/wiki/Special:FilePath/Michelangelo%20Daniele%20da%20Volterra%20%28dettaglio%29.jpg?width=500" /> -->
                             <div style="display: flex; flex-direction: column; margin-left: 15px;">
                               <h1 style="font-size: 32px !important">     
                                 <mp-link url="{{subject.value}}" ><mp-label iri="{{subject.value}}"></mp-label></mp-link> 
@@ -130,10 +139,23 @@
                                   </h2>
                                   <mp-overlay-dialog title="{{value.value}}" type="lightbox">
                                     <mp-overlay-dialog-trigger>
-                                      <small class="clickable">View at Getty</small>
+                                      [[#if artists]]
+                                        <small class="clickable">View at Getty</small>
+                                      [[else if photographers]]
+                                        <small class="clickable">View at Wikidata</small>
+                                      [[else if repositories]]
+                                        <small class="clickable">View at Wikidata</small>
+                                      [[/if]]
+                                      
                                     </mp-overlay-dialog-trigger>
                                     <mp-overlay-dialog-content>
-                                      <iframe src="https://www.getty.edu/vow/ULANFullDisplay?find=&role=&nation=&subjectid={{matchId.value}}"></iframe>
+                                      [[#if artists]]
+                                        <iframe src="https://www.getty.edu/vow/ULANFullDisplay?find=&role=&nation=&subjectid={{matchId.value}}"></iframe>
+                                      [[else if photographers]]
+                                        <iframe src="{{value.value}}"></iframe>
+                                      [[else if repositories]]
+                                        <iframe src="{{value.value}}"></iframe>
+                                      [[/if]]
                                     </mp-overlay-dialog-content>
                                   </mp-overlay-dialog>
                                 </div>
@@ -143,9 +165,19 @@
                                       browser-persistance="true"
                                       persistence="ldp"
                                       post-action="reload"
-                                      fields='[[ fieldDefinitions
-                                                  confirmed="https://vision.artresearch.net/fieldDefinitionContainer/Confirmed_Matched_Artists"
-                                              ]]'
+                                      [[#if artists]]
+                                        fields='[[ fieldDefinitions
+                                                    confirmed="https://vision.artresearch.net/fieldDefinitionContainer/Confirmed_Matched_Artists"
+                                                ]]'
+                                      [[else if photographers]]
+                                        fields='[[ fieldDefinitions
+                                                    confirmed="https://vision.artresearch.net/container/fieldDefinitionContainer/Confirmed_Matched_Photographers"
+                                                ]]'
+                                      [[else if repositories]]
+                                        fields='[[ fieldDefinitions
+                                                    confirmed="https://vision.artresearch.net/container/fieldDefinitionContainer/Confirmed_Matched_Institutions"
+                                                ]]'
+                                      [[/if]]
                                     >
                                       <semantic-form-hidden-input
                                         for="confirmed"
@@ -156,7 +188,7 @@
                                         id="1234"
                                         name="submit"
                                         class="btn btn-default action approve"
-                                        title="Click to confirm two Artist instances as the same"
+                                        title="Click to confirm two instances as the same"
                                       > Same </button>
                                     </semantic-form>
                                 </div>
@@ -169,13 +201,28 @@
                 </mp-overlay-dialog-content>
               </mp-overlay-dialog>
             {{else}}
-              <div id="match-button-text">
-                <span class="fa fa-external-link" style="margin-right: 5px;"></span>
-                <a href="https://vocab.artresearch.net/resource/?partner={{provider.value}}&partnerimage={{providerLabel.value}}.png&subject={{subject.value}}&uri=Default%3AConfirmArtist" target="_blank">
-                  Redirect to Vocab
-                </a>
-                
-              </div>
+              [[#if artists]]
+                <div id="match-button-text">
+                  <span class="fa fa-external-link" style="margin-right: 5px;"></span>
+                  <a href="https://vocab.artresearch.net/resource/?partner={{provider.value}}&partnerimage={{providerLabel.value}}.png&subject={{subject.value}}&uri=Default%3AConfirmArtist" target="_blank">
+                    Redirect to Vocab
+                  </a>
+                </div>
+              [[else if photographers]]
+                <div id="match-button-text">
+                  <span class="fa fa-external-link" style="margin-right: 5px;"></span>
+                  <a href="https://vocab.artresearch.net/resource/?partner={{provider.value}}&partnerimage={{providerLabel.value}}.png&subject={{subject.value}}&uri=Default%3AConfirmPhotographer" target="_blank">
+                    Redirect to Vocab
+                  </a>
+                </div>
+              [[else if repositories]]
+                <div id="match-button-text">
+                  <span class="fa fa-external-link" style="margin-right: 5px;"></span>
+                  <a href="https://vocab.artresearch.net/resource/?partner={{provider.value}}&partnerimage={{providerLabel.value}}.png&subject={{subject.value}}&uri=Default%3AConfirmRepository" target="_blank">
+                    Redirect to Vocab
+                  </a>
+                </div>
+              [[/if]]
 
             {{/if}}              
           [[/if]]

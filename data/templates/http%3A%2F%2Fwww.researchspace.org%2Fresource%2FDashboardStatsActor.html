@@ -1,19 +1,29 @@
 <semantic-query
-query=' 
-SELECT (COUNT(distinct ?subject) AS ?count) WHERE {
-  ?subject <http://www.w3.org/2002/07/owl#sameAs> ?value.
-  [[#if matched]]
-    ?subject <https://vocab.artresearch.net/custom/confirmed> "true"^^xsd:boolean.
-  [[else if notmatched]]
-    FILTER NOT EXISTS{?subject <https://vocab.artresearch.net/custom/confirmed> "true"^^xsd:boolean}
-  [[/if]]
-  [[#if artist]]
-    ?value a <https://artresearch.net/resource/fc/artist>.
-  [[else if photo]]
-    ?value a <https://artresearch.net/resource/fc/photographer>.
-  [[/if]]
-}
-'
-no-result-template="0"
+  query=' 
+    SELECT (COUNT(distinct ?subject) AS ?count) WHERE {
+      [[#if matched]]
+        GRAPH ?g {
+          ?formContainer ldp:contains ?container .
+          ?container prov:wasAttributedTo ?attribution;
+            prov:generatedAtTime ?datetime.
+          ?subject <http://www.w3.org/2002/07/owl#sameAs> ?value.
+        }
+        [[#if artists]]
+          ?value a fc:artist.
+        [[/if]]
+        [[#if photographers]]
+          ?value a fc:photographer.
+        [[/if]]
+      [[else]]        
+        [[#if artists]]
+          ?subject a cfc:artist.
+        [[/if]]
+        [[#if photographers]]
+          ?subject a cfc:photographer.
+        [[/if]]
+        FILTER NOT EXISTS {?subject <http://www.w3.org/2002/07/owl#sameAs> ?ulan.}
+      [[/if]]
+    }'
+  no-result-template="0"
 >
 </semantic-query>

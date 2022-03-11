@@ -11,39 +11,39 @@
           Here you can view matchings between persons from everyone in the platform
         </p>
       </div>
-    <bs-tab-container id="tab-container" class="page__body-navtabs--borderless" default-active-key="artist">
+    <bs-tab-container id="tab-container" class="page__body-navtabs--borderless" default-active-key="artists">
     <div>
       <bs-nav bs-style='tabs'>
-        <bs-nav-item event-key='artist'><div style="display: flex;">Matched Artists(
-          [[> DashboardStatsActor artist='true' matched='true']]
+        <bs-nav-item event-key='artists'><div style="display: flex;">Matched Artists(
+          [[> DashboardStatsActor artists='true' matched='true']]
           )</div>
         </bs-nav-item>
-        <bs-nav-item event-key='noartist'><div style="display: flex;">Not Matched Artists(
-          [[> DashboardStatsActor artist='true' notmatched='true']]
+        <bs-nav-item event-key='noartists'><div style="display: flex;">Not Matched Artists(
+          [[> DashboardStatsActor artists='true']]
           )</div>
         </bs-nav-item>
-        <bs-nav-item event-key='photo'><div style="display: flex;">Matched Photographers(
-          [[> DashboardStatsActor photo='true' matched='true']]
+        <bs-nav-item event-key='photographers'><div style="display: flex;">Matched Photographers(
+          [[> DashboardStatsActor photographers='true' matched='true']]
           )</div>
         </bs-nav-item>
-        <bs-nav-item event-key='nophoto'><div style="display: flex;">Not Matched Photographers(
-          [[> DashboardStatsActor photo='true' notmatched='true']]
+        <bs-nav-item event-key='nophotographers'><div style="display: flex;">Not Matched Photographers(
+          [[> DashboardStatsActor photographers='true' notmatched='true']]
           )</div>
         </bs-nav-item>
       </bs-nav>
       <bs-tab-content unmount-on-exit=true>
         <div>
-        <bs-tab-pane event-key='artist'>
-          [[> DashboardListActor artist='true' matched='true']]
+        <bs-tab-pane event-key='artists'>
+          [[> DashboardListActor artists='true' matched='true']]
         </bs-tab-pane>
-        <bs-tab-pane event-key='photo'>
-          [[> DashboardListActor photo='true' matched='true']]
+        <bs-tab-pane event-key='photographers'>
+          [[> DashboardListActor photographers='true' matched='true']]
         </bs-tab-pane>
-        <bs-tab-pane event-key='noartist'>
-          [[> DashboardListActor artist='true' notmatched='true']]
+        <bs-tab-pane event-key='noartists'>
+          [[> DashboardListActor artists='true']]
         </bs-tab-pane>
-        <bs-tab-pane event-key='nophoto'>
-          [[> DashboardListActor photo='true' notmatched='true']]
+        <bs-tab-pane event-key='nophotographers'>
+          [[> DashboardListActor photographers='true' notmatched='true']]
         </bs-tab-pane>
       </div>
       </bs-tab-content>

@@ -1,5 +1,6 @@
-pharos = https://artresearch.net/resource/
-fc = https://artresearch.net/resource/fc/
-fr = https://artresearch.net/resource/fr/
-cfc = https://artresearch.net/resource/custom/fc/
-cfr = https://artresearch.net/resource/custom/fr/
+pharos=https://artresearch.net/resource/
+fc=https://artresearch.net/resource/fc/
+fr=https://artresearch.net/resource/fr/
+cfc=https://artresearch.net/resource/custom/fc/
+cfr=https://artresearch.net/resource/custom/fr/
+ldp=http://www.w3.org/ns/ldp#

@@ -4,7 +4,7 @@
           <[[iri]]> <https://artresearch.net/custom/has_image> ?image.
            <[[iri]]>  <https://artresearch.net/custom/has_provider> ?prov.
            ?prov rdfs:label ?providerL.
-              {{#ifCond providerL.value "===" "Frick"}}
+              {{#ifCond prov "===" "https://artresearch.net/resource/frick/source/Frick"}}
                 BIND(REPLACE(STR(?image),"full/full/0/default.jpg","iiif/info.json") AS ?manifest).
               {{else}}
                 BIND(REPLACE(STR(?image),"full/full/0/[a-zA-Z]+.jpg","info.json") AS ?manifest).
@@ -32,7 +32,7 @@
               </div>
             {{else}}
             <rs-iiif-mirador
-              id='thumbnailMirador'
+              id='candidateAmirador'
               image-or-region="{{manifest.value}}"
               image-api-manifest-pattern="BIND(<{{manifest.value}}> as ?manifestUrl)"
                 >

@@ -11,6 +11,10 @@
 @import "./similarityList.css";
 @import "./matchings_vocab.css";
 
+
+.skipTitle{
+  padding-left: 15px !important;
+}
 #forReview{
 background: #e3c844 !important;
 }

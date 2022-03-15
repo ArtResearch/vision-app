@@ -14,7 +14,7 @@
   >
     <template id="something">
       {{#each bindings}}
-        <h2 style="display: flex; width: 100%; gap: 5px; font-size: 16px; justify-content: flex-end; padding-right: 15px;">Skipped for Later Review by <mp-label iri="{{attribution.value}}"></mp-label> at {{dateTimeFormat modifiedAt.value "DD/MM/YY HH:mm:ss"}}</h2>
+        <h2 class="skipTitle">Skipped for Later Review by <mp-label iri="{{attribution.value}}"></mp-label> at {{dateTimeFormat modifiedAt.value "DD/MM/YY HH:mm:ss"}}</h2>
       {{/each}}
     </template>
   </semantic-query>

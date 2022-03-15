@@ -11,17 +11,17 @@ WHERE{
   BIND(STR("{{bindings.0.providerLabelB.value}}") as ?imageLabelB).
   BIND(STR("[[imageA]]") as ?imageUrlA).
   {{#ifCond bindings.0.providerLabelA.value "===" "Frick"}}
-    BIND(REPLACE(STR("[[imageA]]"),"full/full/0/default.jpg","iiif/info.json") AS ?manifestA).
+    BIND(REPLACE(STR("[[imageA]]"),"full/[^/]*/0/default.jpg","iiif/info.json") AS ?manifestA).
   {{else}}
-    BIND(REPLACE(STR("[[imageA]]"),"full/full/0/[a-zA-Z]+.jpg","info.json") AS ?manifestA).
+    BIND(REPLACE(STR("[[imageA]]"),"full/[^/]*/0/[a-zA-Z]+.jpg","info.json") AS ?manifestA).
   {{/ifCond}}
-  BIND(REPLACE(STR("[[imageA]]"),"full/full","full/!500,500") AS ?thumbnailA).
+  BIND(REPLACE(STR("[[imageA]]"),"full/[^/]*","full/!500,500") AS ?thumbnailA).
   BIND(STR("[[imageB]]") as ?imageUrlB).
-  BIND(REPLACE(STR("[[imageB]]"),"full/full","full/!500,500") AS ?thumbnailB).
+  BIND(REPLACE(STR("[[imageB]]"),"full/[^/]*","full/!500,500") AS ?thumbnailB).
   {{#ifCond bindings.0.providerLabelB.value "===" "Frick"}}
-    BIND(REPLACE(STR("[[imageB]]"),"full/full/0/default.jpg","iiif/info.json") AS ?manifestB).
+    BIND(REPLACE(STR("[[imageB]]"),"full/[^/]*/0/default.jpg","iiif/info.json") AS ?manifestB).
   {{else}}
-    BIND(REPLACE(STR("[[imageB]]"),"full/full/0/[a-zA-Z]+.jpg","info.json") AS ?manifestB).
+    BIND(REPLACE(STR("[[imageB]]"),"full/[^/]*/0/[a-zA-Z]+.jpg","info.json") AS ?manifestB).
   {{/ifCond}}
   BIND(<[[element]]> as ?element).
 }'

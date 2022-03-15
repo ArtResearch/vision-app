@@ -235,28 +235,52 @@
       <!--################################################################################-->
       <semantic-query
         query='
-				SELECT (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR="\n ") AS ?labelA) (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR="\n ") AS ?labelB) 
-        ?withData ?fieldName
-          WHERE 
- {
- SERVICE <https://artresearch.net/sparql> 
-          {
-          {
-          		<{{bindings.0.subject1.value}}> crm:P138i_is_represented_by ?visual_item.
-        ?visual_item crm:P128i_is_carried_by ?value.
-  	?value crm:P2_has_type <http://vocab.getty.edu/aat/300046300>.
-            ?value rdfs:label ?label_a.
-          BIND(BOUND(?label_a) && strlen(?label_a)>0 as ?withData)
-          }
-          UNION{
-            		<{{bindings.0.subject2.value}}> crm:P138i_is_represented_by ?visual_item_b.
-        ?visual_item_b crm:P128i_is_carried_by ?value_b.
-  	?value_b crm:P2_has_type <http://vocab.getty.edu/aat/300046300> .   
-          ?value_b rdfs:label ?label_b  
-          BIND(BOUND(?label_b) && strlen(?label_b)>0 as ?withData)
-          }
-          BIND("Photo I.D. No." as ?fieldName)
-        }}GROUP BY ?withData ?fieldName'
+          SELECT  (GROUP_CONCAT(DISTINCT ?label_a; SEPARATOR="\n ") AS ?labelA) 
+                  (GROUP_CONCAT(DISTINCT ?label_b;SEPARATOR="\n ") AS ?labelB) 
+                  ?withData 
+                  ?fieldName 
+          WHERE {
+            SERVICE <https://artresearch.net/sparql> {
+              {
+                <{{bindings.0.subject1.value}}> crm:P138i_is_represented_by ?vis.
+                ?vis crm:P128i_is_carried_by ?value.
+                ?value crm:P2_has_type <http://vocab.getty.edu/aat/300046300>;
+                  rdfs:label ?label_a.
+             FILTER NOT EXISTS { ?value <https://artresearch.net/custom/has_provider> <https://artresearch.net/resource/zeri/source/Zeri>. }
+                BIND((BOUND(?label_a)) && ((STRLEN(?label_a)) > 0 ) AS ?withData)
+              }
+              UNION
+              {
+                <{{bindings.0.subject2.value}}> crm:P138i_is_represented_by ?vis.
+                ?vis crm:P128i_is_carried_by ?value_b.
+                ?value_b crm:P2_has_type <http://vocab.getty.edu/aat/300046300>;
+                  rdfs:label ?label_b.
+                FILTER NOT EXISTS { ?value_b <https://artresearch.net/custom/has_provider> <https://artresearch.net/resource/zeri/source/Zeri>. }
+                BIND((BOUND(?label_b)) && ((STRLEN(?label_b)) > 0 ) AS ?withData)
+              } 
+              UNION 
+                  {
+                <{{bindings.0.subject1.value}}> crm:P138i_is_represented_by ?vis.
+                ?vis crm:P128i_is_carried_by ?val.
+                ?val <https://artresearch.net/custom/has_provider> <https://artresearch.net/resource/zeri/source/Zeri>.
+              ?val crm:P1_is_identified_by ?value.
+                ?value crm:P2_has_type <http://vocab.getty.edu/aat/300404621>.
+              ?value rdfs:label ?label_a.
+                BIND((BOUND(?label_a)) && ((STRLEN(?label_a)) > 0 ) AS ?withData)
+              }
+              UNION
+              {
+                <{{bindings.0.subject2.value}}> crm:P138i_is_represented_by ?vis.
+                ?vis crm:P128i_is_carried_by ?val.
+                ?val <https://artresearch.net/custom/has_provider> <https://artresearch.net/resource/zeri/source/Zeri>.
+              ?val crm:P1_is_identified_by ?value_b. 
+                ?value_b crm:P2_has_type <http://vocab.getty.edu/aat/300404621>.
+              ?value_b rdfs:label ?label_b.
+                BIND((BOUND(?label_b)) && ((STRLEN(?label_b)) > 0 ) AS ?withData)
+              } 
+              BIND("Photo I.D. No." as ?fieldName)
+            }
+          }GROUP BY ?withData ?fieldName'
         template="{{> photosTemplate}}"
       >
         <template id="photosTemplate">[[> rsp:MatchingCandidateFieldsVisualization]]</template>

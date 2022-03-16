@@ -5,8 +5,21 @@
         <div style="display: flex;">
           <!-- <img style="border-radius: 100%; object-fit: fill; height: 100px; width: 100px;"  src="http://commons.wikimedia.org/wiki/Special:FilePath/Michelangelo%20Daniele%20da%20Volterra%20%28dettaglio%29.jpg?width=500" /> -->
           <div style="display: flex; flex-direction: column; margin-left: 15px;">
-            <h1 style="font-size: 32px !important">     
-              <mp-label iri="[[repositoryA]]" ></mp-label> 
+            <h1 style="font-size: 32px !important"> 
+              <mp-label iri="[[repositoryA]]"></mp-label>
+              <semantic-query
+              query="SELECT * WHERE {
+                      SERVICE <https://artresearch.net/sparql>{
+                       <[[repositoryA]]> <http://www.cidoc-crm.org/cidoc-crm/P74_has_current_or_former_residence> ?loc.
+                        ?loc rdfs:label ?locationLabel.
+                    }
+              }"
+              template="{{>Title}}">
+              <template id="Title">
+                    {{#each bindings}}, {{locationLabel.value}}
+                    {{/each}}
+               </template>
+              </semantic-query>    
               [[#if providerA]]
               (<mp-label iri='[[urlParam "providera"]]' ></mp-label>)
               [[/if]]
@@ -39,7 +52,24 @@
                 <div class="matchingCardHeaderInfo">
                   <h2  style="font-size: 24px; font-weight: bold;">
                     <mp-label iri="{{match.value}}" ></mp-label>
+                    <semantic-query
+                      query='
+                      SELECT ?place ?label WHERE {
+                          SERVICE  <https://query.wikidata.org/sparql> {
+                          <{{match.value}}> <http://www.wikidata.org/prop/direct/P17> ?place .
+                            ?place rdfs:label ?label.
+                          FILTER langMatches( lang(?label), "EN" )
+                          }
+                        
+                        }LIMIT 1'
+                      template="{{>TitleWiki}}">
+                      <template id="TitleWiki">
+                        {{#each bindings}}, {{label.value}}
+                        {{/each}}
+                      </template>
+                    </semantic-query>
                     </h2>
+
                     <mp-overlay-dialog title="‎‎{{match.value}}" type="lightbox">
                       <mp-overlay-dialog-trigger
                         >

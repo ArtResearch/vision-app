@@ -20,6 +20,7 @@
       <div class="bodyTable">
       <mp-field-visualization
                       subject='{{bindings.0.subject1.value}}'
+                      additional-subjects='[[jsonArrayFromSelect (setQueryBindings "SELECT ?s WHERE { BIND( [[subject2.value]] as ?s)  }" resource=this.iri)]]'
                       fields='[[fieldDefinitions  
                       Creator="https://vision.artresearch.net/fieldDefinitionContainer/Creator"
                       Repository="https://vision.artresearch.net/fieldDefinitionContainer/Repository"

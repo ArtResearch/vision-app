@@ -16,6 +16,11 @@
   <div class="Results">
   {{#each fields}}
       <tr>
+    {{#ifCond  values "===" null}}
+      <td class="rs-page-resource__field-label-holder">
+                  <span class="rs-page-resource__field-label">-</span>
+      </td>
+      {{/ifCond}}
     {{#each values}}
       {{#ifCond (objectLength value) "===" 0}}
       <td class="rs-page-resource__field-label-holder">

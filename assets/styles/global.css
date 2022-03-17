@@ -10,7 +10,17 @@
 @import "./similarity.css";
 @import "./similarityList.css";
 @import "./matchings_vocab.css";
+.rowResults{
+  min-height: 8vh;
+  max-width: 28vw;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  border-bottom: 1px solid #cbcbcb;
+}
 
+.rs-page-resource__field-label-holder{
+  min-height: 8vh;
+}
 
 .Results{
   display: flex;
@@ -19,10 +29,10 @@
 .fieldsTable{
       display: flex;
     flex-direction: column;
+    width: 20vw;
 }
 .bodyTable{
   display: flex;
-    gap: 10vw;
 }
 .rowTable{
   display: flex;

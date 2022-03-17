@@ -15,24 +15,17 @@
   {{/if}}
   <div class="Results">
   {{#each fields}}
-      <tr>
+      <tr class="rowResults">
     {{#ifCond  values "===" null}}
       <td class="rs-page-resource__field-label-holder">
                   <span class="rs-page-resource__field-label">-</span>
       </td>
       {{/ifCond}}
     {{#each values}}
-      {{#ifCond (objectLength value) "===" 0}}
-      <td class="rs-page-resource__field-label-holder">
-                  <span class="rs-page-resource__field-label">-</span>
-      </td>
-      {{/ifCond}}
-      {{#ifCond (objectLength value) "!==" 0}}
       <td class="rs-page-resource__field-label-holder">
                 <span class="rs-page-resource__field-value">{{value._value}}</span>
         </td>
-      {{/ifCond}}
-      {{/each}}
+    {{/each}}
             </tr>
    {{/each}}
    </div>

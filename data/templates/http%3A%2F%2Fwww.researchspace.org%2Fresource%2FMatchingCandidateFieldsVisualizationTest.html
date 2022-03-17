@@ -1,0 +1,24 @@
+
+{{#if noData}}
+{{else}}
+  <!-- Field name -->
+  {{#if flag}}
+  <td class="rs-page-resource__field-label-holder">
+    <span class="rs-page-resource__field-label">
+        {{fields.0.label.0._value}}
+    </span>
+  </td>
+  {{/if}}
+  {{#each fields.0.values as |value|}}
+      {{#ifCond (objectLength value) "===" 0}}
+              <td>
+                <span class="rs-page-resource__field-value">-</span>
+              </td>
+      {{/ifCond}}
+      {{#ifCond (objectLength value) "!==" 0}}
+              <td>
+              <span class="rs-page-resource__field-value">{{value.value._value}}</span>
+              </td>
+      {{/ifCond}}
+   {{/each}}
+{{/if}}

@@ -1,19 +1,22 @@
 <div class="table-responsive rs-table ">
   <table class="table table-hover">
-    <thead>
-      <tr>
-        <th scope="col" style="width: 30%">Field</th>
-        <th scope="col"><a href="{{bindings.0.subject1.value}}" title='View on artresearch' target="_null" class="fa fa-external-link"> {{bindings.0.providerLabelA.value}}</a></th>
-        <th scope="col"><a href="{{bindings.0.subject2.value}}" title='View on artresearch' target="_null" class="fa fa-external-link"> {{bindings.0.providerLabelB.value}}</a></th>
-      </tr>
-    </thead>
-    <tbody>
+
+      <div style="display: flex;
+    flex-direction: column;">
+      <div style="display: flex; justify-content: space-around;">
+        <div><h3>Field</h3></div>
+        <div><h3><a href="{{bindings.0.subject1.value}}" title='View on artresearch' target="_null" class="fa fa-external-link"> {{bindings.0.providerLabelA.value}}</a></h3></div>
+        <div ><h3><a href="{{bindings.0.subject2.value}}" title='View on artresearch' target="_null" class="fa fa-external-link"> {{bindings.0.providerLabelB.value}}</a></h3></div>
+      </div>
+
+
       <!-- 72 FIELDS TO BE QUERIED (happy scrolling) -->
            
 
       <!--################################################################################-->
       <!--############################ MP-FIELD ##########################################--> 
       <!--################################################################################-->
+      <div class="bodyTable">
       <mp-field-visualization
                       subject='{{bindings.0.subject1.value}}'
                       fields='[[fieldDefinitions  
@@ -39,10 +42,9 @@
                       template="{{> rsp:MatchingCandidateFieldsVisualizationTest flag=true}}"
                     >
         </mp-field-visualization>
-        <mp-field-visualization
-                subject='{{bindings.0.subject2.value}}'
-              
-              fields='[[fieldDefinitions  
+      <mp-field-visualization
+                      subject='{{bindings.0.subject2.value}}'
+                      fields='[[fieldDefinitions  
                       IconClassInformaion="https://vision.artresearch.net/fieldDefinitionContainer/Iconclass_Information"
                       Photos="https://vision.artresearch.net/fieldDefinitionContainer/Photos"
                       InfluencedBy="https://vision.artresearch.net/fieldDefinitionContainer/Influenced_By"
@@ -61,12 +63,10 @@
                       Dimension="https://vision.artresearch.net/fieldDefinitionContainer/Dimension"
                       Technique="https://vision.artresearch.net/fieldDefinitionContainer/Technique"
                       Material="https://vision.artresearch.net/fieldDefinitionContainer/Material"
-              ]]'
-                template="{{> rsp:MatchingCandidateFieldsVisualizationTest flag=false}}"
-              >
+                    ]]'
+                      template="{{> rsp:MatchingCandidateFieldsVisualizationTest flag=false}}"
+                    >
         </mp-field-visualization>
-      
- 
-    </tbody>
+    </div>
   </table>
 </div>

@@ -12,6 +12,21 @@
 @import "./matchings_vocab.css";
 
 
+.Results{
+  display: flex;
+  flex-direction: column;
+}
+.fieldsTable{
+      display: flex;
+    flex-direction: column;
+}
+.bodyTable{
+  display: flex;
+    gap: 10vw;
+}
+.rowTable{
+  display: flex;
+}
 .skipTitle{
   padding-left: 15px !important;
 }

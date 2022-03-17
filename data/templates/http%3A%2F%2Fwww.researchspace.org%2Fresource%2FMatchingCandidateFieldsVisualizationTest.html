@@ -1,24 +1,35 @@
-
+{{log this}}
+{{log fields}}
 {{#if noData}}
 {{else}}
-  <!-- Field name -->
   {{#if flag}}
+<div class="fieldsTable">
+  {{#each fields}}
   <td class="rs-page-resource__field-label-holder">
     <span class="rs-page-resource__field-label">
-        {{fields.0.label.0._value}}
+        {{label.0._value}}
     </span>
   </td>
+  {{/each}}
+</div>
   {{/if}}
-  {{#each fields.0.values as |value|}}
+  <div class="Results">
+  {{#each fields}}
+      <tr>
+    {{#each values}}
       {{#ifCond (objectLength value) "===" 0}}
-              <td>
-                <span class="rs-page-resource__field-value">-</span>
-              </td>
+      <td class="rs-page-resource__field-label-holder">
+                  <span class="rs-page-resource__field-label">-</span>
+      </td>
       {{/ifCond}}
       {{#ifCond (objectLength value) "!==" 0}}
-              <td>
-              <span class="rs-page-resource__field-value">{{value.value._value}}</span>
-              </td>
+      <td class="rs-page-resource__field-label-holder">
+                <span class="rs-page-resource__field-value">{{value._value}}</span>
+        </td>
       {{/ifCond}}
+      {{/each}}
+            </tr>
    {{/each}}
+   </div>
+  
 {{/if}}

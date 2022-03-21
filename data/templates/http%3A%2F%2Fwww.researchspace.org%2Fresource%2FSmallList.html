@@ -11,7 +11,7 @@
 >
 <template id="tuppleBoy">
   {{#each bindings}}
-<mp-overlay-dialog title="‎‎">
+<mp-overlay-dialog title="IIIF View for Additional photos">
    <mp-overlay-dialog-trigger>
       <img src="{{thumbnail.value}}" style="height:70px;
       object-fit: contain;
@@ -19,7 +19,7 @@
       min-height: 70px;
       max-width: 80px;"/>
   </mp-overlay-dialog-trigger>
-    <mp-overlay-dialog-content>
+    <mp-overlay-dialog-content title="IIIF View for Additional photos">
       <div style='height: 80vh;' >
              {{#ifCond providerL.value "===" "Hertziana" }}   
               <div style="display: flex; flex-direction: column; gap:5px; height: 100%;">

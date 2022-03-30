@@ -38,12 +38,12 @@
                     query='SELECT DISTINCT ?imgUrl ?subject ?title ?artist_label WHERE {
                           SERVICE <https://artresearch.net/sparql> {
                             BIND(iri(CONCAT("https://vision.artresearch.net:4212/index/images/",str({{id}}))) as ?idProperty) 
-                            ?subject <https://artresearch.net/resource/fr/Work_depicted_by_Photo> ?photo.
+                            ?subject <https://artresearch.net/resource/custom/fr/Work_depicted_by_Photo> ?photo.
                             OPTIONAL {
                               ?subject rdfs:label ?title.
                             }
                             OPTIONAL {
-                              ?subject <https://artresearch.net/resource/fr/Work_influenced_by_Artist>|<https://artresearch.net/resource/fr/Work_created_from_Artist> ?artist.
+                              ?subject <https://artresearch.net/resource/custom/fr/Work_influenced_by_Artist>|<https://artresearch.net/resource/fr/Work_created_from_Artist> ?artist.
                               ?artist rdfs:label ?label.
                             }
                             ?photo crm:P129i_is_subject_of ?imgUri.

@@ -10,7 +10,21 @@
           <img src='[[urlParam "image"]]' />
         </a>
         </div>
-        
+        <semantic-context repository="default">
+          <sematic-query
+          query='
+          SELECT ?img WHERE{
+              BIND( "[[urlParam "image"]]" as ?image)
+              BIND(REPLACE(STR(?image),"commons/e/ec/.*","") AS ?prefix)
+              BIND(REPLACE(STR(?image),".*/commons/e/ec/","") AS ?id)
+              BIND(CONCAT(?prefix,"commons/thumb/e/ec/",?id,"/1000px-",?id) as ?img)
+            }
+          '
+          template="{{> smaller}}"
+          >
+            <template id="smaller">
+       {{#each bindings}}
+
         <semantic-context repository="pastec">
         <div>
           <div class="search-similar-title">Visually similar artworks</div> 
@@ -19,7 +33,7 @@
               query='
                   PREFIX example: <http://www.example.org/ontology#>
                   SELECT ?subject ?score ?id WHERE{
-                    ?subject example:hasImageUrl "[[urlParam "image"]]".
+                    ?subject example:hasImageUrl "{{img.value}}".
                     ?subject example:hasScore ?score.
                     ?subject example:hasResultingIds ?id.
                   }ORDER BY DESC(?score)'
@@ -88,8 +102,11 @@
           </div>
         </div>
         </semantic-context>
-
+        {{/each}}
+        </template>
         </semantic-context>
+        </sematic-query>
+      </semantic-context>
       </div>
       
   </div>

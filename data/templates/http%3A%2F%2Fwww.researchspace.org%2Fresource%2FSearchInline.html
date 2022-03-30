@@ -10,21 +10,7 @@
           <img src='[[urlParam "image"]]' />
         </a>
         </div>
-        <semantic-context repository="default">
-          <sematic-query
-          query='
-          SELECT ?img WHERE{
-              BIND( "[[urlParam "image"]]" as ?image)
-              BIND(REPLACE(STR(?image),"commons/e/ec/.*","") AS ?prefix)
-              BIND(REPLACE(STR(?image),".*/commons/e/ec/","") AS ?id)
-              BIND(CONCAT(?prefix,"commons/thumb/e/ec/",?id,"/1000px-",?id) as ?img)
-            }
-          '
-          template="{{> smaller}}"
-          >
-            <template id="smaller">
-       {{#each bindings}}
-
+        
         <semantic-context repository="pastec">
         <div>
           <div class="search-similar-title">Visually similar artworks</div> 
@@ -33,7 +19,7 @@
               query='
                   PREFIX example: <http://www.example.org/ontology#>
                   SELECT ?subject ?score ?id WHERE{
-                    ?subject example:hasImageUrl "{{img.value}}".
+                    ?subject example:hasImageUrl "[[urlParam "image"]]".
                     ?subject example:hasScore ?score.
                     ?subject example:hasResultingIds ?id.
                   }ORDER BY DESC(?score)'
@@ -57,7 +43,7 @@
                               ?subject rdfs:label ?title.
                             }
                             OPTIONAL {
-                              ?subject <https://artresearch.net/resource/custom/fr/Work_influenced_by_Artist>|<https://artresearch.net/resource/fr/Work_created_from_Artist> ?artist.
+                              ?subject <https://artresearch.net/resource/custom/fr/Work_influenced_by_Artist>|<https://artresearch.net/resource/custom/fr/Work_created_from_Artist> ?artist.
                               ?artist rdfs:label ?label.
                             }
                             ?photo crm:P129i_is_subject_of ?imgUri.
@@ -102,11 +88,8 @@
           </div>
         </div>
         </semantic-context>
-        {{/each}}
-        </template>
-        </sematic-query>
+
         </semantic-context>
-      </semantic-context>
       </div>
       
   </div>

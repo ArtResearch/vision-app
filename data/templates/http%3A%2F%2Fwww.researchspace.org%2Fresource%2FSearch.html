@@ -41,23 +41,15 @@
                   <semantic-query query='SELECT DISTINCT ?imgUrl ?subject ?title ?artist_label WHERE {
                           SERVICE <https://artresearch.net/sparql> {
                             BIND(iri(CONCAT("https://vision.artresearch.net:4212/index/images/",str({{id}}))) as ?idProperty) 
-                            {
-                               ?subject <https://pharos.artresearch.net/resource/fr/Work_depicted_by_Photo> ?photo.
-                            }UNION{
-                                ?subject <https://artresearch.net/resource/fr/Work_depicted_by_Photo> ?photo.
-                            }
+                            ?subject fr:Work_depicted_by_Photo ?photo.
+                            ?photo crm:P129i_is_subject_of ?imgUri.
+                            ?imgUri <https://artresearch.net/resource/vocab/vision/pastec/has_index> ?idProperty.
                             OPTIONAL {
                               ?subject rdfs:label ?title.
                             }
                             OPTIONAL {
-                              ?subject <https://pharos.artresearch.net/resource/fr/Work_influenced_by_Artist>|<https://pharos.artresearch.net/resource/fr/Work_created_from_Artist> ?artist.
+                              ?subject fr:Work_influenced_by_Artist|fr:Work_created_from_Artist ?artist.
                               ?artist rdfs:label ?label.
-                            }
-                            ?photo crm:P129i_is_subject_of ?imgUri.
-                            {
-                              ?imgUri <https://pharos.artresearch.net/resource/vocab/vision/pastec/has_index> ?idProperty.
-                            }UNION {
-                              ?imgUri <https://artresearch.net/resource/vocab/vision/pastec/has_index> ?idProperty.
                             }
                             BIND(REPLACE(STR(?imgUri),"full/full","full/!200,200") AS ?imgUrl).
                             BIND(REPLACE(?label,"@en","") AS ?artist_label)                                  

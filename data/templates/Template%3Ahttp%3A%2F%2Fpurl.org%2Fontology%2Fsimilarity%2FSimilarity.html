@@ -142,6 +142,7 @@
                           }
                         }
                         FILTER (!(CONTAINS(?sims, STR(?nextElement))))
+                        ?nextElement <http://purl.org/ontology/similarity/method>/<http://purl.org/ontology/similarity/method> <https://vision.artresearch.net/resource/Similarity/AssociationMethod/Pastec>.
                     }LIMIT 1'
                 template="{{>imageInfoTemplate}}"
                 no-result-template="{{>noNextSimilarity}}"

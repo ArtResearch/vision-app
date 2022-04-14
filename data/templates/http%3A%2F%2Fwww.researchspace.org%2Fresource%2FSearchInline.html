@@ -89,7 +89,7 @@
                                     </td>
                                     <td>
                                   <span class="rs-page-resource__field-value">
-                                    <div style="width:25vw; max-width: 450px;">
+                                    <div style="width:19vw; max-width: 340px;">
                                       {{bindings.0.title.value}}
                                     </div>
                                   </span>
@@ -103,7 +103,7 @@
                                     </td>
                                     <td>
                                   <span class="rs-page-resource__field-value">
-                                    <div style="width:25vw; max-width: 450px;">
+                                    <div style="width:19vw; max-width: 340px;">
                                       {{bindings.0.artist_label.value}}
                                     </div>
                                   </span>
@@ -117,13 +117,13 @@
                                     </td>
                                     <td>
                                   <span class="rs-page-resource__field-value">
-                                    <div style="width:25vw; max-width: 450px;">
+                                    <div style="width:19vw; max-width: 340px;">
                                       {{bindings.0.provider_label.value}}
                                     </div>
                                   </span>
                                   </td>
                                 </tr>
-                                 <tr class="rs-page-resource__field">
+                                 <!-- <tr class="rs-page-resource__field">
                                     <td class="rs-page-resource__field-label-holder headLine">
                                       <span class="rs-page-resource__field-label">
                                         Institution
@@ -131,12 +131,12 @@
                                     </td>
                                     <td>
                                   <span class="rs-page-resource__field-value">
-                                    <div style="width:25vw; max-width: 450px;">
+                                    <div style="width:19vw; max-width: 340px;">
                                       {{bindings.0.institution_label.value}}
                                     </div>
                                   </span>
                                   </td>
-                                </tr>
+                                </tr> -->
                                 <tr class="rs-page-resource__field">
                                     <td class="rs-page-resource__field-label-holder headLine">
                                       <span class="rs-page-resource__field-label">
@@ -145,7 +145,7 @@
                                     </td>
                                     <td>
                                       <span class="rs-page-resource__field-value">
-                                          <div style="width:25vw; max-width: 450px;">
+                                          <div style="width:19vw; max-width: 340px;">
                                             <div date="{{dateTimeFormat bindings.0.date.value "YYYY"}}">
                                               {{dateTimeFormat bindings.0.date.value "YYYY"}}
                                             </div>
@@ -188,6 +188,37 @@
    /* .selectedImageContainer{
      display: none !important;
    } */
+
+   .rs-page-resource__field-value{
+     white-space: unset !important;
+   }
+
+   .rs-page-resource__field-label-holder{
+     min-width: 100px;
+   }
+   tr.rs-page-resource__field{
+     height: 5vh;
+   }
+   #photo-search-page .panel-body{
+     justify-content: unset;
+   }
+
+   #photo-search-page .similar-artwork-card{
+     width: 45vw;
+     min-height: 250px;
+   }
+
+   #photo-search-page .thumbnailImageContainer{
+     height: 24vh;
+     width: 35%;
+   }
+
+   .workTemplate{
+    width: 25vw;
+    padding-left: 25px;
+   }
+
+   
    </style>
    
 </div>

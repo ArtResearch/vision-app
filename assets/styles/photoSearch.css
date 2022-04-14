@@ -43,11 +43,11 @@ transform: scale3d(1.5, 1.5, 1.5)
 }
 
 #photo-search-page .similar-artwork-card {
-  width: 15vw;
+  width: 37vw;
   min-width: 320px;
   background: white;
-  min-height: 520px;
-  height: 50vh;
+  min-height: 230px;
+  height: 27vh;
   border-radius: 4px;
   box-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
   margin: 20px;
@@ -129,13 +129,13 @@ tr.standard-row {
 #photo-search-page .thumbnailImageContainer {
   display: flex;
   overflow: hidden;
-  height: 28vh;
+  height: 30vh;
   align-items: center;
   border-radius: 5px 0px 0px 5px;
   padding: 0;
   left: 0;
   top: 0;
-  width: 100%;
+  width: 33%;
   position: relative;
 }
 #search-results .rs-grid-element a {
@@ -213,12 +213,13 @@ tr.standard-row {
   box-shadow: 1px 2px 8px 0 #761f0e35, 1px 3px 12px 2px rgba(0, 0, 0, 0.07);
 }
 #photo-search-page .panel-body {
-  cursor: pointer;
+  /* cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
-  user-select: unset !important;
+  user-select: unset !important; */
+  display: flex;
 }
 
 #photo-search-page .search-description{

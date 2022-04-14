@@ -31,7 +31,7 @@
                   '
               template="{{>pastecTemplate}}"
             >
-              <template id="pastec-card">
+              <template id="pastecTemplate">
                 {{#each bindings}}
                 <semantic-context repository="default">
                   <semantic-query
@@ -65,13 +65,13 @@
                         }'
                     template="{{> imageTemplate }}"
                   >
-                    <template id="image-card">
+                    <template id="imageTemplate">
                       <a
                         href="https://artresearch.net/resource/?uri={{bindings.0.subject.value}}"
                         target="_null"
                       >
                         <div class="similar-artwork-card fade-in-fwd">
-                          <div class="body-card">
+                          <div class="panel-body">
                             <div class="thumbnailImageContainer">
                               <img
                                 alt="   "
@@ -80,7 +80,7 @@
                               />
                             </div>
                             <div>
-                            <div class="detail-info">
+                            <div class="workTemplate">
                                <tr class="rs-page-resource__field">
                                     <td class="rs-page-resource__field-label-holder headLine">
                                       <span class="rs-page-resource__field-label">

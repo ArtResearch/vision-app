@@ -35,9 +35,10 @@
                 {{#each bindings}}
                 <semantic-context repository="default">
                   <semantic-query
-                    query='SELECT DISTINCT ?imgUrl ?subject ?title ?artist_label WHERE {
+                    query='SELECT DISTINCT ?imgUrl ?pharos ?title ?artist_label WHERE {
                           SERVICE <https://artresearch.net/sparql> {
-                            BIND(iri(CONCAT("https://vision.artresearch.net:4212/index/images/",str({{id}}))) as ?idProperty) 
+                            BIND(iri(CONCAT("https://vision.artresearch.net:4212/index/images/",str({{id}}))) as ?idProperty)
+                            ?subject owl:sameAs ?pharos. 
                             ?subject <https://artresearch.net/resource/custom/fr/Work_depicted_by_Photo> ?photo.
                             OPTIONAL {
                               ?subject rdfs:label ?title.
@@ -56,7 +57,7 @@
                   >
                     <template id="imageTemplate">
                       <a
-                        href="https://artresearch.net/resource/?uri={{bindings.0.subject.value}}"
+                        href="{{bindings.0.pharos.value}}"
                         target="_null"
                       >
                         <div class="similar-artwork-card fade-in-fwd">

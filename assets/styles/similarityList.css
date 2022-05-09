@@ -494,7 +494,17 @@ button.slick-arrow.slick-next {
   right: 0px !important;
 }
 #similarity-list-template .search-bar {
-  display: none;
+  /* display: none; */
+}
+#header-search{
+  display: flex;
+    justify-content: right;
+    padding-right: 90px;
+}
+
+#header-search > div{
+  width: 72%;
+    margin: 10px;
 }
 #similarity-list-template .semantic-table-holder {
   width: 95% !important;

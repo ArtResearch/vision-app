@@ -562,13 +562,19 @@ button.slick-arrow.slick-next {
 }
 
 
-
+@media (max-width: 750px) {
+    #header-search > div{
+    width: 100% !important;
+    margin: 10px;
+}
+}
 
 @media (max-width: 800px) {
   #similarity-list-template .semantic-table-holder {
     left: 5% !important;
 
   }
+
 
 
   #similarity-list-template .action {

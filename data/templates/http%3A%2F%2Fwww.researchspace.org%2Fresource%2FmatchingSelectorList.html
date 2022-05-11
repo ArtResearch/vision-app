@@ -188,4 +188,35 @@
   </mp-event-trigger>
   {{/ifCond}}
 {{/ifCond}}
+{{#ifCond providerA "===" "https://artresearch.net/resource/pmc/source/PMC"}}
+  <mp-event-trigger
+    id="event-trigger"
+    type="Component.TemplateUpdate"
+    data='{"[[providerSelector]]":"https://artresearch.net/resource/pmc/source/PMC","selected":"PMC","[[providerImageSelector]]":"/assets/images/logos/PMC.png"}'
+    targets='["provider-image","provider-selector"]'
+  >
+    <div class="providerBtn selected btn"><h2><img class="sourceIcon" src="/assets/images/PMC.ico"/>PMC</h2></div>
+  </mp-event-trigger>
+{{else}}
+  {{#ifCond providerB "===" "https://artresearch.net/resource/pmc/source/PMC"}}
+
+  <mp-event-trigger
+    id="event-trigger"
+    type="Component.TemplateUpdate"
+    data='{"[[providerSelector]]":"https://artresearch.net/resource/pmc/source/PMC","selected":"PMC","[[providerImageSelector]]":"/assets/images/logos/PMC.png",[[additionals]]}'
+    targets='["provider-image","provider-selector"]'
+  >
+    <div class="providerBtn selectedSecond btn"><h2><img class="sourceIcon" src="/assets/images/PMC.ico"/>PMC</h2></div>
+  </mp-event-trigger>
+  {{else}}
+  <mp-event-trigger
+    id="event-trigger"
+    type="Component.TemplateUpdate"
+    data='{"[[providerSelector]]":"https://artresearch.net/resource/pmc/source/PMC","selected":"PMC","[[providerImageSelector]]":"/assets/images/logos/PMC.png",[[additionals]]}'
+    targets='["provider-image","provider-selector"]'
+  >
+    <div class="providerBtn btn"><h2><img class="sourceIcon" src="/assets/images/PMC.ico"/>PMC</h2></div>
+  </mp-event-trigger>
+  {{/ifCond}}
+{{/ifCond}}
 </div>

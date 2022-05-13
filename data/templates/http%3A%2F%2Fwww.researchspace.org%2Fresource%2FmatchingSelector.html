@@ -18,15 +18,15 @@
               </div>
               <div class="submitContainer">
                 {{#ifCond providerA "&&" providerB}}
-                  <mp-link
-                    url="SimilarityList"
-                    urlqueryparam-providera="{{providerA}}"
-                    urlqueryparam-providerb="{{providerB}}"
-                  >
-                    <button class="btn">View matchings list</button>
-                  </mp-link>
+                <semantic-link
+                  iri="rsp:SimilarityList"
+                  urlqueryparam-providera="{{providerA}}"
+                  urlqueryparam-providerb="{{providerB}}"
+                >
+                  <button class="btn">View matchings list</button>
+                </semantic-link>
                 {{else}} 
-                 <button disabled title="Please select a set of providers" class="btn">View matchings list</button>
+                <button disabled title="Please select a set of providers" class="btn">View matchings list</button>
                 {{/ifCond}}
               </div>
               <div class="logoContainer">

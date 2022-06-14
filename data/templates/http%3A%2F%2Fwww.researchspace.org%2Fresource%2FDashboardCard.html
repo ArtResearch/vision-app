@@ -19,7 +19,7 @@
       </template>
   </semantic-query>
   </div>
-
+  
   <div class="panel-body row">
     <bs-col class="cardInfo" lg="2" xs="10">
       [[> :SimilarityListThumbnails iri="{{work.value}}"]]
@@ -28,8 +28,25 @@
       <div data-flex-layout="row md-column center-stretch">
         <bs-row class="cardInfoFields">
           <h2>
-            [[> rsp:SourceIcon
-            providerLabel="{{providerLabelA.value}}"]]{{providerLabelA.value}}
+              <semantic-query
+                query=' SELECT ?providerLabel WHERE{
+                  VALUES(?partnerUri ?providerLabel)
+                  {
+                  (<https://artresearch.net/resource/frick/source/Frick>  "Frick")
+                  (<https://artresearch.net/resource/hertziana/source/Hertziana>  "Hertziana")
+                  (<https://artresearch.net/resource/itatti/source/ITatti>  "I Tatti")
+                  (<https://artresearch.net/resource/khi/source/KHI>   "KHI")
+                  (<https://artresearch.net/resource/marburg/source/Marburg> "Marburg")
+                  (<https://artresearch.net/resource/zeri/source/Zeri> "Zeri")
+                  (<https://artresearch.net/resource/pmc/source/PMC> "PMC")
+                  }
+                FILTER(STR(?partnerUri) = STR(<{{providerA.value}}>))
+                }'
+                template='{{> templateSourceIcon}}'>
+                <template id='templateSourceIcon'>
+                    [[> rsp:SourceIcon providerLabel="{{bindings.0.providerLabel.value}}"]]{{bindings.0.providerLabel.value}}
+                </template>
+               </semantic-query>
           </h2>
           <mp-field-visualization
             subject="{{work.value}}"
@@ -55,8 +72,25 @@
       <div data-flex-layout="row md-column center-stretch">
         <bs-row class="cardInfoFields">
           <h2>
-            [[> rsp:SourceIcon
-            providerLabel="{{providerLabelB.value}}"]]{{providerLabelB.value}}
+            <semantic-query
+            query=' SELECT ?providerLabel WHERE{
+              VALUES(?partnerUri ?providerLabel)
+              {
+              (<https://artresearch.net/resource/frick/source/Frick>  "Frick")
+              (<https://artresearch.net/resource/hertziana/source/Hertziana>  "Hertziana")
+              (<https://artresearch.net/resource/itatti/source/ITatti>  "I Tatti")
+              (<https://artresearch.net/resource/khi/source/KHI>   "KHI")
+              (<https://artresearch.net/resource/marburg/source/Marburg> "Marburg")
+              (<https://artresearch.net/resource/zeri/source/Zeri> "Zeri")
+              (<https://artresearch.net/resource/pmc/source/PMC> "PMC")
+              }
+            FILTER(STR(?partnerUri) = STR(<{{providerB.value}}>))
+            }'
+            template='{{> templateSourceIcon}}'>
+            <template id='templateSourceIcon'>
+                [[> rsp:SourceIcon providerLabel="{{bindings.0.providerLabel.value}}"]]{{bindings.0.providerLabel.value}}
+            </template>
+           </semantic-query>
           </h2>
           <mp-field-visualization
             subject="{{work2.value}}"

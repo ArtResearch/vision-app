@@ -1,7 +1,7 @@
 <div class="image-rel-container">
 
   <semantic-query query='
-  SELECT DISTINCT ?subject1 ?subject2 ?similarity ?nextSimilarity  WHERE {
+  SELECT DISTINCT ?subject1 ?subject2 ?similarity ?nextSimilarity WHERE {
     ?imageA <http://purl.org/ontology/similarity/element> <[[simElement]]>.
     ?imageB <http://purl.org/ontology/similarity/element> <[[simElement]]>.
     ?subject1 <https://artresearch.net/custom/has_image> ?imageA.
@@ -14,12 +14,11 @@
   >
     <template id="imageOptionsSubjects">
     <semantic-query query='
-    SELECT DISTINCT ?subject1 ?imageA ?thumbA ?providerLabelA WHERE{
+    SELECT DISTINCT ?subject1 ?imageA ?thumbA ?provA WHERE{
       <{{bindings.0.subject1.value}}>  <https://artresearch.net/custom/has_image> ?imageA.
       BIND(REPLACE(STR(?imageA),"full/full","full/!250,250") AS ?thumbA).
       <{{bindings.0.subject2.value}}>  <https://artresearch.net/custom/has_image> ?imageB.
       <{{bindings.0.subject1.value}}>  <https://artresearch.net/custom/has_provider> ?provA.
-      ?provA rdfs:label ?providerLabelA.
       ?imageA <http://purl.org/ontology/similarity/element> ?element.
       ?imageB <http://purl.org/ontology/similarity/element> ?element.
       BIND(<{{bindings.0.subject1.value}}> AS ?subject1)
@@ -30,8 +29,28 @@
     <div class="image-options">
       <div class="artwork-title">
         <mp-label iri="{{bindings.0.subject1.value}}"></mp-label>
-        <div class="imageHolder">
-              <div class="imageLabel"> [[> rsp:SourceIcon providerLabel="{{bindings.0.providerLabelA.value}}"]]{{bindings.0.providerLabelA.value}}</div>    
+        <div class="imageHolder">          
+              <div class="imageLabel"> 
+                <semantic-query
+                query=' SELECT ?providerLabel WHERE{
+                  VALUES(?partnerUri ?providerLabel)
+                  {
+                  (<https://artresearch.net/resource/frick/source/Frick>  "Frick")
+                  (<https://artresearch.net/resource/hertziana/source/Hertziana>  "Hertziana")
+                  (<https://artresearch.net/resource/itatti/source/ITatti>  "I Tatti")
+                  (<https://artresearch.net/resource/khi/source/KHI>   "KHI")
+                  (<https://artresearch.net/resource/marburg/source/Marburg> "Marburg")
+                  (<https://artresearch.net/resource/zeri/source/Zeri> "Zeri")
+                  (<https://artresearch.net/resource/pmc/source/PMC> "PMC")
+                  }
+                FILTER(STR(?partnerUri) = STR(<{{bindings.0.provA.value}}>))
+                }'
+                template='{{> templateSourceIcon}}'>
+                <template id='templateSourceIcon'>
+                    [[> rsp:SourceIcon providerLabel="{{bindings.0.providerLabel.value}}"]]{{bindings.0.providerLabel.value}}
+                </template>
+               </semantic-query>                                
+              </div>    
         </div>    
       </div>
       {{#each bindings}}
@@ -100,11 +119,10 @@
   </template>
 </semantic-query>
 <semantic-query query='
-SELECT DISTINCT ?subject2 ?imageB ?thumbB ?provB ?providerLabelB WHERE{
+SELECT DISTINCT ?subject2 ?imageB ?thumbB ?provB WHERE{
   <{{bindings.0.subject1.value}}>  <https://artresearch.net/custom/has_image> ?imageA.
   <{{bindings.0.subject2.value}}>  <https://artresearch.net/custom/has_image> ?imageB.
   <{{bindings.0.subject2.value}}>  <https://artresearch.net/custom/has_provider> ?provB.
-  ?provB rdfs:label ?providerLabelB.
   BIND(REPLACE(STR(?imageB),"full/full","full/!250,250") AS ?thumbB).
   ?imageA <http://purl.org/ontology/similarity/element> ?element.
   ?imageB <http://purl.org/ontology/similarity/element> ?element.
@@ -119,7 +137,27 @@ template="{{> imageOptionsB}}"
       <div class="artwork-title">
         <mp-label iri="{{bindings.0.subject2.value}}"></mp-label>
            <div class="imageHolder">
-              <div class="imageLabel"> [[> rsp:SourceIcon providerLabel="{{bindings.0.providerLabelB.value}}"]]{{bindings.0.providerLabelB.value}}</div>    
+              <div class="imageLabel">
+                <semantic-query
+                query=' SELECT ?providerLabel WHERE{
+                  VALUES(?partnerUri ?providerLabel)
+                  {
+                  (<https://artresearch.net/resource/frick/source/Frick>  "Frick")
+                  (<https://artresearch.net/resource/hertziana/source/Hertziana>  "Hertziana")
+                  (<https://artresearch.net/resource/itatti/source/ITatti>  "I Tatti")
+                  (<https://artresearch.net/resource/khi/source/KHI>   "KHI")
+                  (<https://artresearch.net/resource/marburg/source/Marburg> "Marburg")
+                  (<https://artresearch.net/resource/zeri/source/Zeri> "Zeri")
+                  (<https://artresearch.net/resource/pmc/source/PMC> "PMC")
+                  }
+                FILTER(STR(?partnerUri) = STR(<{{bindings.0.provB.value}}>))
+                }'
+                template='{{> templateSourceIcon}}'>
+                <template id='templateSourceIcon'>
+                    [[> rsp:SourceIcon providerLabel="{{bindings.0.providerLabel.value}}"]]{{bindings.0.providerLabel.value}}
+                </template>
+               </semantic-query>                  
+              </div>    
            </div>    
       </div>
       {{#each bindings}}

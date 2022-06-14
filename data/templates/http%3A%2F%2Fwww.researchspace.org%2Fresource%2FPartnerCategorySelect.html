@@ -23,17 +23,16 @@
       </div>
         <semantic-query  
         query='SELECT ?partnerUri ?relationUri ?partnerLabel WHERE{
-            VALUES(?partnerUri ?relationUri)
-            {
-             (<https://artresearch.net/resource/frick/source/Frick> <https://artresearch.net/custom/numOfNonmatchedFrick>)
-             (<https://artresearch.net/resource/hertziana/source/Hertziana> <https://artresearch.net/custom/numOfNonmatchedHertziana>)
-             (<https://artresearch.net/resource/itatti/source/ITatti> <https://artresearch.net/custom/numOfNonmatchedItatti>)
-             (<https://artresearch.net/resource/khi/source/KHI>  <https://artresearch.net/custom/numOfNonmatchedKHI>)
-             (<https://artresearch.net/resource/marburg/source/Marburg> <https://artresearch.net/custom/numOfNonmatchedMarburg>)
-             (<https://artresearch.net/resource/zeri/source/Zeri> <https://artresearch.net/custom/numOfNonmatchedZeri>)
-             (<https://artresearch.net/resource/pmc/source/PMC> <https://artresearch.net/custom/numOfNonmatchedPMC>)
-            }
-            ?partnerUri rdfs:label ?partnerLabel.
+          VALUES(?partnerUri ?relationUri ?partnerLabel)
+          {
+           (<https://artresearch.net/resource/frick/source/Frick> <https://artresearch.net/custom/numOfNonmatchedFrick> "Frick")
+           (<https://artresearch.net/resource/hertziana/source/Hertziana> <https://artresearch.net/custom/numOfNonmatchedHertziana> "Hertziana")
+           (<https://artresearch.net/resource/itatti/source/ITatti> <https://artresearch.net/custom/numOfNonmatchedItatti> "I Tatti")
+           (<https://artresearch.net/resource/khi/source/KHI>  <https://artresearch.net/custom/numOfNonmatchedKHI> "KHI")
+           (<https://artresearch.net/resource/marburg/source/Marburg> <https://artresearch.net/custom/numOfNonmatchedMarburg> "Marburg")
+           (<https://artresearch.net/resource/zeri/source/Zeri> <https://artresearch.net/custom/numOfNonmatchedZeri> "Zeri")
+           (<https://artresearch.net/resource/pmc/source/PMC> <https://artresearch.net/custom/numOfNonmatchedPMC> "PMC")
+          }
             FILTER(?partnerUri != <[[urlParam "providera"]]>)
         }ORDER BY (?partnerLabel)'
         template="{{> partnerTabs}}">

@@ -1,7 +1,17 @@
 <semantic-query
-  query=' SELECT ?providerLabel WHERE {
-            <[[providerURI]]> rdfs:label ?providerLabel.
-          }'
+  query=' SELECT ?providerLabel WHERE{
+    VALUES(?partnerUri ?providerLabel)
+    {
+     (<https://artresearch.net/resource/frick/source/Frick>  "Frick")
+     (<https://artresearch.net/resource/hertziana/source/Hertziana>  "Hertziana")
+     (<https://artresearch.net/resource/itatti/source/ITatti>  "I Tatti")
+     (<https://artresearch.net/resource/khi/source/KHI>   "KHI")
+     (<https://artresearch.net/resource/marburg/source/Marburg> "Marburg")
+     (<https://artresearch.net/resource/zeri/source/Zeri> "Zeri")
+     (<https://artresearch.net/resource/pmc/source/PMC> "PMC")
+    }
+  FILTER(STR(?partnerUri) = STR(<[[providerURI]]>))
+  }'
   template='{{> templateSourceIcon}}'>
   <template id='templateSourceIcon'>
       [[> rsp:SourceIcon providerLabel="{{bindings.0.providerLabel.value}}"]]{{bindings.0.providerLabel.value}}

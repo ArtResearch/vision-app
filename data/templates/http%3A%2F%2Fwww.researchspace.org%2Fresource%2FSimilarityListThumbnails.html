@@ -1,7 +1,16 @@
 <semantic-query
     query=' SELECT DISTINCT ?provA ?providerLabelA WHERE{
-    <[[iri]]>  <https://artresearch.net/custom/has_provider> ?provA.
-          ?provA rdfs:label ?providerLabelA.
+      <[[iri]]>  <https://artresearch.net/custom/has_provider> ?provA.
+      VALUES(?provA ?providerLabelA)
+      {
+        (<https://artresearch.net/resource/frick/source/Frick>  "Frick")
+        (<https://artresearch.net/resource/hertziana/source/Hertziana>  "Hertziana")
+        (<https://artresearch.net/resource/itatti/source/ITatti>  "I Tatti")
+        (<https://artresearch.net/resource/khi/source/KHI>   "KHI")
+        (<https://artresearch.net/resource/marburg/source/Marburg> "Marburg")
+        (<https://artresearch.net/resource/zeri/source/Zeri> "Zeri")
+        (<https://artresearch.net/resource/pmc/source/PMC> "PMC")
+      }
     }
     'template='{{>ProviderLabel}}'
     >
@@ -18,12 +27,21 @@
         SELECT  ?thumbnail ?prov ?manifest ?providerL WHERE {                    
           <[[iri]]> <https://artresearch.net/custom/has_image> ?image.
            <[[iri]]>  <https://artresearch.net/custom/has_provider> ?prov.
-           ?prov rdfs:label ?providerL.
-              {{#ifCond providerL.value "===" "Frick"}}
-                BIND(REPLACE(STR(?image),"full/full/0/default.jpg","iiif/info.json") AS ?manifest).
-              {{else}}
-                BIND(REPLACE(STR(?image),"full/full/0/[a-zA-Z]+.jpg","info.json") AS ?manifest).
-              {{/ifCond}}
+           VALUES(?prov ?providerL)
+            {
+              (<https://artresearch.net/resource/frick/source/Frick>  "Frick")
+              (<https://artresearch.net/resource/hertziana/source/Hertziana>  "Hertziana")
+              (<https://artresearch.net/resource/itatti/source/ITatti>  "I Tatti")
+              (<https://artresearch.net/resource/khi/source/KHI>   "KHI")
+              (<https://artresearch.net/resource/marburg/source/Marburg> "Marburg")
+              (<https://artresearch.net/resource/zeri/source/Zeri> "Zeri")
+              (<https://artresearch.net/resource/pmc/source/PMC> "PMC")
+            }
+          {{#ifCond providerL.value "===" "Frick"}}
+            BIND(REPLACE(STR(?image),"full/full/0/default.jpg","iiif/info.json") AS ?manifest).
+          {{else}}
+            BIND(REPLACE(STR(?image),"full/full/0/[a-zA-Z]+.jpg","info.json") AS ?manifest).
+          {{/ifCond}}
           BIND(REPLACE(str(?image),"full/full","full/!200,200") AS ?thumbnail).
         }'
   tuple-template='{{>tuppleBoy}}'

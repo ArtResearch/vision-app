@@ -4,11 +4,11 @@
 <semantic-query query='SELECT ?element 
 ?manifestA ?manifestB 
 ?imageUrlA ?imageUrlB  
-?imageLabelA ?imageLabelB
 ?thumbnailA ?thumbnailB
+?providerA ?providerB
 WHERE{
-  BIND(STR("{{bindings.0.providerLabelA.value}}") as ?imageLabelA).
-  BIND(STR("{{bindings.0.providerLabelB.value}}") as ?imageLabelB).
+  BIND(STR("{{bindings.0.providerA.value}}") as ?providerA).
+  BIND(STR("{{bindings.0.providerB.value}}") as ?providerB).
   BIND(STR("[[imageA]]") as ?imageUrlA).
   {{#ifCond bindings.0.providerLabelA.value "===" "Frick"}}
     BIND(REPLACE(STR("[[imageA]]"),"full/[^/]*/0/default.jpg","iiif/info.json") AS ?manifestA).
@@ -27,12 +27,33 @@ WHERE{
 }'
 template="{{> firstCandidateImage}}">
   <template id="firstCandidateImage">
-  
+    
 <mp-overlay-dialog  class="miradorViewerPopup" title="‎‎">
   <mp-overlay-dialog-trigger>
     <div class="imageHolder">
       <img src='{{bindings.0.thumbnailA.value}}'/>
-      <div class="imageLabel">[[> rsp:SourceIcon providerLabel="{{bindings.0.imageLabelA.value}}"]] {{bindings.0.imageLabelA.value}}</div>  
+      <div class="imageLabel">
+        {{log this}}
+        <semantic-query
+        query=' SELECT ?providerLabel WHERE{
+          VALUES(?partnerUri ?providerLabel)
+          {
+          (<https://artresearch.net/resource/frick/source/Frick>  "Frick")
+          (<https://artresearch.net/resource/hertziana/source/Hertziana>  "Hertziana")
+          (<https://artresearch.net/resource/itatti/source/ITatti>  "I Tatti")
+          (<https://artresearch.net/resource/khi/source/KHI>   "KHI")
+          (<https://artresearch.net/resource/marburg/source/Marburg> "Marburg")
+          (<https://artresearch.net/resource/zeri/source/Zeri> "Zeri")
+          (<https://artresearch.net/resource/pmc/source/PMC> "PMC")
+          }
+        FILTER(STR(?partnerUri) = STR(<{{bindings.0.providerA.value}}>))
+        }'
+        template='{{> templateSourceIcon}}'>
+        <template id='templateSourceIcon'>
+            [[> rsp:SourceIcon providerLabel="{{bindings.0.providerLabel.value}}"]]{{bindings.0.providerLabel.value}}
+        </template>
+      </semantic-query>     
+      </div>  
     </div>    
   </mp-overlay-dialog-trigger>
     <mp-overlay-dialog-content>
@@ -80,7 +101,27 @@ template="{{> firstCandidateImage}}">
   <mp-overlay-dialog-trigger>
     <div class="imageHolder">
       <img src='{{bindings.0.thumbnailB.value}}'/>
-      <div class="imageLabel">[[> rsp:SourceIcon providerLabel="{{bindings.0.imageLabelB.value}}"]]{{bindings.0.imageLabelB.value}}</div>   
+      <div class="imageLabel">
+        <semantic-query
+        query=' SELECT ?providerLabel WHERE{
+          VALUES(?partnerUri ?providerLabel)
+          {
+          (<https://artresearch.net/resource/frick/source/Frick>  "Frick")
+          (<https://artresearch.net/resource/hertziana/source/Hertziana>  "Hertziana")
+          (<https://artresearch.net/resource/itatti/source/ITatti>  "I Tatti")
+          (<https://artresearch.net/resource/khi/source/KHI>   "KHI")
+          (<https://artresearch.net/resource/marburg/source/Marburg> "Marburg")
+          (<https://artresearch.net/resource/zeri/source/Zeri> "Zeri")
+          (<https://artresearch.net/resource/pmc/source/PMC> "PMC")
+          }
+        FILTER(STR(?partnerUri) = STR(<{{bindings.0.providerB.value}}>))
+        }'
+        template='{{> templateSourceIcon}}'>
+        <template id='templateSourceIcon'>
+            [[> rsp:SourceIcon providerLabel="{{bindings.0.providerLabel.value}}"]]{{bindings.0.providerLabel.value}}
+        </template>
+      </semantic-query>
+      </div>
     </div>    
   </mp-overlay-dialog-trigger>
   <mp-overlay-dialog-content>

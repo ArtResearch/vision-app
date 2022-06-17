@@ -118,6 +118,33 @@
                 {{/each}}
               </template>
           </semantic-query>
+            <semantic-query
+    query=' SELECT DISTINCT (?? as ?subject) WHERE {
+              ?g <https://vision.artresearch.net/custom/processed> true.
+            }LIMIT 1 '
+    template='{{> revertOption }}'
+    no-result-template='{{> deleteOption}}'>
+      <template id='deleteOption'>
+        <mp-ldp-remove-from-container-action iri="{{subject.value}}" container="http://www.researchspace.org/resource/system/formContainer">
+          <button title="This action will remove the item from your list. It will be then available under artwork matchings for you or another reviewer to review." class="btn action btn-danger" style="margin-right:8px;"><i style="color: white;" class="fa fa-trash" aria-hidden=true></i> Delete</button>
+        </mp-ldp-remove-from-container-action>
+    </template>
+    <template id='revertOption'>
+      <semantic-form
+      new-subject-template="{{subject.value}}"
+      browser-persistance="true"
+      persistence="sparql"
+      post-action="reload"
+      form-id="revert"
+      fields='[[  fieldDefinitions
+          revert="http://www.researchspace.org/fieldDefinition/Revert"
+      ]]'
+      >
+      <semantic-form-hidden-input for="revert" default-value="true"></semantic-form-hidden-input>
+        <button title="This action will remove the item from artresearch.net. It will be then available under artwork matchings for you or another reviewer to review."  name="submit" class="btn action btn-warn" style="margin-right:8px;background:grey;"><i class="fa fa-refresh" aria-hidden=true></i> Revert </button>
+      </semantic-form>
+    </template>
+  </semantic-query>
           </div>
         [[else]]
           {{#if '[[urlParam "providera"]]'}}

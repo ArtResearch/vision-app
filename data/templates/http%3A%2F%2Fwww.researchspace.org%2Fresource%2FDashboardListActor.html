@@ -44,7 +44,7 @@
           ?provider rdfs:label ?pLabel.
           BIND(REPLACE(REPLACE(REPLACE(LCASE(?pLabel)," ",""),"sharedshelf","itatti"),"fotoindex","itatti") AS ?providerLabel)
         [[/if]]
-      }GROUP BY ?subject order by ASC(?datetime) LIMIT 1000'
+      }GROUP BY ?subject order by DESC(?datetime) LIMIT 1000'
       number-of-displayed-rows=10
       no-result-template='<h1 style="margin-top:150px;">There are no pairs in this list</h1>'
       [[#if matched]]

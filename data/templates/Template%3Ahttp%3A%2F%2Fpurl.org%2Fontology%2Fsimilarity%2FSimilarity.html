@@ -119,19 +119,21 @@
               </template>
           </semantic-query>
             <semantic-query
-    query=' SELECT DISTINCT (?? as ?subject) WHERE {
-              ?g <https://vision.artresearch.net/custom/processed> true.
+    query=' SELECT DISTINCT ?container WHERE {
+              ?graph <https://vision.artresearch.net/custom/processed> true.
+              BIND(IRI(CONCAT(STR(<[[this]]>),"/container/context")) AS ?graph)
+              BIND(IRI(CONCAT(STR(<[[this]]>),"/container")) AS ?container)
             }LIMIT 1 '
     template='{{> revertOption }}'
     no-result-template='{{> deleteOption}}'>
       <template id='deleteOption'>
-        <mp-ldp-remove-from-container-action iri="{{subject.value}}" container="http://www.researchspace.org/resource/system/formContainer">
+        <mp-ldp-remove-from-container-action iri="{{bindings.0.container.value}}" container="http://www.researchspace.org/resource/system/formContainer">
           <button title="This action will remove the item from your list. It will be then available under artwork matchings for you or another reviewer to review." class="btn action btn-danger" style="margin-right:8px;"><i style="color: white;" class="fa fa-trash" aria-hidden=true></i> Delete</button>
         </mp-ldp-remove-from-container-action>
     </template>
     <template id='revertOption'>
       <semantic-form
-      new-subject-template="{{subject.value}}"
+      new-subject-template="{{bindings.0.container.value}}"
       browser-persistance="true"
       persistence="sparql"
       post-action="reload"

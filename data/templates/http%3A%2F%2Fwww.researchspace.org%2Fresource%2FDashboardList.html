@@ -55,7 +55,7 @@ query=' SELECT DISTINCT ?g
           [[else if study]]
             FILTER NOT EXISTS { ?similarity <https://vision.artresearch.net/custom/skipped> "true"^^xsd:boolean }
           [[/if]]
-        }GROUP BY ?g'
+        }GROUP BY ?g LIMIT 1000'
 tuple-template='{{>markedCards}}'
 no-result-template='<h1 style="margin-top:150px;">There are no artwork pairs in this list</h1>'
 >

@@ -207,6 +207,7 @@
         > Same </button>
         </mp-overlay-dialog-trigger>
         <mp-overlay-dialog-content>
+          <div>
             <h1>Are you sure the two artworks are the same?</h1>
             <h2>If yes, select a preferred title bellow.</h2>
 
@@ -266,7 +267,10 @@
                 </td>
               </semantic-form>
               {{/each}}
-              <h3>or add your own title:</h3>
+            </div>
+            </template>
+          </semantic-query>
+           <h3>or add your own title:</h3>
               <semantic-form
                 new-subject-template="{{element.value}}"
                 browser-persistance="true"
@@ -307,10 +311,7 @@
                </div>
                 </td>
               </semantic-form>
-              
             </div>
-            </template>
-          </semantic-query>
           </mp-overlay-dialog-content>
   </mp-overlay-dialog>
 

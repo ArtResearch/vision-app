@@ -270,6 +270,45 @@
             </div>
             </template>
           </semantic-query>
+          <semantic-form
+                new-subject-template="{{bindings.0.element.value}}"
+                browser-persistance="true"
+                persistence='ldp'
+                urlqueryparam-providera='[[urlParam "providera"]]'
+                urlqueryparam-providerb='[[urlParam "providerb"]]'
+                post-action='{{bindings.0.nextElement.value}}'
+                form-id="IMApprove1"
+                fields='[[fieldDefinitions
+                          sameAs="http://www.researchspace.org/fieldDefinition/Same"
+                          title="http://www.researchspace.org/fieldDefinition/Preferred_title"
+                    ]]'
+              >
+                <semantic-form-hidden-input
+                  for="sameAs"
+                  default-value="true"
+                ></semantic-form-hidden-input>
+
+                <semantic-form-text-input for="title"></semantic-form-text-input>
+
+                <td>
+                  <div class="selectionWrapper">
+                  <button
+                  style="
+                  font-size: medium;
+                  border: none ;
+                  text-transform: none;
+                  height: 100%;
+                  min-height: 4vh;
+                  box-shadow: 0px 0px 10px 1px #bebebe;"
+                    name="submit"
+                    class="btn btn-warning action approve"
+                    title="Select Title for the reconciled artwork"
+                  >
+                  <div class="color-white"> Create new label </div>
+                </button>
+               </div>
+                </td>
+              </semantic-form>
           </mp-overlay-dialog-content>
   </mp-overlay-dialog>
 

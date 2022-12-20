@@ -156,7 +156,7 @@ template="{{> imageOptionsB}}"
                 <template id='templateSourceIcon'>
                     [[> rsp:SourceIcon providerLabel="{{bindings.0.providerLabel.value}}"]]{{bindings.0.providerLabel.value}}
                 </template>
-               </semantic-query>                  
+               </semantic-query>
               </div>    
            </div>    
       </div>
@@ -257,7 +257,6 @@ template="{{> imageOptionsB}}"
             {{/ifCond}}
           {{/ifCond}}
         {{/if}}
-        
         {{#ifCond artwork_a "&&" artwork_b}}
           {{#ifCond (objectLength artwork_a) "!==" 1}}
              {{#ifCond (objectLength artwork_b) "!==" 1}}
@@ -307,12 +306,10 @@ template="{{> imageOptionsB}}"
                                     for="sameAs"
                                     default-value="true"
                                   ></semantic-form-hidden-input>
-                                  
                                   <semantic-form-hidden-input
                                     for="title"
                                     default-value="{{label.value}}"
                                   ></semantic-form-hidden-input>
-                  
                                     <semantic-form-hidden-input
                                       for="confirmed"
                                       default-value="{{selectedArtworkA.value}},{{selectedArtworkB.value}}"

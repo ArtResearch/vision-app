@@ -115,7 +115,7 @@
           ?subject2 <https://artresearch.net/custom/has_provider> <[[urlParam "providerb"]]>.
           <[[urlParam "providerb"]]> rdfs:label ?providerLabelB.
           FILTER NOT EXISTS {?element <https://vision.artresearch.net/custom/reviewed> true }
-          #FILTER NOT EXISTS {?element <https://vision.artresearch.net/custom/skipped> true }
+          FILTER NOT EXISTS {?element <https://vision.artresearch.net/custom/skipped> true }
         }'
       query=" SELECT DISTINCT ?subject WHERE {
                 ?subject ?p ?o #This will never run
@@ -149,7 +149,7 @@
                   (SAMPLE(?providerLabelA) as ?providerLabelA)
                   (SAMPLE(?providerLabelB) as ?providerLabelB)
                   WHERE {}GROUP BY ?subject ?subject2 ORDER BY DESC (?score) (?subject)
-                  LIMIT 50'
+                  LIMIT 500'
                 tuple-template="{{>tupleTemplate}}"
                 no-result-template="<h1>No matchings found for this Photo archive</h1><h2>Try selecting a different pair</h2>"
               >

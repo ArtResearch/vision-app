@@ -101,7 +101,7 @@
             <http://purl.org/ontology/similarity/method> <https://vision.artresearch.net/resource/Similarity/AssociationMethod/Pastec>
           ]
           FILTER NOT EXISTS {?element <https://vision.artresearch.net/custom/reviewed> true }
-          #FILTER NOT EXISTS {?element <https://vision.artresearch.net/custom/skipped> true }
+          FILTER NOT EXISTS {?element <https://vision.artresearch.net/custom/skipped> true }
         }'
       query=" SELECT DISTINCT ?subject WHERE {
                 ?subject ?p ?o #This will never run

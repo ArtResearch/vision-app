@@ -120,9 +120,9 @@
           </semantic-query>
             <semantic-query
     query=' SELECT DISTINCT ?container WHERE {
-              ?graph <https://vision.artresearch.net/custom/processed> true.
-              BIND(IRI(CONCAT(STR(<[[this]]>),"/container/context")) AS ?graph)
-              BIND(IRI(CONCAT(STR(<[[this]]>),"/container")) AS ?container)
+              ?? <https://vision.artresearch.net/custom/reviewed> true.
+              BIND(IRI(CONCAT(STR(??),"/container/context")) AS ?graph)
+              BIND(IRI(CONCAT(STR(??),"/container")) AS ?container)
             }LIMIT 1 '
     template='{{> revertOption }}'
     no-result-template='{{> deleteOption}}'>

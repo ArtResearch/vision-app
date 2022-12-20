@@ -52,7 +52,7 @@
                     ?statistics <https://artresearch.net/custom/consists_of> ?graph.
                     GRAPH ?graph {
                       <[[urlParam "providera"]]> <{{relationUri.value}}> ?count.
-                    }  
+                    }
                   }'
                  template="{{> countTemplate}}"
                  >
@@ -83,6 +83,8 @@
                               [[> :PartnerCategorySelectSearch sourceProviderURI="{{bindings.0.partner.value}}" targetProviderURI="{{partnerUri.value}}"]]
                             {{else}}
                              <h1>No matchings found for this Photo archive</h1><h2>Try switching to a different Photo archive tab</h2>
+                             <p></p>
+                             <h2>Please notice that the skipped ones, do not count as reconciled entities. That's why the count differs from the actual results here.</h2>
                             {{/ifCond}}
                     </template>
                   </semantic-query> 

@@ -103,9 +103,23 @@
           FILTER NOT EXISTS {?element <https://vision.artresearch.net/custom/reviewed> true }
           FILTER NOT EXISTS {?element <https://vision.artresearch.net/custom/skipped> true }
         }'
-      query=" SELECT DISTINCT ?subject WHERE {
-                ?subject ?p ?o #This will never run
-              } LIMIT 1"
+      query='PREFIX skos: <http://www.w3.org/2004/02/skos/core#> 
+        SELECT DISTINCT 
+        ?subject 
+        ?subject2
+        (SAMPLE(?score) as ?score)
+        (SAMPLE(?element) as ?element) WHERE {
+          ?subject <https://artresearch.net/custom/has_image>/<http://purl.org/ontology/similarity/element> ?element;
+            <https://artresearch.net/custom/has_provider> <[[urlParam "providera"]]>.
+          ?subject2 <https://artresearch.net/custom/has_image>/<http://purl.org/ontology/similarity/element> ?element;
+            <https://artresearch.net/custom/has_provider> <[[targetProviderURI]]>.
+          ?element <http://purl.org/ontology/similarity/method> [
+            <http://purl.org/ontology/similarity/weight> ?score;
+            <http://purl.org/ontology/similarity/method> <https://vision.artresearch.net/resource/Similarity/AssociationMethod/Pastec>
+          ]
+          FILTER NOT EXISTS {?element <https://vision.artresearch.net/custom/reviewed> true }
+          FILTER NOT EXISTS {?element <https://vision.artresearch.net/custom/skipped> true }
+        }'
     ></semantic-search-query-keyword>
   </div>
 

@@ -117,9 +117,35 @@
           FILTER NOT EXISTS {?element <https://vision.artresearch.net/custom/reviewed> true }
           FILTER NOT EXISTS {?element <https://vision.artresearch.net/custom/skipped> true }
         }'
-      query=" SELECT DISTINCT ?subject WHERE {
-                ?subject ?p ?o #This will never run
-              }LIMIT 1 "
+      query='PREFIX skos: <http://www.w3.org/2004/02/skos/core#> 
+        SELECT DISTINCT 
+        ?subject 
+        ?subject2
+        (SAMPLE(?score) as ?score) 
+        (SAMPLE(?element) as ?element) 
+        (SAMPLE(<[[urlParam "providera"]]>) as ?providerA)
+        (SAMPLE(<[[urlParam "providerb"]]>) as ?providerB)
+        (SAMPLE(?providerLabelA) as ?providerLabelA)
+        (SAMPLE(?providerLabelB) as ?providerLabelB)
+        WHERE {
+           ?subject rdfs:label ?label.
+          ?label bds:search ?__token__  .
+          ?label bds:minRelevance "0.3"^^xsd:double;
+          bds:matchAllTerms "true".
+          ?subject <https://artresearch.net/custom/has_image> ?imageA.
+          ?imageA <http://purl.org/ontology/similarity/element> ?element.
+          ?subject2 <https://artresearch.net/custom/has_image> ?imageB.
+          ?imageB <http://purl.org/ontology/similarity/element> ?element.
+          ?element <http://purl.org/ontology/similarity/method> ?asso_method.
+          ?asso_method <http://purl.org/ontology/similarity/weight> ?score.
+          ?asso_method <http://purl.org/ontology/similarity/method> <https://vision.artresearch.net/resource/Similarity/AssociationMethod/Pastec>.
+          ?subject <https://artresearch.net/custom/has_provider> <[[urlParam "providera"]]>.
+          <[[urlParam "providera"]]> rdfs:label ?providerLabelA.
+          ?subject2 <https://artresearch.net/custom/has_provider> <[[urlParam "providerb"]]>.
+          <[[urlParam "providerb"]]> rdfs:label ?providerLabelB.
+          FILTER NOT EXISTS {?element <https://vision.artresearch.net/custom/reviewed> true }
+          FILTER NOT EXISTS {?element <https://vision.artresearch.net/custom/skipped> true }
+        }'
     ></semantic-search-query-keyword>
   </div>
 

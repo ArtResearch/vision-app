@@ -219,4 +219,35 @@
   </mp-event-trigger>
   {{/ifCond}}
 {{/ifCond}}
+{{#ifCond providerA "===" "https://artresearch.net/resource/nga/source/NGA"}}
+  <mp-event-trigger
+    id="event-trigger"
+    type="Component.TemplateUpdate"
+    data='{"[[providerSelector]]":"https://artresearch.net/resource/nga/source/NGA","selected":"NGA","[[providerImageSelector]]":"/assets/images/logos/NGA.png"}'
+    targets='["provider-image","provider-selector"]'
+  >
+    <div class="providerBtn selected btn"><h2><img class="sourceIcon" src="/assets/images/NGA.ico"/>NGA</h2></div>
+  </mp-event-trigger>
+{{else}}
+  {{#ifCond providerB "===" "https://artresearch.net/resource/nga/source/NGA"}}
+
+  <mp-event-trigger
+    id="event-trigger"
+    type="Component.TemplateUpdate"
+    data='{"[[providerSelector]]":"https://artresearch.net/resource/nga/source/NGA","selected":"NGA","[[providerImageSelector]]":"/assets/images/logos/NGA.png",[[additionals]]}'
+    targets='["provider-image","provider-selector"]'
+  >
+    <div class="providerBtn selectedSecond btn"><h2><img class="sourceIcon" src="/assets/images/NGA.ico"/>NGA</h2></div>
+  </mp-event-trigger>
+  {{else}}
+  <mp-event-trigger
+    id="event-trigger"
+    type="Component.TemplateUpdate"
+    data='{"[[providerSelector]]":"https://artresearch.net/resource/nga/source/NGA","selected":"NGA","[[providerImageSelector]]":"/assets/images/logos/NGA.png",[[additionals]]}'
+    targets='["provider-image","provider-selector"]'
+  >
+    <div class="providerBtn btn"><h2><img class="sourceIcon" src="/assets/images/NGA.ico"/>NGA</h2></div>
+  </mp-event-trigger>
+  {{/ifCond}}
+{{/ifCond}}
 </div>

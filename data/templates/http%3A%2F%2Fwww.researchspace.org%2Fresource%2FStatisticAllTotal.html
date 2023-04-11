@@ -23,6 +23,8 @@
       <[[partnerUri]]>   <https://artresearch.net/custom/numOfNonmatchedZeri> ?unmatched
     }UNION{
       <[[partnerUri]]>   <https://artresearch.net/custom/numOfNonmatchedPMC> ?unmatched
+    }UNION{
+      <[[partnerUri]]>   <https://artresearch.net/custom/numOfNonmatchedNGA> ?unmatched
     }
   }
   ?statistics <https://artresearch.net/custom/consists_of> ?graph.
@@ -103,6 +105,7 @@
                  (<https://artresearch.net/resource/marburg/source/Marburg> <https://artresearch.net/custom/numOfNonmatchedMarburg>)
                  (<https://artresearch.net/resource/zeri/source/Zeri> <https://artresearch.net/custom/numOfNonmatchedZeri>)
                  (<https://artresearch.net/resource/pmc/source/PMC> <https://artresearch.net/custom/numOfNonmatchedPMC>)
+                 (<https://artresearch.net/resource/pmc/source/NGA> <https://artresearch.net/custom/numOfNonmatchedNGA>)
                 }
     
                 ?partnerUri rdfs:label ?partnerLabel.

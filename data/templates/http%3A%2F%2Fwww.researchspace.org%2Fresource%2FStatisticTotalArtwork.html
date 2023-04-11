@@ -10,6 +10,7 @@
      (<https://artresearch.net/resource/marburg/source/Marburg> "Marburg")
      (<https://artresearch.net/resource/zeri/source/Zeri> "Zeri")
      (<https://artresearch.net/resource/pmc/source/PMC> "PMC")
+     (<https://artresearch.net/resource/nga/source/NGA> "NGA")
     }
     FILTER(STR(?partnerUri) = STR(<[[partnerUri]]>))
     GRAPH ?graph {
@@ -33,6 +34,8 @@
       <[[partnerUri]]>   <https://artresearch.net/custom/numOfNonmatchedZeri> ?unmatched
     }UNION{
       <[[partnerUri]]>   <https://artresearch.net/custom/numOfNonmatchedPMC> ?unmatched
+    }UNION{
+      <[[partnerUri]]>   <https://artresearch.net/custom/numOfNonmatchedNGA> ?unmatched
     }
   }
   ?statistics <https://artresearch.net/custom/consists_of> ?graph.
@@ -113,6 +116,7 @@
                (<https://artresearch.net/resource/marburg/source/Marburg> <https://artresearch.net/custom/numOfNonmatchedMarburg> "Marburg")
                (<https://artresearch.net/resource/zeri/source/Zeri> <https://artresearch.net/custom/numOfNonmatchedZeri> "Zeri")
                (<https://artresearch.net/resource/pmc/source/PMC> <https://artresearch.net/custom/numOfNonmatchedPMC> "PMC")
+               (<https://artresearch.net/resource/nga/source/NGA> <https://artresearch.net/custom/numOfNonmatchedNGA> "NGA")
               }
               FILTER(?partnerUri != <[[partnerUri]]>)
             }ORDER BY (?partnerLabel)'
